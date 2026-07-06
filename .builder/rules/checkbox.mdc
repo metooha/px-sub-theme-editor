@@ -1,0 +1,136 @@
+---
+description: Guidelines and rules for checkbox
+alwaysApply: false
+---
+## Purpose
+Checkboxes allow users to make a selection of one or multiple options from a list. They are not for mutually exclusive choices.
+
+## Rules
+- **MUST** use the Living Design Checkbox component (`@/components/ui/Checkbox`).
+- **MUST** provide an accessible label (visible `label` prop or `aria-label`).
+- **MUST** support indeterminate state where partial selection needs to be represented.
+- **MUST NOT** use Checkbox for mutually exclusive choices; use Radios instead.
+- **MUST NOT** use native `<input type="checkbox">` elements — always use this component.
+- **MUST NOT** override token colors via `className` or inline styles.
+
+## Import
+
+```tsx
+import { Checkbox } from '@/components/ui/Checkbox';
+```
+
+## Props Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `checked` | `boolean \| 'indeterminate'` | — | Controlled checked state |
+| `defaultChecked` | `boolean` | — | Uncontrolled default checked state |
+| `disabled` | `boolean` | `false` | Whether checkbox is disabled |
+| `onCheckedChange` | `(checked: boolean \| 'indeterminate') => void` | — | Callback when checked state changes |
+| `label` | `string` | — | Visible label text rendered beside the checkbox |
+| `aria-label` | `string` | — | Accessible label (required if no visible label) |
+| `id` | `string` | — | HTML id for label association |
+| `name` | `string` | — | Form field name |
+| `value` | `string` | `'on'` | Form field value |
+| `required` | `boolean` | `false` | Whether checkbox is required |
+| `UNSAFE_className` | `string` | — | Escape hatch for additional classes |
+| `UNSAFE_style` | `CSSProperties` | — | Escape hatch for inline styles |
+
+## States
+- **Unchecked** — Empty checkbox with border
+- **Checked** — Filled checkbox with checkmark icon
+- **Indeterminate** — Filled checkbox with dash icon (use `checked="indeterminate"`)
+- **Disabled** — Grayed out version of any state above
+
+## Design Tokens
+
+| Property | Token | Fallback |
+|----------|-------|----------|
+| Border (unchecked) | `--ld-semantic-color-input-border` | #2e2f32 |
+| Border (checked) | `--ld-semantic-color-input-border-activated` | #2e2f32 |
+| Border (disabled) | `--ld-semantic-color-input-border-disabled` | #babbbe |
+| Fill (unchecked) | `--ld-semantic-color-input-fill` | #ffffff |
+| Fill (checked) | `--ld-semantic-color-input-fill-activated` | #2e2f32 |
+| Fill (disabled checked) | `--ld-semantic-color-input-fill-activated-disabled` | #babbbe |
+| Indicator | `--ld-semantic-color-input-indicator-activated` | #ffffff |
+| Border radius | `--ld-primitive-scale-border-radius-25` | 2px |
+| Focus outline | `--ld-semantic-color-action-focus-outline` | #0071DC |
+
+## React Usage
+
+### Basic checkbox with label
+
+```tsx
+const [accepted, setAccepted] = React.useState(false);
+
+<Checkbox
+  label="I agree to the terms and conditions"
+  checked={accepted}
+  onCheckedChange={(c) => setAccepted(!!c)}
+/>
+```
+
+### Select-all pattern with indeterminate
+
+```tsx
+const checkedCount = Object.values(items).filter(Boolean).length;
+const allChecked = checkedCount === Object.keys(items).length;
+const selectAllState = checkedCount === 0 ? false : allChecked ? true : 'indeterminate';
+
+<Checkbox
+  label="Select all"
+  checked={selectAllState}
+  onCheckedChange={(checked) => {
+    const next = checked === 'indeterminate' ? false : !!checked;
+    // update all items...
+  }}
+/>
+```
+
+### Table row selection (standalone, no label)
+
+```tsx
+<Checkbox
+  aria-label="Select row"
+  checked={isSelected}
+  onCheckedChange={(c) => toggleRow(!!c)}
+/>
+```
+
+## Best Practices
+
+### Use when
+- You have a list of options which are not mutually exclusive.
+- Creating forms on a full page, modal, or side panel.
+- Filtering data on a page, menu, or within a component.
+- Creating lists with sub-selections or parent-child relationships.
+- A user needs to indicate consent on a Terms & Conditions form.
+
+### Don't use when
+- Only one item can be selected from a list. Use Radios instead.
+
+### Do
+- Let text wrap beneath the Checkbox so the control and label are top-aligned.
+- Always provide either a visible `label` or an `aria-label` for accessibility.
+
+### Don't
+- Don't vertically center wrapped text with the Checkbox.
+- Don't use native `<input type="checkbox">` elements.
+- Don't override checkbox colors with inline styles or className overrides.
+
+## Accessibility
+- Built on Radix UI Checkbox primitive for full keyboard and screen reader support.
+- Space key toggles the checkbox state.
+- The `label` prop creates a proper `<label>` wrapper for click-to-toggle.
+- When no visible label is present, `aria-label` is applied directly to the checkbox.
+- Indeterminate state is announced by screen readers.
+- Focus indicator uses `--ld-semantic-color-action-focus-outline` with 2px offset.
+
+## Anatomy
+
+1. **Checkbox input** — 16×16px with 2px border radius
+2. **Indicator** — Check or dash icon (12px / 10px)
+3. **Label** (optional) — Text beside the checkbox
+
+## Size
+Fixed 16×16px as per Figma specification. No size variants.

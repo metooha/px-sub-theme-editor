@@ -1,0 +1,203 @@
+---
+description: Guidelines and rules for design tokens overview
+alwaysApply: false
+---
+import { Nudge } from "@livingdesign/react";
+import { SafeLink } from "../../../src/docs/components/SafeLink";
+
+<div className="column-set">
+  <Nudge
+    actions={
+      <SafeLink path="/foundations/theming" target="_blank" style={{ fontSize: "14px" }}>
+        Read about Theming
+      </SafeLink>
+    }
+    children="For more support on how to update the core primitive colors to theme your components based on your brand, visit our theming page."
+    title="Theming"
+  />
+
+  <Nudge
+    actions={
+      <SafeLink path="/contributing-support/contributing/" target="_blank" style={{ fontSize: "14px" }}>
+        Find out how to contribute
+      </SafeLink>
+    }
+    children="To contribute design tokens to Living Design, visit our contribution page to determine what the requirements and processes are to contribute."
+    title="Contributing"
+  />
+</div>
+
+## Rules (MUST / MUST NOT / SHOULD)
+
+- **MUST** use Living Design tokens (CSS variables) for all visual decisions: color, typography, spacing, radius, shadow/elevation, motion.
+- **MUST NOT** hardcode raw values in product UI (e.g. `#fff`, `16px`, `0.25rem`, `box-shadow: ...`) unless a guideline explicitly permits it.
+- **MUST** prefer **semantic tokens** (meaning-based) over **primitive tokens** (raw scale steps) when both exist.
+- **MUST** treat token names as an API: do not rename, abbreviate, or invent.
+- **MUST** validate a token exists in the source-of-truth CSS variables before using it (see `css-variables-source.md`).
+- **SHOULD** rely on component defaults/variants first; only apply tokens directly when you are intentionally overriding styling.
+
+## How to use design tokens in code (IDE-friendly)
+
+When you apply a token, always use the `var(--token-name)` form (do not copy/paste computed values).
+
+### Quick examples
+
+```css
+/* ✅ Do */
+.card {
+  background: var(--ld-semantic-color-surface);
+  color: var(--ld-semantic-color-text);
+  border-radius: var(--ld-radius-lg);
+  box-shadow: var(--ld-shadow-1);
+  padding: var(--ld-primitive-scale-space-150);
+}
+
+/* ❌ Don't */
+.cardBad {
+  background: #ffffff;
+  color: rgba(0, 0, 0, 0.84);
+  border-radius: 10px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+  padding: 12px 16px;
+}
+```
+
+```tsx
+// ✅ Do (when an override is required)
+export function Example() {
+  return (
+    <div style={{ color: "var(--ld-semantic-color-text)" }}>
+      Tokenized text
+    </div>
+  );
+}
+```
+
+### Validation workflow (never guess)
+
+1. Open `design-tokens/css-variables-source.md` and locate the canonical token CSS file(s).
+2. Search for the exact `--token-name` (case-sensitive).
+3. If it’s missing or unclear, **stop and ask** for the correct token (or propose adding one).
+
+## What are design tokens?
+
+Design tokens are a shared language used by designers and engineers to build cohesive, unified, and uniquely branded product experiences. Tokens are design decisions translated into data so they can be applied consistently across tooling and platforms.
+
+A token can represent color, typography, unit of scale, elevation/shadow, motion, and more.
+
+## The benefits of design tokens
+
+- Design tokens simplify design and development by streamlining decision-making and handoff.
+- Design tokens ensure visual consistency across multiple products while still enabling branded experiences through semantic design decisions (for example, brand and alert colors).
+- Using tokens appropriately supports theming and additional modes like dark mode (see [theming](/foundations/theming/)).
+- As Living Design evolves, improvements and changes can be applied consistently across the ecosystem.
+
+## Best practices
+
+<figure className="recommendation-do">
+  <figcaption>
+    <span aria-hidden="true" className="recommendation-label">Do</span>
+    Do use semantic tokens to ensure brand consistency and support for other modes and themes.
+  </figcaption>
+</figure>
+
+<figure className="recommendation-caution">
+  <figcaption>
+    <span aria-hidden="true" className="recommendation-label">Caution</span>
+    Primitive tokens can be appropriate for edge cases, but avoid primitive or raw values when the UI must support themes/modes.
+  </figcaption>
+</figure>
+
+<div className="column-set">
+  <figure className="recommendation-do">
+    <figcaption>
+      <span aria-hidden="true" className="recommendation-label">Do</span>
+      Do use semantic tokens that are appropriate to provide meaning to the color usage.
+    </figcaption>
+  </figure>
+  <figure className="recommendation-dont">
+    <figcaption>
+      <span aria-hidden="true" className="recommendation-label">Don't</span>
+      Don’t use a token simply because it appears to match. The “positive” semantic color may differ across contexts. Follow the [semantic color roles](/foundations/color/#color-roles) of your theme.
+    </figcaption>
+  </figure>
+</div>
+
+<div className="column-set">
+  <figure className="recommendation-do">
+    <figcaption>
+      <span aria-hidden="true" className="recommendation-label">Do</span>
+      Do pair the corresponding text token with the fill token matching the same modifiers.
+    </figcaption>
+  </figure>
+  <figure className="recommendation-dont">
+    <figcaption>
+      <span aria-hidden="true" className="recommendation-label">Don't</span>
+      Don’t apply text tokens that do not correspond with the fill token’s modifiers.
+    </figcaption>
+  </figure>
+</div>
+
+## How to read design tokens
+
+Understanding token naming helps you find the right token faster in design and code.
+
+Try the [LD Token Picker](/foundations/design-tokens/semantic-tokens/) to narrow down the token that best fits your needs.
+
+### Primitive vs semantic tokens
+
+Primitive and semantic tokens have distinct naming conventions, typically including “primitive” or “semantic” in the token name.
+
+- **Color & typography**: generally prefer semantic tokens to support modes/themes.
+- **Scale tokens**: can be primitive or semantic depending on whether the value must shift with theme/mode.
+
+To understand how to modify primitive and/or semantic tokens in your theme, visit [Theming](/foundations/theming/).
+
+### Specialty tokens
+
+“Specialty” tokens are tokens intended for a specific component category. Tokens in a specialty category should not be used outside that category.
+
+For example, only tokens in the navigation category should be used in [Tab Navigation](/components/tab-navigation/) and [Side Navigation](/components/side-navigation/).
+
+Living Design defines 13 specialty token groups: `action`, `chart`, `field`, `link`, `loading`, `topNav`, `pageNav`, `bottomNav`, `notice`, `input`, `progress`, `rating`, and `switch`.
+
+Specialty tokens can apply to multiple token structures such as [color](#color-token-structure), [scale](#scale-token-structure), and [typography](#typography-token-structure).
+
+## Color token structure
+
+1. **Foundation**: the visual attribute (for example, `color`).
+2. **Specialty (optional)**: a component category (for example, `action`, `field`, `input`).
+3. **Element**: the fundamental UI element (`background`, `surface`, `fill`, `text`, `text.onFill`).
+4. **Role (optional)**: the semantic meaning (`brand`, `activated`, `positive`, `primary`, `accent.blue`).
+5. **Level (optional)**: emphasis (`subtle`, `bold`, `transparent`).
+6. **State (optional)**: interaction state (`enabled`, `hovered`, `focused`, `pressed`, `disabled`).
+
+## Typography token structure
+
+1. **Foundation**: the attribute (for example, `font`).
+2. **Specialty (optional)**: category of text (for example, `action`).
+3. **Element**: the text style (`caption`, `caption.mono`, `body.small`, `body.medium`, `body.large`, `body.mono.small`, `body.mono.medium`, `body.mono.large`, `heading.small`, `heading.medium`, `heading.large`, `display.small`, `display.large`).
+4. **Level**: emphasis (`default`, `alt`).
+
+## Scale token structure
+
+1. **Foundation**: the attribute (for example, `scale`).
+2. **Element**: the sizing element (`borderWidth`, `icon`, `pictogram`).
+3. **Role (optional)**: the element role (`interactive`).
+4. **Level (optional)**: emphasis (`small`, `medium`, `large`, `x-large`).
+5. **State (optional)**: state (`hovered`, `focused`, `pressed`).
+
+## Icon token structure
+
+1. **Foundation**: the attribute (for example, `icon`).
+2. **Role**: the semantic role (`close`, `edit`, `warning`).
+3. **Sub-role (optional)**: variation (`up`, `down`, `previous`).
+
+## See also (token categories)
+
+- [Color](/foundations/color/)
+- [Typography](/foundations/typography/)
+- [Spacing](/foundations/spacing/)
+- [Radius](/foundations/radius/)
+- [Shadow](/foundations/shadow/)
+- [Motion](/foundations/motion/)

@@ -1,0 +1,398 @@
+---
+description: Guidelines and rules for plan table standardization
+alwaysApply: false
+---
+# Table Standardization Implementation Plan
+
+## Overview
+This plan outlines the systematic approach to standardizing all data tables across the application to match the reference implementation in `client/pages/Index.tsx`.
+
+## Reference Implementation
+**Source**: `client/pages/Index.tsx` (lines ~2500-2800)
+- Sticky headers and columns
+- Resizable columns with drag handles
+- Standardized components (Link, Tag, Menu)
+- Consistent hover states and styling
+- LD 3.5 design tokens
+
+---
+
+## Phase 1: Audit Existing Tables
+
+### Task 1.1: Identify All Tables
+**Files to audit:**
+
+| File | Location | Table Type | Estimated Complexity |
+|------|----------|------------|---------------------|
+| AllCampaigns.tsx | client/pages/ | Campaign list | Medium |
+| AllKeywords.tsx | client/pages/ | Keywords list | Medium |
+| DisplayAdvertisingCampaigns.tsx | client/pages/ | Campaign list | Medium |
+| ItemHealth.tsx | client/pages/ | Item health data | High |
+| OmniROAS.tsx | client/pages/ | ROAS metrics | High |
+| Campaign.tsx | client/pages/ | Campaign details | Medium |
+| DisplayDashboard.tsx | client/components/ | Multiple tables | High |
+| SponsoredSearchDashboard.tsx | client/components/ | Performance tables | High |
+| AllCampaigns_TABLE_NEW.tsx | client/pages/ | New campaign table | Low |
+
+**Deliverable:** Complete inventory of all tables with current features documented
+
+---
+
+## Phase 2: Create Shared Table Component (Optional)
+
+### Task 2.1: Evaluate Table Component Need
+**Decision**: Determine if a shared `<DataTable>` component is beneficial
+
+**Option A: Shared Component**
+- Create `client/components/ui/DataTable.tsx`
+- Props for columns, data, actions, sticky columns
+- Reusable resize logic, hover states, etc.
+
+**Option B: Pattern-Based**
+- Use Index.tsx as reference pattern
+- Copy/paste base structure, customize per page
+- Simpler, more flexible per-table
+
+**Recommendation**: Start with Option B (pattern-based), create shared component if patterns emerge
+
+---
+
+## Phase 3: Standardize Each Table
+
+### Priority 1: High-Traffic Pages
+
+#### 3.1: AllCampaigns.tsx
+**Current state:**
+- Has basic table structure
+- Missing resizable columns
+- Uses inline blue links (❌ needs Link component)
+- No sticky columns
+
+**Changes needed:**
+1. Add sticky header: `sticky top-0 z-20`
+2. Add sticky left column (checkbox): `sticky left-0 z-30`
+3. Add sticky right column (actions): `sticky right-0 z-30`
+4. Add resize handles to all columns
+5. Replace inline blue links with Link component
+6. Add row hover states: `hover:bg-[#F0F5FF] group`
+7. Update checkboxes to standard styling
+8. Replace custom action buttons with Menu component
+
+**Estimated time**: 3-4 hours
+
+---
+
+#### 3.2: AllKeywords.tsx
+**Current state:**
+- Basic table with keyword data
+- Has some Link usage (good!)
+- Missing sticky columns
+- Missing resize handles
+
+**Changes needed:**
+1. Add sticky header
+2. Add sticky left column (checkbox)
+3. Add sticky right column (actions)
+4. Add resize handles
+5. Standardize row hover states
+6. Verify Link component usage
+7. Add Tag components for status
+
+**Estimated time**: 2-3 hours
+
+---
+
+#### 3.3: Campaign.tsx
+**Current state:**
+- Multiple tables for campaign details
+- Some tables have inline styles
+- Missing standardized components
+
+**Changes needed:**
+1. Update each table section to match standard
+2. Add sticky headers to all tables
+3. Replace inline links with Link component
+4. Add resize handles where appropriate
+5. Standardize hover states
+
+**Estimated time**: 4-5 hours
+
+---
+
+### Priority 2: Dashboard Components
+
+#### 3.4: DisplayDashboard.tsx
+**Current state:**
+- Multiple tables (recommendations, performance, etc.)
+- Some tables have resizable columns
+- Recently updated to use Link component (✅)
+- Missing some sticky column functionality
+
+**Changes needed:**
+1. Audit all tables in component
+2. Add sticky columns to main data tables
+3. Verify Link component usage (already done for some)
+4. Standardize row hover across all tables
+5. Add resize handles to missing columns
+
+**Estimated time**: 5-6 hours
+
+---
+
+#### 3.5: SponsoredSearchDashboard.tsx
+**Current state:**
+- Performance tables
+- Some Link component usage (✅)
+- Basic table structure
+- Missing advanced features
+
+**Changes needed:**
+1. Add sticky headers
+2. Add sticky action columns
+3. Add resize handles
+4. Standardize hover states
+5. Verify all links use Link component
+
+**Estimated time**: 4-5 hours
+
+---
+
+### Priority 3: Reporting Pages
+
+#### 3.6: ItemHealth.tsx
+**Current state:**
+- Complex health data table
+- Multiple columns with metrics
+- Needs full standardization
+
+**Changes needed:**
+1. Add sticky header and columns
+2. Add resize handles to all columns
+3. Replace any inline links with Link component
+4. Add Tag components for health status
+5. Standardize hover states
+6. Add sorting indicators
+
+**Estimated time**: 5-6 hours
+
+---
+
+#### 3.7: OmniROAS.tsx
+**Current state:**
+- ROAS metrics table
+- Numerical data with comparisons
+- Needs standardization
+
+**Changes needed:**
+1. Add sticky header
+2. Add resize handles
+3. Standardize number formatting
+4. Add hover states
+5. Update any links to use Link component
+
+**Estimated time**: 4-5 hours
+
+---
+
+#### 3.8: DisplayAdvertisingCampaigns.tsx
+**Current state:**
+- Display campaign list
+- Similar to AllCampaigns but for Display
+- Needs same updates
+
+**Changes needed:**
+1. Add sticky header and columns
+2. Add resize handles
+3. Replace inline links with Link component
+4. Add Tag components for status
+5. Standardize hover states
+6. Add Menu component for actions
+
+**Estimated time**: 3-4 hours
+
+---
+
+#### 3.9: AllCampaigns_TABLE_NEW.tsx
+**Current state:**
+- New implementation
+- May already follow some standards
+- Verify and update as needed
+
+**Changes needed:**
+1. Verify follows Index.tsx pattern
+2. Add any missing features
+3. Ensure Link component usage
+4. Verify sticky columns work correctly
+
+**Estimated time**: 1-2 hours
+
+---
+
+## Phase 4: Testing and Verification
+
+### Task 4.1: Visual Regression Testing
+**Per table:**
+1. Verify sticky headers work on scroll
+2. Verify sticky left/right columns work
+3. Test resize handles functionality
+4. Verify hover states
+5. Test link navigation
+6. Verify action menus work
+7. Test checkbox selection
+
+### Task 4.2: Accessibility Testing
+**Per table:**
+1. Keyboard navigation works
+2. Screen reader announces correctly
+3. ARIA labels present
+4. Focus indicators visible
+5. Sort buttons accessible
+
+### Task 4.3: Cross-Browser Testing
+**Browsers:**
+- Chrome
+- Firefox
+- Safari
+- Edge
+
+**Deliverable:** Sign-off that all tables work consistently across browsers
+
+---
+
+## Phase 5: Documentation Updates
+
+### Task 5.1: Update Component Documentation
+- Document standardized table pattern in `guidelines/`
+- Create example table implementation
+- Update related component docs (Link, Tag, Menu)
+
+### Task 5.2: Update Code Comments
+- Add comments explaining sticky column setup
+- Document resize handle implementation
+- Add JSDoc comments for any helper functions
+
+---
+
+## Implementation Order
+
+### Week 1: Foundation
+1. ✅ Create table standardization rule (`.fusion/rules/table-standardization.md`)
+2. Audit all tables (Task 1.1)
+3. Update AllCampaigns.tsx (Task 3.1)
+4. Update AllKeywords.tsx (Task 3.2)
+
+### Week 2: High-Traffic Pages
+5. Update Campaign.tsx (Task 3.3)
+6. Update DisplayDashboard.tsx (Task 3.4)
+7. Update SponsoredSearchDashboard.tsx (Task 3.5)
+
+### Week 3: Reporting Pages
+8. Update ItemHealth.tsx (Task 3.6)
+9. Update OmniROAS.tsx (Task 3.7)
+10. Update DisplayAdvertisingCampaigns.tsx (Task 3.8)
+11. Update AllCampaigns_TABLE_NEW.tsx (Task 3.9)
+
+### Week 4: Polish and Launch
+12. Complete testing (Phase 4)
+13. Update documentation (Phase 5)
+14. Final review and sign-off
+
+---
+
+## Success Criteria
+
+### Per Table
+- [ ] Sticky header implemented (`sticky top-0 z-20`)
+- [ ] Sticky left column (checkbox) implemented (`sticky left-0 z-30`)
+- [ ] Sticky right column (actions) implemented (`sticky right-0 z-30`)
+- [ ] All non-sticky columns have resize handles
+- [ ] Row hover uses `hover:bg-[#F0F5FF] group`
+- [ ] All links use Link component
+- [ ] All status indicators use Tag component
+- [ ] All action menus use Menu component
+- [ ] Checkboxes use standard styling
+- [ ] Proper shadows on sticky columns
+- [ ] Correct z-index hierarchy
+- [ ] LD 3.5 color tokens used throughout
+
+### Overall Project
+- [ ] All 9 tables standardized
+- [ ] Visual consistency across all pages
+- [ ] Accessibility requirements met
+- [ ] Cross-browser compatibility verified
+- [ ] Documentation updated
+- [ ] Code reviewed and approved
+
+---
+
+## Risk Mitigation
+
+### Risk: Breaking existing functionality
+**Mitigation**: 
+- Update one table at a time
+- Test thoroughly before moving to next table
+- Keep feature branches for easy rollback
+
+### Risk: Performance issues with sticky columns
+**Mitigation**:
+- Test with large datasets (1000+ rows)
+- Use virtualization if needed
+- Monitor render performance
+
+### Risk: Inconsistent behavior across browsers
+**Mitigation**:
+- Test early and often
+- Use CSS fallbacks where needed
+- Document known limitations
+
+### Risk: User confusion with new interactions
+**Mitigation**:
+- Keep existing behaviors where possible
+- Add subtle hover indicators
+- Provide tooltips for new features
+
+---
+
+## Estimated Total Time
+
+| Phase | Estimated Hours |
+|-------|-----------------|
+| Phase 1: Audit | 4-6 hours |
+| Phase 2: Shared Component (if needed) | 0-8 hours |
+| Phase 3: Standardize Tables | 31-40 hours |
+| Phase 4: Testing | 8-12 hours |
+| Phase 5: Documentation | 4-6 hours |
+| **Total** | **47-72 hours** |
+
+**Timeline**: 3-4 weeks with one developer working full-time
+
+---
+
+## Next Steps
+
+1. ✅ **COMPLETED**: Create table standardization rule
+2. **NEXT**: Begin table audit (Phase 1, Task 1.1)
+3. Start with AllCampaigns.tsx (highest traffic, medium complexity)
+4. Document learnings and update plan as needed
+
+---
+
+## Questions for Stakeholders
+
+1. **Priority**: Are there specific tables that need to be updated first?
+2. **Shared Component**: Do we want a reusable DataTable component or pattern-based approach?
+3. **Timeline**: Is the 3-4 week timeline acceptable?
+4. **Resources**: Will additional developers be available to help?
+5. **Testing**: Do we need QA sign-off for each table?
+
+---
+
+## References
+
+- **Rule**: `.fusion/rules/table-standardization.md`
+- **Reference Implementation**: `client/pages/Index.tsx` (lines 2500-2800)
+- **Related Components**: 
+  - `client/components/ui/Link.tsx`
+  - `client/components/ui/tag.tsx`
+  - `client/components/ui/Menu.tsx`
+  - `client/components/ui/Button.tsx`

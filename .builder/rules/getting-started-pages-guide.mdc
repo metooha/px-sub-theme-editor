@@ -1,0 +1,434 @@
+---
+description: Guidelines and rules for getting started pages guide
+alwaysApply: false
+---
+# Getting Started Pages — Implementation Guide
+
+How to build persona-specific onboarding pages for any new project using this template.
+Each persona gets its own page with a quiz, checklist, and resource links — all in the same order and structure described below.
+
+---
+
+## Page Architecture
+
+Every Getting Started page is built from the same shell:
+
+```
+GettingStarted[Persona].tsx        ← main page layout
+[Persona]OnboardingQuiz.tsx        ← quiz component (separate file)
+```
+
+Both files live in `client/pages/component-library/` (or equivalent in your project).
+
+The main page imports the quiz component and wires up the `onComplete` callback to handle conditional content that depends on quiz answers.
+
+---
+
+## Section Order — Every Persona Page
+
+Follow this order exactly. Do not skip sections; hide them in collapsible accordions if they are not primary.
+
+| # | Section | Type | Always visible? |
+|---|---|---|---|
+| 1 | Intro banner | Banner card | Yes |
+| 2 | Resources card | Link grid | Yes |
+| 3 | First steps checklist | Progress checklist | Yes (Designer) |
+| 4 | Onboarding quiz | Interactive quiz | Yes |
+| 5 | Conditional content | Card | Only when quiz answer triggers it |
+| 6 | Before you prompt checklist | Progress checklist | Yes (PM) |
+| 7 | How it works | Numbered step list | Visible card |
+| 8 | Data / feature patterns | Grid of pattern cards | Visible card |
+| 9 | Quick-start prompts | Collapsible accordion | Collapsed |
+| 10 | Tips | Collapsible accordion | Collapsed |
+| 11 | Key concepts / What the agent knows | Collapsible accordion | Collapsed |
+| 12 | FAQ | Collapsible accordion | Collapsed |
+| 13 | Using outside the tool / Key files | Collapsible accordion | Collapsed (bottom) |
+
+> Not every persona needs every section. The Designer page omits "Before you prompt" and "Data patterns". The PM page omits "First steps" and "Key concepts". Add only what is relevant.
+
+---
+
+## 1. Intro Banner
+
+A colored card with a left border that sets context for the persona.
+
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-fill-brand-subtle)',
+  padding: '24px 32px',
+  borderRadius: '8px',
+  borderLeft: '5px solid var(--ld-semantic-color-border-brand)',
+}}>
+  <h3>For [Persona Name]</h3>
+  <p>2–3 sentences explaining what this page helps them do.</p>
+</div>
+```
+
+**Content formula:** Who it's for + what they'll accomplish + how the AI helps them.
+
+---
+
+## 2. Resources Card
+
+A grid of clickable cards linking to external and internal resources. Always appears near the top, before the quiz.
+
+**Structure:**
+- Card has a colored top border (`border-top: 4px solid var(--ld-semantic-color-border-brand)`)
+- Short heading + 1-sentence description above the grid
+- Grid: `repeat(auto-fit, minmax(220px, 1fr))`
+- Each link card: label (bold, link color) + short description + `↗` for external links
+
+**Minimum resource links to include:**
+1. Primary tool documentation (e.g., Builder.io Figma Plugin, PRD template)
+2. Learning resource (e.g., Builder Academy, Figma Lunch & Learns)
+3. Onboarding deck or slides (Figma)
+4. Setup video (Vimeo)
+5. Component Library Overview (`/component-library`)
+
+**Airtable Figma Lunch & Learns link:**
+`https://airtable.com/appEGZA2KCbx3A6IP/shr35BhsPf4bNULE1`
+
+---
+
+## 3. First Steps Checklist (Designer only)
+
+A 3-item progress checklist that tracks the user's first actions.
+
+```
+[ ] Browse the Component Library to see what's available   → /component-library
+[ ] Try the Component Sandbox to test a component live     → /component-library/component-tester
+[ ] Copy a prompt from the quiz below and paste it into Fusion
+```
+
+**Implementation notes:**
+- Use the LD `Checkbox` component (`@/components/ui/Checkbox`)
+- Track checked state in a `Set<number>` via `useState`
+- Show a progress bar (`doneCount / total * 100%`)
+- Show a "Great start!" badge when all are checked
+- Items with `href` render the label as an `<a>` link with strikethrough when checked
+
+---
+
+## 4. Onboarding Quiz
+
+The quiz is a **separate component file** (`[Persona]OnboardingQuiz.tsx`).
+
+### Quiz Shell Structure
+
+Every quiz has the same 4 screens:
+
+| Screen | Trigger | Content |
+|---|---|---|
+| Intro | `step === 0` | Feature cards + Start / Skip buttons |
+| Questions | `step 1–N` | Progress bar + dots + question + options + nav |
+| Result | `step === N+1` | Summary tags + generated prompt + reading path + Reset |
+
+### Intro Screen Feature Cards (3 cards always)
+
+```
+⚡ [N] quick questions     → "Takes about 60 seconds"
+📋 Ready-to-paste prompt   → "Copy directly into any AI agent"
+🗺  Reading path           → "Know exactly which pages to visit first"
+```
+
+Use icons: `Flash`, `BulletList`, `Map` from `@/components/icons`.
+
+CTA buttons: **"Start the quiz"** (primary) + **"Skip — generate a generic prompt"** (tertiary)
+
+### Question Screen
+
+Each question renders:
+1. Progress indicator (bar + pill dots + "Question X of N" label + "Skip quiz" tertiary button)
+2. Question title (`h4`, 18px bold)
+3. Info alert: **"Why this matters:"** + explanation (`<Alert variant="info">`)
+4. Radio options (`RadioGroup` + `Radio` from LD) — each option has bold label + subtitle description
+5. Navigation: **Back** (secondary, disabled on Q1) | **Skip this question** (tertiary) | **Next / Generate prompt** (primary)
+
+### Result Screen
+
+1. Green success banner with `CheckCircleFill` icon + "Your personalized [persona] prompt is ready"
+2. Summary tag pills (one per answered question, pill-shaped, subtle border)
+3. Prompt box: header bar with "Copy prompt" button (primary → secondary with ✓ when copied) + italic prompt text
+4. Reading path: brand-subtle header + numbered list of clickable component library pages
+5. "Start over" button (secondary + `Refresh` icon, centered)
+
+### onComplete Callback
+
+The quiz accepts `onComplete?: (keyAnswer: string | undefined) => void`.
+The parent page uses this to show conditional content based on one key answer (e.g., `hasPRD`).
+
+```tsx
+// In parent page:
+const [quizAnswer, setQuizAnswer] = useState<string | undefined>(undefined);
+<PersonaQuiz onComplete={setQuizAnswer} />
+{quizAnswer === 'no' && <PRDTemplate />}
+```
+
+---
+
+## Designer Quiz — 5 Questions
+
+**File:** `DesignerOnboardingQuiz.tsx`
+
+| Q# | Question | Answer type | Options |
+|---|---|---|---|
+| 1 | What are you working on? | `featureType` | new-page, figma-code, explore, customize, other |
+| 2 | Where are you starting from? | `startingPoint` | new, existing, figma, other |
+| 3 | What's your primary goal right now? | `goal` | build, setup, explore, figma-to-code, other |
+| 4 | Which tool are you working in? | `environment` | fusion, cursor, figma-make, developer |
+| 5 | How would you describe your experience level? | `experience` | new, familiar, advanced, other |
+
+**Reading path logic (based on `featureType`):**
+
+| featureType | Suggested pages |
+|---|---|
+| `figma-code` | Icons, Buttons |
+| `new-page` | Cards, Buttons |
+| `explore` | Overview, Component Sandbox |
+| `customize` | Guidelines |
+| `other` | Overview, Getting Started |
+
+Always add `Themes & Tokens` first unless `experience === 'advanced'`.
+
+**Prompt generation:** Combine 4–5 paragraphs — one for featureType, one for startingPoint, one for goal, one for environment, one for experience level. Each paragraph is a direct instruction to the AI agent.
+
+---
+
+## PM Quiz — 5 Questions
+
+**File:** `PMOnboardingQuiz.tsx`
+
+| Q# | Question | Answer type | Options |
+|---|---|---|---|
+| 1 | What type of data feature are you building? | `featureType` | dashboard, table, chart, metrics, recommendations, filters, detail, form, other |
+| 2 | How much data will this feature display? | `dataVolume` | small, medium, large, unknown, other |
+| 3 | Do you have a PRD or requirements document? | `hasPRD` | yes, rough, no, other |
+| 4 | Do you have a design reference? | `designRef` | figma, screenshot, none, other |
+| 5 | How would you describe your experience level? | `experience` | new, familiar, advanced, other |
+
+**Key difference from Designer quiz:** Q3 (`hasPRD`) answer is passed upstream via `onComplete`. The parent page uses it to show/hide the PRD Template section.
+
+**"Other" answer handling:** When a user selects "Other", show an inline `TextField` below the radio options with a "Please describe" label. Save the text to `otherTexts[questionId]` and merge into `answers.otherText` on Next.
+
+**Reading path logic (based on `featureType`):**
+
+| featureType | Suggested pages |
+|---|---|
+| `dashboard` | Card, DataTable |
+| `table` | DataTable |
+| `chart` | Overview |
+| `metrics` | Card |
+| `recommendations` | Card, Button |
+| `filters` | Select |
+| `detail` | DataTable |
+| `form` | Button |
+
+---
+
+## 5. Conditional Content — PRD Template (PM only)
+
+Show only when `hasPRD === 'no'` or `hasPRD === 'rough'`.
+
+**PRD Template fields (9 text fields + 1 textarea):**
+
+| Field ID | Label | Placeholder hint |
+|---|---|---|
+| `name` | Feature name | e.g. Campaign Performance Dashboard |
+| `story` | User story | As a ___, I want to ___, so that ___ |
+| `show` | What to display | e.g. Table of campaigns, KPI cards |
+| `fields` | Data fields | e.g. Campaign name, daily budget, ROAS, status |
+| `actions` | Actions | e.g. Sort, filter by status, export CSV |
+| `filters` | Filters | e.g. Date range, campaign type |
+| `volume` | Data volume | e.g. Up to 500 rows, paginated 20 per page |
+| `empty` | Empty state | e.g. "No campaigns found" with CTA button |
+| `outofscope` | Out of scope | e.g. No export, no inline editing |
+| `notes` | Additional Notes (TextArea) | Any edge cases, constraints |
+
+All fields use LD `TextField size="small"`. Notes uses `TextArea size="small"`.
+Show a progress bar (`filled / total * 100%`) and a **"Copy PRD as prompt"** button.
+
+---
+
+## 6. Before You Prompt Checklist (PM only)
+
+4 items. Appears **above** "How It Works" and **below** the quiz.
+
+```
+[ ] Know what data you're showing        → Metrics, list, chart trend, or stats?
+[ ] Know the user action                 → Filter, drill down, export, apply, or read?
+[ ] Have an empty state in mind          → What shows when there's no data?
+[ ] Have a PRD or create one             → Use the PRD template below
+```
+
+Same implementation as First Steps Checklist (LD Checkbox, progress bar, state in Set<number>).
+
+---
+
+## 7. How It Works (PM)
+
+4 numbered steps with circle badges and descriptions:
+
+```
+1. You describe the feature       — quiz, PRD, or plain language
+2. The agent analyzes requirements — maps to LD components, flags rule conflicts
+3. The agent builds the feature   — production-ready code, tokens, a11y
+4. You review and iterate         — changes appear in live preview
+```
+
+---
+
+## 8. Data Feature Patterns (PM)
+
+6 cards in a responsive grid (`minmax(280px, 1fr)`):
+
+| Pattern | Description |
+|---|---|
+| Performance Dashboard | Metric cards + chart + data table. Campaign overviews. |
+| Data Table with Filters | Filterable, sortable, resizable. Keyword/item reports. |
+| KPI Card Grid | Responsive grid with trend indicators. Executive summaries. |
+| Recommendation Cards | Carousel or list with Apply/Dismiss actions. |
+| Chart + Summary | Chart with legend, time controls, stats. Trend analysis. |
+| Detail Panel | Resizable side panel from row/card click. Drill-down views. |
+
+---
+
+## 9. Quick-Start Prompts (Both pages)
+
+A collapsible `<Accordion>` inside a `CollapsibleSection` wrapper.
+Each category is an `AccordionItem` with 3–6 prompt chips inside.
+
+**Prompt chip behavior:**
+- Click chip → copies full prompt to clipboard
+- Chevron icon → toggles expanded view of the full prompt text
+- Copied state → chip turns green with ✓ for 1.5 seconds
+
+**Designer prompt categories:** Generate Pages, Create Components, Theming & Styling, Edit & Refine, Accessibility & Polish, Other / Ask Freely
+
+**PM prompt categories:** Dashboards, Data Tables, Charts & Visualizations, Metric Cards, Recommendations, Starting from Scratch
+
+---
+
+## 10. Tips for Better Results
+
+A collapsible section showing bad → good prompt comparisons:
+
+```
+Title of tip
+❌ Instead of: "vague request"
+✓  Say: "specific, structured request"
+```
+
+Use `var(--ld-semantic-color-text-negative)` for "Instead of" and `var(--ld-semantic-color-text-positive)` for "Say".
+
+---
+
+## 11. Key Concepts / What the Agent Knows
+
+**Designer — Key Concepts (4 items):**
+- Design Tokens
+- Component Variants
+- Figma to Code
+- Accessibility is Automatic
+
+**PM — What the Agent Knows (6 tiles):**
+- 50+ LD 3.5 Components
+- 303+ Icons
+- 624+ Design Tokens
+- 8 Chart Color Tokens
+- Recharts Library
+- 16+ Enforcement Rules
+
+---
+
+## 12. FAQ
+
+A collapsible section with an `<Accordion type="multiple">` inside.
+
+**Minimum questions to include (adapt per persona):**
+- Do I need to know React / code?
+- Can I iterate after it's built?
+- What if I disagree with the agent?
+- How do I see my changes?
+- How do I share my work?
+- One persona-specific question
+
+---
+
+## 13. Using Outside the Tool / Key Files (Designer)
+
+Two collapsible items at the bottom of the page:
+
+**Using Outside Builder.io & Fusion** — accordion with 3 sub-items:
+1. Figma Make (Figma-to-Code) — numbered steps + external link
+2. Cursor (AI Code Editor) — numbered steps
+3. Any Code Editor — prose instructions with inline `<code>` blocks
+
+**Key Files to Know** — 2-column grid:
+
+| Path | Description |
+|---|---|
+| `client/components/ui/` | All 50+ pre-built components |
+| `client/styles/themes/` | Theme files |
+| `client/components/icons/` | 300+ icons |
+| `guidelines/` | Design rules and component docs |
+| `design-system-docs/AGENTS.md` | AI agent reference |
+| `client/locales/` | Translation files |
+| `public/fonts/` | Brand fonts |
+
+---
+
+## Reusable Helper Components
+
+These are defined at the top of each page file and shared across sections:
+
+### SectionCard
+```tsx
+function SectionCard({ title, children }) {
+  // White card with 32px padding, elevation-100 shadow, 20px bold title
+}
+```
+
+### CollapsibleSection
+```tsx
+function CollapsibleSection({ title, children, defaultOpen = false }) {
+  // Uses Accordion with a single item. Title is 20px bold in trigger.
+}
+```
+
+### NumberedList
+```tsx
+function NumberedList({ items }: { items: string[] }) {
+  // Numbered circle badges (brand-subtle bg) + step text
+}
+```
+
+---
+
+## Token Reference (Most Used)
+
+| Token | Usage |
+|---|---|
+| `--ld-semantic-color-fill-brand-subtle` | Intro banner background |
+| `--ld-semantic-color-border-brand` | Intro banner left border, reading path header border |
+| `--ld-semantic-color-fill-positive-subtle` | Success states, checked checklist items |
+| `--ld-semantic-color-border-positive` | Checked checklist item borders |
+| `--ld-semantic-color-fill-subtle` | Card backgrounds, unchecked items |
+| `--ld-semantic-color-action-fill-primary` | Progress bars, numbered badges |
+| `--ld-semantic-color-link` | Resource card labels, reading path links |
+| `--ld-semantic-color-text-subtle` | Descriptions, subtitles |
+| `--ld-semantic-color-surface` | Card backgrounds |
+| `--ld-semantic-elevation-100` | Card shadow |
+
+---
+
+## File Checklist for a New Persona Page
+
+- [ ] `GettingStarted[Persona].tsx` — main page with all sections
+- [ ] `[Persona]OnboardingQuiz.tsx` — quiz component (separate file)
+- [ ] Register both in the router (`client/router.tsx` or equivalent)
+- [ ] Add navigation entry to the sidebar layout
+- [ ] Add tab to the Getting Started tab group (if applicable)
+- [ ] Swap resource links for your project's actual docs/videos/decks
+- [ ] Update quiz questions to match the persona's decision points
+- [ ] Update prompt generation to reflect the persona's workflow
+- [ ] Update reading path to point to your project's actual routes

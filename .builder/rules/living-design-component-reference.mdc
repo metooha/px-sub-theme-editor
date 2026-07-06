@@ -1,0 +1,1089 @@
+---
+description: Guidelines and rules for living design component reference
+alwaysApply: false
+---
+**You are an AI agent building UI with Living Design, start here.**
+
+---
+
+## 🎯 Your Goal
+
+Build UI that correctly uses Living Design components, tokens, and patterns.
+
+---
+
+## 📋 Non-Negotiables (You MUST Follow)
+
+1. **Use existing Living Design components first** - Don't recreate Button/Input/Modal if we have them
+2. **Use Living Design tokens (CSS variables) for all styling** - No hardcoded hex colors or pixel values
+3. **Do not invent token names or component APIs** - If missing, STOP and ask
+4. **Accessibility is required** - Keyboard support, focus visibility, semantic HTML, ARIA
+
+# Living Design Components
+
+## Alert
+
+**Import:** `import { Alert } from '@livingdesign/react'`
+
+- `a11yIconLabel`: string
+- `actionButtonProps`: AlertActionButtonProps
+- `children`: ReactNode (required)
+- `variant`: "error" | "info" | "success" | "warning"
+
+## Badge
+
+**Import:** `import { Badge } from '@livingdesign/react'`
+
+- `children`: ReactNode
+- `color`: "blue" | "brand" | "brandBold" | "cyan" | "edited" | "gray" | "green" | "info" | "negative" | "neutral" | "orange" | "pink" | "positive" | "purple" | "red" | "spark" | "teal" | "warning" | "yellow"
+
+## Banner
+
+**Import:** `import { Banner } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `closeButtonProps`: BannerCloseButtonProps
+- `onClose`: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void (required)
+- `variant`: "error" | "info" | "success" | "warning"
+
+## BottomSheet
+
+**Import:** `import { BottomSheet } from '@livingdesign/react'`
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `closeButtonProps`: BottomSheetCloseButtonProps
+- `isOpen`: boolean
+- `onClose`: (event: BottomSheetCloseEvent) => void (required)
+- `onClosed`: (() => void)
+- `title`: ReactNode (required)
+
+## Breadcrumb
+
+**Import:** `import { Breadcrumb } from '@livingdesign/react'`
+
+- `a11yLabel`: string
+- `children`: ReactNode (required)
+
+## BreadcrumbItem
+
+**Import:** `import { BreadcrumbItem } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `href`: string (required)
+- `isCurrent`: boolean
+- `onClick`: ((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)
+- `target`: string
+
+## Button
+
+**Import:** `import { Button } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `href`: string
+- `isFullWidth`: boolean
+- `leading`: ReactNode
+- `size`: "large" | "medium" | "small"
+- `trailing`: ReactNode
+- `variant`: "destructive" | "primary" | "secondary" | "tertiary"
+
+## ButtonGroup
+
+**Import:** `import { ButtonGroup } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## Callout
+
+**Import:** `import { Callout } from '@livingdesign/react'`
+
+Props
+
+- `a11yContentLabel`: string (required)
+- `children`: ReactNode (required)
+- `closeButtonProps`: Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">
+- `isOpen`: boolean
+- `onClose`: (event: MouseEvent<Element, MouseEvent>) => void (required)
+- `position`: "bottomCenter" | "bottomLeft" | "bottomRight" | "left" | "right" | "topCenter" | "topLeft" | "topRight"
+- `trigger`: ReactElement<any, string | JSXElementConstructor<any>> (required)
+- `triggerRef`: RefObject<HTMLElement> (required)
+
+Guidance
+
+- The Callout needs to be open by default.
+
+## Card
+
+**Import:** `import { Card } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `size`: "small" | "large"
+
+## CardActions
+
+**Import:** `import { CardActions } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## CardContent
+
+**Import:** `import { CardContent } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## CardHeader
+
+**Import:** `import { CardHeader } from '@livingdesign/react'`
+
+- `leadingIcon`: ReactNode
+- `title`: ReactNode (required)
+- `trailing`: ReactNode
+
+## CardMedia
+
+**Import:** `import { CardMedia } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## Checkbox
+
+**Import:** `import { Checkbox } from '@livingdesign/react'`
+
+- `a11yLabelledBy`: string
+- `checkboxProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `checked`: boolean
+- `disabled`: boolean
+- `id`: string
+- `indeterminate`: boolean
+- `label`: ReactNode
+- `name`: string
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `value`: string | number
+
+## Chip
+
+**Import:** `import { Chip } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `disabled`: boolean
+- `leading`: ReactNode
+- `onClick`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+- `selected`: boolean
+- `size`: "small" | "large"
+- `trailing`: ReactNode
+
+## ChipGroup
+
+**Import:** `import { ChipGroup } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## ContentMessage
+
+**Import:** `import { ContentMessage } from '@livingdesign/react'`
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `media`: ReactNode
+- `size`: "small" | "large"
+- `title`: ReactNode (required)
+
+## DataTable
+
+**Import:** `import { DataTable } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## DataTableBody
+
+**Import:** `import { DataTableBody } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## DataTableBulkActions
+
+**Import:** `import { DataTableBulkActions } from '@livingdesign/react'`
+
+- `a11yLabel`: string
+- `actionContent`: ReactNode
+- `count`: number
+- `countLabel`: string
+- `onClearSelected`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+- `onClearSelectedButtonProps`: DataTableBulkActionsButtonProps
+- `onSelectAll`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+- `selectAllButtonProps`: DataTableBulkActionsButtonProps
+
+## DataTableCell
+
+**Import:** `import { DataTableCell } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `variant`: "alphanumeric" | "numeric"
+
+## DataTableCellActions
+
+**Import:** `import { DataTableCellActions } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## DataTableCellBulkEditTextArea
+
+**Import:** `import { DataTableCellBulkEditTextArea } from '@livingdesign/react'`
+
+- `a11yTextAreaLabelledBy`: string (required)
+- `editedHelperTextLabel`: string
+- `error`: ReactNode
+- `isEdited`: boolean
+- `onChange`: (event: ChangeEvent<HTMLTextAreaElement>) => void (required)
+- `textAreaProps`: (Omit<DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, "ref"> &#x26; \{ ...; \})
+- `value`: string
+- `variant`: "alphanumeric" | "numeric"
+
+## DataTableCellInlineEditTextArea
+
+**Import:** `import { DataTableCellInlineEditTextArea } from '@livingdesign/react'`
+
+- `a11yDialogLabel`: string (required)
+- `a11yEditableLabel`: string
+- `a11ySavedLabel`: string
+- `a11yTextAreaLabel`: string (required)
+- `cancelButtonProps`: Omit<LinkButtonButtonProps, "size">
+- `error`: ReactNode
+- `isOpen`: boolean
+- `isSaved`: boolean
+- `onCancel`: (event: MouseEvent<HTMLButtonElement, MouseEvent> | KeyboardEvent) => void (required)
+- `onChange`: (event: ChangeEvent<HTMLTextAreaElement>) => void (required)
+- `onOpen`: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void (required)
+- `onSave`: (event: MouseEvent<HTMLButtonElement, MouseEvent>) => void (required)
+- `saveButtonProps`: Omit<ButtonButtonProps, "variant" | "size">
+- `textAreaProps`: (Omit<DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, "ref"> &#x26; \{ ...; \})
+- `triggerButtonProps`: Omit<DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>, "ref">
+- `value`: string (required)
+- `variant`: "alphanumeric" | "numeric"
+
+## DataTableCellSelect
+
+**Import:** `import { DataTableCellSelect } from '@livingdesign/react'`
+
+- `a11yLabelledBy`: string (required)
+- `checkboxProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `checked`: boolean
+- `disabled`: boolean
+- `name`: string
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `value`: string | number
+
+## DataTableCellStatus
+
+**Import:** `import { DataTableCellStatus } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## DataTableHead
+
+**Import:** `import { DataTableHead } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## DataTableHeader
+
+**Import:** `import { DataTableHeader } from '@livingdesign/react'`
+
+- `alignment`: "left" | "right"
+- `children`: string (required)
+- `onSort`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+- `sort`: "ascending" | "descending" | "none"
+- `sortChangeA11yAnnouncement`: string
+- `width`: string | number
+
+## DataTableHeaderSelect
+
+**Import:** `import { DataTableHeaderSelect } from '@livingdesign/react'`
+
+- `a11yCheckboxLabel`: string
+- `checkboxProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `checked`: boolean
+- `disabled`: boolean
+- `indeterminate`: boolean
+- `name`: string
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `value`: string | number
+
+## DataTableRow
+
+**Import:** `import { DataTableRow } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `selected`: boolean
+
+## DateField
+
+**Import:** `import { DateField } from '@livingdesign/react'`
+
+- `disabled`: boolean
+- `error`: ReactNode
+- `format`: string
+- `helperText`: ReactNode
+- `id`: string
+- `label`: ReactNode (required)
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `readOnly`: boolean
+- `renderError`: ((error?: Error | undefined) => string)
+- `size`: "small" | "large"
+- `textFieldProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `value`: string
+
+## DatePicker
+
+**Import:** `import { DatePicker } from '@livingdesign/react'`
+
+- `a11yLabels`: (DatePickerCalendarA11yLabels &#x26; \{ calendarIconButton: string; \})
+- `disabled`: boolean
+- `disabledDateFilter`: DatePickerDisabledDateFilterSignature
+- `error`: ReactNode
+- `format`: string
+- `helperText`: ReactNode
+- `id`: string
+- `isOpen`: boolean
+- `label`: ReactNode (required)
+- `locale`: string
+- `maxDate`: Date
+- `minDate`: Date
+- `onClose`: () => void (required)
+- `onOpen`: () => void (required)
+- `onSelect`: (value?: Date | undefined) => void (required)
+- `readOnly`: boolean
+- `renderError`: ((error: DateFieldError, value: string) => string)
+- `size`: "small" | "large"
+- `textFieldProps`: (Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref"> &#x26; \{ ...; \})
+- `value`: Date
+
+## Divider
+
+**Import:** `import { Divider } from '@livingdesign/react'`
+
+- `title`: string
+
+## ErrorMessage
+
+**Import:** `import { ErrorMessage } from '@livingdesign/react'`
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `media`: ReactNode
+- `title`: ReactNode (required)
+
+## FormGroup
+
+**Import:** `import { FormGroup } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `error`: ReactNode
+- `helperText`: ReactNode
+- `label`: ReactNode
+
+## IconButton
+
+**Import:** `import { IconButton } from '@livingdesign/react'`
+
+- `a11yLabel`: string (required)
+- `children`: ReactNode (required)
+- `color`: "default" | "white"
+- `href`: string
+- `size`: "large" | "medium" | "small" | "xsmall"
+- `variant`: "round" | "full"
+
+## Link
+
+**Import:** `import { Link } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `color`: "default" | "subtle" | "white"
+- `href`: string (required)
+- `onClick`: ((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)
+- `target`: string
+
+## LinkButton
+
+**Import:** `import { LinkButton } from '@livingdesign/react'`
+
+- `children`: ReactNode
+- `color`: "default" | "subtle" | "white"
+- `href`: string
+- `isFullWidth`: boolean
+- `leading`: ReactNode
+- `size`: "small" | "large" | "medium"
+- `trailing`: ReactNode
+
+## List
+
+**Import:** `import { List } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## ListItem
+
+**Import:** `import { ListItem } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `leading`: ReactNode
+- `title`: ReactNode
+- `trailing`: ReactNode
+
+## MagicBox
+
+**Import:** `import { MagicBox } from '@livingdesign/react'`
+
+- `borderRadius`: "25" | "50" | "100" | "200" | "round"
+- `children`: ReactElement<any, string | JSXElementConstructor<any>> (required)
+- `height`: Height<string | number>
+- `width`: Width<string | number>
+
+## Menu
+
+**Import:** `import { Menu } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `isOpen`: boolean
+- `onClose`: (event: KeyboardEvent<HTMLElement> | MouseEvent | React.MouseEvent<...> | PointerEvent | TouchEvent) => void (required)
+- `onOpen`: (event: KeyboardEvent<HTMLElement> | MouseEvent<HTMLElement, MouseEvent>) => void (required)
+- `position`: "bottomLeft" | "bottomRight" | "topLeft" | "topRight"
+- `trigger`: ReactElement<any, string | JSXElementConstructor<any>> (required)
+- `triggerRef`: RefObject<HTMLElement> (required)
+
+## MenuItem
+
+**Import:** `import { MenuItem } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `disabled`: boolean
+- `leadingIcon`: ReactNode
+
+## Metric
+
+**Import:** `import { Metric } from '@livingdesign/react'`
+
+- `a11yTrendIndicatorLabel`: string
+- `textLabel`: ReactNode
+- `timescope`: ReactNode
+- `title`: ReactNode (required)
+- `unit`: ReactNode
+- `value`: ReactNode (required)
+- `variant`: "negativeDown" | "negativeUp" | "neutral" | "positiveDown" | "positiveUp"
+
+## Modal
+
+**Import:** `import { Modal } from '@livingdesign/react'`
+
+Props
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `closeButtonProps`: ModalCloseButtonProps
+- `isOpen`: boolean
+- `onClose`: (event: ModalCloseEvent) => void (required)
+- `onClosed`: (() => void)
+- `size`: "small" | "medium" | "large"
+- `title`: ReactNode (required)
+
+Guidance
+
+- For actions, it is best to use the ButtonGroup component.
+
+## Nudge
+
+**Import:** `import { Nudge } from '@livingdesign/react'`
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `closeButtonProps`: NudgeCloseButtonProps
+- `leading`: ReactNode
+- `onClose`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+- `title`: ReactNode (required)
+
+## Panel
+
+**Import:** `import { Panel } from '@livingdesign/react'`
+
+- `actions`: ReactNode
+- `children`: ReactNode (required)
+- `closeButtonProps`: PanelCloseButtonProps
+- `isOpen`: boolean
+- `onClose`: (event: MouseEvent | React.MouseEvent<...> | PointerEvent | TouchEvent | KeyboardEvent) => void (required)
+- `onClosed`: (() => void)
+- `position`: "left" | "right"
+- `size`: "small" | "large" | "medium"
+- `title`: ReactNode (required)
+
+## Popover
+
+**Import:** `import { Popover } from '@livingdesign/react'`
+
+- `a11yContentLabel`: string
+- `basePopoverProps`: DetailedHTMLProps<Omit<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, "ref">, HTMLDivElement>
+- `children`: ReactElement<any, string | JSXElementConstructor<any>> (required)
+- `content`: ReactNode (required)
+- `hasNubbin`: boolean
+- `isOpen`: boolean
+- `onClose`: (event: MouseEvent | React.MouseEvent<...> | FocusEvent<HTMLDivElement, Element> | PointerEvent | TouchEvent | KeyboardEvent) => void (required)
+- `position`: "bottomCenter" | "bottomLeft" | "bottomRight" | "left" | "right" | "topCenter" | "topLeft" | "topRight"
+- `triggerRef`: RefObject<HTMLElement> (required)
+
+## ProgressIndicator
+
+**Import:** `import { ProgressIndicator } from '@livingdesign/react'`
+
+- `a11yLabelledBy`: string
+- `label`: ReactNode
+- `max`: number
+- `min`: number
+- `value`: number
+- `valueLabel`: string (required)
+- `variant`: "error" | "info" | "success" | "warning"
+
+## ProgressTracker
+
+**Import:** `import { ProgressTracker } from '@livingdesign/react'`
+
+- `activeIndex`: number
+- `children`: ReactNode
+- `variant`: "error" | "info" | "success" | "warning"
+
+## ProgressTrackerItem
+
+**Import:** `import { ProgressTrackerItem } from '@livingdesign/react'`
+
+- `a11yIndicatorLabel`: string
+- `children`: ReactNode
+
+## Radio
+
+**Import:** `import { Radio } from '@livingdesign/react'`
+
+- `a11yLabelledBy`: string
+- `checked`: boolean
+- `disabled`: boolean
+- `id`: string
+- `label`: ReactNode
+- `name`: string (required)
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `radioProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `value`: string | number
+
+## Rating
+
+**Import:** `import { Rating } from '@livingdesign/react'`
+
+- `size`: "small" | "large"
+- `value`: number
+
+## Select
+
+**Import:** `import { Select } from '@livingdesign/react'`
+
+- `a11yMagicLabel`: string
+- `children`: ReactNode (required)
+- `disabled`: boolean
+- `error`: ReactNode
+- `helperText`: ReactNode
+- `id`: string
+- `isMagic`: boolean
+- `label`: ReactNode (required)
+- `leadingIcon`: ReactNode
+- `onChange`: (event: ChangeEvent<HTMLSelectElement>) => void (required)
+- `selectProps`: Omit<DetailedHTMLProps<SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, "ref">
+- `size`: "small" | "large"
+- `value`: string
+
+## SideNavigation
+
+**Import:** `import { SideNavigation } from '@livingdesign/react'`
+
+- `children`: ReactNode
+
+## SideNavigationItem
+
+**Import:** `import { SideNavigationItem } from '@livingdesign/react'`
+
+- `children`: ReactNode
+- `href`: string (required)
+- `isCurrent`: boolean
+- `leading`: ReactNode
+- `onClick`: ((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)
+- `target`: string
+
+## Skeleton
+
+**Import:** `import { Skeleton } from '@livingdesign/react'`
+
+- `height`: string | number
+- `isMagic`: boolean
+- `variant`: "rectangle" | "rounded"
+- `width`: string | number
+
+## SkeletonText
+
+**Import:** `import { SkeletonText } from '@livingdesign/react'`
+
+- `isMagic`: boolean
+- `lines`: number
+
+## Spinner
+
+**Import:** `import { Spinner } from '@livingdesign/react'`
+
+- `a11yLabel`: string
+- `color`: "neutral" | "white"
+- `size`: "small" | "large"
+- `spinnerProps`: Omit<SVGProps<SVGSVGElement>, "ref">
+
+## SpotIcon
+
+**Import:** `import { SpotIcon } from '@livingdesign/react'`
+
+- `children`: ReactElement<any, string | JSXElementConstructor<any>> (required)
+- `color`: "brand" | "neutral"
+- `size`: "small" | "large"
+
+## Switch
+
+**Import:** `import { Switch } from '@livingdesign/react'`
+
+- `a11yLabelledBy`: string
+- `disabled`: boolean
+- `isOn`: boolean
+- `label`: ReactNode
+- `onClick`: ((event: MouseEvent<HTMLButtonElement, MouseEvent>) => void)
+
+## TabNavigation
+
+**Import:** `import { TabNavigation } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+
+## TabNavigationItem
+
+**Import:** `import { TabNavigationItem } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `href`: string (required)
+- `isCurrent`: boolean
+- `leadingIcon`: ReactNode
+- `onClick`: ((event: MouseEvent<HTMLAnchorElement, MouseEvent>) => void)
+- `target`: string
+- `trailing`: ReactNode
+
+## Tag
+
+**Import:** `import { Tag } from '@livingdesign/react'`
+
+- `children`: ReactNode (required)
+- `color`: "blue" | "brand" | "cyan" | "edited" | "gray" | "green" | "info" | "negative" | "orange" | "pink" | "positive" | "purple" | "red" | "spark" | "teal" | "warning" | "yellow"
+- `leading`: ReactNode
+- `variant`: "primary" | "secondary" | "tertiary"
+
+## TextArea
+
+**Import:** `import { TextArea } from '@livingdesign/react'`
+
+- `a11yMagicLabel`: string
+- `disabled`: boolean
+- `error`: ReactNode
+- `helperText`: ReactNode
+- `id`: string
+- `isMagic`: boolean
+- `label`: ReactNode (required)
+- `maxLength`: number
+- `maxLengthA11yAnnouncement`: string
+- `onChange`: (event: ChangeEvent<HTMLTextAreaElement>) => void (required)
+- `readOnly`: boolean
+- `size`: "small" | "large"
+- `textAreaProps`: Omit<DetailedHTMLProps<TextareaHTMLAttributes<HTMLTextAreaElement>, HTMLTextAreaElement>, "ref">
+- `value`: string
+
+## TextField
+
+**Import:** `import { TextField } from '@livingdesign/react'`
+
+- `a11yMagicLabel`: string
+- `disabled`: boolean
+- `error`: ReactNode
+- `helperText`: ReactNode
+- `id`: string
+- `isMagic`: boolean
+- `label`: ReactNode (required)
+- `leadingIcon`: ReactNode
+- `onChange`: (event: ChangeEvent<HTMLInputElement>) => void (required)
+- `readOnly`: boolean
+- `size`: "small" | "large"
+- `textFieldProps`: Omit<DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, "ref">
+- `trailing`: ReactNode
+- `type`: "number" | "search" | "time" | "text" | "email" | "password" | "tel" | "url"
+- `value`: string
+
+# Living Design Primitive Tokens
+
+Use these primitive tokens to ensure consistency across the application.
+Prefer semantic tokens over primitive tokens whenever possible.
+
+## Usage
+
+Reference these tokens as CSS variables.
+Example: `color: var(--ld-primitive-color-blue-50);`
+
+## Font
+
+Primitive typography tokens.
+
+### Family
+
+`--ld-primitive-font-family-mono`: Monospace font (Everyday Sans Mono). Used internally by Typography components.
+`--ld-primitive-font-family-sans`: Base font (Everyday Sans). Used internally by Typography components.
+
+### Weight
+
+`--ld-primitive-font-weight-400`: Normal weight. Used internally by Typography components.
+`--ld-primitive-font-weight-700`: Bold weight. Used internally by Typography components.
+
+## Scale
+
+Primitive scale tokens (spacing, borders, breakpoints).
+
+### Border
+
+`--ld-primitive-scale-border-radius-25`: 2px. Minimal rounding.
+`--ld-primitive-scale-border-radius-50`: 4px. Subtle rounding.
+`--ld-primitive-scale-border-radius-100`: 8px. Standard rounding (buttons, cards).
+`--ld-primitive-scale-border-radius-200`: 16px. Prominent rounding.
+`--ld-primitive-scale-border-radius-300`: 24px. Extra prominent rounding.
+`--ld-primitive-scale-border-radius-400`: 32px. Large rounding.
+`--ld-primitive-scale-border-radius-full`: 9999px. Fully rounded (pills, avatars).
+`--ld-primitive-scale-border-radius-round`: 1000px. Effectively circular for large elements.
+`--ld-primitive-scale-border-width-100`: 1px. Standard hairline border.
+`--ld-primitive-scale-border-width-200`: 2px. Thicker, emphasized border.
+
+### Breakpoint
+
+`--ld-primitive-scale-breakpoint-small`: 0px. Base breakpoint (mobile portrait).
+`--ld-primitive-scale-breakpoint-medium`: 600px. Tablet portrait / Mobile landscape.
+`--ld-primitive-scale-breakpoint-large`: 900px. Tablet landscape / Small desktop.
+`--ld-primitive-scale-breakpoint-xlarge`: 1200px. Desktop standard.
+`--ld-primitive-scale-breakpoint-xxlarge`: 1920px. Large desktop / Wide screens.
+
+### Space
+
+`--ld-primitive-scale-space-25`: 2px. Minimal spacing, fine adjustments.
+`--ld-primitive-scale-space-50`: 4px. Tight spacing, inline elements.
+`--ld-primitive-scale-space-100`: 8px. Compact spacing, button padding.
+`--ld-primitive-scale-space-150`: 12px. Standard spacing, form gaps.
+`--ld-primitive-scale-space-200`: 16px. Comfortable spacing, card padding.
+`--ld-primitive-scale-space-250`: 20px. Enhanced comfortable spacing.
+`--ld-primitive-scale-space-300`: 24px. Generous spacing, section gaps.
+`--ld-primitive-scale-space-400`: 32px. Large spacing, page sections.
+`--ld-primitive-scale-space-500`: 40px. Extra large spacing.
+`--ld-primitive-scale-space-600`: 48px. 3rem spacing.
+`--ld-primitive-scale-space-700`: 56px. 3.5rem spacing.
+`--ld-primitive-scale-space-800`: 64px. 4rem spacing.
+`--ld-primitive-scale-space-900`: 72px. 4.5rem spacing.
+`--ld-primitive-scale-space-1000`: 80px. 5rem spacing.
+
+# Living Design Semantic Tokens
+
+Use these semantic tokens to ensure consistency and themeability across the application.
+Always prefer semantic tokens over primitive tokens or hardcoded values.
+
+## Usage
+
+Reference these tokens as CSS variables.
+Example: `color: var(--ld-semantic-color-text);`
+
+## Color
+
+Semantic colors for various UI elements.
+
+### Background
+
+`--ld-semantic-color-background`: Use for the screen's main background color
+`--ld-semantic-color-background-subtle`: Use for a subtle, neutral background that accentuates overlaid surfaces
+
+### Border
+
+`--ld-semantic-color-border-accent-blue`: Use for border with a blue accent
+`--ld-semantic-color-border-accent-blue-bold`: Use for bold blue accent border
+`--ld-semantic-color-border-accent-cyan`: Use for border with a cyan accent
+`--ld-semantic-color-border-accent-cyan-bold`: Use for bold cyan accent border
+`--ld-semantic-color-border-accent-gray`: Use for border with a gray accent
+`--ld-semantic-color-border-accent-gray-bold`: Use for bold gray accent border
+`--ld-semantic-color-border-accent-green`: Use for border with a green accent
+`--ld-semantic-color-border-accent-green-bold`: Use for bold green accent border
+`--ld-semantic-color-border-accent-orange`: Use for border with an orange accent
+`--ld-semantic-color-border-accent-orange-bold`: Use for bold orange accent border
+`--ld-semantic-color-border-accent-pink`: Use for border with a pink accent
+`--ld-semantic-color-border-accent-pink-bold`: Use for bold pink accent border
+`--ld-semantic-color-border-accent-purple`: Use for border with a purple accent
+`--ld-semantic-color-border-accent-purple-bold`: Use for bold purple accent border
+`--ld-semantic-color-border-accent-red`: Use for border with a red accent
+`--ld-semantic-color-border-accent-red-bold`: Use for bold red accent border
+`--ld-semantic-color-border-accent-spark`: Use for border with a spark accent
+`--ld-semantic-color-border-accent-spark-bold`: Use for bold spark accent border
+`--ld-semantic-color-border-accent-teal`: Use for border with a teal accent
+`--ld-semantic-color-border-accent-teal-bold`: Use for bold teal accent border
+`--ld-semantic-color-border-accent-yellow`: Use for border with a yellow accent
+`--ld-semantic-color-border-accent-yellow-bold`: Use for bold yellow accent border
+`--ld-semantic-color-border-activated`: Use for the border of elements in an activated state
+`--ld-semantic-color-border-brand`: Use for the border of elements that reinforce your brand
+`--ld-semantic-color-border-brand-bold`: Use for bold brand border
+`--ld-semantic-color-border-disabled`: Use for the border of elements in a disabled state
+`--ld-semantic-color-border-edited`: Use for the border of elements in an edited state
+`--ld-semantic-color-border-edited-bold`: Use for bold edited border
+`--ld-semantic-color-border-info`: Use for the border of elements that communicate information
+`--ld-semantic-color-border-info-bold`: Use for bold info border
+`--ld-semantic-color-border-inverse`: Use for the border elements with opposite lightness of `color.border`
+`--ld-semantic-color-border-magic-middle`: Use for the middle of a gradient border that indicates the involvement of an AI agent
+`--ld-semantic-color-border-magic-start`: Use for the start of a gradient border that indicates the involvement of an AI agent
+`--ld-semantic-color-border-magic-stop`: Use for the end of a gradient border that indicates the involvement of an AI agent
+`--ld-semantic-color-border-negative`: Use for the border of elements that indicate danger or error state
+`--ld-semantic-color-border-negative-bold`: Use for bold negative border
+`--ld-semantic-color-border-positive`: Use for the border of elements that communicate a favorable outcome
+`--ld-semantic-color-border-positive-bold`: Use for bold positive border
+`--ld-semantic-color-border-subtle`: Use for the border of generic elements with less emphasis
+`--ld-semantic-color-border-subtlest`: Use for the border of generic elements with the least emphasis
+`--ld-semantic-color-border-warning`: Use for the border of elements that communicate caution
+`--ld-semantic-color-border-warning-bold`: Use for bold warning border
+
+### Bottomnav
+
+`--ld-semantic-color-bottom-nav-fill`: Use for the background fill of the bottom navigation bar
+`--ld-semantic-color-bottom-nav-fill-activated`: Use for the background fill of the bottom navigation bar when a nav item is activated
+`--ld-semantic-color-bottom-nav-separator`: Use for the separator line in the bottom navigation bar
+`--ld-semantic-color-bottom-nav-text-on-fill`: Use for text appearing on top of the bottom navigation bar fill
+`--ld-semantic-color-bottom-nav-text-on-fill-activated`: Use for text on the bottom navigation bar when a nav item is activated
+`--ld-semantic-color-bottom-nav-text-on-fill-activated-focused`: Use for text on the bottom navigation bar when a nav item is both activated and focused
+`--ld-semantic-color-bottom-nav-text-on-fill-activated-hovered`: Use for text on the bottom navigation bar when a nav item is both activated and hovered
+`--ld-semantic-color-bottom-nav-text-on-fill-activated-pressed`: Use for text on the bottom navigation bar when a nav item is both activated and pressed
+`--ld-semantic-color-bottom-nav-text-on-fill-focused`: Use for text on the bottom navigation bar when a nav item is focused
+`--ld-semantic-color-bottom-nav-text-on-fill-hovered`: Use for text on the bottom navigation bar when a nav item is hovered
+`--ld-semantic-color-bottom-nav-text-on-fill-pressed`: Use for text on the bottom navigation bar when a nav item is pressed
+
+### Fill
+
+`--ld-semantic-color-fill-accent-blue`: Use for the background of elements with a blue accent
+`--ld-semantic-color-fill-accent-blue-subtle`: Use for the background of elements with a blue accent but with less emphasis
+`--ld-semantic-color-fill-accent-cyan`: Use for the background of elements with a cyan accent
+`--ld-semantic-color-fill-accent-cyan-subtle`: Use for the background of elements with a cyan accent but with less emphasis
+`--ld-semantic-color-fill-accent-gray`: Use for the background of elements with a gray accent
+`--ld-semantic-color-fill-accent-gray-subtle`: Use for the background of elements with a gray accent but with less emphasis
+`--ld-semantic-color-fill-accent-green`: Use for the background of elements with a green accent
+`--ld-semantic-color-fill-accent-green-subtle`: Use for the background of elements with a green accent but with less emphasis
+`--ld-semantic-color-fill-accent-orange`: Use for the background of elements with a orange accent
+`--ld-semantic-color-fill-accent-orange-subtle`: Use for the background of elements with a orange accent but with less emphasis
+`--ld-semantic-color-fill-accent-pink`: Use for the background of elements with a pink accent
+`--ld-semantic-color-fill-accent-pink-subtle`: Use for the background of elements with a pink accent but with less emphasis
+`--ld-semantic-color-fill-accent-purple`: Use for the background of elements with a purple accent
+`--ld-semantic-color-fill-accent-purple-subtle`: Use for the background of elements with a purple accent but with less emphasis
+`--ld-semantic-color-fill-accent-red`: Use for the background of elements with a red accent
+`--ld-semantic-color-fill-accent-red-subtle`: Use for the background of elements with a red accent but with less emphasis
+`--ld-semantic-color-fill-accent-spark`: Use for the background of elements with a spark accent
+`--ld-semantic-color-fill-accent-spark-subtle`: Use for the background of elements with a spark accent but with less emphasis
+`--ld-semantic-color-fill-accent-teal`: Use for the background of elements with a teal accent
+`--ld-semantic-color-fill-accent-teal-subtle`: Use for the background of elements with a teal accent but with less emphasis
+`--ld-semantic-color-fill-accent-yellow`: Use for the background of elements with a yellow accent
+`--ld-semantic-color-fill-accent-yellow-subtle`: Use for the background of elements with a yellow accent but with less emphasis
+`--ld-semantic-color-fill-activated`: Use for the background of elements in an activated state
+`--ld-semantic-color-fill-activated-disabled`: Use for the background of elements in an activated and disabled state
+`--ld-semantic-color-fill-activated-focused`: Use for the background of elements in an activated and focused state
+`--ld-semantic-color-fill-activated-hovered`: Use for the background of elements in an activated and hovered state
+`--ld-semantic-color-fill-activated-pressed`: Use for the background of elements in an activated and pressed state
+`--ld-semantic-color-fill-activated-subtle`: Use for the background of elements in an activated state but with less emphasis
+`--ld-semantic-color-fill-activated-subtle-disabled`: Use for the background of elements in an activated and disabled state but with less emphasis
+`--ld-semantic-color-fill-activated-subtle-focused`: Use for the background of elements in an activated and focused state but with less emphasis
+`--ld-semantic-color-fill-activated-subtle-hovered`: Use for the background of elements in an activated and hovered state but with less emphasis
+`--ld-semantic-color-fill-activated-subtle-pressed`: Use for the background of elements in an activated and pressed state but with less emphasis
+`--ld-semantic-color-fill-brand`: Use for the background of elements that reinforce your brand
+`--ld-semantic-color-fill-brand-bold`: Use for the background of elements that reinforce your brand but with more emphasis
+`--ld-semantic-color-fill-brand-subtle`: Use for the background of elements that reinforce your brand, but with less emphasis
+`--ld-semantic-color-fill-disabled`: Use for the background of generic elements in disabled state
+`--ld-semantic-color-fill-edited`: Use for the background of elements in an edited state
+`--ld-semantic-color-fill-edited-subtle`: Use for the background of elements in an edited state but with less emphasis
+`--ld-semantic-color-fill-info`: Use for the background of elements that communicate information
+`--ld-semantic-color-fill-info-subtle`: Use for the background of elements that communicate information, but with less emphasis
+`--ld-semantic-color-fill-inverse`: Use for the background of inverse fill elements
+`--ld-semantic-color-fill-negative`: Use for the background of elements that indicate danger or error state
+`--ld-semantic-color-fill-negative-subtle`: Use for the background of elements that indicate danger or error state, but with less emphasis
+`--ld-semantic-color-fill-positive`: Use for the background of elements that communicate a favorable outcome
+`--ld-semantic-color-fill-positive-subtle`: Use for the background of elements that communicate a favorable outcome but with less emphasis
+`--ld-semantic-color-fill-pressed`: Use for the background of generic elements in pressed state
+`--ld-semantic-color-fill-subtle`: Use for the background of generic elements with less emphasis
+`--ld-semantic-color-fill-transparent`: Use for the background of elements with transparent fill
+`--ld-semantic-color-fill-warning`: Use for the background of elements that emphasize caution
+`--ld-semantic-color-fill-warning-subtle`: Use for the background of elements that emphasize caution but with less emphasis
+
+### Link
+
+`--ld-semantic-color-link-text`: Use for standard link text color
+`--ld-semantic-color-link-text-accent-white`: Use for link text on inverse or dark surfaces or backgrounds
+`--ld-semantic-color-link-text-accent-white-disabled`: Use for disabled link text on inverse or dark surfaces or backgrounds
+`--ld-semantic-color-link-text-accent-white-focused`: Use for focused link text on inverse or dark surfaces or backgrounds
+`--ld-semantic-color-link-text-accent-white-hovered`: Use for hovered link text on inverse or dark surfaces or backgrounds
+`--ld-semantic-color-link-text-accent-white-pressed`: Use for pressed link text on inverse or dark surfaces or backgrounds
+`--ld-semantic-color-link-text-disabled`: Use for disabled link text
+`--ld-semantic-color-link-text-focused`: Use for focused link text
+`--ld-semantic-color-link-text-hovered`: Use for hovered link text
+`--ld-semantic-color-link-text-pressed`: Use for pressed link text
+`--ld-semantic-color-link-text-subtle`: Use for secondary/subtle link text
+`--ld-semantic-color-link-text-subtle-disabled`: Use for disabled secondary/subtle link text
+`--ld-semantic-color-link-text-subtle-focused`: Use for focused secondary/subtle link text
+`--ld-semantic-color-link-text-subtle-hovered`: Use for hovered secondary/subtle link text
+`--ld-semantic-color-link-text-subtle-pressed`: Use for pressed secondary/subtle link text
+
+### Scrim
+
+`--ld-semantic-color-scrim`: Use for the scrim underlying an overlay..
+
+### Separator
+
+`--ld-semantic-color-separator`: Use for an element that separates content such as a Divider.
+
+### Surface
+
+`--ld-semantic-color-surface`: Use for containers on backgrounds such as cards, modals or dropdown menus
+`--ld-semantic-color-surface-activated`: Use for containers on backgrounds in an activated state
+`--ld-semantic-color-surface-activated-focused`: Use for containers on backgrounds in an activated and focused state
+`--ld-semantic-color-surface-activated-hovered`: Use for containers on backgrounds in an activated and hovered state
+`--ld-semantic-color-surface-activated-pressed`: Use for containers on backgrounds in an activated and pressed state
+`--ld-semantic-color-surface-brand`: Use for containers on backgrounds with a branded background color
+`--ld-semantic-color-surface-focused`: Use for containers on backgrounds in a focused state
+`--ld-semantic-color-surface-hovered`: Use for containers on backgrounds in a hovered state
+`--ld-semantic-color-surface-overlay`: Use for the background color of overlays such as Modal, Bottom Sheet and Panel
+`--ld-semantic-color-surface-pressed`: Use for containers on backgrounds in a pressed state
+`--ld-semantic-color-surface-subtle`: Use for containers on backgrounds with less emphasis
+`--ld-semantic-color-surface-subtle-focused`: Use for containers on backgrounds with less emphasis in a focused state
+`--ld-semantic-color-surface-subtle-hovered`: Use for containers on backgrounds with less emphasis in a hovered state
+`--ld-semantic-color-surface-subtle-pressed`: Use for containers on backgrounds with less emphasis in a pressed state
+
+### Text
+
+`--ld-semantic-color-text`: Use for primary text, such as headings and body copy
+`--ld-semantic-color-text-accent-blue`: Use for text with a blue accent
+`--ld-semantic-color-text-accent-blue-bold`: Use for bold blue accent text
+`--ld-semantic-color-text-accent-cyan`: Use for text with a cyan accent
+`--ld-semantic-color-text-accent-cyan-bold`: Use for bold cyan accent text
+`--ld-semantic-color-text-accent-gray`: Use for text with a gray accent
+`--ld-semantic-color-text-accent-gray-bold`: Use for bold gray accent text
+`--ld-semantic-color-text-accent-green`: Use for text with a green accent
+`--ld-semantic-color-text-accent-green-bold`: Use for bold green accent text
+`--ld-semantic-color-text-accent-orange`: Use for text with a orange accent
+`--ld-semantic-color-text-accent-orange-bold`: Use for bold orange accent text
+`--ld-semantic-color-text-accent-pink`: Use for text with a pink accent
+`--ld-semantic-color-text-accent-pink-bold`: Use for bold pink accent text
+`--ld-semantic-color-text-accent-purple`: Use for text with a purple accent
+`--ld-semantic-color-text-accent-purple-bold`: Use for bold purple accent text
+`--ld-semantic-color-text-accent-red`: Use for text with a red accent
+`--ld-semantic-color-text-accent-red-bold`: Use for bold red accent text
+`--ld-semantic-color-text-accent-spark`: Use for text with a spark accent
+`--ld-semantic-color-text-accent-spark-bold`: Use for bold spark accent text
+`--ld-semantic-color-text-accent-teal`: Use for text with a teal accent
+`--ld-semantic-color-text-accent-teal-bold`: Use for bold teal accent text
+`--ld-semantic-color-text-accent-yellow`: Use for text with a yellow accent
+`--ld-semantic-color-text-accent-yellow-bold`: Use for bold yellow accent text
+`--ld-semantic-color-text-activated`: Use for text that indicates an activated state
+`--ld-semantic-color-text-brand`: Use for text that reinforces your brand
+`--ld-semantic-color-text-brand-bold`: Use for bold brand text
+`--ld-semantic-color-text-disabled`: Use for text that indicates a disabled state
+`--ld-semantic-color-text-edited`: Use for text that indicates an edited state
+`--ld-semantic-color-text-edited-bold`: Use for bold edited text
+`--ld-semantic-color-text-info`: Use for text that reinforces your info
+`--ld-semantic-color-text-info-bold`: Use for bold info text
+`--ld-semantic-color-text-inverse`: Use for text that's the opposite lightness of `color.text`
+`--ld-semantic-color-text-magic-middle`: Use for the middle of gradient text that indicates the involvement of an AI agent
+`--ld-semantic-color-text-magic-start`: Use for the start of gradient text that indicates the involvement of an AI agent
+`--ld-semantic-color-text-magic-stop`: Use for the end of gradient text that indicates the involvement of an AI agent
+`--ld-semantic-color-text-negative`: Use for critical text that indicates an error such as input field error messaging
+`--ld-semantic-color-text-negative-bold`: Use for bold negative text
+`--ld-semantic-color-text-on-fill-accent-blue`: Use for text on fill elements with a blue accent
+`--ld-semantic-color-text-on-fill-accent-blue-subtle`: Use for text on fill elements with a blue accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-cyan`: Use for text on fill elements with a cyan accent
+`--ld-semantic-color-text-on-fill-accent-cyan-subtle`: Use for text on fill elements with a cyan accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-gray`: Use for text on fill elements with a gray accent
+`--ld-semantic-color-text-on-fill-accent-gray-subtle`: Use for text on fill elements with a gray accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-green`: Use for text on fill elements with a green accent
+`--ld-semantic-color-text-on-fill-accent-green-subtle`: Use for text on fill elements with a green accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-orange`: Use for text on fill elements with an orange accent
+`--ld-semantic-color-text-on-fill-accent-orange-subtle`: Use for text on fill elements with an orange accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-pink`: Use for text on fill elements with a pink accent
+`--ld-semantic-color-text-on-fill-accent-pink-subtle`: Use for text on fill elements with a pink accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-purple`: Use for text on fill elements with a purple accent
+`--ld-semantic-color-text-on-fill-accent-purple-subtle`: Use for text on fill elements with a purple accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-red`: Use for text on fill elements with a red accent
+`--ld-semantic-color-text-on-fill-accent-red-subtle`: Use for text on fill elements with a red accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-spark`: Use for text on fill elements with a spark accent
+`--ld-semantic-color-text-on-fill-accent-spark-subtle`: Use for text on fill elements with a spark accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-teal`: Use for text on fill elements with a teal accent
+`--ld-semantic-color-text-on-fill-accent-teal-subtle`: Use for text on fill elements with a teal accent but with less emphasis
+`--ld-semantic-color-text-on-fill-accent-yellow`: Use for text on fill elements with a yellow accent
+`--ld-semantic-color-text-on-fill-accent-yellow-subtle`: Use for text on fill elements with a yellow accent but with less emphasis
+`--ld-semantic-color-text-on-fill-activated`: Use for text on fill elements in an activated state
+`--ld-semantic-color-text-on-fill-activated-disabled`: Use for text on fill elements in an activated state in a disabled state
+`--ld-semantic-color-text-on-fill-activated-subtle`: Use for text on fill elements in an activated state but with less emphasis
+`--ld-semantic-color-text-on-fill-activated-subtle-disabled`: Use for text on fill elements in an activated state but with less emphasis in a disabled state
+`--ld-semantic-color-text-on-fill-brand`: Use for text on fill elements with branded fill
+`--ld-semantic-color-text-on-fill-brand-bold`: Use for text on fill elements with branded fill but with more emphasis
+`--ld-semantic-color-text-on-fill-brand-subtle`: Use for text on fill elements with subtle branded fill
+`--ld-semantic-color-text-on-fill-disabled`: Use for text on generic elements in disabled state
+`--ld-semantic-color-text-on-fill-edited`: Use for text on fill elements in an edited state
+`--ld-semantic-color-text-on-fill-edited-subtle`: Use for text on fill elements in an edited state but with less emphasis
+`--ld-semantic-color-text-on-fill-info`: Use for text on fill elements that communicate information
+`--ld-semantic-color-text-on-fill-info-subtle`: Use for text on fill elements that communicate information but with less emphasis
+`--ld-semantic-color-text-on-fill-inverse`: Use for text on fill elements with inverse fill
+`--ld-semantic-color-text-on-fill-negative`: Use for text on fill elements that indicate danger or error state
+`--ld-semantic-color-text-on-fill-negative-subtle`: Use for text on fill elements that indicate danger or error state but with less emphasis
+`--ld-semantic-color-text-on-fill-positive`: Use for text on fill elements that communicate a favorable outcome
+`--ld-semantic-color-text-on-fill-positive-subtle`: Use for text on fill elements that communicate a favorable outcome but with less emphasis
+`--ld-semantic-color-text-on-fill-transparent`: Use for text on fill elements with transparent fill
+`--ld-semantic-color-text-on-fill-warning`: Use for text on fill elements that emphasize caution
+`--ld-semantic-color-text-on-fill-warning-subtle`: Use for text on fill elements that emphasize caution but with less emphasis
+`--ld-semantic-color-text-positive`: Use for text that communicates a favorable outcome
+`--ld-semantic-color-text-positive-bold`: Use for bold positive text
+`--ld-semantic-color-text-subtle`: Use for navigation and form field labels
+`--ld-semantic-color-text-subtlest`: Use for secondary text such as supplementary helper text on an element
+`--ld-semantic-color-text-warning`: Use for text that emphasizes caution such as an alert message
+`--ld-semantic-color-text-warning-bold`: Use for bold warning text
+
+### Topnav
+
+`--ld-semantic-color-top-nav-fill`: Use for the background fill of the top navigation bar
+`--ld-semantic-color-top-nav-fill-focused`: Use for the background fill of the top navigation bar when a nav item is focused
+`--ld-semantic-color-top-nav-fill-hovered`: Use for the background fill of the top navigation bar when a nav item is hovered
+`--ld-semantic-color-top-nav-fill-pressed`: Use for the background fill of the top navigation bar when a nav item is pressed
+`--ld-semantic-color-top-nav-text-on-fill`: Use for text appearing on top of the top navigation bar fill
+`--ld-semantic-color-top-nav-text-on-fill-focused`: Use for text on the top navigation bar when a nav item is focused
+`--ld-semantic-color-top-nav-text-on-fill-hovered`: Use for text on the top navigation bar when a nav item is hovered
+`--ld-semantic-color-top-nav-text-on-fill-pressed`: Use for text on the top navigation bar when a nav item is pressed
+
+## Elevation
+
+Semantic elevation (shadow) tokens.
+
+`--ld-semantic-elevation-100`: The lowest level of elevation used for objects that are just barely elevated above the surface of the page.
+`--ld-semantic-elevation-200`: The middle level of elevation. Used for elements that are elevated above some other elements but not the highest level of elevation.
+`--ld-semantic-elevation-300`: The highest level of elevation. Used for elements that should be above all other elements, such as Snackbar, Modal, etc.
+
+## Scale
+
+Semantic scale tokens.
+
+`--ld-semantic-scale-border-width-interactive`: Use for the border width of custom interactive containers with borders in their default state
+`--ld-semantic-scale-border-width-interactive-activated`: Use for the border width of custom interactive containers with borders in an activated state
+`--ld-semantic-scale-border-width-interactive-activated-focused`: Use for the border width of custom interactive containers with borders that are both activated and focused
+`--ld-semantic-scale-border-width-interactive-activated-hovered`: Use for the border width of custom interactive containers with borders that are both activated and hovered
+`--ld-semantic-scale-border-width-interactive-activated-pressed`: Use for the border width of custom interactive containers with borders that are both activated and pressed
+`--ld-semantic-scale-border-width-interactive-focused`: Use for the border width of custom interactive containers with borders in a focused state
+`--ld-semantic-scale-border-width-interactive-hovered`: Use for the border width of custom interactive containers with borders in a hovered state
+`--ld-semantic-scale-border-width-interactive-pressed`: Use for the border width of custom interactive containers with borders in a pressed state
+`--ld-semantic-scale-icon-large`: Use for large-sized icons
+`--ld-semantic-scale-icon-medium`: Use for medium-sized icons
+`--ld-semantic-scale-icon-small`: Use for small-sized icons
+`--ld-semantic-scale-pictogram-large`: Use for large-sized pictograms
+`--ld-semantic-scale-pictogram-medium`: Use for medium-sized pictograms
+`--ld-semantic-scale-pictogram-small`: Use for small-sized pictograms
+`--ld-semantic-scale-pictogram-x-large`: Use for extra-large sized pictograms

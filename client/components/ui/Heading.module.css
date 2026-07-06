@@ -1,0 +1,60 @@
+.heading {
+  margin: 0;
+  padding: 0;
+  font-family: var(--ld-semantic-font-family-sans);
+  line-height: 1.3;
+}
+
+/* Size variants */
+.heading--size-large {
+  font-size: 1.5rem; /* 24px */
+  line-height: 1.25;
+}
+
+.heading--size-medium {
+  font-size: 1.25rem; /* 20px */
+  line-height: 1.3;
+}
+
+.heading--size-small {
+  font-size: 1rem; /* 16px */
+  line-height: 1.4;
+}
+
+/* Weight variants */
+.heading--weight-default {
+  font-weight: 700;
+}
+
+.heading--weight-alt {
+  font-weight: 400;
+}
+
+/* Color variants */
+.heading--color-default {
+  color: var(--ld-semantic-color-text, #000);
+}
+
+.heading--color-brand {
+  color: var(--ld-semantic-color-text-brand, #0071ce);
+}
+
+.heading--color-subtle {
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+.heading--color-negative {
+  color: var(--ld-semantic-color-text-accent-red, #ea1100);
+}
+
+.heading--color-positive {
+  color: var(--ld-semantic-color-text-accent-green, #2a8703);
+}
+
+.heading--color-warning {
+  color: var(--ld-semantic-color-text-accent-spark, #995213);
+}
+
+.heading--color-inverse {
+  color: var(--ld-semantic-color-text-inverse, #ffffff);
+}

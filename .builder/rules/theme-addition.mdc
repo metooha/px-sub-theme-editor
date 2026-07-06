@@ -1,0 +1,83 @@
+---
+description: Checklist for adding new themes to LD 3.5 system
+alwaysApply: false
+---
+# RULE: Theme Addition Process
+
+## Overview
+
+When adding a new theme to the Living Design 3.5 theme system, you MUST follow this checklist to ensure proper integration and inheritance.
+
+## Mandatory Checklist
+
+### Step 1: Determine Inheritance
+
+Before creating files, determine where the theme fits in the inheritance tree.
+
+### Step 2: Create Theme Directory
+
+
+mkdir -p client/styles/themes/your-theme-name/
+```
+
+### Step 3: Create Minimal semantic.css
+
+```css
+:root {
+  /* ONLY override tokens that CHANGE for this theme */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-[X], #[HEX]);
+  /* DO NOT duplicate tokens that inherit unchanged */
+}
+```
+
+**Rules:**
+- NEVER copy all 257+ tokens from base
+- ONLY include tokens you're overriding
+- Keep file under 100 lines (30-50 typical)
+
+### Step 4: Create primitive.css (if needed)
+
+Only if you need to override primitive color values. Most themes DON'T need this.
+
+### Step 5: Add to Theme Registry
+
+**File**: `client/contexts/theme-registry.ts`
+
+```typescript
+{
+  id: 'your-theme-id',
+  name: 'Your Theme Name',
+  description: 'Brief description',
+  primitiveCSS: '/styles/themes/your-theme-id/primitive.css',
+  semanticCSS: '/styles/themes/your-theme-id/semantic.css',
+  previewColor: '#HEX',
+},
+```
+
+### Step 6: Update THEME_INHERITANCE.md
+
+### Step 7: Test the Theme
+
+1. Open Component Library page
+2. Select your theme from dropdown
+3. Verify brand colors apply correctly, inherited tokens work, no console errors
+
+## Validation Checklist
+
+- [ ] Theme directory created with correct name
+- [ ] `semantic.css` exists with inheritance comment
+- [ ] `primitive.css` exists ONLY if needed
+- [ ] File is under 100 lines
+- [ ] Added to `theme-registry.ts`
+- [ ] Tested in Component Library
+- [ ] No console errors when switching
+- [ ] Brand colors render correctly
+
+## File Size Guidelines
+
+- **Base theme**: 80-100KB (complete token set)
+- **Platform themes**: 3-5KB (platform tokens)
+- **Brand themes**: 2-4KB (brand color overrides)
+- **Persona themes**: 1-2KB (minimal/no overrides)
+
+**If your theme file is >10KB**, you're likely duplicating base tokens.

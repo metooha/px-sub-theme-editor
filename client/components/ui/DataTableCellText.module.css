@@ -1,0 +1,42 @@
+/* DataTableCell - Basic data cell (LD 3.5 DT Cell: Text) */
+/* Defaults to body-small; parent .textMedium on the table overrides via --dt-* custom props */
+.cell {
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  vertical-align: middle;
+  font-family: var(--dt-font-family, var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif));
+  font-size: var(--dt-font-size, var(--ld-semantic-font-body-small-size, 14px));
+  font-weight: var(--dt-font-weight, var(--ld-semantic-font-body-small-weight-default, 400));
+  line-height: var(--dt-line-height, var(--ld-semantic-font-body-small-lineheight, 1.43));
+  color: var(--ld-semantic-color-text, #2E2F32);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 0;
+}
+
+/* Wrap modifier — allows content to wrap instead of truncating */
+.cellWrap {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  max-width: none;
+  vertical-align: top;
+}
+
+/* Frozen (sticky) cell */
+.frozen {
+  position: sticky;
+  z-index: 1;
+  background: var(--ld-semantic-color-surface-primary, #fff);
+}
+
+/* Alphanumeric variant — left-aligned */
+.cellAlphanumeric {
+  text-align: left;
+}
+
+/* Numeric variant — right-aligned, monospace font */
+.cellNumeric {
+  text-align: right;
+  font-family: var(--ld-semantic-font-body-mono-medium-family, 'Everyday Sans Mono TT', monospace);
+}

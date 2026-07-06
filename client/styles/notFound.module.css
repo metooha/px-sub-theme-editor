@@ -1,0 +1,72 @@
+/* ─── Root layout ─── */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* ─── Content ─── */
+.content {
+  text-align: center;
+  max-width: 600px;
+  padding: 48px;
+}
+
+.errorCode {
+  font-size: 120px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-subtlest);
+  margin-bottom: 24px;
+  font-family: var(--ld-semantic-font-family-sans);
+  line-height: 1;
+}
+
+.heading {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default, 700);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 16px;
+}
+
+.description {
+  font-family: var(--ld-semantic-font-body-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 18px;
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0 0 32px;
+  line-height: 1.6;
+}
+
+.pathInfo {
+  padding: 12px 16px;
+  background-color: var(--ld-semantic-color-surface, #ffffff);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 6px);
+  margin-bottom: 32px;
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-family: var(--ld-semantic-font-family-mono);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  word-break: break-all;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}

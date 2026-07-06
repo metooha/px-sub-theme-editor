@@ -1,0 +1,17 @@
+/**
+ * Do not edit directly — Developer Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ * 
+ * INHERITANCE: Inherits LD Base
+ * PERSONAS: Customer, Associate, Partner inherit from this
+ * 
+ * All semantic tokens use the magic colors defined in primitive.css
+ * No semantic-level overrides needed - base semantic tokens reference primitives
+ */
+
+:root {
+  /* Developer theme uses magic gradient from primitive.css */
+  /* Magic colors automatically update via primitive token references: */
+  /* --ld-semantic-color-loading-magic: var(--ld-primitive-color-magic-2) */
+  /* Inherits all other tokens from LD Base */
+}

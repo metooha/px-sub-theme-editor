@@ -1,0 +1,83 @@
+/* LD 3.5 Progress Indicator Component */
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  width: 100%;
+}
+
+.label {
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 400;
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.4);
+}
+
+.progressWrapper {
+  flex: 1;
+  min-width: 0;
+}
+
+.track {
+  width: 100%;
+  height: 8px;
+  background-color: var(--ld-semantic-color-progress-fill-subtle, #e3e4e5);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  overflow: hidden;
+  position: relative;
+}
+
+.fill {
+  height: 100%;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  transition: width 0.3s ease-in-out;
+  will-change: width;
+}
+
+/* Color Variants */
+
+/* Primary - Walmart Blue */
+.fill-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary, #0071DC);
+}
+
+/* Success - Green */
+.fill-success {
+  background-color: var(--ld-semantic-color-feedback-fill-success, #2E7D32);
+}
+
+/* Warning - Orange/Yellow */
+.fill-warning {
+  background-color: var(--ld-semantic-color-feedback-fill-warning, #FFC220);
+}
+
+/* Error - Red */
+.fill-error {
+  background-color: var(--ld-semantic-color-feedback-fill-critical, #EA1100);
+}
+
+.valueLabel {
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 400;
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.4);
+  text-align: right;
+  min-width: fit-content;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .container {
+    gap: var(--ld-primitive-scale-space-75, 6px);
+  }
+  
+  .label,
+  .valueLabel {
+    font-size: 12px;
+  }
+}

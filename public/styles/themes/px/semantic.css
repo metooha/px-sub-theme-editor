@@ -1,0 +1,15 @@
+/**
+ * PX (Partner Experience) Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base (includes Developer) + Partner tokens
+ * CHILDREN: Data Ventures, PX Sam's Club, PX Walmart
+ *
+ * This theme includes Partner persona tokens for partner platforms
+ */
+
+:root {
+  /* Partner persona tokens included in PX theme */
+  /* Children like Data Ventures add specific brand colors */
+  /* Inherits base + developer tokens from LD Base */
+}

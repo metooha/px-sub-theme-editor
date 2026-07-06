@@ -1,0 +1,63 @@
+/* LD 3.5 DT Bulk Actions */
+
+/* ── Root container ──────────────────────────────────────────────────── */
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  background: var(--ld-semantic-color-fill-brand-subtle, #E6F1FC);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: 1px solid var(--ld-semantic-color-border-accent-blue, #0053E2);
+  flex-wrap: wrap;
+}
+
+/* ── Left group: icon + count + selection links ───────────────────────── */
+.leftGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  flex-wrap: wrap;
+}
+
+/* Checkmark icon — blue / activated color per Figma */
+.checkIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-medium, 24px);
+  height: var(--ld-semantic-scale-icon-medium, 24px);
+  color: var(--ld-semantic-color-text-activated, #002E99);
+  flex-shrink: 0;
+}
+
+.checkIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Count label — bold, blue/activated color per Figma */
+.countLabel {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: var(--ld-semantic-font-body-medium-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+  color: var(--ld-semantic-color-text-activated, #002E99);
+  white-space: nowrap;
+}
+
+/* Selection links (Select all, Clear selected) — flex with gap, no "|" */
+.selectionLinks {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-400, 32px);
+}
+
+/* ── Right group: action buttons ─────────────────────────────────────── */
+.actionsArea {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  flex-shrink: 0;
+}

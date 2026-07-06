@@ -1,0 +1,131 @@
+---
+description: Brand Shop Builder 3-panel page builder specification
+alwaysApply: false
+---
+# Brand Shop Builder — Skill & Requirements
+
+**When**: Building or modifying Brand Shop pages, modules, or shelf creation flows
+
+**Trigger phrases**: "Brand Shop", "shop builder", "brand page builder", "create a shop", "shelf page"
+
+---
+
+## Overview
+
+The Brand Shop Builder is a 3-panel page builder for creating and editing branded shop experiences. It consists of:
+
+1. **Module List** (left panel) — draggable list of shop modules (hero banner, category hub, skinny banner, item carousel)
+2. **Shop Preview** (center panel) — live preview of the assembled brand shop
+3. **Module Editor** (right panel) — context-sensitive editor for the selected module's configuration
+
+Additionally, a **Shelf Creation Dialog** allows inline creation of Shelf pages attached to a Brand Shop.
+
+---
+
+## File Structure
+
+All Brand Shop Builder files live under `client/features/brand-shop/`:
+
+| File | Purpose |
+|---|---|
+| `BrandShopBuilder.tsx` | Main page — shell layout (MastHead + AppSidebar) + 3-panel builder |
+| `BrandShopBuilder.module.css` | Page layout styles |
+| `ModuleList.tsx` | Left panel — draggable module list with template selector |
+| `ModuleList.module.css` | Module list styles |
+| `ShopPreview.tsx` | Center panel — live preview rendering of all modules |
+| `ShopPreview.module.css` | Preview styles |
+| `ModuleEditor.tsx` | Right panel — form editor for hero banner config |
+| `ModuleEditor.module.css` | Editor styles |
+| `ShelfCreationDialog.tsx` | Modal dialog for creating Shelf pages |
+| `ShelfCreationDialog.module.css` | Dialog styles |
+| `ShelfStatusTag.tsx` | Status tag component for shelf status display |
+| `mockData.ts` | Demo data for the builder |
+| `types.ts` | TypeScript interfaces for all data models |
+
+---
+
+## Mandatory Requirements
+
+### 1. Standard Shell Layout (No Exceptions)
+
+The Brand Shop Builder MUST use the standard page shell:
+
+
+<div className={styles.root}>
+  <MastHead currentSolution="Brand Shop Builder" />
+  <div className={styles.appRow}>
+    <AppSidebar menuItems={...} activeMenuItem={...} onMenuItemClick={...} />
+    <main className={styles.main}>
+      {/* page content */}
+    </main>
+  </div>
+</div>
+```
+
+Never render the builder as a standalone full-viewport page without MastHead and AppSidebar.
+
+### 2. Button Sizes
+
+- Footer action buttons (Create Shelf, Save as draft, Publish): `size="medium"` (default)
+- Dialog buttons (Cancel, Save as draft): `size="medium"` (default)
+- Preview inline buttons (Shop now, + Add): `size="small"` (compact preview context)
+- Buttons adjacent to `size="small"` form controls: `size="small"` to match
+
+### 3. Component Compliance
+
+All components MUST use LD 3.5 design system components:
+
+- Buttons: `<Button>` from `@/components/ui/Button`
+- Links: `<Link>` from `@/components/ui/Link`
+- Link buttons: `<LinkButton>` from `@/components/ui/LinkButton`
+- Icon buttons: `<IconButton>` from `@/components/ui/IconButton`
+- Icons: From `@/components/icons` (Drag, ExternalLink, X, etc.)
+- Form controls: `<TextField>`, `<TextArea>`, `<Select>`, `<Checkbox>` — all `size="small"`
+- Dividers: `<Divider>` from `@/components/ui/Divider`
+
+### 4. No Raw HTML Elements
+
+Never use:
+- Raw `<button>` — use `<Button>` or `<IconButton>`
+- Raw `<a>` — use `<Link>` or `<LinkButton>`
+- Inline SVG icons — use icons from `@/components/icons`
+- Raw `<input>` / `<select>` / `<textarea>` — use LD form components
+
+### 5. Design Tokens Only
+
+All styling must use semantic design tokens:
+- Colors: `var(--ld-semantic-color-*)`
+- Spacing: `var(--ld-primitive-scale-space-*)`
+- Typography: `var(--ld-semantic-font-*)`
+- Border radius: `var(--ld-primitive-scale-borderradius-*)`
+
+---
+
+## Module Types
+
+| Module Type | Component | Config Interface |
+|---|---|---|
+| Hero Banner | `HeroBannerPreview` | `HeroBannerConfig` |
+| Category Hub | `CategoryHubPreview` | `CategoryHubConfig` |
+| Skinny Banner | `SkinnyBannerPreview` | `SkinnyBannerConfig` |
+| Item Carousel | `ItemCarouselPreview` | `ItemCarouselConfig` |
+
+---
+
+## Navigation
+
+- **Route**: `/brand-shop`
+- **Dropdown**: Available in MastHead via MediaSolutionsDropdown (`templates.brandShopBuilder`)
+
+---
+
+## Extending the Builder
+
+When adding new module types:
+
+1. Add the type to `ShopModule['type']` union in `types.ts`
+2. Create a config interface in `types.ts`
+3. Add a preview component in `ShopPreview.tsx`
+4. Add editor support in `ModuleEditor.tsx`
+5. Add to the "Add section" dropdown in `ModuleList.tsx`
+6. Add mock data in `mockData.ts`

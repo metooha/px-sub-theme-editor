@@ -1,0 +1,141 @@
+---
+description: Guidelines and rules for callout
+alwaysApply: false
+---
+## Purpose
+A Callout displays **system-generated coaching/onboarding guidance** anchored to a specific interactive UI element. Use it to teach users about a feature or how to use a particular control without leaving the current screen.
+
+## Rules
+- **MUST** use the Living Design Callout component.
+- **MUST** be anchored to exactly one target element (a single interactive trigger).
+- **MUST** ensure the target element is independently understandable without the Callout.
+- **MUST** ensure Callout content clearly relates to the target element.
+- **MUST** provide a single trigger element via `trigger` (do not pass multiple children/targets).
+- **MUST** provide the trigger element’s ref to the Callout via `triggerRef` (for correct positioning/focus management).
+- **MUST** provide an accessible description for the Callout content via `a11yContentLabel`.
+- **MUST NOT** use Callout for information required to complete the current task (use an in-flow pattern instead).
+- **MUST NOT** use Callout for general information not tied to a specific UI element.
+- **MUST NOT** show Callout as a direct result of interacting with the target (e.g., “click to see more”). Use a [Popover](/components/popover/) instead.
+
+## Usage
+Use a Callout to display system-generated onboarding or coaching content targeted at a specific, interactive interface element.
+
+## Anatomy
+1. Layout container
+2. Container
+3. Text label
+4. Close button
+5. Nubbin (pointer to the target)
+
+## Variants
+### Position
+Callouts include a “nubbin” that points to the target. The Callout supports eight positions (names must match the component API):
+- `bottomCenter` (default)
+- `bottomLeft`
+- `bottomRight`
+- `left`
+- `right`
+- `topCenter`
+- `topLeft`
+- `topRight`
+
+Set the position using the `position` prop. Choose the placement that keeps the nubbin as close to the target’s center as possible while respecting screen margins.
+
+## States
+- Closed
+- Open
+
+## Behavior
+### Closing
+- The Callout remains on screen until the user explicitly closes it by either:
+  - Interacting with the Callout’s target element, or
+  - Activating the Callout’s Close button.
+- Scrolling the screen or tapping/clicking outside **MUST NOT** dismiss the Callout (this prevents assistive-technology users from losing the message before they can read it).
+- When the user closes a Callout with the Close button, focus **MUST** return to the target element.
+
+## Placement
+- Position the Callout so it does not obscure the target element or nearby critical UI.
+- Respect screen margins; if the preferred placement would collide with margins, choose the next-best nubbin position.
+
+## Accessibility
+To meet accessibility requirements, the Callout **MUST** be configured as follows:
+- Provide a **single** target element.
+- Provide a description of the Callout content using `a11yContentLabel`.
+- Provide the target element’s ref using `triggerRef`.
+- Ensure the Callout has a Close button that is keyboard reachable and has visible focus styling.
+
+Screen reader behavior note:
+- **MUST NOT** add `aria-label` to the target element while the Callout is open; some screen readers will announce the target’s `aria-label` instead of the Callout content.
+
+## Token usage
+- Prefer component defaults (Callout should be token-wired for color, typography, spacing, radius, elevation, and motion).
+- Only use tokens for layout around the Callout/trigger, not for restyling the Callout itself.
+
+## React usage (example)
+
+```tsx
+import * as React from "react";
+import { Callout } from "@/components/ui/Callout";
+
+export default function CalloutExample() {
+  const [isOpen, setIsOpen] = React.useState(true);
+
+  if (!isOpen) return null;
+
+  return (
+    <Callout
+      a11yContentLabel="Tip: This button creates a new project."
+      position="topRight"
+      onClose={() => setIsOpen(false)}
+    >
+      Create a project to organize your work. You can rename it anytime later.
+    </Callout>
+  );
+}
+```
+
+## Props reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | — | Content displayed inside the callout |
+| `position` | `CalloutPosition` | `'bottomCenter'` | Nubbin position (8 variants) |
+| `closable` | `boolean` | `true` | Whether the close button is shown |
+| `onClose` | `() => void` | — | Callback fired on close |
+| `a11yContentLabel` | `string` | — | Accessible description of the callout |
+| `UNSAFE_className` | `string` | — | Escape-hatch class name |
+| `UNSAFE_style` | `CSSProperties` | — | Escape-hatch inline styles |
+
+## Design tokens used
+
+| Property | Token | Fallback |
+|----------|-------|----------|
+| Background | `--ld-semantic-color-surface-inverse` | #2E2F32 |
+| Text | `--ld-semantic-color-text-inverse` | #FFFFFF |
+| Border radius | `--ld-primitive-scale-border-radius-100` | 8px |
+| Shadow | `--ld-semantic-elevation-200` | — |
+| Font family | `--ld-semantic-font-family-sans` | Everyday Sans UI |
+| Focus outline | `--ld-semantic-color-action-focus-outline` | #0071DC |
+
+## Best practices
+### Use when
+- Use when coaching users on product features or the usage of an interface element.
+
+### Don’t use when
+- Don’t use when the message contains information required for the user to complete their current task.
+- Don’t use when displaying general information not related to coaching users.
+- Don’t use when the information does not relate to a particular interface element.
+- Don’t use when displaying information as the result of interaction with an interface element. Use a [Popover](/components/popover/) component instead.
+
+## Do / Don’t
+### Do
+- Do use a single, button-like trigger element.
+- Do set `a11yContentLabel` so assistive tech has a clear description of the Callout content.
+- Do pass the same trigger element ref via `triggerRef`.
+- Do choose a `position` that avoids occluding the trigger or nearby critical UI.
+- Do use Callouts to coach users on new product features.
+
+### Don’t
+- Don’t pass multiple triggers or non-interactive targets.
+- Don’t add `aria-label` to the trigger while the Callout is open (screen readers may announce that instead of the Callout content).
+- Don’t use a Callout for task-generated content such as clicking a button to see more info or displaying the full value of truncated content.

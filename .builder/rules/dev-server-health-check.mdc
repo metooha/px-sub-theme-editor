@@ -1,0 +1,44 @@
+---
+description: Always check dev server health after code changes
+alwaysApply: false
+---
+# Rule: Dev Server Health Check
+
+**Priority**: CRITICAL - ALWAYS ENFORCE  
+**When**: After completing ANY code changes (component updates, style changes, new files, etc.)
+
+---
+
+## Rule
+
+After finishing a set of code changes, you MUST:
+
+1. **Check the dev server logs** using `DevServerControl` with `get_logs: true`
+2. **Look for errors** in the output (compilation errors, HMR failures, module not found, etc.)
+3. **Restart the dev server** if:
+   - There are any compilation or build errors
+   - HMR updates are not showing in the logs
+   - The user reports a blank page or inability to view the app
+4. **Confirm the page is loading** by verifying clean logs with no errors after restart
+
+## Why
+
+Vite HMR handles most file changes automatically, but certain changes (bad syntax in Tailwind arbitrary values, circular imports, deleted/moved files) can cause silent failures that result in a blank page. Proactively checking prevents the user from having to report the issue.
+
+## Checklist
+
+After every completed task:
+
+- [ ] Ran `DevServerControl` with `get_logs: true`
+- [ ] Verified no compilation errors in logs
+- [ ] Restarted if any errors were found
+- [ ] Confirmed clean startup after restart
+
+## Example
+
+
+// After making changes:
+1. DevServerControl({ get_logs: true })
+2. Check for errors in output
+3. If errors found → DevServerControl({ restart: true })
+4. Verify clean startup

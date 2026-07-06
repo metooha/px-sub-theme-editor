@@ -1,0 +1,155 @@
+---
+description: Guidelines and rules for new project agent prompt
+alwaysApply: false
+---
+# New Project Agent Prompt — Living Design 3.5
+
+Copy the block below into your Builder.io project's Custom Instructions (Settings → AI Instructions).
+
+---
+
+```
+This project uses the Living Design 3.5 (LD 3.5) design system. All UI must be built with LD components and semantic design tokens. No exceptions.
+
+## Tech Stack
+
+- React 18 + TypeScript + Vite
+- CSS Modules for all component styling
+- Living Design 3.5 component library (client/components/ui/)
+- Custom SVG icon library (client/components/icons/)
+- LD semantic CSS tokens (var(--ld-semantic-*))
+
+## Deployment
+
+Deploying is powered by Netlify or Vercel via MCP integrations. Use the appropriate MCP tools. Never ask the user to run terminal commands.
+
+## Component Rules — HARD RULES, NO EXCEPTIONS
+
+### Always search before creating
+
+Before writing any component, search client/components/ui/ and design-system-docs/ for an existing LD component. If one exists, use it. Do not create a custom alternative.
+
+### Never use Shadcn or Radix
+
+This project does NOT use Shadcn/UI or Radix UI. Do not import from @radix-ui/* or use lowercase Shadcn file patterns (button.tsx, dialog.tsx). All overlays, dialogs, and dropdowns use LD components.
+
+### Never modify LD components
+
+Do not edit any file in client/components/ui/. These are canonical. If a variation is needed, create a new wrapper component that composes the original — never fork it.
+
+### Import paths are always PascalCase
+
+import { Button } from '@/components/ui/Button';       ✅
+import { Button } from '@/components/ui/button';       ❌
+
+### Buttons
+
+Always use <Button variant="primary|secondary|tertiary|destructive" size="small|medium|large">.
+Default width hugs text. Use isFullWidth only if the design requires it.
+Never create raw <button> elements with styles.
+
+### Icons
+
+Always use icons from @/components/icons. Never create inline SVGs or import from lucide-react, heroicons, react-icons, or any external icon library.
+Icon prop syntax: style={{ width: 16, height: 16 }} — not size={16}.
+
+If a new icon is needed (only if it truly doesn't exist):
+- viewBox="0 0 20 20", strokeWidth="1.5", strokeLinecap="square", stroke="currentColor"
+- Place in client/components/icons/, export from index.tsx
+
+### Specific component rules
+
+- Checkboxes: <Checkbox> — never <input type="checkbox">. Use size="large" for confirmation dialogs.
+- Radios: <Radio> and <RadioGroup> — never <input type="radio"> or custom toggle groups.
+- Links: <Link> — never raw <a> tags or styled spans.
+- Tabs: <Tabs>, <TabList>, <Tab>, <TabPanel> — never custom tab implementations.
+- Tables: DataTable system (DataTable, DataTableHead, DataTableBody, DataTableRow, DataTableHeader, DataTableCell) — never <table> or div-based grids for tabular data.
+- Button groups: <ButtonGroup> — never manual flex containers for buttons.
+- Tags: <Tag> — never <span> with custom badge styles.
+- Overlays: LD portal-based Popover, Dialog, DropdownMenu — never custom absolute-positioned dropdowns.
+
+### Sidebar / navigation
+
+Always reuse the existing AppSidebar component. Never create a new sidebar, <aside>, or custom nav. Only swap out the menuItems prop per page.
+
+### Panels / Drawers
+
+All panels must be resizable: min 420px, max 800px, resize handle on the left edge, width persisted to localStorage.
+
+## Design Token Rules — CRITICAL
+
+Never use hard-coded colors, spacing, or typography. Always use var(--ld-semantic-*) tokens with a hex fallback.
+
+✅ color: var(--ld-semantic-color-text, #2e2f32);
+❌ color: #2e2f32;
+
+Common tokens:
+- Primary action fill:     --ld-semantic-color-action-fill-primary
+- Page text:               --ld-semantic-color-text
+- Subtle text:             --ld-semantic-color-text-subtle
+- Brand text:              --ld-semantic-color-text-brand
+- Page background:         --ld-semantic-color-background-subtle
+- Card surface:            --ld-semantic-color-surface
+- Separator:               --ld-semantic-color-separator
+- Error:                   --ld-semantic-color-text-negative
+- Success:                 --ld-semantic-color-text-positive
+- Focus outline:           --ld-semantic-color-action-focus-outline
+- Font family:             --ld-semantic-font-family-sans
+
+## Styling Rules
+
+- Always use CSS Modules (.module.css). Never use inline style={{}} for layout or colors.
+- Inline styles are only acceptable for truly dynamic computed values (e.g., a JS-calculated pixel width).
+- Spacing: 8px multiples, mapped to var(--ld-semantic-spacing-*) tokens.
+- Font: always var(--ld-semantic-font-family-sans) — never let text fall back to browser serif defaults.
+- Border radius: always var(--ld-semantic-border-radius-*) tokens.
+
+## Page Layout
+
+Every page uses this standard shell:
+
+<div className={styles.root}>        // full viewport, flex column
+  <MastHead />
+  <div className={styles.appRow}>    // flex row: sidebar + main
+    <AppSidebar menuItems={...} />
+    <main className={styles.main}>   // flex: 1, overflow-y: auto
+      {page content}
+    </main>
+  </div>
+</div>
+
+- Never use max-width constraints on page content containers.
+- Use align-items: stretch on flex column content areas — never center.
+- Content areas use flex: 1.
+
+Standard responsive breakpoints: 1024px (tablet), 768px (small tablet), 480px (phone).
+Padding reduces: 32px → 24px → 16px → 12px across breakpoints.
+
+## File Naming
+
+- UI components:    PascalCase   Button.tsx, Dialog.tsx
+- CSS modules:      PascalCase   Button.module.css
+- Pages:            PascalCase   Index.tsx, Catalog.tsx
+- Page CSS:         camelCase    detailItem.module.css
+- Hooks:            camelCase    useThemeEditor.ts
+- Context files:    PascalCase   ThemeContext.tsx
+- Icons:            PascalCase   ArrowRight.tsx
+- Token CSS files:  lowercase    semantic.css, primitive.css
+
+## File Organization
+
+Break complex pages into smaller files under client/features/[feature]/. A page that does too much in one file becomes hard to change. Split early and often.
+
+## Pre-commit Checklist
+
+Before completing any task:
+- No @radix-ui/* imports
+- No Shadcn patterns
+- No hard-coded hex colors
+- No hard-coded px spacing
+- No inline SVGs
+- No external icon libraries
+- No raw <button>, <a>, <table>, <input type="checkbox"> elements
+- No max-width on page content
+- All styles use var(--ld-semantic-*) tokens
+```

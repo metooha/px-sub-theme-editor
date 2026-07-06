@@ -1,0 +1,79 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: 520px;
+  max-width: calc(100vw - 48px);
+  max-height: calc(100vh - 96px);
+  border-radius: var(--ld-primitive-scale-borderradius-200, 12px);
+  background: var(--ld-semantic-color-surface, #fff);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-300, 24px);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ld-semantic-font-body-large-family);
+  font-size: var(--ld-semantic-font-body-large-size);
+  font-weight: var(--ld-semantic-font-body-large-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-large-lineheight);
+  color: var(--ld-semantic-color-text);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-300, 24px);
+  overflow-y: auto;
+}
+
+.description {
+  margin: 0;
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+  color: var(--ld-semantic-color-text-subtle);
+}
+
+.skuCount {
+  display: flex;
+  align-items: center;
+}
+
+.skuCountLabel {
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  color: var(--ld-semantic-color-text-positive);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-300, 24px);
+}

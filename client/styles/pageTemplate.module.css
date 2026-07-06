@@ -1,0 +1,259 @@
+/* ─── Root layout ─── */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* ─── Page content ─── */
+.pageContent {
+  padding: 24px 32px;
+}
+
+/* ─── Alert spacing ─── */
+.alertWrapper {
+  margin-bottom: 24px;
+}
+
+/* ─── Page title ─── */
+.pageTitle {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default, 700);
+  line-height: var(--ld-semantic-font-heading-large-lineheight, 1.25);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 24px;
+}
+
+/* ─── Action card row ─── */
+.actionRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ─── Spot icon ─── */
+.spotIcon {
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  border-radius: 50%;
+  background: var(--ld-semantic-color-fill-brand-subtle, #E9F1FE);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.actionTextGroup {
+  flex: 1;
+}
+
+.actionTitle {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 2px;
+}
+
+.actionDescription {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0;
+}
+
+/* ─── Hero card ─── */
+.heroCard {
+  border-radius: var(--ld-primitive-scale-borderradius-100, 8px);
+  background: linear-gradient(135deg,
+    var(--ld-semantic-color-fill-brand-bold, #001e60) 0%,
+    var(--ld-semantic-color-fill-brand, #0053e2) 100%);
+  padding: 40px 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 260px;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroCircle1 {
+  position: absolute;
+  top: -40px;
+  left: -20px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(100, 149, 237, 0.18);
+}
+
+.heroCircle2 {
+  position: absolute;
+  top: 10px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(100, 149, 237, 0.13);
+}
+
+.heroTitle {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: 800;
+  color: var(--ld-semantic-color-text-onfill-inverse, #ffffff);
+  margin: 0 0 8px;
+  position: relative;
+}
+
+.heroSubtitle {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-onfill-inverse, #ffffff);
+  opacity: 0.8;
+  margin: 0 0 24px;
+  position: relative;
+}
+
+.heroActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+/* ─── Secondary cards stack ─── */
+.secondaryStack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.secondaryCardRow {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.imagePlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background-color: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.secondaryCardText {
+  flex: 1;
+}
+
+.secondaryCardTitle {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 4px;
+}
+
+.secondaryCardDescription {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0 0 12px;
+}
+
+/* ─── Primary section header ─── */
+.primarySectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.primarySectionTitle {
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-small-size, 20px);
+  font-weight: var(--ld-semantic-font-heading-small-weight-default, 700);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+/* ─── Primary card ─── */
+.primaryCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.primaryCardImage {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.primaryCardTitle {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 8px;
+}
+
+.primaryCardDescription {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0 0 12px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .pageContent {
+    padding: 20px 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 16px;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .actionRow {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageContent {
+    padding: 12px;
+  }
+}

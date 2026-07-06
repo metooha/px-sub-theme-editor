@@ -1,0 +1,22 @@
+/* Rating Component Styles - Living Design 3.5 */
+
+.rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+}
+
+.star {
+  flex-shrink: 0;
+  display: inline-block;
+}
+
+.starSmall {
+  width: 12px;
+  height: 12px;
+}
+
+.starLarge {
+  width: 20px;
+  height: 20px;
+}

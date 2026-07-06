@@ -1,0 +1,92 @@
+---
+description: Guidelines and rules for list 1
+alwaysApply: false
+---
+## Purpose
+Lists present a continuous, vertical group of related information. They are composed of items that may include text and optional leading/trailing elements (icons/spot icons/images), and **should include at least one action**.
+
+## Rules
+- **MUST** ensure the List contains at least one action (per item or for the list as a whole).
+- **MUST** use documented item layouts only (leading/title/content/trailing as supported).
+- **MUST** keep leading/trailing elements meaningful; they should add context/clarity.
+- **MUST NOT** add repeating decorative elements (e.g., identical icons) purely for visual decoration.
+- **MUST NOT** use the List component for a simple vertical collection of single-line text. Use native HTML list semantics (`<ul>`, `<ol>`) or platform-native list patterns instead.
+- **MUST** support focus-visible and keyboard interaction for any interactive list items.
+- **MUST NOT** restyle List internals via custom CSS if the component already provides the styling.
+
+## Usage
+Use List when displaying a vertical collection of similar items that share context, especially when items:
+- Have a title + supporting content
+- Have optional leading/trailing affordances (e.g., icon, status, chevron)
+- Are actionable (row action, secondary action, navigation, etc.)
+
+## Variants
+Use documented List variants only (e.g., density, separators, leading/trailing configurations) as supported by your component API.
+
+## States
+If list items are interactive, support the documented interaction states:
+- Default
+- Hover/active (web)
+- Focus-visible
+- Disabled (if supported)
+
+## Accessibility
+- If the List is primarily **content**, ensure it exposes appropriate list semantics (e.g., list + listitem structure) as supported by the component.
+- If a list item is **clickable**, it **MUST** expose the correct interactive semantics (e.g., `button` for in-place actions, `link` for navigation) and have a clear accessible name.
+- Interactive elements inside a list item **MUST** be reachable by keyboard and have a visible focus indicator.
+- Avoid nested interactive controls that create ambiguous click targets; prefer one primary action per row unless the component explicitly supports secondary actions.
+
+## Token usage
+- Prefer component defaults (List should be token-wired for spacing, typography, separators, and states).
+- Only use tokens for layout around the List (spacing), not to restyle List items.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import { List, ListItem } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function Example() {
+  return (
+    <List aria-label="Settings">
+      <ListItem
+        title="Notifications"
+        content="Push and email preferences"
+        onClick={() => {}}
+      />
+      <ListItem
+        title="Security"
+        content="Password, MFA, and sessions"
+        onClick={() => {}}
+      />
+    </List>
+  );
+}
+```
+
+## Best practices
+### Use when
+- Use when displaying a vertical collection of similar items that have shared context.
+
+### Don’t use when
+- Don't use when displaying a vertical collection of single-line text. Consider using native ordered/unordered lists instead.
+
+## Do / Don’t
+### Do
+- Do include leading elements (such as icons) **only** if they add context and clarity to the List Title or the List Content.
+
+### Don’t
+- Don’t include repeating elements (such as icons) just for the sake of adding an arbitrary visual element.
+
+## Anatomy
+### List
+1. Container
+2. List Item
+3. Separator
+
+### List Item
+1. Container
+2. Leading (optional)
+3. Title (optional)
+4. Content
+5. Trailing (optional)

@@ -1,0 +1,242 @@
+---
+description: Guidelines and rules for card elevation rule
+alwaysApply: false
+---
+# Card Styling Rule - Elevation Over Borders
+
+## CRITICAL RULE: Cards Use Elevation, Not Borders
+
+All card components and card-like containers MUST use `box-shadow` (elevation) for visual separation instead of borders, following Living Design 3.5 principles.
+
+## Default Card Styling
+
+### ✅ CORRECT - Use Elevation
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: '8px',
+  boxShadow: 'var(--ld-semantic-elevation-100)', // ← Required for cards
+  padding: '32px'
+}}>
+  Card content
+</div>
+```
+
+```css
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  box-shadow: var(--ld-semantic-elevation-100); /* Default card elevation */
+  border-radius: var(--ld-semantic-border-radius-large);
+}
+```
+
+### ❌ WRONG - Don't Use Borders
+```tsx
+/* NEVER create cards with borders */
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: '8px',
+  border: '1px solid var(--ld-semantic-color-border-moderate)', // ❌ Wrong!
+  padding: '32px'
+}}>
+  Card content
+</div>
+```
+
+## Elevation Tokens
+
+| Token | Use Case | Visual Weight |
+|-------|----------|---------------|
+| `--ld-semantic-elevation-100` | **Default cards**, dropdowns, tooltips | Low elevation (subtle shadow) |
+| `--ld-semantic-elevation-200` | **Hovered cards**, raised panels | Medium elevation |
+| `--ld-semantic-elevation-300` | **Modals**, dialogs, important overlays | High elevation (prominent shadow) |
+
+### CSS Values
+```css
+--ld-semantic-elevation-100: 0 0.0625rem 0.125rem 0.0625rem #00000026, 0 -0.0625rem 0.125rem 0 #0000001a;
+--ld-semantic-elevation-200: 0 0.1875rem 0.3125rem 0.125rem #00000026, 0 -0.0625rem 0.1875rem 0 #0000001a;
+--ld-semantic-elevation-300: 0 0.3125rem 0.625rem 0.1875rem #00000026, 0 -0.0625rem 0.25rem 0 #0000001a;
+```
+
+## When to Use Elevation vs Borders
+
+### Use Elevation (box-shadow) for:
+- ✅ Cards (data display, content groups)
+- ✅ Panels (side panels, drawers)
+- ✅ Modals (dialogs, overlays)
+- ✅ Dropdown menus
+- ✅ Tooltips and popovers
+- ✅ Elevated content containers
+- ✅ Component library example containers
+
+### Borders ARE allowed for:
+- ✅ Form inputs (TextField, TextArea, Select)
+- ✅ Buttons (outlined variants)
+- ✅ Interactive state indicators (hover, focus, selected)
+- ✅ Dividers and separators (intentional lines)
+- ✅ When explicitly shown in Figma design
+- ✅ When user explicitly requests borders
+- ✅ Small containers showing individual items (color swatches, icon tiles)
+
+## Exceptions
+
+Borders on cards are ONLY permitted when:
+
+1. **Figma design shows a border** - Always match the design file
+2. **User explicitly requests** - "Add a blue border to this card"
+3. **Interactive states** - Focus ring, selected state outline
+4. **Nested cards** - Inner cards may use subtle borders for hierarchy
+5. **Error/Warning states** - Validation borders on card-like form groups
+
+## Component Library Pages
+
+All component library example pages MUST follow this pattern:
+
+```tsx
+export default function ComponentPage() {
+  return (
+    <div style={{ padding: '48px', maxWidth: '1400px', margin: '0 auto' }}>
+      {/* Header */}
+      <div style={{ marginBottom: '32px' }}>
+        <h1>Component Name</h1>
+        <p>Description</p>
+      </div>
+
+      {/* Example Container - Uses elevation, NOT border */}
+      <div style={{
+        backgroundColor: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)',
+        padding: '32px',
+        borderRadius: '8px',
+        boxShadow: 'var(--ld-semantic-elevation-100)' // ← Required
+      }}>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <ComponentExample />
+        </React.Suspense>
+      </div>
+    </div>
+  );
+}
+```
+
+## Card Component Usage
+
+The `Card` component from `@/components/ui/Card` automatically applies elevation:
+
+```tsx
+import { Card, CardHeader, CardContent, CardActions } from '@/components/ui/Card';
+
+// ✅ Correct - Card component includes elevation by default
+<Card size="small">
+  <CardHeader title="Card Title" />
+  <CardContent>Content here</CardContent>
+  <CardActions>
+    <Button>Action</Button>
+  </CardActions>
+</Card>
+```
+
+**Do NOT add borders to Card components:**
+```tsx
+// ❌ Wrong - Don't override with borders
+<Card UNSAFE_style={{ border: '1px solid #ccc' }}>
+  Content
+</Card>
+```
+
+## Interactive Card States
+
+Cards can change elevation on interaction:
+
+```tsx
+<div 
+  style={{
+    backgroundColor: 'var(--ld-semantic-color-surface)',
+    borderRadius: '8px',
+    boxShadow: 'var(--ld-semantic-elevation-100)',
+    padding: '24px',
+    cursor: 'pointer',
+    transition: 'box-shadow 0.2s ease'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.boxShadow = 'var(--ld-semantic-elevation-200)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.boxShadow = 'var(--ld-semantic-elevation-100)';
+  }}
+  onClick={handleClick}
+>
+  Click me - I elevate on hover!
+</div>
+```
+
+## Migration Pattern
+
+### Before (with border)
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  border: '1px solid var(--ld-semantic-color-border-moderate)',
+  borderRadius: '8px',
+  padding: '32px'
+}}>
+  Content
+</div>
+```
+
+### After (with elevation)
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  borderRadius: '8px',
+  padding: '32px'
+}}>
+  Content
+</div>
+```
+
+**Simple find-replace:**
+- Remove: `border: '1px solid var(--ld-semantic-color-border-moderate, #E6E6E8)'`
+- Add: `boxShadow: 'var(--ld-semantic-elevation-100)'`
+
+## Why Elevation Over Borders?
+
+1. **Material Design Principle** - Cards should appear to float above the surface
+2. **Visual Hierarchy** - Shadows create depth without adding visual clutter
+3. **Cleaner Aesthetic** - Modern, minimalist appearance
+4. **Living Design 3.5 Spec** - Official LD 3.5 cards use elevation
+5. **Better Focus States** - Borders reserved for interactive element states
+6. **Reduced Visual Noise** - Shadows are subtle; borders are hard lines
+
+## Enforcement
+
+When creating or modifying code:
+
+1. **Check for card patterns** - Any container that groups content
+2. **Remove borders** - Replace with elevation-100
+3. **Verify Figma** - If design shows border, keep it (exception)
+4. **Update existing** - Fix old cards when encountered
+5. **Document exceptions** - Comment why if border is intentional
+
+## Related Components
+
+These components also follow the elevation principle:
+
+- **Card** - `client/components/ui/Card.tsx`
+- **Modal** - Uses elevation-300 for high prominence
+- **Popover** - Uses elevation-200 for raised appearance
+- **Dropdown Menu** - Uses elevation-100 for floating menus
+- **Panel** - Uses elevation-100 for side panels
+
+## Reference
+
+- Full guidelines: `guidelines/Card.md`
+- Card component: `client/components/ui/Card.tsx`
+- Card styles: `client/components/ui/Card.module.css`
+- Elevation tokens: `client/styles/themes/base/semantic.css`
+
+---
+
+**Status**: ACTIVE - Enforce on all new cards and update existing cards when modified  
+**Last Updated**: February 15, 2026  
+**Scope**: All card components, elevated surfaces, content containers

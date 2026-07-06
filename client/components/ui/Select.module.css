@@ -1,0 +1,424 @@
+/**
+ * Living Design 3.5 Select Component Styles
+ * Uses LD 3.5 semantic design tokens for consistent styling
+ */
+
+/* ========================================
+   CONTAINER
+   ======================================== */
+.select {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  position: relative;
+}
+
+/* ========================================
+   LABEL
+   ======================================== */
+.labelContainer {
+  display: flex;
+  padding-bottom: var(--ld-primitive-scale-space-50, 4px);
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  align-self: stretch;
+  position: relative;
+}
+
+.label {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-style: normal;
+}
+
+/* Label size variants */
+.label--size-small {
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight, 133.333%);
+}
+
+.label--size-large {
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 142.857%);
+}
+
+.label--disabled {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+}
+
+.required {
+  color: var(--ld-semantic-color-text-negative, #ea1100);
+  margin-left: 2px;
+}
+
+/* ========================================
+   MAGIC ICON
+   ======================================== */
+.magicIcon {
+  flex-shrink: 0;
+}
+
+.magicIcon--small {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+}
+
+.magicIcon--large {
+  width: var(--ld-semantic-scale-icon-medium, 24px);
+  height: var(--ld-semantic-scale-icon-medium, 24px);
+}
+
+.magicIconSvg--disabled {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+}
+
+/* ========================================
+   TRIGGER (SELECT FIELD)
+   ======================================== */
+.trigger {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  align-self: stretch;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: var(--ld-semantic-scale-borderwidth-interactive, 1px) solid var(--ld-semantic-color-field-border, #BABBBE);
+  background: var(--ld-semantic-color-field-fill, #ffffff);
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  color: var(--ld-semantic-color-field-text-onfill, #2e2f32);
+}
+
+.trigger:hover:not([data-disabled]) {
+  border: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px) solid var(--ld-semantic-color-field-border-hovered, #909196);
+  background: var(--ld-semantic-color-field-fill-hovered, #ffffff);
+  padding: calc(var(--trigger-padding-vertical, 16px) - 1px) calc(var(--trigger-padding-horizontal, 16px) - 1px);
+}
+
+.trigger:focus-visible,
+.trigger[data-state="open"] {
+  outline: none;
+  border: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px) solid var(--ld-semantic-color-field-border-focused, #909196);
+  background: var(--ld-semantic-color-field-fill-focused, #ffffff);
+  padding: calc(var(--trigger-padding-vertical, 16px) - 1px) calc(var(--trigger-padding-horizontal, 16px) - 1px);
+}
+
+/* Trigger size variants */
+.trigger--size-small {
+  --trigger-padding-vertical: var(--ld-primitive-scale-space-100, 8px);
+  --trigger-padding-horizontal: var(--ld-primitive-scale-space-150, 12px);
+  padding: var(--trigger-padding-vertical) var(--trigger-padding-horizontal);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 142.857%);
+}
+
+.trigger--size-large {
+  --trigger-padding-vertical: var(--ld-primitive-scale-space-200, 16px);
+  --trigger-padding-horizontal: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--trigger-padding-vertical) var(--trigger-padding-horizontal);
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 150%);
+}
+
+/* Error state */
+.trigger--error {
+  border-color: var(--ld-semantic-color-field-border-negative, #ea1100);
+  background: var(--ld-semantic-color-field-fill-negative, #ffffff);
+}
+
+.trigger--error:hover:not([data-disabled]) {
+  border-color: var(--ld-semantic-color-field-border-negative-hovered, #ea1100);
+  background: var(--ld-semantic-color-field-fill-negative-hovered, #ffffff);
+}
+
+.trigger--error:focus-visible,
+.trigger--error[data-state="open"] {
+  border-color: var(--ld-semantic-color-field-border-negative-focused, #ea1100);
+  background: var(--ld-semantic-color-field-fill-focused, #ffffff);
+}
+
+/* Magic state */
+.trigger--magic {
+  border-color: var(--ld-semantic-color-field-border-magic, #0053E2);
+}
+
+.trigger--magic:hover:not([data-disabled]) {
+  border-color: var(--ld-semantic-color-field-border-magic-hovered, #0053E2);
+}
+
+.trigger--magic:focus-visible,
+.trigger--magic[data-state="open"] {
+  border-color: var(--ld-semantic-color-field-border-magic-focused, #0053E2);
+}
+
+/* Borderless state */
+.trigger--borderless {
+  border-color: transparent;
+  background: var(--ld-semantic-color-fill-surface-subtle, #F8F8F8);
+}
+
+.trigger--borderless:hover:not([data-disabled]) {
+  border: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px) solid var(--ld-semantic-color-field-border-hovered, #909196);
+}
+
+.trigger--borderless:focus-visible,
+.trigger--borderless[data-state="open"] {
+  border: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px) solid var(--ld-semantic-color-field-border-focused, #909196);
+}
+
+/* Disabled state */
+.trigger--disabled,
+.trigger[data-disabled] {
+  border-color: var(--ld-semantic-color-field-border-disabled, #babbbe);
+  background: var(--ld-semantic-color-field-fill-disabled, #ffffff);
+  color: var(--ld-semantic-color-field-text-onfill-disabled, #babbbe);
+  cursor: not-allowed;
+}
+
+.trigger--disabled:hover,
+.trigger[data-disabled]:hover {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive, 1px);
+  border-color: var(--ld-semantic-color-field-border-disabled, #babbbe);
+  padding: var(--trigger-padding-vertical) var(--trigger-padding-horizontal);
+}
+
+.trigger--error.trigger--disabled,
+.trigger--error[data-disabled] {
+  border-color: var(--ld-semantic-color-field-border-negative-disabled, #babbbe);
+  background: var(--ld-semantic-color-field-fill-negative-disabled, #ffffff);
+}
+
+/* ========================================
+   VALUE CONTAINER
+   ======================================== */
+.valueContainer {
+  display: flex;
+  align-items: center;
+  flex: 1 0 0;
+  overflow: hidden;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+}
+
+.leadingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-field-text-subtle-on-fill, #515357);
+}
+
+.trigger--disabled .leadingIcon,
+.trigger[data-disabled] .leadingIcon {
+  color: var(--ld-semantic-color-field-text-subtle-on-fill-disabled, #babbbe);
+}
+
+/* ========================================
+   CHEVRON ICON
+   ======================================== */
+.chevron {
+  width: var(--ld-semantic-scale-icon-medium, 24px);
+  height: var(--ld-semantic-scale-icon-medium, 24px);
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-field-text-onfill, #2e2f32);
+  transition: transform 0.2s ease;
+}
+
+.trigger[data-state="open"] .chevron {
+  transform: rotate(180deg);
+}
+
+.trigger--disabled .chevron,
+.trigger[data-disabled] .chevron {
+  color: var(--ld-semantic-color-field-text-onfill-disabled, #babbbe);
+}
+
+/* ========================================
+   DROPDOWN CONTENT
+   ======================================== */
+.content {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  max-height: 360px;
+  overflow: hidden;
+  overflow-y: auto;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: var(--ld-semantic-scale-borderwidth-interactive, 1px) solid var(--ld-semantic-color-separator, #E3E4E5);
+  background: var(--ld-semantic-color-background, #ffffff);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.12);
+  animation: slideDownAndFade 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content[data-side="top"] {
+  animation: slideUpAndFade 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Placeholder text */
+.placeholder {
+  color: var(--ld-semantic-color-field-text-subtle-on-fill, #74767c);
+}
+
+/* Highlighted item (keyboard navigation) */
+.item[data-highlighted="true"] {
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  outline: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: -2px;
+}
+
+.viewport {
+  padding: var(--ld-primitive-scale-space-100, 8px);
+}
+
+/* ========================================
+   SELECT ITEMS
+   ======================================== */
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-200, 16px);
+  padding-right: var(--ld-primitive-scale-space-500, 40px);
+  border-radius: var(--ld-primitive-scale-borderradius-25, 2px);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 142.857%);
+  color: var(--ld-semantic-color-text, #2e2f32);
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: background-color 0.1s ease;
+}
+
+.item:hover {
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+}
+
+.item:focus-visible {
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  outline: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: -2px;
+}
+
+.item[data-disabled] {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+  pointer-events: none;
+}
+
+.item[data-state="checked"] {
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+}
+
+.itemIndicator {
+  position: absolute;
+  right: var(--ld-primitive-scale-space-200, 16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-text, #2e2f32);
+}
+
+/* ========================================
+   SEPARATOR
+   ======================================== */
+.separator {
+  height: 1px;
+  margin: var(--ld-primitive-scale-space-100, 8px) 0;
+  background: var(--ld-semantic-color-border-subtlest, #74767c);
+}
+
+/* ========================================
+   GROUP LABEL
+   ======================================== */
+.groupLabel {
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight, 133.333%);
+  color: var(--ld-semantic-color-text-subtle, #515357);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================
+   ERROR MESSAGE
+   ======================================== */
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  align-self: stretch;
+  margin-top: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.errorIcon {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text-negative, #ea1100);
+}
+
+.errorText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text-negative, #ea1100);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight, 133.333%);
+}
+
+/* ========================================
+   HELPER TEXT
+   ======================================== */
+.helperText {
+  margin-top: var(--ld-primitive-scale-space-50, 4px);
+  color: var(--ld-semantic-color-text-subtle, #515357);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight, 133.333%);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes slideDownAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUpAndFade {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

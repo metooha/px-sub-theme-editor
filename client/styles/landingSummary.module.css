@@ -1,0 +1,152 @@
+/* ─── Root layout ─── */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* ─── Page inner ─── */
+.pageInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* ─── Page header ─── */
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  padding-top: var(--ld-primitive-scale-space-300, 24px);
+}
+
+.pageHeaderContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 0 var(--ld-primitive-scale-space-300, 24px);
+  min-height: 40px;
+}
+
+.pageTitle {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default, 700);
+  line-height: var(--ld-semantic-font-heading-large-lineheight, 1.25);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+  flex: 1;
+}
+
+.titleActions {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  flex-shrink: 0;
+}
+
+/* ─── Content area ─── */
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+  padding: var(--ld-primitive-scale-space-300, 24px) 0;
+}
+
+.contentContainer {
+  display: flex;
+  flex: 1;
+  gap: var(--ld-primitive-scale-space-300, 24px);
+  width: 100%;
+  padding: 0 var(--ld-primitive-scale-space-300, 24px);
+  align-items: stretch;
+}
+
+/* ─── Primary column ─── */
+.primaryColumn {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Secondary column ─── */
+.secondaryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  width: 320px;
+  flex-shrink: 0;
+}
+
+/* ─── Placeholder card ─── */
+.placeholderCard {
+  height: 415px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .secondaryColumn {
+    width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contentContainer {
+    flex-direction: column;
+    padding: 0 16px;
+  }
+
+  .pageHeaderContainer {
+    padding: 0 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .titleActions {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .secondaryColumn {
+    width: 100%;
+  }
+
+  .contentArea {
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeaderContainer {
+    padding: 0 12px;
+  }
+
+  .contentContainer {
+    padding: 0 12px;
+  }
+
+  .pageTitle {
+    font-size: 20px;
+  }
+}

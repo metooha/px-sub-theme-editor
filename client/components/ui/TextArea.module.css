@@ -1,0 +1,253 @@
+/* TextArea Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  width: 100%;
+}
+
+/* Label */
+.label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  cursor: pointer;
+}
+
+.labelText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+.labelDisabled {
+  color: var(--ld-semantic-color-text-disabled);
+}
+
+/* Magic Icon */
+.magicIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+}
+
+.magicIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.magicIcon svg path {
+  fill: var(--ld-semantic-color-text-magic-start, #0053E2);
+}
+
+/* When disabled, use disabled color */
+.labelDisabled .magicIcon svg path {
+  fill: var(--ld-semantic-color-text-disabled);
+}
+
+/* Magic label text — gradient using magic tokens */
+.labelTextMagic {
+  background: linear-gradient(
+    90deg,
+    var(--ld-semantic-color-text-magic-start, #0053E2),
+    var(--ld-semantic-color-text-magic-middle, #3D90EC),
+    var(--ld-semantic-color-text-magic-stop, #79CDF6)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.labelDisabled .labelTextMagic {
+  background: none;
+  -webkit-text-fill-color: var(--ld-semantic-color-text-disabled);
+}
+
+/* Textarea Base Styles */
+.textarea {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: var(--ld-semantic-scale-borderwidth-interactive, 1px) solid var(--ld-semantic-color-field-border);
+  background: var(--ld-semantic-color-field-fill);
+  color: var(--ld-semantic-color-field-text-onfill);
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight);
+  overflow: auto;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+.textarea::placeholder {
+  color: var(--ld-semantic-color-text-subtle);
+}
+
+.textarea:focus {
+  outline: none;
+}
+
+/* Size Variants */
+.textareaSmall {
+  height: 100px;
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-150, 12px);
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+}
+
+.textareaLarge {
+  height: 128px;
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight);
+}
+
+/* State: Hovered */
+.textarea:hover:not(:disabled):not(:read-only):not(:focus) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-hovered);
+  background: var(--ld-semantic-color-field-fill-hovered);
+}
+
+/* State: Focused */
+.textarea:focus-visible {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-focused);
+  background: var(--ld-semantic-color-field-fill-focused);
+}
+
+/* State: Disabled */
+.textareaDisabled {
+  border-width: var(--ld-semantic-scale-borderwidth-100, 1px);
+  border-color: var(--ld-semantic-color-field-border-disabled);
+  background: var(--ld-semantic-color-field-fill-disabled);
+  color: var(--ld-semantic-color-field-text-onfill-disabled);
+  cursor: not-allowed;
+}
+
+/* State: Read-only */
+.textareaReadonly {
+  border-color: var(--ld-semantic-color-field-border);
+  background: var(--ld-semantic-color-field-fill);
+  cursor: default;
+}
+
+/* Error State */
+.textareaError {
+  border-color: var(--ld-semantic-color-field-border-negative);
+  background: var(--ld-semantic-color-field-fill-negative);
+}
+
+.textareaError:hover:not(:disabled):not(:read-only):not(:focus) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-negative-hovered);
+  background: var(--ld-semantic-color-field-fill-negative-hovered);
+}
+
+.textareaError:focus-visible {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-negative-focused);
+  background: var(--ld-semantic-color-field-fill-negative-focused);
+}
+
+.textareaError.textareaDisabled {
+  border-color: var(--ld-semantic-color-field-border-negative-disabled);
+  background: var(--ld-semantic-color-field-fill-negative-disabled);
+}
+
+/* Magic State */
+.textareaMagic {
+  border-color: var(--ld-semantic-color-field-border-magic);
+}
+
+.textareaMagic:hover:not(:disabled):not(:read-only):not(:focus) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-magic-hovered);
+}
+
+.textareaMagic:focus-visible {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-magic-focused);
+}
+
+/* Helper/Error/Counter Row */
+.helperRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  align-self: stretch;
+}
+
+/* Helper Text */
+.helperText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text-subtle);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Error Container and Text */
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  flex: 1 0 0;
+}
+
+.errorIcon {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+  fill: var(--ld-semantic-color-text-negative);
+}
+
+.errorText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text-negative);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Character Counter */
+.counter {
+  display: flex;
+  align-items: flex-start;
+  color: var(--ld-semantic-color-text-subtle);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Screen reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

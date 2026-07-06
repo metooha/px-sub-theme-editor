@@ -1,0 +1,289 @@
+---
+description: Guidelines and rules for spinner
+alwaysApply: false
+---
+# Spinner
+
+Spinners inform users of processes including data retrieval, loading states, and saving. They visually express an undetermined wait time or unquantifiable task. The spinner dismisses when the process is completed.
+
+## Overview
+
+Spinners are non-interactive loading indicators used to show that a process is ongoing. They provide visual feedback to users that the system is working and they should wait for the operation to complete.
+
+**When to use:**
+- Loading page content or data
+- Processing form submissions
+- Uploading or downloading files
+- Any indeterminate wait time (when you can't show specific progress)
+
+**When not to use:**
+- For determinate processes (use Progress Bar instead)
+- For very short operations (< 300ms) - users won't perceive the delay
+- When you can show more specific progress information
+
+## Component API
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `a11yLabel` | `string` | `"Loading…"` | Accessible label for screen readers. Customize to describe what's loading. |
+| `color` | `'neutral' \| 'white'` | `'neutral'` | Color variant of the spinner. |
+| `size` | `'large' \| 'small'` | `'large'` | Size variant of the spinner. |
+| `spinnerProps` | `React.ComponentPropsWithoutRef<'svg'>` | - | Additional props to pass to the SVG element. |
+| `UNSAFE_className` | `string` | - | Override component styles (use sparingly). |
+| `UNSAFE_style` | `React.CSSProperties` | - | Override component styles (use sparingly). |
+
+## Variants
+
+### Size
+
+**Large (48×48px)** - Default size
+- Use for full-page loading states
+- Use when spinner is the primary focus
+- Use in large containers or empty states
+
+**Small (24×24px)**
+- Use inline with text
+- Use in buttons during loading states
+- Use in smaller UI components (cards, list items)
+- Use when space is constrained
+
+### Color
+
+**Neutral** - Default color using `--ld-semantic-color-loading` (#74767C)
+- Use on light backgrounds
+- Use on white or light gray surfaces
+- Default choice for most scenarios
+
+**White** - Uses `--ld-semantic-color-loading-white`
+- Use on dark backgrounds
+- Use over primary blue buttons
+- Use with scrim overlays on content
+- Use on colored backgrounds
+
+## Usage Examples
+
+### Basic Usage
+
+```tsx
+import { Spinner } from '@/components/ui/Spinner';
+
+// Default spinner (large, neutral)
+<Spinner />
+
+// Small spinner
+<Spinner size="small" />
+
+// White spinner for dark backgrounds
+<Spinner color="white" />
+```
+
+### Inline with Text
+
+```tsx
+<div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+  <Spinner size="small" />
+  <span>Loading your data…</span>
+</div>
+```
+
+### Button Loading State
+
+```tsx
+import { Button } from '@/components/ui/Button';
+import { Spinner } from '@/components/ui/Spinner';
+
+// Primary button
+<Button variant="primary" disabled>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <Spinner color="white" size="small" />
+    <span>Saving…</span>
+  </div>
+</Button>
+
+// Secondary button
+<Button variant="secondary" disabled>
+  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+    <Spinner size="small" />
+    <span>Processing…</span>
+  </div>
+</Button>
+```
+
+### Centered Loading State
+
+```tsx
+<div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '12px',
+  padding: '48px',
+  minHeight: '300px'
+}}>
+  <Spinner size="large" a11yLabel="Loading content…" />
+  <span>Loading content…</span>
+</div>
+```
+
+### Custom Accessibility Label
+
+```tsx
+// For specific actions
+<Spinner a11yLabel="Saving your changes…" />
+<Spinner a11yLabel="Uploading file…" />
+<Spinner a11yLabel="Processing payment…" />
+```
+
+### Over Existing Content (with Scrim)
+
+```tsx
+<div style={{ position: 'relative' }}>
+  {/* Your content */}
+  <div>...</div>
+  
+  {/* Loading overlay */}
+  {isLoading && (
+    <div style={{
+      position: 'absolute',
+      inset: 0,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 0.5)', // Scrim
+    }}>
+      <Spinner color="white" size="large" />
+    </div>
+  )}
+</div>
+```
+
+## Accessibility
+
+### Screen Reader Support
+
+- All spinners include `role="status"` to announce loading states
+- The `a11yLabel` prop provides context to screen reader users
+- Customize the label to describe what's loading:
+  ```tsx
+  <Spinner a11yLabel="Loading recommendations…" />
+  ```
+
+### Motion Preferences
+
+- Spinner respects `prefers-reduced-motion` media query
+- Animation duration is doubled for users who prefer reduced motion
+- This ensures accessibility for users with vestibular disorders
+
+### Implementation Notes
+
+- Do not use `aria-busy` (limited screen reader support per Living Design spec)
+- Always provide meaningful `a11yLabel` text for context
+- Ensure sufficient color contrast (handled automatically by semantic tokens)
+
+## Design Tokens
+
+The Spinner component uses Living Design 3.5 semantic tokens:
+
+| Token | Usage | Value |
+|-------|-------|-------|
+| `--ld-semantic-color-loading` | Neutral spinner color | #74767C |
+| `--ld-semantic-color-loading-white` | White spinner color | #FFFFFF |
+
+## Do's and Don'ts
+
+### ✅ Do
+
+- Use spinners for indeterminate loading states
+- Provide context with accompanying text when possible
+- Use the small size for inline and button loading states
+- Use the white color variant on dark backgrounds
+- Customize `a11yLabel` to describe what's loading
+- Use a scrim (semi-transparent overlay) when showing spinner over content
+
+### ❌ Don't
+
+- Don't use spinners for processes with known progress (use Progress Bar)
+- Don't use multiple spinners on the same screen simultaneously
+- Don't use spinners for very quick operations (< 300ms)
+- Don't use neutral color on dark backgrounds (insufficient contrast)
+- Don't use white color on light backgrounds (invisible)
+- Don't leave `a11yLabel` as default when you can be more specific
+
+## Common Patterns
+
+### 1. Page Loading
+
+```tsx
+{isLoading ? (
+  <div style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '400px',
+    gap: '16px'
+  }}>
+    <Spinner size="large" a11yLabel="Loading page content…" />
+    <p>Loading…</p>
+  </div>
+) : (
+  <YourContent />
+)}
+```
+
+### 2. Async Button Actions
+
+```tsx
+const [isSaving, setIsSaving] = useState(false);
+
+<Button 
+  variant="primary" 
+  disabled={isSaving}
+  onClick={async () => {
+    setIsSaving(true);
+    await saveData();
+    setIsSaving(false);
+  }}
+>
+  {isSaving ? (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+      <Spinner color="white" size="small" />
+      <span>Saving…</span>
+    </div>
+  ) : (
+    'Save'
+  )}
+</Button>
+```
+
+### 3. Inline Data Loading
+
+```tsx
+<div>
+  <h2>User Profile</h2>
+  {isLoading ? (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '16px' }}>
+      <Spinner size="small" />
+      <span>Loading profile data…</span>
+    </div>
+  ) : (
+    <UserProfileData data={data} />
+  )}
+</div>
+```
+
+## Related Components
+
+- **Progress Bar** - For determinate progress (when you know the percentage complete)
+- **Skeleton** - For loading states that preserve layout structure
+- **Button** - Often contains spinners during loading states
+- **Empty State** - Alternative when no data is available (vs. loading)
+
+## References
+
+- [Living Design Documentation](https://digitaltoolkit.livingdesign.walmart.com/components/spinner/)
+- Component Location: `client/components/ui/Spinner.tsx`
+- Example: `client/components/examples/SpinnerExample.tsx`

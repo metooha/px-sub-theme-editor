@@ -1,0 +1,250 @@
+/* DataTableConfigPanel — right-side overlay panel matching Figma design */
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 420px;
+  max-width: 100vw;
+  height: 100%;
+  background: var(--ld-semantic-color-surface-primary, #fff);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.10), 0 5px 10px 3px rgba(0, 0, 0, 0.15);
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  padding: 8px 8px 8px 24px;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.title {
+  flex: 1;
+  margin: 0;
+  padding: 6px 0;
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-small-size, 20px);
+  font-weight: 700;
+  line-height: var(--ld-semantic-font-heading-small-lineheight, 1.4);
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.closeButton {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex-shrink: 0;
+  transition: background 150ms ease;
+}
+
+.closeButton:hover {
+  background: var(--ld-semantic-color-fill-subtle, #F8F8F8);
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: var(--ld-semantic-color-separator, #E3E4E5);
+  flex-shrink: 0;
+}
+
+/* ── Content ── */
+.content {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px;
+  min-height: 0;
+}
+
+/* Select all / Clear selected */
+.actionsRow {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 400;
+  text-decoration: underline;
+  padding: 0;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.43);
+}
+
+.linkButton:hover {
+  color: var(--ld-semantic-color-text-brand-bold, #0071DC);
+}
+
+/* ── Column list ── */
+.columnList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  /* Scrollbars hidden globally — see client/global.css */
+}
+
+/* ── Column row ── */
+.columnRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 2px 0;
+  border-radius: 4px;
+  transition: background 100ms ease;
+}
+
+.columnRow[draggable='true'] {
+  cursor: grab;
+}
+
+.columnRow[draggable='true']:active {
+  cursor: grabbing;
+}
+
+.columnRowDragging {
+  opacity: 0.4;
+}
+
+.columnRowDragOver {
+  background: var(--ld-semantic-color-fill-brand-subtle, #E6F1FC);
+  border-radius: 4px;
+}
+
+.columnRowLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.columnLabel {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 700;
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.43);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.columnLabelDisabled {
+  color: var(--ld-semantic-color-text-disabled, #BABBBE);
+}
+
+.columnRowRight {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  padding: 2px 0;
+}
+
+/* ── Pin button ── */
+.pinButton {
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: none;
+  cursor: pointer;
+  /* Hidden by default; visible on row hover or when active */
+  color: transparent;
+  transition: color 120ms ease, background 120ms ease;
+  flex-shrink: 0;
+}
+
+/* Show pin icon on row hover (outline hint) */
+.columnRow:hover .pinButton:not(:disabled) {
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+/* Hover on the button itself: stronger color + bg */
+.pinButton:hover:not(:disabled) {
+  color: var(--ld-semantic-color-text, #2E2F32) !important;
+  background: var(--ld-semantic-color-fill-subtle, #F8F8F8);
+}
+
+/* Active / pinned state */
+.pinButtonActive {
+  color: var(--ld-semantic-color-text, #2E2F32) !important;
+}
+
+/* Spacer for unchecked rows so drag handle stays aligned */
+.pinButtonSpacer {
+  display: inline-flex;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* ── Drag handle ── */
+.dragHandle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex-shrink: 0;
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.columnRow:hover .dragHandle {
+  opacity: 1;
+}
+
+.dragHandleHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* ── Footer ── */
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 16px;
+  padding: 24px;
+  flex-shrink: 0;
+}

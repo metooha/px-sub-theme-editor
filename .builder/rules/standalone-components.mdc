@@ -1,0 +1,60 @@
+---
+description: Prohibit external UI libraries — all components must be standalone
+alwaysApply: false
+---
+# RULE: Standalone Components Only - No External Dependencies
+
+## Status: ENFORCED (Hard Rule)
+
+## Rule
+
+**ALL UI components MUST be standalone with ZERO external component library dependencies.**
+
+This means:
+- **NO** `@radix-ui/*` packages
+- **NO** `@headlessui/*` packages
+- **NO** `@chakra-ui/*` packages
+- **NO** `@mui/*` packages
+- **NO** `@mantine/*` packages
+- **NO** any other external UI primitive or component library
+
+## What IS Allowed
+
+- **React** and **React DOM** (core framework)
+- **CSS Modules** (`.module.css` files)
+- **Class Variance Authority (CVA)** for variant management
+- **clsx / tailwind-merge** for class name utilities
+- **Internal utilities** (`@/lib/utils`, `cn()`)
+- **Living Design 3.5 tokens** (CSS custom properties)
+- **Native HTML elements** with ARIA attributes
+- **React hooks and context** for state management
+
+## Why This Rule Exists
+
+1. **No vendor lock-in**: External libraries can be deprecated, have breaking changes, or become unmaintained
+2. **Bundle size control**: Only ship code we actually need
+3. **Full control**: We can fix bugs, add features, and customize behavior without waiting for upstream
+4. **Consistency**: All components follow the same patterns and conventions
+5. **Accessibility ownership**: We own and control our ARIA implementation
+
+## How to Build Standalone Components
+
+### Instead of Radix Primitives, Use:
+
+| Radix Pattern | Standalone Replacement |
+|---|---|
+| `Dialog` | Native `<div>` with `role="dialog"`, `aria-modal`, portal, focus trap |
+| `Popover` | Native `<div>` with positioning, click-outside, escape key handling |
+| `Select` | Custom listbox with `role="combobox"` + `role="listbox"` |
+| `Checkbox` | `<button role="checkbox">` with `aria-checked` |
+| `Tabs` | `role="tablist"` + `role="tab"` + `role="tabpanel"` |
+
+## Exceptions
+
+**NONE.** This rule has no exceptions.
+
+## Related Rules
+
+- `.builder/rules/RULE_CreateNewComponent.mdc` - Full component creation process
+- `.builder/rules/RULE_TokenUsageEnforcement.mdc` - All styling must use LD 3.5 tokens
+- `.builder/rules/RULE_DesignSystemEnforcement.mdc` - Design system compliance

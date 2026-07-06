@@ -1,0 +1,273 @@
+/* Base Tag Styles */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+  white-space: nowrap;
+}
+
+/* Leading Icon */
+.leading {
+  display: inline-flex;
+  flex-shrink: 0;
+  width: var(--ld-semantic-scale-icon-small);
+  height: var(--ld-semantic-scale-icon-small);
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Primary Variant - Filled backgrounds */
+.tagPrimary.colorBrand {
+  background: var(--ld-semantic-color-fill-brand);
+  color: var(--ld-semantic-color-text-on-fill-brand);
+}
+
+.tagPrimary.colorPositive {
+  background: var(--ld-semantic-color-fill-positive);
+  color: var(--ld-semantic-color-text-on-fill-positive);
+}
+
+.tagPrimary.colorNegative {
+  background: var(--ld-semantic-color-fill-negative);
+  color: var(--ld-semantic-color-text-on-fill-negative);
+}
+
+.tagPrimary.colorWarning {
+  background: var(--ld-semantic-color-fill-warning);
+  color: var(--ld-semantic-color-text-on-fill-warning);
+}
+
+.tagPrimary.colorInfo {
+  background: var(--ld-semantic-color-fill-info);
+  color: var(--ld-semantic-color-text-on-fill-info);
+}
+
+.tagPrimary.colorEdited {
+  background: var(--ld-semantic-color-fill-edited);
+  color: var(--ld-semantic-color-text-on-fill-edited);
+}
+
+.tagPrimary.colorBlue {
+  background: var(--ld-semantic-color-fill-accent-blue);
+  color: var(--ld-semantic-color-text-on-fill-accent-blue);
+}
+
+.tagPrimary.colorSpark {
+  background: var(--ld-semantic-color-fill-accent-spark);
+  color: var(--ld-semantic-color-text-on-fill-accent-spark);
+}
+
+.tagPrimary.colorGreen {
+  background: var(--ld-semantic-color-fill-accent-green);
+  color: var(--ld-semantic-color-text-on-fill-accent-green);
+}
+
+.tagPrimary.colorRed {
+  background: var(--ld-semantic-color-fill-accent-red);
+  color: var(--ld-semantic-color-text-on-fill-accent-red);
+}
+
+.tagPrimary.colorPurple {
+  background: var(--ld-semantic-color-fill-accent-purple);
+  color: var(--ld-semantic-color-text-on-fill-accent-purple);
+}
+
+.tagPrimary.colorGray {
+  background: var(--ld-semantic-color-fill-accent-gray);
+  color: var(--ld-semantic-color-text-on-fill-accent-gray);
+}
+
+.tagPrimary.colorCyan {
+  background: var(--ld-semantic-color-fill-accent-cyan);
+  color: var(--ld-semantic-color-text-on-fill-accent-cyan);
+}
+
+.tagPrimary.colorOrange {
+  background: var(--ld-semantic-color-fill-accent-orange);
+  color: var(--ld-semantic-color-text-on-fill-accent-orange);
+}
+
+.tagPrimary.colorPink {
+  background: var(--ld-semantic-color-fill-accent-pink);
+  color: var(--ld-semantic-color-text-on-fill-accent-pink);
+}
+
+.tagPrimary.colorYellow {
+  background: var(--ld-semantic-color-fill-accent-yellow);
+  color: var(--ld-semantic-color-text-on-fill-accent-yellow);
+}
+
+.tagPrimary.colorTeal {
+  background: var(--ld-semantic-color-fill-accent-teal);
+  color: var(--ld-semantic-color-text-on-fill-accent-teal);
+}
+
+/* Secondary Variant - Text only, transparent background */
+.tagSecondary {
+  background: transparent;
+}
+
+.tagSecondary.colorBrand {
+  color: var(--ld-semantic-color-text-brand-bold);
+}
+
+.tagSecondary.colorPositive {
+  color: var(--ld-semantic-color-text-positive-bold);
+}
+
+.tagSecondary.colorNegative {
+  color: var(--ld-semantic-color-text-negative-bold);
+}
+
+.tagSecondary.colorWarning {
+  color: var(--ld-semantic-color-text-warning-bold);
+}
+
+.tagSecondary.colorInfo {
+  color: var(--ld-semantic-color-text-info-bold);
+}
+
+.tagSecondary.colorEdited {
+  color: var(--ld-semantic-color-text-edited-bold);
+}
+
+.tagSecondary.colorBlue {
+  color: var(--ld-semantic-color-text-accent-blue-bold);
+}
+
+.tagSecondary.colorSpark {
+  color: var(--ld-semantic-color-text-accent-spark-bold);
+}
+
+.tagSecondary.colorGreen {
+  color: var(--ld-semantic-color-text-accent-green-bold);
+}
+
+.tagSecondary.colorRed {
+  color: var(--ld-semantic-color-text-accent-red-bold);
+}
+
+.tagSecondary.colorPurple {
+  color: var(--ld-semantic-color-text-accent-purple-bold);
+}
+
+.tagSecondary.colorGray {
+  color: var(--ld-semantic-color-text-accent-gray-bold);
+}
+
+.tagSecondary.colorCyan {
+  color: var(--ld-semantic-color-text-accent-cyan-bold);
+}
+
+.tagSecondary.colorOrange {
+  color: var(--ld-semantic-color-text-accent-orange-bold);
+}
+
+.tagSecondary.colorPink {
+  color: var(--ld-semantic-color-text-accent-pink-bold);
+}
+
+.tagSecondary.colorYellow {
+  color: var(--ld-semantic-color-text-accent-yellow-bold);
+}
+
+.tagSecondary.colorTeal {
+  color: var(--ld-semantic-color-text-accent-teal-bold);
+}
+
+/* Tertiary Variant - Subtle fill backgrounds */
+.tagTertiary.colorBrand {
+  background: var(--ld-semantic-color-fill-brand-subtle);
+  color: var(--ld-semantic-color-text-on-fill-brand-subtle);
+}
+
+.tagTertiary.colorPositive {
+  background: var(--ld-semantic-color-fill-positive-subtle);
+  color: var(--ld-semantic-color-text-on-fill-positive-subtle);
+}
+
+.tagTertiary.colorNegative {
+  background: var(--ld-semantic-color-fill-negative-subtle);
+  color: var(--ld-semantic-color-text-on-fill-negative-subtle);
+}
+
+.tagTertiary.colorWarning {
+  background: var(--ld-semantic-color-fill-warning-subtle);
+  color: var(--ld-semantic-color-text-on-fill-warning-subtle);
+}
+
+.tagTertiary.colorInfo {
+  background: var(--ld-semantic-color-fill-info-subtle);
+  color: var(--ld-semantic-color-text-on-fill-info-subtle);
+}
+
+.tagTertiary.colorEdited {
+  background: var(--ld-semantic-color-fill-edited-subtle);
+  color: var(--ld-semantic-color-text-on-fill-edited-subtle);
+}
+
+.tagTertiary.colorBlue {
+  background: var(--ld-semantic-color-fill-accent-blue-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-blue-subtle);
+}
+
+.tagTertiary.colorSpark {
+  background: var(--ld-semantic-color-fill-accent-spark-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-spark-subtle);
+}
+
+.tagTertiary.colorGreen {
+  background: var(--ld-semantic-color-fill-accent-green-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-green-subtle);
+}
+
+.tagTertiary.colorRed {
+  background: var(--ld-semantic-color-fill-accent-red-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-red-subtle);
+}
+
+.tagTertiary.colorPurple {
+  background: var(--ld-semantic-color-fill-accent-purple-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-purple-subtle);
+}
+
+.tagTertiary.colorGray {
+  background: var(--ld-semantic-color-fill-accent-gray-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-gray-subtle);
+}
+
+.tagTertiary.colorCyan {
+  background: var(--ld-semantic-color-fill-accent-cyan-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-cyan-subtle);
+}
+
+.tagTertiary.colorOrange {
+  background: var(--ld-semantic-color-fill-accent-orange-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-orange-subtle);
+}
+
+.tagTertiary.colorPink {
+  background: var(--ld-semantic-color-fill-accent-pink-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-pink-subtle);
+}
+
+.tagTertiary.colorYellow {
+  background: var(--ld-semantic-color-fill-accent-yellow-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-yellow-subtle);
+}
+
+.tagTertiary.colorTeal {
+  background: var(--ld-semantic-color-fill-accent-teal-subtle);
+  color: var(--ld-semantic-color-text-on-fill-accent-teal-subtle);
+}

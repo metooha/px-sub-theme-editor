@@ -1,0 +1,303 @@
+/* TextField Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  width: 100%;
+}
+
+/* Label */
+.label {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  align-self: stretch;
+  cursor: pointer;
+}
+
+.labelText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text);
+}
+
+/* Small size label (12px caption) */
+.inputContainerSmall ~ .label .labelText,
+.label:has(+ .inputContainerSmall) .labelText {
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Large size label (14px body-small) */
+.inputContainerLarge ~ .label .labelText,
+.label:has(+ .inputContainerLarge) .labelText {
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+}
+
+.labelDisabled {
+  color: var(--ld-semantic-color-text-disabled);
+}
+
+/* Magic Icon */
+.magicIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+}
+
+.magicIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.magicIcon svg path {
+  fill: var(--ld-semantic-color-text);
+}
+
+.magicIconDisabled {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+}
+
+.magicIconDisabled svg {
+  width: 100%;
+  height: 100%;
+}
+
+.magicIconDisabled svg path {
+  fill: var(--ld-semantic-color-text-disabled);
+}
+
+/* Input Container (holds leading icon + input + trailing content) */
+.inputContainer {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: var(--ld-semantic-scale-borderwidth-interactive, 1px) solid var(--ld-semantic-color-field-border);
+  background: var(--ld-semantic-color-field-fill);
+  overflow: hidden;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out, border-width 0.2s ease-in-out;
+}
+
+/* Size Variants for Container */
+.inputContainerSmall {
+  height: var(--ld-primitive-scale-space-500, 32px);
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding-left: var(--ld-primitive-scale-space-150, 12px);
+}
+
+.inputContainerSmall:has(.trailingContent) {
+  padding-right: 0;
+}
+
+.inputContainerSmall:not(:has(.trailingContent)) {
+  padding-right: var(--ld-primitive-scale-space-150, 12px);
+}
+
+.inputContainerLarge {
+  height: var(--ld-primitive-scale-space-700, 56px);
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  padding-left: var(--ld-primitive-scale-space-200, 16px);
+}
+
+.inputContainerLarge:has(.trailingContent) {
+  padding-right: 0;
+}
+
+.inputContainerLarge:not(:has(.trailingContent)) {
+  padding-right: var(--ld-primitive-scale-space-200, 16px);
+}
+
+/* State: Hovered */
+.inputContainer:hover:not(.inputContainerDisabled):not(:has(input:read-only)):not(:has(input:focus)) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-hovered);
+  background: var(--ld-semantic-color-field-fill-hovered);
+}
+
+/* State: Focused (when input inside is focused) */
+.inputContainer:has(input:focus-visible) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-focused);
+  background: var(--ld-semantic-color-field-fill-focused);
+}
+
+/* State: Disabled */
+.inputContainerDisabled {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive, 1px);
+  border-color: var(--ld-semantic-color-field-border-disabled);
+  background: var(--ld-semantic-color-field-fill-disabled);
+  cursor: not-allowed;
+}
+
+/* Error State */
+.inputContainerError {
+  border-color: var(--ld-semantic-color-field-border-negative);
+  background: var(--ld-semantic-color-field-fill-negative);
+}
+
+.inputContainerError:hover:not(.inputContainerDisabled):not(:has(input:read-only)):not(:has(input:focus)) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-negative-hovered);
+  background: var(--ld-semantic-color-field-fill-negative-hovered);
+}
+
+.inputContainerError:has(input:focus-visible) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-negative-focused);
+  background: var(--ld-semantic-color-field-fill-negative-focused);
+}
+
+.inputContainerError.inputContainerDisabled {
+  border-color: var(--ld-semantic-color-field-border-negative-disabled);
+  background: var(--ld-semantic-color-field-fill-negative-disabled);
+}
+
+/* Magic State */
+.inputContainerMagic {
+  border-color: var(--ld-semantic-color-field-border-magic);
+}
+
+.inputContainerMagic:hover:not(.inputContainerDisabled):not(:has(input:read-only)):not(:has(input:focus)) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-hovered, 2px);
+  border-color: var(--ld-semantic-color-field-border-magic-hovered);
+  background: var(--ld-semantic-color-field-fill-hovered);
+}
+
+.inputContainerMagic:has(input:focus-visible) {
+  border-width: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px);
+  border-color: var(--ld-semantic-color-field-border-magic-focused);
+  background: var(--ld-semantic-color-field-fill-focused);
+}
+
+/* Input Element */
+.input {
+  flex: 1 0 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ld-semantic-color-field-text-onfill);
+  min-width: 0;
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input::placeholder {
+  color: var(--ld-semantic-color-text-subtle);
+}
+
+.input:disabled {
+  color: var(--ld-semantic-color-field-text-onfill-disabled);
+  cursor: not-allowed;
+}
+
+.input:read-only {
+  cursor: default;
+}
+
+/* Small Size Input */
+.inputSmall {
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+}
+
+/* Large Size Input */
+.inputLarge {
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight);
+}
+
+/* Leading Icon */
+.leadingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text);
+}
+
+.inputContainerDisabled .leadingIcon {
+  color: var(--ld-semantic-color-field-text-onfill-disabled);
+}
+
+/* Trailing Content */
+.trailingContent {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+/* Helper/Error Row */
+.helperRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  align-self: stretch;
+}
+
+/* Helper Text */
+.helperText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text-subtle);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Error Container and Text */
+.errorContainer {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  flex: 1 0 0;
+}
+
+.errorIcon {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+  fill: var(--ld-semantic-color-text-negative);
+}
+
+.errorText {
+  flex: 1 0 0;
+  color: var(--ld-semantic-color-text-negative);
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+}
+
+/* Remove number input spinners for cleaner trailing content */
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input[type="number"] {
+  -moz-appearance: textfield;
+}

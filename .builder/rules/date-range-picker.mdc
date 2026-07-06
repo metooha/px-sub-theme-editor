@@ -1,0 +1,286 @@
+---
+description: Guidelines and rules for date range picker
+alwaysApply: false
+---
+# Date Range Picker
+
+## Overview
+
+The Date Range Picker is an LD 3.5 component for selecting a date range with start and end dates. It displays two calendars side-by-side for easy range selection and includes Cancel and Apply action buttons. The component follows Living Design 3.5 specifications and uses semantic design tokens throughout.
+
+## Component Location
+
+- **Component**: `client/components/ui/DateRangePicker.tsx`
+- **Styles**: `client/components/ui/DateRangePicker.module.css`
+- **Example**: `client/components/examples/DateRangePickerExample.tsx`
+- **Page**: `client/pages/component-library/DateRangePicker.tsx`
+
+## Usage
+
+```tsx
+import { DateRangePicker, DateRange } from '@/components/ui/DateRangePicker';
+
+function MyComponent() {
+  const [range, setRange] = useState<DateRange>();
+  
+  return (
+    <DateRangePicker
+      value={range}
+      onApply={setRange}
+      onCancel={() => console.log('cancelled')}
+    />
+  );
+}
+```
+
+## Features
+
+- **Dual Calendar View**: Two months displayed side-by-side for easy range selection
+- **Range Selection Visual States**:
+  - Start date: Blue circular border, white background
+  - End date: Filled blue circle, white text
+  - Dates in range: Light blue background
+- **Action Buttons**: Cancel and Apply buttons for confirming selection
+- **Week Numbers Support**: Optional week numbers column (WM WK)
+- **Responsive**: Stacks calendars vertically on smaller screens
+
+## Variants
+
+### Standard Week View (Sun-Sat)
+
+The default calendar view with weeks starting on Sunday.
+
+```tsx
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={handleCancel}
+  weekStartsOn={0}
+/>
+```
+
+### Week Numbers View (Sat-Fri)
+
+Calendar with week numbers displayed in the first column. Weeks start on Saturday.
+
+```tsx
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={handleCancel}
+  showWeekNumbers
+  weekStartsOn={6}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `DateRange` | - | Selected date range with `from` and `to` dates |
+| `onApply` | `(range?: DateRange) => void` | - | Callback when Apply button is clicked |
+| `onCancel` | `() => void` | - | Callback when Cancel button is clicked |
+| `disabled` | `((date: Date) => boolean) \| Date \| Date[]` | - | Disable specific dates |
+| `fromDate` | `Date` | - | Minimum selectable date |
+| `toDate` | `Date` | - | Maximum selectable date |
+| `showWeekNumbers` | `boolean` | `false` | Show week numbers column |
+| `weekStartsOn` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0` | First day of week (0=Sunday, 6=Saturday) |
+| `defaultMonth` | `Date` | - | Default month to display |
+| `labels` | `{ cancel?: string; apply?: string }` | `{ cancel: 'Cancel', apply: 'Apply' }` | Button labels |
+| `className` | `string` | - | Additional CSS class |
+| `UNSAFE_style` | `CSSProperties` | - | Inline styles (escape hatch) |
+
+## DateRange Interface
+
+```tsx
+interface DateRange {
+  from?: Date;
+  to?: Date;
+}
+```
+
+## Design Tokens
+
+The Date Range Picker uses the following LD 3.5 semantic tokens:
+
+### Colors
+
+- `--ld-semantic-color-surface` - Component background (#ffffff)
+- `--ld-semantic-color-action-fill-primary` - Selected end date fill (#0071dc)
+- `--ld-semantic-color-action-fill-primary-hovered` - Hover state (#0060b8)
+- `--ld-semantic-color-action-fill-subtle` - Range background (#e5f0ff)
+- `--ld-semantic-color-action-fill-subtle-hovered` - Range hover (#cce0ff)
+- `--ld-semantic-color-border-subtle` - Divider border (#e5e7e8)
+
+### Elevation
+
+- `--ld-semantic-elevation-100` - Component shadow
+
+### Spacing
+
+- `--ld-primitive-scale-space-200` (16px) - Component padding
+- `--ld-primitive-scale-space-300` (24px) - Calendar gap
+- `--ld-primitive-scale-space-150` (12px) - Button gap
+
+### Typography
+
+- `--ld-semantic-font-family-sans` - Font family (Everyday Sans UI)
+
+## Selection Behavior
+
+### How Range Selection Works
+
+1. **First click**: Sets the start date (`from`)
+2. **Second click**: Sets the end date (`to`)
+   - If clicked date is before start date, it becomes the new start date
+   - If clicked date is after start date, it becomes the end date
+3. **Third click**: Starts a new range selection
+
+### Visual States
+
+- **Start Date**: Blue circular border (2px), white background, dark text
+- **End Date**: Filled blue circle, white text
+- **Dates in Range**: Light blue background, dark text, no border
+- **Hover**: Subtle background on non-selected dates
+
+## Action Buttons
+
+### Apply Button
+
+- Disabled when range is incomplete (only `from` or only `to` set)
+- Enabled when both `from` and `to` dates are selected
+- Calls `onApply` with the selected range
+
+### Cancel Button
+
+- Always enabled
+- Resets selection to original `value`
+- Calls `onCancel` callback
+
+## Responsive Behavior
+
+```css
+@media (max-width: 768px) {
+  .calendars {
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+```
+
+On screens smaller than 768px, the two calendars stack vertically instead of side-by-side.
+
+## Accessibility
+
+- Both calendars are fully keyboard navigable
+- Apply button is disabled when range is incomplete
+- Date buttons have `aria-label` with full date
+- Selected dates have `aria-selected="true"`
+- Navigation buttons have descriptive `aria-label` attributes
+
+## Best Practices
+
+1. **Always provide callbacks**: Implement both `onApply` and `onCancel` handlers
+2. **Handle empty state**: Handle cases where user cancels or doesn't complete selection
+3. **Validate ranges**: Use `fromDate` and `toDate` to restrict selectable dates
+4. **Use with modals**: Typically used within a Popover or Dialog component
+5. **Consistent spacing**: Maintain standard padding around the component
+6. **Token compliance**: Never override colors with hard-coded values
+
+## Examples
+
+### Basic Range Selection
+
+```tsx
+const [range, setRange] = useState<DateRange>();
+
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={() => console.log('cancelled')}
+/>
+```
+
+### With Date Restrictions
+
+```tsx
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={handleCancel}
+  fromDate={new Date(2024, 0, 1)} // Jan 1, 2024
+  toDate={new Date(2024, 11, 31)} // Dec 31, 2024
+/>
+```
+
+### With Week Numbers
+
+```tsx
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={handleCancel}
+  showWeekNumbers
+  weekStartsOn={6} // Saturday
+/>
+```
+
+### Custom Button Labels
+
+```tsx
+<DateRangePicker
+  value={range}
+  onApply={setRange}
+  onCancel={handleCancel}
+  labels={{
+    cancel: 'Reset',
+    apply: 'Confirm',
+  }}
+/>
+```
+
+### In a Popover
+
+```tsx
+<Popover open={isOpen} onOpenChange={setIsOpen}>
+  <PopoverTrigger>
+    <Button>Select Date Range</Button>
+  </PopoverTrigger>
+  <PopoverContent>
+    <DateRangePicker
+      value={range}
+      onApply={(newRange) => {
+        setRange(newRange);
+        setIsOpen(false);
+      }}
+      onCancel={() => setIsOpen(false)}
+    />
+  </PopoverContent>
+</Popover>
+```
+
+## Related Components
+
+- **DatePickerCalendar** (`DatePickerCalendar.tsx`) - Single calendar component
+- **DatePicker** (`DatePicker.tsx`) - Text field + single calendar popover
+- **Button** (`Button.tsx`) - Action buttons (Cancel/Apply)
+
+## Component Architecture
+
+The DateRangePicker is built using:
+
+1. **DatePickerCalendar** (embedded variant) - Two instances for dual calendar view
+2. **Button** - Cancel and Apply action buttons
+3. **ChevronLeft/ChevronRight** - Navigation icons
+
+The component manages internal state for temporary range selection, only applying the range when the user clicks Apply.
+
+## Implementation Notes
+
+- Uses the `embedded` variant of DatePickerCalendar to avoid duplicate elevation/borders
+- First calendar shows navigation buttons, second calendar hides them
+- Range selection logic ensures `from` is always before `to`
+- Calendars are controlled to show consecutive months
+- Internal state (`tempRange`) allows Cancel to revert changes
+
+See `client/components/examples/DateRangePickerExample.tsx` for comprehensive usage examples.

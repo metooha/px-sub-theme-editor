@@ -1,0 +1,127 @@
+---
+description: Page layout shell, responsive breakpoints, and spacing rules
+alwaysApply: false
+---
+# Rule: Responsive Layout & Page Structure
+
+**When**: Creating ANY new page, view, or layout component
+
+**Enforcement Level**: CRITICAL — All new pages MUST follow these patterns
+
+---
+
+## Page Shell Structure
+
+Every page MUST use the standard shell: `MastHead` + `AppSidebar` + scrollable `<main>`.
+
+
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-fill-surface-subtle, #F8F8F8);
+}
+```
+
+---
+
+## Content Container
+
+All page content MUST fill the full available width within the shell. **Never use `max-width` constraints.**
+
+Use `align-items: stretch` (not `center`) on flex column containers that hold page content.
+
+---
+
+## Breakpoints
+
+Use these three breakpoints consistently. Do NOT invent new breakpoints.
+
+| Breakpoint | Target | Padding | Columns |
+|------------|--------|---------|---------|
+| `> 1024px` | Desktop | `24px–32px` | Full grid (3–4 cols) |
+| `<= 1024px` | Tablet | `20px–24px` | Reduced grid (2 cols) |
+| `<= 768px` | Small tablet | `16px` | Single column, stacked layout |
+| `<= 480px` | Phone | `12px` | Single column, compact |
+
+---
+
+## Grid Column Reduction
+
+```css
+/* 4-col → 2-col at 1024px → 1-col at 768px */
+.grid { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1024px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .grid { grid-template-columns: 1fr; } }
+```
+
+---
+
+## Spacing System (8px Hierarchy)
+
+All spacing MUST use multiples of 8px:
+
+| Use case | Value |
+|----------|-------|
+| Tight gap | `4px` or `8px` |
+| Standard gap | `12px` or `16px` |
+| Section spacing | `24px` |
+| Large section breaks | `32px` |
+| Page-level vertical rhythm | `48px` |
+
+---
+
+## Form Layouts
+
+Form rows must stack vertically at `768px`:
+
+```css
+.formRow { display: flex; gap: 16px; }
+@media (max-width: 768px) { .formRow { flex-direction: column; } }
+```
+
+---
+
+## Page Title Scaling
+
+```css
+.pageTitle { font-size: var(--ld-semantic-font-heading-large-size, 32px); }
+@media (max-width: 768px) { .pageTitle { font-size: 24px; } }
+```
+
+---
+
+## Checklist for New Pages
+
+- [ ] Uses standard shell (MastHead + AppSidebar + scrollable main)
+- [ ] Content fills full available width (no max-width constraints)
+- [ ] Padding reduces at each breakpoint (32 → 24 → 16 → 12)
+- [ ] Multi-column layouts stack at `768px`
+- [ ] Card grids reduce columns at `1024px` and `768px`
+- [ ] Page title scales to `24px` at `768px`
+- [ ] Form rows stack vertically at `768px`
+- [ ] All spacing uses 8px multiples
+- [ ] All colors use LD semantic tokens
+
+---
+
+## Common Violations
+
+```css
+/* WRONG — max-width constrains content */
+.page { max-width: 1280px; margin: 0 auto; }
+
+/* CORRECT — full width within shell */
+.page { width: 100%; padding: 24px; }

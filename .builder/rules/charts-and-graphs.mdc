@@ -1,0 +1,142 @@
+---
+description: Mandatory LD semantic chart tokens for all visualizations
+alwaysApply: false
+---
+# Rule: Charts and Graphs
+
+## When
+
+Any time a chart, graph, or data visualization is created, modified, or reviewed.
+
+## Enforcement Level
+
+**CRITICAL** — No exceptions. All data visualization colors must use LD semantic chart tokens.
+
+---
+
+## Token Palette
+
+The design system provides **8 categorical chart tokens**. These are the ONLY colors permitted for chart series, segments, bars, lines, areas, and data points.
+
+| Token | Purpose | Fallback |
+|---|---|---|
+| `--ld-semantic-color-chart-categorical-1` | Series 1 (blue) | `#002e99` |
+| `--ld-semantic-color-chart-categorical-2` | Series 2 (pink) | `#df74b1` |
+| `--ld-semantic-color-chart-categorical-3` | Series 3 (spark/gold) | `#cc851a` |
+| `--ld-semantic-color-chart-categorical-4` | Series 4 (cyan) | `#0092db` |
+| `--ld-semantic-color-chart-categorical-5` | Series 5 (orange) | `#af2f00` |
+| `--ld-semantic-color-chart-categorical-6` | Series 6 (purple) | `#a184b2` |
+| `--ld-semantic-color-chart-categorical-7` | Series 7 (green) | `#3f931c` |
+| `--ld-semantic-color-chart-categorical-8` | Series 8 (magenta) | `#b1267d` |
+
+### Assignment Order
+
+Always assign tokens in numeric order starting at 1. If a chart has 3 series, use tokens 1, 2, and 3 — never skip or reorder.
+
+---
+
+## Required Architecture
+
+All charts MUST use the existing `ChartContainer` + `ChartConfig` system from `@/components/ui/Chart`.
+
+
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  ChartLegend,
+  ChartLegendContent,
+  type ChartConfig,
+} from '@/components/ui/Chart';
+```
+
+---
+
+## Correct Usage
+
+```tsx
+// CORRECT — use LD semantic chart tokens with fallbacks
+const chartConfig: ChartConfig = {
+  impressions: {
+    label: 'Impressions',
+    color: 'var(--ld-semantic-color-chart-categorical-1, #002e99)',
+  },
+  clicks: {
+    label: 'Clicks',
+    color: 'var(--ld-semantic-color-chart-categorical-2, #df74b1)',
+  },
+};
+```
+
+---
+
+## Prohibited Patterns
+
+### Never Hard-Code Chart Colors
+
+```tsx
+// WRONG — hard-coded hex
+const config: ChartConfig = {
+  revenue: { label: 'Revenue', color: '#0071DC' },
+};
+
+// WRONG — Tailwind/CSS classes for chart fills
+<Bar dataKey="revenue" className="fill-blue-500" />
+```
+
+### Never Use Legacy `--chart-*` Tokens
+
+```tsx
+// WRONG
+color: 'var(--chart-1)'
+
+// CORRECT
+color: 'var(--ld-semantic-color-chart-categorical-1, #002e99)'
+```
+
+### Never Bypass ChartContainer
+
+```tsx
+// WRONG — raw Recharts without ChartContainer
+<ResponsiveContainer>
+  <LineChart data={data}>
+    <Line stroke="#0071DC" />
+  </LineChart>
+</ResponsiveContainer>
+
+// CORRECT — always wrap in ChartContainer
+<ChartContainer config={chartConfig}>
+  <LineChart data={data}>
+    <Line stroke="var(--color-series1)" />
+  </LineChart>
+</ChartContainer>
+```
+
+---
+
+## Charting Library
+
+**Recharts** is the only approved charting library. Never install or import: `chart.js`, `d3` (for rendering), `nivo`, `visx`, `victory`, `highcharts`, `apexcharts`.
+
+---
+
+## Required Chart Features
+
+Every chart MUST include:
+
+1. **Tooltip** — `<ChartTooltip content={<ChartTooltipContent />} />`
+2. **Legend** — `<ChartLegend content={<ChartLegendContent />} />` when 2+ series
+3. **Responsive sizing** — ChartContainer handles this
+4. **`prefers-reduced-motion`** — Disable chart entry animations when user prefers reduced motion
+
+---
+
+## Pre-Completion Checklist
+
+- [ ] All chart series colors use `--ld-semantic-color-chart-categorical-{1-8}` tokens
+- [ ] Colors assigned in sequential order (1, 2, 3...) — no gaps
+- [ ] ChartContainer + ChartConfig pattern used (no raw Recharts)
+- [ ] No hard-coded hex, RGB, or color names on any chart element
+- [ ] Tooltip included
+- [ ] Legend included (when 2+ series)
+- [ ] Theme switch verified — chart colors adapt correctly

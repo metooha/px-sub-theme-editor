@@ -1,0 +1,36 @@
+{
+  "dashboard": {
+    "screenshot": "https://cdn.builder.io/api/v1/image/assets%2F02297b1ff48d4a2f8e4d9ed415c47ecf%2Fc3a06f6f42ec4f12933aad1327cc0377",
+    "chart": "https://cdn.builder.io/api/v1/image/assets%2F02297b1ff48d4a2f8e4d9ed415c47ecf%2Ff5cdb3639c9b4824903691b17827989a",
+    "description": "Main dashboard screenshot showing campaign analytics"
+  },
+  "icons": {
+    "calendar": {
+      "url": "https://api.builder.io/api/v1/image/assets/TEMP/d9a81b2a7bb3dfdd5e2c469c8253220e869a1119",
+      "size": "16x16",
+      "description": "Calendar icon for date selection"
+    },
+    "chevronDown": {
+      "url": "https://api.builder.io/api/v1/image/assets/TEMP/ad9070864ceb13f3f71f85b6653ff2d30635be9f",
+      "size": "16x16",
+      "description": "Chevron down icon for dropdowns"
+    },
+    "alert": {
+      "url": "https://api.builder.io/api/v1/image/assets/TEMP/eba9c836fc8540b60609a632b74b284ef2c689b9",
+      "size": "48x48",
+      "description": "Alert icon for recommendations"
+    },
+    "lightning": {
+      "url": "https://api.builder.io/api/v1/image/assets/TEMP/9c45272a9799064fc27164fd23ecbece5d885598",
+      "size": "48x48",
+      "description": "Lightning/panel icon for recommendations"
+    }
+  },
+  "productPreviews": {
+    "items": {
+      "url": "https://api.builder.io/api/v1/image/assets/TEMP/7455309de67a3c164e789c5cadc34c0c8b745dab",
+      "size": "424x48",
+      "description": "Product preview thumbnails for recommended items"
+    }
+  }
+}

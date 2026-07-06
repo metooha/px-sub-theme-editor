@@ -1,0 +1,82 @@
+/* Nudge Component - Living Design 3.5 */
+
+.nudge {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  background-color: var(--ld-semantic-color-surface-brand, #F0F5FF);
+  border-radius: var(--ld-primitive-scale-borderradius-100, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+}
+
+/* Leading Section (Spot Icon) */
+.leading {
+  display: flex;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+/* Content Wrapper (Title + Content + Actions) */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  flex: 1 0 0;
+  min-width: 0; /* Allow text truncation if needed */
+}
+
+.headerContent {
+  display: flex;
+  align-items: flex-start;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  flex: 1;
+  font-family: var(--ld-semantic-font-body-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-large-size, 18px);
+  font-weight: var(--ld-semantic-font-body-large-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-large-lineheight, 1.333);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  word-wrap: break-word;
+}
+
+/* Content Section */
+.content {
+  align-self: stretch;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.428);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  word-wrap: break-word;
+}
+
+/* Actions Section */
+.actions {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+  min-height: 32px;
+}
+
+/* Close Button - positioning only; styling handled by IconButton component */
+.closeButton {
+  flex-shrink: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .nudge {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--ld-primitive-scale-space-200, 8px);
+  }
+}

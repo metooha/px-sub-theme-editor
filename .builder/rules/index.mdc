@@ -1,0 +1,127 @@
+---
+description: Guidelines and rules for index
+alwaysApply: false
+---
+# Living Design 3.5 Guidelines
+
+This directory contains comprehensive documentation for the Living Design 3.5 design system implementation.
+
+## Directory Structure
+
+### 📁 components/
+Component-specific guidelines and specifications for all Living Design 3.5 components.
+
+**Core Components:**
+- [Badge](components/Badge.md) - Notification badges and count indicators
+- [Breadcrumb](components/Breadcrumb.md) - Navigation breadcrumb trails
+- [Button](components/Button.md) - Primary, secondary, tertiary, and destructive buttons
+- [Callout](components/Callout.md) - Tooltips with nubbin positioning
+- [Card](components/Card.md) - Content container cards
+- [Checkbox](components/Checkbox.md) - Form checkboxes with indeterminate state
+- [Chip](components/Chip.md) - Interactive selection chips
+- [FilterChip](components/FilterChip.md) - Filter selection pills with counts
+
+**Input Components:**
+- [DateField](components/DateField.md) - Date input fields
+- [Select](components/Select.md) - Dropdown selectors
+- [TextArea](components/TextArea.md) - Multi-line text inputs
+- [TextField](components/TextField.md) - Single-line text inputs
+- [Form-Group](components/Form-Group.md) - Form field grouping
+
+**Navigation & Actions:**
+- [IconButton](components/IconButton.md) - Icon-only action buttons
+- [Link](components/Link.md) - Hyperlinks and text links
+- [Link-Button](components/Link-Button.md) - Link-styled buttons
+- [Menu](components/Menu.md) - Dropdown menus
+
+**Feedback & Messaging:**
+- [Banner](components/Banner.md) - Page-level banners
+- [Content-Message](components/Content-Message.md) - Content state messages
+- [Modal](components/Modal.md) - Dialog modals
+- [Nudge](components/Nudge.md) - Nudge notifications
+
+**Layout & Structure:**
+- [Bottom-Sheet](components/Bottom-Sheet.md) - Mobile bottom sheets
+- [Divider](components/Divider.md) - Content dividers
+- [List](components/List.md) - List components
+- [Magic-Box](components/Magic-Box.md) - Magic box container
+- [Panel](components/Panel.md) - Resizable side panels
+- [Popover](components/Popover.md) - Popover overlays
+
+**Data Display:**
+- [Metric](components/Metric.md) - Metric displays
+- [Tag](components/Tag.md) - Status and category tags
+
+### 📁 design-system/
+Core design system documentation and token references.
+
+- [DesignTokens.md](design-system/DesignTokens.md) - Complete design token reference
+- [design-tokens-overview.md](design-system/design-tokens-overview.md) - Token system overview
+- [tokens.md](design-system/tokens.md) - Token usage guide
+- [Color.md](design-system/Color.md) - Color system and palette
+- [typography.md](design-system/typography.md) - Typography system
+- [Component-Inventory.md](design-system/Component-Inventory.md) - Available components inventory
+- [LivingDesign-Component-Reference.md](design-system/LivingDesign-Component-Reference.md) - Component reference
+- [Guidelines.md](design-system/Guidelines.md) - General development guidelines
+- [Guidelines-react.md](design-system/Guidelines-react.md) - React-specific guidelines
+- [css-variables-source.md](design-system/css-variables-source.md) - CSS variables reference
+- [component-visibility.md](design-system/component-visibility.md) - Component visibility states
+- [overview-components.md](design-system/overview-components.md) - Components overview
+
+### 📁 implementations/
+Completed component implementation summaries and documentation.
+
+- [ATTRIBUTION-DROPDOWN-SUMMARY.md](implementations/ATTRIBUTION-DROPDOWN-SUMMARY.md) - Attribution filter implementation
+- [COMPONENT-CONSOLIDATION-SUMMARY.md](implementations/COMPONENT-CONSOLIDATION-SUMMARY.md) - Button standardization
+- [LD-TAG-IMPLEMENTATION-SUMMARY.md](implementations/LD-TAG-IMPLEMENTATION-SUMMARY.md) - Tag component implementation
+
+### 📁 migrations/
+Migration plans and standardization documentation for transitioning to Living Design 3.5.
+
+- [Button Standardization Summary](migrations/BUTTON-STANDARDIZATION-SUMMARY.md)
+- [IconButton Migration Plan](migrations/ICONBUTTON_MIGRATION_PLAN.md)
+- [Living Design Migration Assessment](migrations/LIVING-DESIGN-MIGRATION-ASSESSMENT.md)
+- [Table Standardization Plan](migrations/PLAN_TABLE_STANDARDIZATION.md)
+- [UI Component Replacement Plan](migrations/UI-COMPONENT-REPLACEMENT-PLAN.md)
+- [Theme Switcher Plan](migrations/THEME_SWITCHER_PLAN.md)
+
+### 📁 Project Documentation
+- [AGENTS.md](AGENTS.md) - Fusion Starter project documentation and tech stack
+
+### 📁 rules/
+Design system enforcement rules and best practices.
+
+- [Rules Index](rules/RULES_INDEX.md) - Overview of all design system rules
+- [**Create New Component**](rules/RULE_CreateNewComponent.md) - **Complete process for new components**
+- [Design System Enforcement](rules/RULE_DesignSystemEnforcement.md) - Component usage rules
+- [Design Token Enforcement](rules/RULE_DesignTokenEnforcement.md) - Token usage requirements
+- [**Token Usage Enforcement**](rules/RULE_TokenUsageEnforcement.md) - **HARD RULE: All components must use tokens**
+- [**Component Sandbox**](rules/RULE_ComponentPropertyTester.md) - **HARD RULE: All components must be testable**
+- [**No Emojis, Use Icons**](rules/RULE_NoEmojisUseIcons.md) - **HARD RULE: No emojis or random images**
+- [Icon Usage](rules/RULE_IconUsage.md) - Icon library usage guidelines
+- [Theme Switcher](rules/RULE_ThemeSwitcher.md) - Theme management rules
+- [Theme Addition](rules/RULE_ThemeAddition.md) - Process for adding new themes
+- [Markdown Organization](rules/RULE_MarkdownOrganization.md) - Markdown file organization
+- [**Internationalization (i18n)**](Internationalization.md) - **HARD RULE: All user-facing strings must be translatable**
+- [**Design System Terminology**](DesignSystemTerminology.md) - **Official translation standard for all LD 3.5 terms (EN/ES/FR)**
+
+## Quick Links
+
+- 🎨 **Design Tokens**: Start with [design-system/DesignTokens.md](design-system/DesignTokens.md)
+- 🧱 **Components**: Browse [components/](components/)
+- 🔄 **Migrations**: See [migrations/](migrations/)
+- ✅ **Rules**: Check [rules/](rules/)
+- 📝 **Implementations**: Review [implementations/](implementations/)
+- 🎨 **Design System**: Explore [design-system/](design-system/)
+
+## Getting Started
+
+1. **For new components**: Read the component-specific guide in `components/`
+2. **For design tokens**: Reference `design-system/DesignTokens.md`
+3. **For migrations**: Check `migrations/` for transition plans
+4. **For best practices**: Review files in `rules/`
+5. **For implementation examples**: See `implementations/`
+
+---
+
+Last updated: 2025-02-14

@@ -1,0 +1,88 @@
+---
+description: Guidelines and rules for guidelines
+alwaysApply: false
+---
+## What this is
+This folder is the **Living Design Agent Kit**: agent-readable rules that help tools like **Figma Make** generate UI that correctly uses Living Design.
+
+## 🚀 Quick Start: Component Reference
+**NEW: Complete Living Design component API reference:**
+👉 **`LivingDesign-Component-Reference.md`** 👈
+
+This comprehensive guide includes:
+- All Living Design component imports from `@livingdesign/react`
+- Complete prop definitions and types for each component
+- Required vs optional props
+- Component variants and usage guidance
+- 40+ components documented
+
+## ⚠️ REQUIRED: Pre-Implementation Checklist
+**Before implementing ANYTHING, agents MUST complete the checklist in:**
+👉 **`Agent-Implementation-Checklist.md`** 👈
+
+This checklist ensures you:
+1. Check for existing Living Design components FIRST
+2. Use design tokens instead of hardcoded values
+3. Follow all guideline rules
+4. Avoid creating duplicate/ad-hoc components
+
+## Non-negotiables (agents MUST follow)
+- **Use existing Living Design components first**. Do not re-implement common UI primitives (Button, Input, Modal, etc.) if a Living Design component exists.
+  - ✅ **Before writing ANY component code**: Check `/guidelines/[ComponentName].md` 
+  - ✅ **Before using any color/spacing**: Check the design token guidelines
+- **Use Living Design tokens (CSS variables) for all visual styling**: color, typography, spacing, radius, shadows, motion.
+  - **MUST NOT** hardcode hex colors, pixel sizes, font sizes, radii, or shadows unless explicitly permitted in a token guideline.
+- **Do not invent token names or component APIs**.
+  - If a needed token/component is missing or unclear, **STOP and ask** (or produce a short TODO list of what's needed) instead of guessing.
+- **Accessibility is required**: keyboard support, focus visibility, semantic HTML, and appropriate ARIA where needed.
+
+## How to use these guidelines (decision tree)
+1. **FIRST**: Read and complete `Agent-Implementation-Checklist.md`
+2. **Need UI styling?** Start with token rules:
+   - See `design-tokens-overview.md` then the specific foundation (Color, Typography, Spacing, Radius).
+3. **Need a UI element?** Use a component:
+   - See `overview-components.md` then the specific component page (e.g., `Modal.md`, `Button.md`).
+4. **Building a common flow?** Use a pattern:
+   - See `patterns/forms.md` and `patterns/layout.md`.
+
+## Required project-specific wiring (fill these in after copying into the real repo)
+These files reference placeholders that you must update once Living Design is in a repo:
+- **Token CSS variables source-of-truth path**: set in `design-tokens/css-variables-source.md`
+- **Component library import path** (e.g. `@living-design/ui`): set in `components/overview-components.md`
+
+## Index
+- **Meta & Checklists**:
+  - `Agent-Implementation-Checklist.md` ⚠️ **REQUIRED READING**
+  - `LivingDesign-Component-Reference.md` 🚀 **COMPLETE COMPONENT API REFERENCE**
+  - `Component-Inventory.md` 📋 **Component lookup table**
+  - `overview-components.md`
+- **Foundations (design tokens)**:
+  - `design-tokens-overview.md`
+  - `design-tokens/css-variables-source.md`
+  - `design-tokens/color.md`
+  - `design-tokens/typography.md`
+  - `design-tokens/spacing.md`
+  - `design-tokens/radius.md`
+  - `design-tokens/shadow.md`
+  - `design-tokens/motion.md`
+- **Components**:
+  - `components/overview-components.md`
+  - `components/button.md`
+  - `components/input.md`
+  - `components/select.md`
+  - `components/checkbox.md`
+  - `components/textarea.md`
+  - `components/modal.md`
+  - `components/toast.md`
+  - `components/tabs.md`
+  - `components/card.md`
+  - `components/table.md`
+  - `components/badge.md`
+  - `components/avatar.md`
+- **Patterns**:
+  - `patterns/forms.md`
+  - `patterns/layout.md`
+- **Cross-cutting**:
+  - `accessibility.md`
+  - `agent-checklists.md`
+  - `prompt-templates.md`

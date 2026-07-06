@@ -1,0 +1,104 @@
+---
+description: Process and checks for creating new LD components
+alwaysApply: false
+---
+# RULE: Create New Component Process
+
+## Overview
+
+When the user says **"Create new component"** or requests a new LD 3.5/WCP component, you MUST follow this complete process to ensure nothing breaks and the component integrates properly.
+
+---
+
+## Complete Component Creation Process
+
+### Step 1: Check for Existing Component
+
+**FIRST, check if component already exists** in `client/components/ui/`
+
+### Step 2: Reference Figma Design
+
+Read Figma design files if provided. Extract all variants, sizes, states, spacing, typography, colors.
+
+### Step 3: Create Component Files
+
+**Required files (minimum):**
+
+1. `client/components/ui/ComponentName.tsx`
+2. `client/components/ui/ComponentName.module.css`
+3. `client/components/examples/ComponentNameExample.tsx`
+4. `guidelines/components/ComponentName.md`
+
+### Step 4: Build Component Using Tokens
+
+**MANDATORY: Use tokens for ALL values**
+
+
+import * as React from 'react';
+import styles from './ComponentName.module.css';
+
+export interface ComponentNameProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'small' | 'medium' | 'large';
+}
+
+export const ComponentName = React.forwardRef<HTMLElement, ComponentNameProps>(
+  ({ variant = 'primary', size = 'medium', ...props }, ref) => {
+    const className = [
+      styles.component,
+      styles[`component--variant-${variant}`],
+      styles[`component--size-${size}`],
+    ].filter(Boolean).join(' ');
+
+    return <div ref={ref} className={className} {...props} />;
+  }
+);
+```
+
+### Step 5: Integrate into Component Library (MANDATORY)
+
+ALL new UI components MUST be accessible in the component library UI. This has FOUR mandatory sub-steps:
+
+#### 5a. Create Dedicated Library Page
+`client/pages/component-library/[ComponentName]s.tsx`
+
+#### 5b. Register Route
+Add route in `client/App.tsx`
+
+#### 5c. Add to Overview Page
+Add entry to `componentSections` array in `client/pages/component-library/Overview.tsx`
+
+#### 5d. Add to ComponentLibrary.tsx
+Add to Property Tester (ComponentType, config, generateCode, renderPreview)
+
+### Step 6-7: Migration (If Replacing)
+
+Create migration plan and update all usages.
+
+### Step 8-9: Example and Guideline
+
+Create comprehensive example and documentation.
+
+### Step 10: Test Everything
+
+- [ ] Component renders in Component Library
+- [ ] All variants work
+- [ ] Works in all themes (Walmart, Sam's Club, Bodega)
+- [ ] Property Tester works
+- [ ] No TypeScript errors
+
+---
+
+## Token Usage Reminder
+
+**EVERY value MUST use tokens:**
+
+- Spacing → `var(--ld-primitive-scale-space-*)`
+- Typography → `var(--ld-semantic-font-*)`
+- Colors → `var(--ld-semantic-color-*)`
+- Border radius → `var(--ld-primitive-scale-border-radius-*)`
+- Transitions → `var(--ld-primitive-duration-*)`
+
+---
+
+**IMPORTANT**: This is the ONLY approved process for component creation. No shortcuts.

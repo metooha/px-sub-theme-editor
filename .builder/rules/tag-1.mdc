@@ -1,0 +1,96 @@
+---
+description: Guidelines and rules for tag 1
+alwaysApply: false
+---
+## Purpose
+Tags label or “call out” a short attribute of an item, a status, or a group an item belongs to. Tags are **static** (non-interactive) and should be **brief** (a few words maximum).
+
+Common uses:
+- Attribute labels (e.g., “New”, “Organic”, “Limited time”)
+- Status indicators (e.g., “In stock”, “Delayed”, “Approved”)
+- Group/category cues (e.g., “Pickup”, “Delivery”, “Rx”)
+
+## Rules
+- **MUST** use the Living Design `Tag` component for tag UI.
+- **MUST NOT** recreate tag styles with raw HTML/CSS if `Tag` exists.
+- **MUST** keep tag text short (aim for 1–3 words).
+- **MUST NOT** add interaction (no click/press/hover affordances). If interaction is required, use a **Button** or **Chip** instead.
+- **MUST NOT** replace the label with an icon-only tag. Icons alone are often ambiguous.
+- **SHOULD** choose colors that reinforce meaning (semantic first; decorative second).
+
+## Variants
+Tags commonly provide multiple variants with increasing visual prominence (names may differ in your API). Use the **least prominent** variant that still communicates the message.
+
+Typical variant guidance:
+- **Subtle / Low emphasis**: Secondary metadata, supportive labels.
+- **Medium emphasis**: Helpful callouts that benefit scanning.
+- **High emphasis**: Important statuses/labels that must be noticed (use sparingly).
+
+## Colors
+Tags typically support:
+- **Semantic colors** (preferred): map to meaning (success/warning/error/info, etc.).
+- **Accent colors**: for categorization/grouping when there is no semantic meaning.
+
+Color selection guidance:
+- Prefer **semantic** colors when the tag communicates a state/status.
+- Use **accent** colors for grouping only when the colors are consistent within your product and do not imply incorrect status meaning.
+- Do not rely on color alone; the **text label** must convey meaning.
+
+## Anatomy
+- **Container**
+- **Leading icon** (optional; only when it reinforces the label and is widely understood)
+- **Text label** (required)
+
+## Content strategy
+- Keep labels **specific and scannable**.
+- Avoid sentences and punctuation; Tags are not for long explanations.
+- Don’t use more than 2–3 words; if you need more, use a different component/pattern (e.g., inline helper text, Alert, or a description row).
+
+## Accessibility
+- **MUST** ensure the label communicates meaning without color.
+- **SHOULD** avoid icons that introduce ambiguity; if using an icon, keep the label present.
+
+## Token usage
+- Prefer component defaults (Tag should be token-wired for color, radius, typography, spacing).
+- Only use tokens for layout around the Tag (spacing/gaps), not for restyling the Tag.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import { Tag } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function TagExamples() {
+  return (
+    <>
+      <Tag
+        // Adapt prop names to your actual API:
+        // variant="subtle"
+        // color="neutral" | "success" | "warning" | "error" | "accentBlue" ...
+      >
+        New
+      </Tag>
+
+      <Tag
+        // variant="high"
+        // color="warning"
+        // icon={<Clock />} // only if your API supports it and it reinforces meaning
+      >
+        Delayed
+      </Tag>
+    </>
+  );
+}
+```
+
+## Do / Don’t
+### Do
+- Use Tags to **call out an attribute or status** that helps users scan.
+- Use Tags to **group related items** and reinforce relationships.
+- Choose colors with clear **semantic meaning** when applicable.
+- Keep labels **short** and easy to translate/localize.
+
+### Don’t
+- Use Tags for more than **2–3 words** of content.
+- Add interaction to Tags; if it needs to be clickable, use a **Button** or **Chip**.
+- Use icon-only tags or replace text with an icon.

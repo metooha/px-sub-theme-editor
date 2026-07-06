@@ -1,0 +1,150 @@
+---
+description: Guidelines and rules for link
+alwaysApply: false
+---
+## Purpose
+Links are **navigational** elements. They take users to a different page/screen, a different site, or a location within the same page.
+
+## Rules
+- **MUST** use the Living Design Link component.
+- **MUST** use Link for navigation (including in-page anchors).
+- **MUST NOT** use Link to perform a non-navigation action on the current page/screen; use a [Button](/components/button/) or [Link Button](/components/link-button/) instead.
+- **MUST** ensure link text is concise and describes the destination or outcome.
+- **MUST** support focus-visible and meet color contrast requirements via component defaults (do not restyle with custom CSS).
+- **MUST NOT** turn large blocks of content (e.g., a whole paragraph) into a single Link.
+
+## Usage
+Links can be:
+- Inserted within a line of text
+- Used on their own (standalone)
+- Placed at the end of content (e.g., “Read more” patterns — but the visible label should still be specific)
+
+Links are appropriate for navigating:
+- Within the application
+- To a different site
+- To another element on the same screen (in-page anchor)
+- To email, phone number, or other external handlers
+
+## Variants
+Use documented Link variants only (e.g., default vs subtle, inline vs standalone). Do not create new styles via custom CSS.
+
+## States
+- Default
+- Hover/active (web)
+- Focus-visible
+- Visited (if supported/desired by the system)
+- Disabled (only if your Link component supports it; otherwise remove the affordance)
+
+## Accessibility
+- Use `link` semantics (`<a>` or equivalent) for navigation.
+- The accessible name **MUST** match the visible label.
+- If the Link is icon-only (if supported), **MUST** provide an accessible name (e.g., `aria-label`).
+- For links that open a new tab/window (if supported/used), **MUST** communicate this to users (visually and/or via accessible text), and use safe `rel` values when using `target="_blank"`.
+- Keyboard users **MUST** be able to reach Links and see a visible focus indicator.
+
+## Token usage
+- Prefer component defaults (Link should be token-wired for color, typography, and interaction states).
+- Only use tokens for layout around the Link, not to restyle the Link itself.
+
+## React usage (example)
+
+```tsx
+import { Link } from "@/components/ui/Link";
+
+export function Example() {
+  return (
+    <>
+      {/* Internal navigation */}
+      <Link href="/account">Account settings</Link>
+
+      {/* External navigation (auto-adds security attributes) */}
+      <Link href="https://example.com" target="_blank">
+        View documentation
+      </Link>
+
+      {/* In-page anchor */}
+      <Link href="#billing">Jump to billing</Link>
+
+      {/* Subtle variant */}
+      <Link href="/help" variant="subtle">Help center</Link>
+
+      {/* No underline (reveals on hover) */}
+      <Link href="/dashboard" underline={false}>Dashboard</Link>
+    </>
+  );
+}
+```
+
+### Component API
+
+```tsx
+interface LinkProps {
+  /**
+   * The URL that the link points to (required)
+   */
+  href: string;
+
+  /**
+   * Visual variant of the link
+   * - 'default': Black text color with underline (default)
+   * - 'subtle': Black text color with underline (same as default)
+   */
+  variant?: 'default' | 'subtle';
+
+  /**
+   * Whether to show underline
+   * @default true
+   */
+  underline?: boolean;
+
+  /**
+   * Children content
+   */
+  children: React.ReactNode;
+
+  /**
+   * Target for the link (e.g., "_blank" for new tab)
+   */
+  target?: string;
+
+  /**
+   * Relationship attribute (auto-added for target="_blank")
+   */
+  rel?: string;
+}
+```
+
+### Features
+
+- **Auto-routing**: Automatically uses React Router for internal links (`/page`)
+- **Security**: Auto-adds `rel="noreferrer noopener"` for `target="_blank"` links
+- **Accessibility**: Built-in focus states and proper semantics
+- **States**: Default, hover, active, visited, focus, and disabled
+
+### Examples
+
+**See full examples:** `client/components/LinkExample.tsx`
+
+## Best practices
+Links should be used as navigational elements to different pages or screens.
+
+### Use when
+- Use when navigating to a different page/screen within the application.
+- Use when navigating to a different site.
+- Use when jumping to another element on the same screen.
+- Use when linking to email, phone number, etc.
+
+### Don’t use when
+- Don't use when performing a non-navigation action within a page or screen.
+
+### Don’t
+- Don’t turn a whole paragraph into a Link. A good Link is succinct and to the point.
+
+## Content strategy
+The text label should describe what information the user will get by clicking the Link.
+
+- Don't use "Learn more" or "More details" which are vague.
+- People mostly look at the first 2 words of a Link, so it's important to start the copy with the most important words.
+
+## Anatomy
+1. Text label

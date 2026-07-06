@@ -1,0 +1,187 @@
+---
+description: Guidelines and rules for ld tag implementation summary
+alwaysApply: false
+---
+# LD 3.5 Tag Component Implementation
+
+## Summary
+
+Successfully created and implemented Living Design 3.5 (LD 3.5) compliant Tag components to replace manual styling in the OLQ (Offer Listing Quality) column across Item Health and Omni ROAS pages.
+
+## Components Created
+
+### 1. Base Tag Component (`client/components/ui/tag.tsx`)
+
+A flexible, reusable tag component that follows LD 3.5 design system specifications:
+
+**Features:**
+- Multiple variants: `default`, `primary`, `secondary`, `success`, `warning`, `destructive`, `info`, and outline versions
+- Three sizes: `sm`, `md`, `lg`
+- Optional dismiss button functionality
+- Clickable/interactive states
+- Icon support
+- Accessibility features (ARIA labels, keyboard navigation)
+- Disabled state
+
+**Usage:**
+```tsx
+import { Tag } from '@/components/ui/tag';
+
+<Tag variant="success" size="md">
+  Success Tag
+</Tag>
+```
+
+### 2. OLQ Tag Component (`client/components/ui/olq-tag.tsx`)
+
+A specialized tag component for displaying OLQ percentages with automatic color-coding:
+
+**Color Logic:**
+- **Red** (< 50%): Poor OLQ
+  - Background: `--ld-semantic-color-fill-accent-red-subtle` (#fde9e8)
+  - Text: `--ld-semantic-color-text-accent-red` (#ea1100)
+  - Border: `--ld-semantic-color-border-accent-red`
+
+- **Yellow/Spark** (50-79%): Fair OLQ
+  - Background: `--ld-semantic-color-fill-accent-spark-subtle` (#fef6de)
+  - Text: `--ld-semantic-color-text-accent-spark` (#995213)
+  - Border: `--ld-semantic-color-border-accent-spark`
+
+- **Green** (≥ 80%): Good OLQ
+  - Background: `--ld-semantic-color-fill-accent-green-subtle` (#eaf3e6)
+  - Text: `--ld-semantic-color-text-accent-green` (#2a8703)
+  - Border: `--ld-semantic-color-border-accent-green`
+
+**Usage:**
+```tsx
+import { OLQTag } from '@/components/ui/olq-tag';
+
+<OLQTag value="85%" size="md" />
+```
+
+## Files Modified
+
+### Pages Updated
+
+1. **`client/pages/ItemHealth.tsx`**
+   - Added import for `OLQTag` component
+   - Removed manual `getOLQStyle` function (22 lines)
+   - Replaced inline-styled div with `<OLQTag>` component
+   - Cleaner, more maintainable code
+
+2. **`client/pages/OmniROAS.tsx`**
+   - Added import for `OLQTag` component
+   - Removed manual `getOLQStyle` function (22 lines)
+   - Replaced inline-styled div with `<OLQTag>` component
+
+### Style Files Updated
+
+3. **`client/global.css`**
+   - Added import for `tag.css` styles
+   - Ensures LD 3.5 tag styles are available globally
+
+4. **`client/components/ui/index.ts`**
+   - Added exports for `Tag` and `OLQTag` components
+   - Centralized component exports
+
+## Design System Integration
+
+### LD 3.5 Design Tokens Used
+
+The implementation uses semantic design tokens from the Living Design system:
+
+- **Typography**: `--ld-semantic-font-family-mono` (Everyday Sans Mono)
+- **Colors**: Semantic color tokens for background, text, and borders
+- **Spacing**: Design system spacing tokens
+- **Border Radius**: `--radius-tag` token
+
+### CSS Classes
+
+The tag components use the following CSS classes defined in `styles/tag.css`:
+
+- `.tag` - Base tag styles
+- `.tag-{variant}` - Variant-specific styles
+- `.tag-{size}` - Size-specific styles
+- `.tag-clickable` - Interactive tag styles
+- `.tag-dismissible` - Dismissible tag styles
+- `.tag-disabled` - Disabled state styles
+
+## Benefits
+
+### Before
+```tsx
+// Manual styling with inline styles
+<div
+  className="inline-block px-3 py-1 text-sm font-bold rounded"
+  style={getOLQStyle(item.olq)}
+>
+  {item.olq}
+</div>
+
+// Separate style function (22 lines)
+const getOLQStyle = (olq: string) => {
+  const percentage = parseFloat(olq);
+  if (percentage < 50) {
+    return {
+      backgroundColor: '#FBD0CC',
+      color: '#EA1100',
+      textAlign: 'center' as const,
+    };
+  }
+  // ... more hardcoded styles
+};
+```
+
+### After
+```tsx
+// Clean, semantic component
+<OLQTag value={item.olq} size="md" />
+```
+
+### Improvements
+
+1. **Reduced Code**: Eliminated 44+ lines of duplicate styling logic
+2. **Maintainability**: Centralized OLQ styling in a single component
+3. **Design System Compliance**: Uses LD 3.5 design tokens instead of hardcoded colors
+4. **Reusability**: Tag components can be used throughout the application
+5. **Accessibility**: Built-in ARIA labels and keyboard navigation
+6. **Consistency**: Ensures consistent tag styling across all pages
+7. **Theme Support**: Uses CSS variables for easy theming and dark mode support
+
+## Testing Checklist
+
+- [x] Created base Tag component with all variants
+- [x] Created specialized OLQTag component
+- [x] Imported tag.css styles in global.css
+- [x] Replaced OLQ column in ItemHealth.tsx
+- [x] Replaced OLQ column in OmniROAS.tsx
+- [x] Verified no TypeScript errors
+- [x] Verified dev server hot module replacement works
+- [x] Uses LD 3.5 design tokens (semantic.css)
+- [x] Uses Everyday Sans Mono font (fonts.css)
+- [x] Maintains original color logic (<50%, 50-79%, ≥80%)
+
+## Future Enhancements
+
+1. Add animation/transition effects for tag states
+2. Create additional specialized tag variants (status, metric, etc.)
+3. Add tooltip support for tag descriptions
+4. Create Storybook stories for tag components
+5. Add unit tests for tag components
+6. Consider adding tag groups/clusters for multiple tags
+
+## Related Files
+
+- `styles/tag.css` - LD 3.5 tag styles
+- `styles/semantic.css` - Design system semantic tokens
+- `styles/fonts.css` - Everyday Sans font definitions
+- `client/components/ui/badge.tsx` - Similar component (different use case)
+
+## Migration Notes
+
+Any other pages using manual OLQ styling can be easily migrated by:
+1. Importing `OLQTag` component
+2. Replacing the styled div with `<OLQTag value={olqValue} size="md" />`
+3. Removing the `getOLQStyle` function
+
+This creates a consistent, maintainable approach to OLQ display across the application.

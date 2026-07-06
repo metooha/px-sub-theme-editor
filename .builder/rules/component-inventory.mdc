@@ -1,0 +1,201 @@
+---
+description: Guidelines and rules for component inventory
+alwaysApply: false
+---
+## Purpose
+This file is a **single source of truth** for all Living Design components. Before implementing ANY UI element, agents MUST check this inventory to see if a component already exists.
+
+## How to Use This Inventory
+
+### For Agents:
+1. **CTRL+F / CMD+F** to search for the component you need
+2. Check the **Status** column
+3. If status is **✅ Implemented**: Use the component from the file path shown
+4. If status is **📝 Guideline Only**: Create the component following the guideline
+5. If status is **❌ Not Available**: Ask the user or use primitives
+
+### Status Legend:
+- **✅ Implemented** - Component exists in `/components/ui/`, guideline exists, ready to use
+- **📝 Guideline Only** - Guideline exists but component needs to be created
+- **⚠️ Partial** - Component exists but may not fully match guideline
+- **❌ Not Available** - No guideline or component exists
+
+---
+
+## Component Inventory
+
+### Form Controls
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Button** | ✅ Implemented | `/components/ui/button.tsx` | `/guidelines/Button.md` | Standard button component |
+| **IconButton** | ✅ Implemented | `/components/ui/IconButton.tsx` | `/guidelines/Icon-Button.md` | Icon-only button variant |
+| **Input** (TextField) | ✅ Implemented | `/components/ui/input.tsx` | `/guidelines/TextField.md` | Text input field |
+| **TextArea** | ✅ Implemented | `/components/ui/textarea.tsx` | `/guidelines/TextArea.md` | Multi-line text input |
+| **Select** | ✅ Implemented | `/components/ui/select.tsx` | `/guidelines/Select.md` | Dropdown selection |
+| **Checkbox** | ✅ Implemented | `/components/ui/checkbox.tsx` | `/guidelines/Checkbox.md` | Checkbox input |
+| **Switch** | ✅ Implemented | `/components/ui/switch.tsx` | - | Toggle switch (no guideline yet) |
+| **RadioGroup** | ✅ Implemented | `/components/ui/radio-group.tsx` | - | Radio button group (no guideline yet) |
+| **Slider** | ✅ Implemented | `/components/ui/slider.tsx` | - | Range slider (no guideline yet) |
+| **Form** | ✅ Implemented | `/components/ui/form.tsx` | `/guidelines/Form-Group.md` | Form wrapper with validation |
+| **Label** | ✅ Implemented | `/components/ui/label.tsx` | - | Form label component |
+
+### Overlays & Dialogs
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Modal** | ✅ Implemented | `/components/ui/modal.tsx` | `/guidelines/Modal.md` | Dialog/Modal component |
+| **AlertDialog** | ✅ Implemented | `/components/ui/alert-dialog.tsx` | - | Confirmation dialogs |
+| **Dialog** | ✅ Implemented | `/components/ui/dialog.tsx` | - | Generic dialog primitive |
+| **Sheet** | ✅ Implemented | `/components/ui/sheet.tsx` | - | Slide-out panel |
+| **Drawer** | ✅ Implemented | `/components/ui/drawer.tsx` | - | Drawer component |
+| **BottomSheet** | ✅ Implemented | `/components/ui/BottomSheet.tsx` | `/guidelines/Bottom-Sheet.md` | Mobile bottom sheet |
+| **Popover** | ✅ Implemented | `/components/ui/popover.tsx` | `/guidelines/Popover.md` | Popover component |
+| **Tooltip** | ✅ Implemented | `/components/ui/tooltip.tsx` | - | Tooltip component |
+| **HoverCard** | ✅ Implemented | `/components/ui/hover-card.tsx` | - | Card on hover |
+| **Overlay** | ✅ Implemented | `/components/ui/Overlay.tsx` | - | Base overlay primitive |
+| **OverlayScrim** | ✅ Implemented | `/components/ui/OverlayScrim.tsx` | - | Overlay background scrim |
+| **Panel** | 📝 Guideline Only | - | `/guidelines/Panel.md` | Side panel (needs implementation) |
+
+### Notifications & Messaging
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Alert** | ✅ Implemented | `/components/ui/alert.tsx` | `/guidelines/Alert.md` | Alert/notification component |
+| **AlertActionButton** | ✅ Implemented | `/components/ui/AlertActionButton.tsx` | - | Alert action buttons |
+| **Banner** | ✅ Implemented | `/components/ui/banner.tsx` | `/guidelines/Banner.md` | Banner notification |
+| **BannerCloseButton** | ✅ Implemented | `/components/ui/bannerCloseButton.tsx` | - | Banner close button |
+| **Toast** (Sonner) | ✅ Implemented | `/components/ui/sonner.tsx` | - | Toast notifications |
+| **Callout** | 📝 Guideline Only | - | `/guidelines/Callout.md` | Callout component (needs implementation) |
+| **ContentMessage** | 📝 Guideline Only | - | `/guidelines/Content-Message.md` | Content message (needs implementation) |
+| **Nudge** | 📝 Guideline Only | - | `/guidelines/Nudge.md` | Nudge component (needs implementation) |
+
+### Navigation
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Tabs** | ✅ Implemented | `/components/ui/tabs.tsx` | - | Tab navigation |
+| **Breadcrumb** | ✅ Implemented | `/components/ui/breadcrumb.tsx` | `/guidelines/Breadcrumb.md` | Breadcrumb navigation |
+| **NavigationMenu** | ✅ Implemented | `/components/ui/navigation-menu.tsx` | - | Complex navigation menu |
+| **Menubar** | ✅ Implemented | `/components/ui/menubar.tsx` | - | Menu bar component |
+| **Sidebar** | ✅ Implemented | `/components/ui/sidebar.tsx` | - | Sidebar navigation |
+| **Pagination** | ✅ Implemented | `/components/ui/pagination.tsx` | - | Pagination controls |
+| **Link** | 📝 Guideline Only | - | `/guidelines/Link.md` | Link component (use anchor or create) |
+| **LinkButton** | 📝 Guideline Only | - | `/guidelines/Link-Button.md` | Link styled as button (needs implementation) |
+| **Menu** | 📝 Guideline Only | - | `/guidelines/Menu.md` | Menu component (may exist as dropdown-menu) |
+
+### Data Display
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Card** | ✅ Implemented | `/components/ui/card.tsx` | `/guidelines/Card.md` | Card container |
+| **Table** | ✅ Implemented | `/components/ui/table.tsx` | - | Data table |
+| **Badge** | ✅ Implemented | `/components/ui/badge.tsx` | `/guidelines/Badge.md` | Badge/pill component |
+| **Tag** | ✅ Implemented | `/components/ui/tag.tsx` | `/guidelines/Tag.md` | Tag component |
+| **Chip** | 📝 Guideline Only | - | `/guidelines/Chip.md` | Chip component (needs implementation) |
+| **Avatar** | ✅ Implemented | `/components/ui/avatar.tsx` | - | Avatar component |
+| **Separator** | ✅ Implemented | `/components/ui/separator.tsx` | - | Horizontal/vertical divider |
+| **Accordion** | ✅ Implemented | `/components/ui/accordion.tsx` | - | Expandable accordion |
+| **Collapsible** | ✅ Implemented | `/components/ui/collapsible.tsx` | - | Collapsible content |
+| **Metric** | 📝 Guideline Only | - | `/guidelines/Metric.md` | Metric display (needs implementation) |
+| **List** | 📝 Guideline Only | - | `/guidelines/List.md` | List component (needs implementation) |
+
+### Typography
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Heading** | ✅ Implemented | `/components/ui/Heading.tsx` | - | Heading component |
+| **Body** | ✅ Implemented | `/components/ui/body.tsx` | - | Body text component |
+| **Display** | ✅ Implemented | `/components/ui/Display.tsx` | - | Display text component |
+| **Caption** | ✅ Implemented | `/components/ui/Caption.tsx` | - | Caption text component |
+
+### Media & Visual
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **Carousel** | ✅ Implemented | `/components/ui/carousel.tsx` | - | Image carousel |
+| **AspectRatio** | ✅ Implemented | `/components/ui/aspect-ratio.tsx` | - | Aspect ratio container |
+| **Chart** | ✅ Implemented | `/components/ui/chart.tsx` | - | Chart component wrapper |
+| **Progress** | ✅ Implemented | `/components/ui/progress.tsx` | - | Progress bar |
+| **Skeleton** | ✅ Implemented | `/components/ui/skeleton.tsx` | - | Loading skeleton |
+
+### Utility & Layout
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **ScrollArea** | ✅ Implemented | `/components/ui/scroll-area.tsx` | - | Custom scrollbar area |
+| **Resizable** | ✅ Implemented | `/components/ui/resizable.tsx` | - | Resizable panels |
+| **ToggleGroup** | ✅ Implemented | `/components/ui/toggle-group.tsx` | - | Toggle button group |
+| **Toggle** | ✅ Implemented | `/components/ui/toggle.tsx` | - | Toggle button |
+| **Command** | ✅ Implemented | `/components/ui/command.tsx` | - | Command palette |
+| **ContextMenu** | ✅ Implemented | `/components/ui/context-menu.tsx` | - | Right-click context menu |
+| **DropdownMenu** | ✅ Implemented | `/components/ui/dropdown-menu.tsx` | - | Dropdown menu |
+| **InputOTP** | ✅ Implemented | `/components/ui/input-otp.tsx` | - | OTP input field |
+| **Calendar** | ✅ Implemented | `/components/ui/calendar.tsx` | - | Date picker calendar |
+| **FocusTrap** | ✅ Implemented | `/components/ui/FocusTrap.tsx` | - | Focus trap utility |
+| **MagicBox** | ✅ Implemented | `/client/components/ui/MagicBox.tsx` | `/guidelines/components/Magic-Box.md` | AI-generated content wrapper with glow effect |
+
+### Special Components
+
+| Component | Status | File Path | Guideline | Notes |
+|-----------|--------|-----------|-----------|-------|
+| **BottomSheetPortal** | ✅ Implemented | `/components/ui/BottomSheetPortal.tsx` | - | Bottom sheet portal utility |
+
+---
+
+## Quick Search Guide
+
+### "I need to show a message to the user"
+- ✅ **Alert** - Inline contextual message → `/components/ui/alert.tsx`
+- ✅ **Banner** - Page-level notification → `/components/ui/banner.tsx`
+- ✅ **Toast** - Temporary notification → `/components/ui/sonner.tsx`
+- 📝 **Callout** - Highlighted content block → `/guidelines/Callout.md`
+
+### "I need to collect user input"
+- ✅ **Input** - Single line text → `/components/ui/input.tsx`
+- ✅ **TextArea** - Multi-line text → `/components/ui/textarea.tsx`
+- ✅ **Select** - Dropdown selection → `/components/ui/select.tsx`
+- ✅ **Checkbox** - Toggle option → `/components/ui/checkbox.tsx`
+- ✅ **RadioGroup** - Single choice from multiple → `/components/ui/radio-group.tsx`
+- ✅ **Switch** - On/off toggle → `/components/ui/switch.tsx`
+- ✅ **Form** - Form container → `/components/ui/form.tsx`
+
+### "I need to show an overlay/dialog"
+- ✅ **Modal** - Centered dialog → `/components/ui/modal.tsx`
+- ✅ **AlertDialog** - Confirmation dialog → `/components/ui/alert-dialog.tsx`
+- ✅ **Sheet** - Slide-out panel → `/components/ui/sheet.tsx`
+- ✅ **BottomSheet** - Mobile bottom drawer → `/components/ui/BottomSheet.tsx`
+- ✅ **Popover** - Floating content → `/components/ui/popover.tsx`
+- 📝 **Panel** - Side panel → `/guidelines/Panel.md`
+
+### "I need navigation"
+- ✅ **Tabs** - Tab navigation → `/components/ui/tabs.tsx`
+- ✅ **Breadcrumb** - Breadcrumb trail → `/components/ui/breadcrumb.tsx`
+- ✅ **NavigationMenu** - Complex menu → `/components/ui/navigation-menu.tsx`
+- ✅ **Sidebar** - Side navigation → `/components/ui/sidebar.tsx`
+- ✅ **Pagination** - Page controls → `/components/ui/pagination.tsx`
+
+### "I need to display data"
+- ✅ **Card** - Content container → `/components/ui/card.tsx`
+- ✅ **Table** - Tabular data → `/components/ui/table.tsx`
+- ✅ **Badge** - Status indicator → `/components/ui/badge.tsx`
+- ✅ **Tag** - Label/category → `/components/ui/tag.tsx`
+- ✅ **Avatar** - User image → `/components/ui/avatar.tsx`
+- 📝 **Metric** - Metric display → `/guidelines/Metric.md`
+- 📝 **List** - Structured list → `/guidelines/List.md`
+
+---
+
+## Maintenance Notes
+
+### For Humans:
+- Update this file when adding new components
+- Mark components as implemented when files are created
+- Remove "Guideline Only" status when implementation is complete
+- Add notes about deprecations or alternatives
+
+### For Agents:
+- Trust this inventory as the source of truth
+- If a component shows ✅ Implemented, import and use it
+- If a component shows 📝 Guideline Only, read the guideline and implement it
+- If you think this inventory is out of date, inform the user

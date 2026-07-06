@@ -1,0 +1,168 @@
+/* PagePreview — mini-page shell. All values use semantic tokens so theme changes are visible. */
+
+.page {
+  font-family: var(--ld-semantic-font-family-sans);
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f9);
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Body ── */
+.body {
+  flex: 1;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.breadcrumbItem {
+  color: var(--ld-semantic-color-text-brand, #0053e2);
+  cursor: pointer;
+}
+
+.breadcrumbSep {
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+.breadcrumbCurrent {
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  font-weight: 500;
+}
+
+/* ── Page Header ── */
+.pageHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.pageTitle {
+  margin: 0 0 4px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+}
+
+.pageSubtitle {
+  margin: 0;
+  font-size: 13px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+/* ── Metrics Row ── */
+.metricsRow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.metricCard {
+  flex: 1;
+  min-width: 130px;
+}
+
+/* ── Table Toolbar ── */
+.tableToolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+}
+
+/* ── Table ── */
+.tableWrapper {
+  overflow-x: auto;
+  padding-top: 12px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.th {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  background: transparent;
+  white-space: nowrap;
+}
+
+.td {
+  padding: 10px 12px;
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  white-space: nowrap;
+}
+
+.trEven {
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+}
+
+.trOdd {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f9);
+}
+
+.subtleText {
+  margin: 0;
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+/* ── Footer ── */
+.footer {
+  background: var(--ld-semantic-color-fill-surface-secondary, #f1f1f2);
+  border-top: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.footerLinks {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footerLink {
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-secondary, #515357);
+  text-decoration: none;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}
+
+.footerCopy {
+  font-size: 11px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}

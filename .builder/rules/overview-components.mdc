@@ -1,0 +1,36 @@
+---
+description: Guidelines and rules for overview components
+alwaysApply: false
+---
+## Rules
+- **MUST** use Living Design components when a matching component exists.
+- **MUST NOT** recreate common UI controls with raw HTML/CSS if a component exists.
+- **MUST** match component variants/states exactly as documented (no ad-hoc variants).
+- **MUST** rely on component defaults for tokens; only override with documented props/tokens.
+- **MUST NOT** invent new props or component names.
+
+## Fill this in after copying into the real repo
+- **Component library package name / import path**:
+  - `REPLACE_ME` (example: `@living-design/ui`)
+- **Storybook / docs URL (optional)**:
+  - `REPLACE_ME`
+
+## Component selection hierarchy
+When building UI:
+1. **Use an existing component** (preferred).
+2. If no component exists, **compose** from smaller Living Design primitives (if you have them).
+3. If neither exists, **ask** whether to add a new component vs proceed with a one-off.
+
+## States that must be handled (where applicable)
+Agents must ensure components support/represent:
+- Default
+- Hover / active (web)
+- Focus-visible (keyboard)
+- Disabled
+- Error / validation (for form controls)
+
+## Token usage in components
+Components should already be wired to tokens. Agents should:
+- Prefer props that select variants (e.g., `variant="primary"`, `size="large"`)
+- Avoid inline styles; prefer className hooks only if documented
+- Use tokens only when composing layouts around components (spacing, container surfaces, etc.)

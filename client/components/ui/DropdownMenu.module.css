@@ -1,0 +1,171 @@
+/* ============================================
+   DROPDOWN MENU – LD 3.5 Tokens
+   Shared pattern for dropdown-menu, context-menu
+   ============================================ */
+
+/* --- Content overlay --- */
+.content {
+  z-index: 50;
+  min-width: 8rem;
+  overflow: hidden;
+  padding: var(--ld-primitive-scale-space-50, 4px);
+  background-color: var(--ld-semantic-color-surface-overlay, #ffffff);
+  color: var(--ld-semantic-color-text, #2e2f32);
+  box-shadow: var(--ld-semantic-elevation-200, 0px 4px 16px rgba(0, 0, 0, 0.12));
+  border-radius: var(--ld-semantic-border-radius-large, 8px);
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+/* Radix open/close animations (kept as Tailwind utilities since they depend on Radix data attributes + keyframes) */
+.content[data-state="open"] {
+  animation: fadeIn 0.15s ease-out, zoomIn 0.15s ease-out;
+}
+
+.content[data-state="closed"] {
+  animation: fadeOut 0.1s ease-in, zoomOut 0.1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes zoomIn {
+  from { transform: scale(0.95); }
+  to { transform: scale(1); }
+}
+
+@keyframes zoomOut {
+  from { transform: scale(1); }
+  to { transform: scale(0.95); }
+}
+
+/* --- Item (base) --- */
+.item {
+  display: flex;
+  position: relative;
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-200, 16px);
+  border-radius: 0;
+  border: none;
+  width: 100%;
+  background: var(--ld-semantic-color-action-fill-transparent, transparent);
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-semantic-font-family-sans));
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.25rem);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent, #2e2f32);
+  outline: none;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.item:hover:not([data-disabled]) {
+  background: var(--ld-semantic-color-fill-hovered, #f1f1f2);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-hovered, #2e2f32);
+}
+
+.item:focus-visible,
+.item[data-highlighted] {
+  background: var(--ld-semantic-color-fill-focused, #e8e8e9);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-focused, #2e2f32);
+  outline: none;
+}
+
+.item:active:not([data-disabled]) {
+  background: var(--ld-semantic-color-fill-pressed, #dadadc);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-pressed, #2e2f32);
+}
+
+.item[data-disabled] {
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-disabled, #babbbe);
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+/* Inset variant */
+.item--inset {
+  padding-left: var(--ld-primitive-scale-space-500, 40px);
+}
+
+/* --- SubTrigger --- */
+.subTrigger {
+  composes: item;
+}
+
+.subTrigger[data-state="open"] {
+  background: var(--ld-semantic-color-surface-activated, #e8e8e9);
+}
+
+/* --- Checkbox / Radio items with leading indicator space --- */
+.itemWithIndicator {
+  composes: item;
+  padding-left: var(--ld-primitive-scale-space-500, 40px);
+}
+
+/* --- Indicator container --- */
+.indicator {
+  position: absolute;
+  left: var(--ld-primitive-scale-space-200, 16px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+}
+
+.indicator svg {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+}
+
+/* --- Chevron icon (submenu) --- */
+.chevron {
+  margin-left: auto;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+}
+
+/* --- Radio dot --- */
+.radioDot {
+  width: 8px;
+  height: 8px;
+  fill: currentColor;
+}
+
+/* --- Label --- */
+.label {
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: 600;
+  color: var(--ld-semantic-color-text, #2e2f32);
+}
+
+.label--inset {
+  padding-left: var(--ld-primitive-scale-space-500, 40px);
+}
+
+/* --- Separator --- */
+.separator {
+  height: 1px;
+  margin: var(--ld-primitive-scale-space-50, 4px) 0;
+  background-color: var(--ld-semantic-color-separator, #e3e4e5);
+}
+
+/* --- Shortcut text --- */
+.shortcut {
+  margin-left: auto;
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-caption-size, 0.75rem);
+  letter-spacing: 0.05em;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}

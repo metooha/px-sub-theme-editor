@@ -1,0 +1,251 @@
+---
+description: Guidelines and rules for icon button
+alwaysApply: false
+---
+# IconButton Component - LD 3.5
+
+## Overview
+
+The IconButton component is a square, icon-only button following Living Design 3.5 specifications. It provides a consistent way to handle icon-based actions throughout the application.
+
+## Component Location
+
+- **Component**: `client/components/ui/IconButton.tsx`
+- **Styles**: `client/components/ui/IconButton.module.css`
+- **Examples**: `client/components/IconButtonExample.tsx`
+
+## API
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `aria-label` | `string` | **Required** | Accessible label for the button (required for accessibility) |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'destructive' \| 'ghost'` | `'ghost'` | Visual style variant |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Size of the button |
+| `disabled` | `boolean` | `false` | Whether the button is disabled |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | HTML button type |
+| `href` | `string` | - | If provided, renders as an anchor element |
+| `children` | `ReactNode` | **Required** | Icon element (typically SVG) |
+
+### Sizes
+
+- **Small**: 24px × 24px (icon: 16px)
+- **Medium**: 32px × 32px (icon: 20px)
+- **Large**: 40px × 40px (icon: 24px)
+
+### Variants
+
+- **Ghost** (default): Transparent background, visible on hover
+- **Primary**: Walmart blue background
+- **Secondary**: White background with border
+- **Tertiary**: Light gray background
+- **Destructive**: Red background for delete actions
+
+## Usage Examples
+
+### Basic Ghost Button (Most Common)
+
+```tsx
+import { IconButton } from '@/components/ui/IconButton';
+
+<IconButton aria-label="Show information" variant="ghost" size="medium">
+  <svg width="20" height="20" viewBox="0 0 16 16" fill="none">
+    <path d="..." fill="currentColor"/>
+  </svg>
+</IconButton>
+```
+
+### Primary Action Button
+
+```tsx
+<IconButton aria-label="Add item" variant="primary" size="large">
+  <PlusIcon />
+</IconButton>
+```
+
+### Destructive Action
+
+```tsx
+<IconButton aria-label="Delete item" variant="destructive">
+  <TrashIcon />
+</IconButton>
+```
+
+### Disabled State
+
+```tsx
+<IconButton aria-label="Edit" variant="secondary" disabled>
+  <EditIcon />
+</IconButton>
+```
+
+## Design Tokens Used
+
+The IconButton component uses LD 3.5 semantic tokens:
+
+- `--ld-semantic-color-action-fill-*`
+- `--ld-semantic-color-action-text-*`
+- `--ld-semantic-color-action-border-*`
+- `--ld-semantic-color-action-focus-outline`
+- `--ld-semantic-font-family-sans`
+
+## Accessibility
+
+- **Always provide `aria-label`**: Icon buttons must have descriptive labels for screen readers
+- **Keyboard support**: Fully keyboard accessible with focus indicators
+- **Focus visible**: 2px outline with LD 3.5 focus color
+- **Disabled state**: Proper ARIA attributes when disabled
+
+## Migration Plan
+
+### Files to Update
+
+The following files contain icon buttons that should be migrated to the new IconButton component:
+
+#### High Priority
+
+1. **client/components/DisplayDashboard.tsx** (Lines 449, 474, 497, 520, 543, 566, 589)
+   - Info icon buttons in metrics ribbon
+   - Pattern: `<button className="p-1 hover:bg-gray-100 rounded-full transition-colors">`
+   - Replace with: `<IconButton aria-label="Information" variant="ghost" size="small">`
+
+2. **client/components/ui/MastHead.tsx**
+   - App switcher and navigation icons
+   - Menu toggle buttons
+
+3. **client/components/SponsoredSearchSidebar.tsx** (Line 283)
+   - Sidebar lock/unlock button
+   - Pattern: Custom button with icon
+
+4. **client/components/DisplayAdvertisingSidebar.tsx** (Line 256)
+   - Sidebar collapse button
+
+5. **client/components/StoreAdsSidebar.tsx** (Line 165)
+   - Sidebar toggle button
+
+#### Medium Priority
+
+6. **client/components/EditMetricsModal.tsx**
+   - Close button in modal
+
+7. **client/components/DateRangeFilterDropdown.tsx**
+   - Calendar navigation buttons
+
+8. **client/components/BiddingStrategyModal.tsx**
+   - Modal action buttons
+
+9. **client/components/RecommendationsPanel.tsx**
+   - Close and action buttons
+
+#### Low Priority
+
+10. **client/components/ui/carousel.tsx**
+    - Next/Previous navigation buttons
+
+11. **client/components/ui/pagination.tsx**
+    - Page navigation buttons
+
+### Migration Steps
+
+For each file:
+
+1. **Import IconButton**
+   ```tsx
+   import { IconButton } from '@/components/ui/IconButton';
+   ```
+
+2. **Replace button markup**
+   
+   **Before:**
+   ```tsx
+   <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+       <path d="..." fill="#515357"/>
+     </svg>
+   </button>
+   ```
+   
+   **After:**
+   ```tsx
+   <IconButton aria-label="Information" variant="ghost" size="small">
+     <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+       <path d="..." fill="currentColor"/>
+     </svg>
+   </IconButton>
+   ```
+
+3. **Important Changes**
+   - Add required `aria-label` prop
+   - Change `fill="#515357"` to `fill="currentColor"` in SVGs
+   - Remove inline className styling
+   - Choose appropriate size based on icon size
+   - Choose appropriate variant (usually `ghost` for existing buttons)
+
+### Example Migration
+
+**DisplayDashboard.tsx - Metrics Info Buttons**
+
+Before:
+```tsx
+<div className="flex items-center gap-1 mb-1">
+  <span className="text-sm text-[#2E2F32]">Impressions</span>
+  <button className="p-1 hover:bg-gray-100 rounded-full transition-colors">
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M7.40039 7H8.60039V11.5H7.40039V7Z" fill="#515357"/>
+      <path d="..." fill="#515357"/>
+    </svg>
+  </button>
+</div>
+```
+
+After:
+```tsx
+import { IconButton } from '@/components/ui/IconButton';
+
+<div className="flex items-center gap-1 mb-1">
+  <span className="text-sm text-[#2E2F32]">Impressions</span>
+  <IconButton 
+    aria-label="View impressions information" 
+    variant="ghost" 
+    size="small"
+  >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M7.40039 7H8.60039V11.5H7.40039V7Z" fill="currentColor"/>
+      <path d="..." fill="currentColor"/>
+    </svg>
+  </IconButton>
+</div>
+```
+
+## Benefits of Migration
+
+1. **Consistency**: All icon buttons follow the same design system
+2. **Accessibility**: Required aria-labels ensure screen reader support
+3. **Maintainability**: Centralized styling makes updates easier
+4. **Type Safety**: TypeScript props ensure correct usage
+5. **States**: Consistent hover, active, disabled, and focus states
+6. **Tokens**: Uses LD 3.5 semantic tokens for theme consistency
+
+## Testing Checklist
+
+After migration, verify:
+
+- [ ] All icon buttons have `aria-label`
+- [ ] Hover states work correctly
+- [ ] Focus indicators are visible
+- [ ] Disabled states are visually distinct
+- [ ] Click handlers still work
+- [ ] Icons are properly sized
+- [ ] Colors match LD 3.5 specs
+- [ ] Keyboard navigation works
+
+## Related Components
+
+- **Button**: For text buttons with optional icons
+- **Link**: For navigation links
+- **Tag**: For status indicators
+
+## Questions?
+
+Refer to `client/components/IconButtonExample.tsx` for comprehensive usage examples.

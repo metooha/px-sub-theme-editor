@@ -1,0 +1,368 @@
+/* ─── Shared Responsive Layout Utilities ─── */
+
+/* Root layout shell */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* Main content padding */
+.pageContent {
+  padding: 24px 32px;
+}
+
+/* Page title */
+.pageTitle {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default, 700);
+  line-height: var(--ld-semantic-font-heading-large-lineheight, 1.25);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 24px;
+}
+
+/* Section header */
+.sectionHeader {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-small-size, 20px);
+  font-weight: var(--ld-semantic-font-heading-small-weight-default, 700);
+  line-height: var(--ld-semantic-font-heading-small-lineheight, 1.4);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+/* Card heading */
+.cardHeading {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0 0 8px;
+}
+
+/* Card body text */
+.cardBody {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0 0 16px;
+}
+
+/* Table wrapper with surface styling */
+.tableCard {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background-color: var(--ld-semantic-color-surface, #ffffff);
+  border-radius: var(--ld-primitive-scale-borderradius-100, 8px);
+  border: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+/* Alert spacing */
+.alertWrapper {
+  margin-bottom: 24px;
+}
+
+/* Recommendations / 3-column card row */
+.threeColGrid {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.threeColGrid > * {
+  flex: 1 1 0;
+}
+
+/* Filter bar */
+.filterBar {
+  display: flex;
+  align-items: flex-end;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+  flex-wrap: wrap;
+}
+
+/* 5-column metrics grid */
+.metricsGrid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--ld-semantic-spacing-4, 16px);
+}
+
+/* 7-column metrics grid */
+.metricsGrid7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--ld-semantic-spacing-4, 16px);
+}
+
+/* 4-column metrics grid */
+.metricsGrid4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+/* Hero + secondary cards 2-column grid */
+.heroGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* 4-column primary cards grid */
+.primaryCardsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* Todo item row */
+.todoItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.todoTrailing {
+  display: flex;
+  padding: 8px 0;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Scrollable table wrapper */
+.tableWrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Select field wrapper */
+.selectField {
+  min-width: 180px;
+  flex: 0 1 220px;
+}
+
+.selectFieldWide {
+  min-width: 200px;
+  flex: 0 1 280px;
+}
+
+/* Catalog branded bar */
+.catalogBrandBar {
+  height: 200px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+  background: var(--ld-semantic-color-surface-brand, #E9F1FE);
+}
+
+/* Catalog card wrapper */
+.catalogCard {
+  border-radius: var(--ld-primitive-scale-borderradius-100, 8px);
+  background: var(--ld-semantic-color-surface, #FFFFFF);
+  box-shadow: 0 -1px 2px 0 rgba(0, 0, 0, 0.10), 0 1px 2px 1px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+/* Catalog page — centers content within the page area */
+.catalogPageInner {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Catalog page title area — sits on top of the branded bar */
+.catalogHeader {
+  width: 100%;
+  padding: 24px 24px 0;
+  position: relative;
+  margin-top: -176px;
+}
+
+/* Catalog page content area — fills width */
+.catalogContent {
+  width: 100%;
+  padding: 24px 24px 24px;
+  position: relative;
+}
+
+/* Catalog todo list padding */
+.catalogTodoList {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* ─── Tablet: <= 1024px ─── */
+@media (max-width: 1024px) {
+  .pageContent {
+    padding: 20px 24px;
+  }
+
+  .metricsGrid7 {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .metricsGrid7::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricsGrid7 > * {
+    min-width: 120px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .metricsGrid5 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .metricsGrid4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .primaryCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ─── Small tablet / large phone: <= 768px ─── */
+@media (max-width: 768px) {
+  .pageContent {
+    padding: 16px;
+  }
+
+  .threeColGrid {
+    flex-direction: column;
+  }
+
+  .metricsGrid7 {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .metricsGrid7::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricsGrid7 > * {
+    min-width: 120px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .metricsGrid5 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .metricsGrid4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .heroGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .primaryCardsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .todoItem {
+    flex-wrap: wrap;
+  }
+
+  .todoTrailing {
+    width: 100%;
+    justify-content: flex-start;
+    padding-left: 64px;
+  }
+
+  .catalogHeader {
+    padding: 16px 16px 0;
+  }
+
+  .catalogContent {
+    padding: 16px 16px 16px;
+  }
+
+  .catalogTodoList {
+    padding: 16px;
+  }
+}
+
+/* ─── Phone: <= 480px ─── */
+@media (max-width: 480px) {
+  .pageContent {
+    padding: 12px;
+  }
+
+  .metricsGrid7 {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .metricsGrid7::-webkit-scrollbar {
+    display: none;
+  }
+
+  .metricsGrid7 > * {
+    min-width: 110px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  .metricsGrid5 {
+    grid-template-columns: 1fr;
+  }
+
+  .metricsGrid4 {
+    grid-template-columns: 1fr;
+  }
+
+  .primaryCardsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .todoTrailing {
+    padding-left: 0;
+  }
+}

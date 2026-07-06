@@ -1,0 +1,39 @@
+/**
+ * Custom Font Declarations
+ * Gibson - Sam's Club brand font
+ * Bogle - Walmart Legacy/Bodega brand font
+ */
+
+/* Gibson Font Family */
+@font-face {
+  font-family: 'Gibson';
+  src: url('/fonts/Gibson-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Gibson';
+  src: url('/fonts/Gibson-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Bogle Font Family */
+@font-face {
+  font-family: 'Bogle';
+  src: url('/fonts/Bogle-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bogle';
+  src: url('/fonts/Bogle-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

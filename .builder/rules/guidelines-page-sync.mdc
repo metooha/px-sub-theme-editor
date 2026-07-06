@@ -1,0 +1,49 @@
+---
+description: Keep Component Library Guidelines index synced with guidelines/
+alwaysApply: false
+---
+# Rule: Guidelines Page Sync
+
+**Priority:** CRITICAL - ALWAYS ENFORCE  
+**When:** After ANY change to files in the `guidelines/` directory
+
+## Overview
+
+The Component Library Guidelines page (`client/pages/component-library/Guidelines.tsx`) includes a **Documentation Index** tab that lists every guideline document in the project. This tab is powered by the `GuidelinesDocIndex` component (`client/pages/component-library/GuidelinesDocIndex.tsx`).
+
+**This index must stay in sync with the actual `guidelines/` folder at all times.**
+
+## Hard Rule
+
+When you **add, remove, rename, or move** any file in the `guidelines/` directory (including subdirectories), you **MUST** also update the `docSections` array in:
+
+
+client/pages/component-library/GuidelinesDocIndex.tsx
+```
+
+### What to update
+
+1. **Adding a new guideline file** — Add a new entry to the appropriate section in `docSections` with `name`, `path`, and `purpose`.
+2. **Removing a guideline file** — Remove the corresponding entry from `docSections`.
+3. **Renaming a guideline file** — Update the `path` and `name` fields in the matching entry.
+4. **Adding a new subdirectory** — If the document doesn't fit an existing section, add a new section object to `docSections`.
+
+### Section mapping
+
+| `guidelines/` subdirectory | `docSections` section title |
+|---|---|
+| `guidelines/components/` | Component Guidelines |
+| `guidelines/design-system/` | Design System Foundations |
+| `guidelines/rules/` | Enforcement Rules |
+| `guidelines/` (root-level) | Cross-Cutting Guidelines |
+| `guidelines/migrations/` and `guidelines/implementations/` | Migrations & Implementation History |
+
+## Enforcement Checklist
+
+Before marking any guideline-related task as complete, verify:
+
+- [ ] The new/changed file is reflected in `GuidelinesDocIndex.tsx`
+- [ ] The `name` field is human-readable
+- [ ] The `purpose` field is a concise one-line description
+- [ ] The `path` field matches the actual file path
+- [ ] The entry is in the correct section

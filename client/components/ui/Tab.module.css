@@ -1,0 +1,248 @@
+/* ========================================
+   Tab Navigation Styles - Living Design 3.5
+   ======================================== */
+
+/* TabList Container */
+.tabList {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  background: var(--ld-semantic-color-page-nav-fill, transparent);
+  position: relative;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, var(--ld-primitive-color-gray-20, #e3e4e5));
+}
+
+/* Filled variant - white surface background */
+.tabList--filled {
+  background: var(--ld-semantic-color-surface, #ffffff);
+  border-radius: var(--ld-primitive-scale-border-radius-100, 8px) var(--ld-primitive-scale-border-radius-100, 8px) 0 0;
+}
+
+.tabList--filled .tab {
+  background: var(--ld-semantic-color-surface, #ffffff);
+}
+
+.tabList--filled .tab:hover:not(.tab--disabled) {
+  background: var(--ld-semantic-color-surface-hovered, var(--ld-primitive-color-gray-5, #f8f8f8));
+}
+
+.tabList--filled .tab:focus-visible {
+  background: var(--ld-semantic-color-surface-hovered, var(--ld-primitive-color-gray-5, #f8f8f8));
+}
+
+.tabList--filled .tab:active:not(.tab--disabled) {
+  background: var(--ld-semantic-color-surface-pressed, var(--ld-primitive-color-gray-10, #f1f1f2));
+}
+
+.tabList--filled .tab--active {
+  background: var(--ld-semantic-color-surface, #ffffff);
+}
+
+.tabList--filled .tab--active:hover {
+  background: var(--ld-semantic-color-surface-hovered, var(--ld-primitive-color-gray-5, #f8f8f8));
+}
+
+.tabList--filled .tab--active:focus-visible {
+  background: var(--ld-semantic-color-surface-hovered, var(--ld-primitive-color-gray-5, #f8f8f8));
+}
+
+.tabList--filled .tab--active:active {
+  background: var(--ld-semantic-color-surface-pressed, var(--ld-primitive-color-gray-10, #f1f1f2));
+}
+
+/* Small screen mode - tabs fill width evenly */
+.tabList--smallScreen {
+  width: 100%;
+}
+
+.tabList--smallScreen .tab {
+  flex: 1 0 0; /* Equal width distribution */
+}
+
+/* Tab Button Base Styles */
+.tab {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: var(--ld-primitive-scale-space-600, 48px); /* 48px total height */
+  padding-top: var(--ld-primitive-scale-space-200, 16px); /* 16px top padding */
+  background: var(--ld-semantic-color-page-nav-fill, transparent);
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: background-color var(--ld-primitive-duration-200, 0.2s) ease-in-out;
+}
+
+.tab:hover:not(.tab--disabled) {
+  background: var(--ld-semantic-color-page-nav-fill-hovered, var(--ld-primitive-color-blue-5, #f0f5ff));
+}
+
+.tab:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: -2px;
+  background: var(--ld-semantic-color-page-nav-fill-focused, var(--ld-primitive-color-blue-5, #f0f5ff));
+}
+
+.tab:active:not(.tab--disabled) {
+  background: var(--ld-semantic-color-page-nav-fill-pressed, var(--ld-primitive-color-blue-10, #e9f1fe));
+}
+
+/* Active Tab State */
+.tab--active {
+  background: var(--ld-semantic-color-page-nav-fill-activated, var(--ld-primitive-color-blue-5, #f0f5ff));
+}
+
+.tab--active:hover {
+  background: var(--ld-semantic-color-page-nav-fill-activated-hovered, var(--ld-primitive-color-blue-10, #e9f1fe));
+}
+
+.tab--active:focus-visible {
+  background: var(--ld-semantic-color-page-nav-fill-activated-focused, var(--ld-primitive-color-blue-10, #e9f1fe));
+}
+
+.tab--active:active {
+  background: var(--ld-semantic-color-page-nav-fill-activated-pressed, var(--ld-primitive-color-blue-20, #c9dcfd));
+}
+
+/* Disabled Tab State */
+.tab--disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Label Container */
+.tab__labelContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  flex-shrink: 0;
+  align-self: stretch;
+  height: var(--ld-primitive-scale-space-400, 32px); /* 32px label area */
+  padding: 0 var(--ld-primitive-scale-space-50, 4px);
+  position: relative;
+}
+
+/* Content Container (label + leading + trailing) */
+.tab__content {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding: 0 var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-150, 12px);
+  position: relative;
+}
+
+/* Tab Label Text */
+.tab__label {
+  color: var(--ld-semantic-color-page-nav-text-on-fill, var(--ld-primitive-color-gray-160, #2e2f32));
+  text-align: center;
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif));
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-style: normal;
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 20px); /* 142.857% */
+  white-space: nowrap;
+  position: relative;
+}
+
+/* Active tab label - bold text */
+.tab--active .tab__label {
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+  color: var(--ld-semantic-color-page-nav-text-on-fill-activated, var(--ld-primitive-color-gray-160, #2e2f32));
+}
+
+/* Leading Content (Icon) */
+.tab__leading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.tab__leading svg,
+.tab__leading img {
+  width: 16px;
+  height: 16px;
+}
+
+/* Trailing Content (Badge) */
+.tab__trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Active Tab Indicator (Bottom Border) */
+.tab__indicator {
+  height: var(--ld-primitive-scale-space-50, 4px); /* 4px indicator height */
+  flex-shrink: 0;
+  align-self: stretch;
+  border-radius: var(--ld-primitive-scale-borderradius-25, 2px) var(--ld-primitive-scale-borderradius-25, 2px) 0 0; /* Rounded top corners */
+  background: var(--ld-semantic-color-page-nav-indicator-activated, var(--ld-primitive-color-blue-100, #0053e2));
+  position: relative;
+  transition: background-color var(--ld-primitive-duration-200, 0.2s) ease-in-out;
+}
+
+/* Indicator hover states */
+.tab--active:hover .tab__indicator {
+  background: var(--ld-semantic-color-page-nav-indicator-activated-hovered, var(--ld-primitive-color-blue-100, #0053e2));
+}
+
+.tab--active:focus-visible .tab__indicator {
+  background: var(--ld-semantic-color-page-nav-indicator-activated-focused, var(--ld-primitive-color-blue-100, #0053e2));
+}
+
+.tab--active:active .tab__indicator {
+  background: var(--ld-semantic-color-page-nav-indicator-activated-pressed, var(--ld-primitive-color-blue-100, #0053e2));
+}
+
+/* Tab Divider (Separator between tabs) */
+.tab__divider {
+  width: 100%;
+  height: 1px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--ld-semantic-color-separator, var(--ld-primitive-color-gray-20, #e3e4e5));
+}
+
+/* Hide divider on last tab to avoid double border */
+.tab:last-child .tab__divider {
+  display: none;
+}
+
+/* Responsive adjustments for very small screens */
+@media (max-width: 375px) {
+  .tab__content {
+    padding-left: var(--ld-primitive-scale-space-100, 8px);
+    padding-right: var(--ld-primitive-scale-space-100, 8px);
+  }
+  
+  .tab__label {
+    font-size: 13px;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .tab__indicator {
+    height: var(--ld-primitive-scale-space-100, 8px); /* Thicker indicator for better visibility */
+  }
+  
+  .tab:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .tab__indicator {
+    transition: none;
+  }
+}

@@ -1,0 +1,210 @@
+/* ProgressTracker.module.css - LD 3.5 Component */
+
+.progressTracker {
+  position: relative;
+  width: 100%;
+  min-height: 36px;
+}
+
+/* Track Container */
+.trackContainer {
+  position: absolute;
+  top: 0;
+  left: 8px;
+  right: 8px;
+  height: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background track */
+.track {
+  width: 100%;
+  height: var(--ld-primitive-scale-space-25, 2px);
+  background: var(--ld-semantic-color-progress-fill);
+  position: relative;
+}
+
+/* Progress indicator overlay */
+.indicator {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: var(--ld-primitive-scale-space-25, 2px);
+  transition: width 0.3s ease;
+}
+
+/* Status-based indicator colors */
+.indicator--info {
+  background: var(--ld-semantic-color-progress-fill-info);
+}
+
+.indicator--warning {
+  background: var(--ld-semantic-color-progress-fill-warning);
+}
+
+.indicator--success {
+  background: var(--ld-semantic-color-progress-fill-positive);
+}
+
+.indicator--error {
+  background: var(--ld-semantic-color-progress-fill-negative);
+}
+
+/* Stops Container */
+.stopsContainer {
+  position: relative;
+  width: 100%;
+  height: 36px;
+}
+
+/* Individual stop */
+.stop {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  transform: translateX(-50%);
+}
+
+/* Stop position alignments */
+.stop--first {
+  left: 0 !important;
+  transform: translateX(0);
+  align-items: flex-start;
+}
+
+.stop--middle {
+  align-items: center;
+}
+
+.stop--last {
+  left: 100% !important;
+  transform: translateX(-100%);
+  align-items: flex-end;
+}
+
+/* Stop indicator SVG */
+.stopIndicator {
+  flex-shrink: 0;
+}
+
+/* Simple circle (completed/future states) */
+.stopIndicator--completed .simpleCircle,
+.stopIndicator--future .simpleCircle {
+  /* Fill set per status/state below */
+}
+
+/* Completed stops - use status color */
+.stopIndicator--completed.stopIndicator--info .simpleCircle {
+  fill: var(--ld-semantic-color-progress-fill-info);
+}
+
+.stopIndicator--completed.stopIndicator--warning .simpleCircle {
+  fill: var(--ld-semantic-color-progress-fill-warning);
+}
+
+.stopIndicator--completed.stopIndicator--success .simpleCircle {
+  fill: var(--ld-semantic-color-progress-fill-positive);
+}
+
+.stopIndicator--completed.stopIndicator--error .simpleCircle {
+  fill: var(--ld-semantic-color-progress-fill-negative);
+}
+
+/* Future stops - use gray */
+.stopIndicator--future .simpleCircle {
+  fill: #909196;
+}
+
+/* Active indicator circles */
+/* Outer circle should only have stroke (border), no fill */
+.stopIndicator--active .activeOuterCircle {
+  fill: white;
+  stroke-width: 2;
+}
+
+.stopIndicator--active.stopIndicator--info .activeOuterCircle {
+  stroke: var(--ld-semantic-color-progress-fill-info);
+}
+
+.stopIndicator--active.stopIndicator--warning .activeOuterCircle {
+  stroke: var(--ld-semantic-color-progress-fill-warning);
+}
+
+.stopIndicator--active.stopIndicator--success .activeOuterCircle {
+  stroke: var(--ld-semantic-color-progress-fill-positive);
+}
+
+.stopIndicator--active.stopIndicator--error .activeOuterCircle {
+  stroke: var(--ld-semantic-color-progress-fill-negative);
+}
+
+/* Inner circle should be filled with status color */
+.stopIndicator--active.stopIndicator--info .activeInnerCircle {
+  fill: var(--ld-semantic-color-progress-fill-info);
+}
+
+.stopIndicator--active.stopIndicator--warning .activeInnerCircle {
+  fill: var(--ld-semantic-color-progress-fill-warning);
+}
+
+.stopIndicator--active.stopIndicator--success .activeInnerCircle {
+  fill: var(--ld-semantic-color-progress-fill-positive);
+}
+
+.stopIndicator--active.stopIndicator--error .activeInnerCircle {
+  fill: var(--ld-semantic-color-progress-fill-negative);
+}
+
+/* Stop labels */
+.stopLabel {
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight, 1.33);
+  font-feature-settings: 'liga' off;
+  font-kerning: none;
+}
+
+.stopLabel--active {
+  color: var(--ld-semantic-color-text);
+}
+
+.stopLabel--inactive {
+  color: var(--ld-semantic-color-text-subtlest);
+}
+
+/* Label alignment based on stop position */
+.stop--first .stopLabel {
+  text-align: left;
+  padding-left: 4px;
+  width: max-content;
+  max-width: 120px;
+}
+
+.stop--middle .stopLabel {
+  text-align: center;
+  width: 120px;
+}
+
+.stop--last .stopLabel {
+  text-align: right;
+  width: max-content;
+  max-width: 120px;
+}
+
+/* Responsive considerations */
+@media (max-width: 768px) {
+  .progressTracker {
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .stopsContainer {
+    min-width: max-content;
+  }
+}

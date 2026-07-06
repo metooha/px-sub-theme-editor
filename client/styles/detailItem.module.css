@@ -1,0 +1,624 @@
+/* ─── Root layout ─── */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* ─── Page inner wrapper ─── */
+.pageInner {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* ─── Page header ─── */
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  align-self: stretch;
+  padding-top: 24px;
+}
+
+.pageHeaderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 0 24px;
+}
+
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.titleLeading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1;
+}
+
+.titleActions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex-shrink: 0;
+  transition: background-color 150ms;
+}
+
+.backBtn:hover {
+  background-color: var(--ld-semantic-color-action-fill-transparent-hovered, rgba(0,0,0,0.05));
+}
+
+.pageTitle {
+  font-family: var(--ld-semantic-font-heading-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-large-size, 32px);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default, 700);
+  line-height: 1.25;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+/* ─── Content layout ─── */
+.contentArea {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex: 1;
+}
+
+.contentContainer {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  padding: 24px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.primaryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  min-width: 480px;
+}
+
+.secondaryColumn {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 320px;
+  min-width: 240px;
+  flex-shrink: 0;
+}
+
+/* ─── Collapsible Section Cards ─── */
+.sectionCard {
+  background: var(--ld-semantic-color-surface, #FFFFFF);
+  border-radius: 8px;
+  box-shadow: 0 -1px 2px 0 rgba(0,0,0,0.10), 0 1px 2px 1px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 150ms;
+}
+
+.sectionHeader:hover {
+  background-color: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+}
+
+.sectionChevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  font-family: var(--ld-semantic-font-heading-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-medium-size, 24px);
+  font-weight: var(--ld-semantic-font-heading-medium-weight-default, 700);
+  line-height: 1.5;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex: 1;
+}
+
+.sectionBody {
+  padding: 16px 24px 24px;
+}
+
+/* ─── Content placeholder ─── */
+.contentPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px dashed var(--ld-semantic-color-border-accent-red, #EA1100);
+  background: var(--ld-semantic-color-fill-accent-red-subtle, #FFF2F0);
+}
+
+.contentPlaceholderLabel {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-accent-red, #EA1100);
+}
+
+/* ─── Listing preview card ─── */
+.listingPreview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.listingPreviewLabel {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.listingPreviewImg {
+  width: 100%;
+  height: 272px;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.listingDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.listingBrand {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-subtle, #51535B);
+  margin: 0;
+}
+
+.listingProductName {
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.listingRating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.listingRatingText {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-subtle, #51535B);
+  margin-left: 4px;
+}
+
+.listingPrice {
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.listingOffers {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-subtle, #51535B);
+  margin: 0;
+}
+
+.listingLink {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-link-text, #2E2F32);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ─── Form cards ─── */
+.formCard {
+  background: var(--ld-semantic-color-surface, #FFFFFF);
+  border-radius: 8px;
+  box-shadow: 0 -1px 2px 0 rgba(0,0,0,0.10), 0 1px 2px 1px rgba(0,0,0,0.15);
+  overflow: hidden;
+}
+
+.formCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 24px 0;
+}
+
+.formCardTitle {
+  font-family: var(--ld-semantic-font-heading-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-medium-size, 24px);
+  font-weight: var(--ld-semantic-font-heading-medium-weight-default, 700);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.formBody {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+
+.formRow {
+  display: flex;
+  gap: 16px;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.formFieldFull {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.fieldLabel {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.fieldInput {
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 4px;
+  border: 1px solid var(--ld-semantic-color-field-border, #74767C);
+  background: var(--ld-semantic-color-field-fill, #FFFFFF);
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-field-text-onfill, #2E2F32);
+  width: 100%;
+  outline: none;
+  transition: border-color 150ms;
+}
+
+.fieldInput:focus {
+  border-color: var(--ld-semantic-color-action-border-primary, #0053E2);
+  box-shadow: 0 0 0 2px var(--ld-semantic-color-action-focus-outline, rgba(0,83,226,0.2));
+}
+
+.selectWrapper {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 4px;
+  border: 1px solid var(--ld-semantic-color-field-border, #74767C);
+  background: var(--ld-semantic-color-field-fill, #FFFFFF);
+  gap: 8px;
+  transition: border-color 150ms;
+}
+
+.selectWrapper:focus-within {
+  border-color: var(--ld-semantic-color-action-border-primary, #0053E2);
+  box-shadow: 0 0 0 2px var(--ld-semantic-color-action-focus-outline, rgba(0,83,226,0.2));
+}
+
+.fieldSelect {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-field-text-onfill, #2E2F32);
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+/* ─── Secondary column cards ─── */
+.secondaryCardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.secondaryCardTitle {
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.moreBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  transition: background-color 150ms;
+}
+
+.moreBtn:hover {
+  background-color: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+}
+
+.customerDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 16px;
+}
+
+.customerName {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.customerPhone {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.customerLink {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-link-text, #2E2F32);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.shippingSection {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-top: 16px;
+}
+
+.shippingTitle {
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+}
+
+.shippingRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.shippingAddress {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  margin: 0;
+  flex: 1;
+  white-space: pre-line;
+}
+
+.copyBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  flex-shrink: 0;
+  transition: background-color 150ms;
+}
+
+.copyBtn:hover {
+  background-color: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+}
+
+.shippingCaption {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.shippingLink {
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  text-decoration: underline;
+}
+
+/* ─── Secondary list section ─── */
+.listSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.listItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.listItem:last-child {
+  border-bottom: none;
+}
+
+.listItemText {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 14px;
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.listItemTrailing {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-onfill-accent-blue-subtle, #002E99);
+  padding: 2px 8px;
+  border-radius: 2px;
+  border: 1px dashed var(--ld-semantic-color-border-accent-blue, #0053E2);
+  background: var(--ld-semantic-color-fill-accent-blue-subtle, #E9F1FE);
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 1024px) {
+  .primaryColumn {
+    min-width: 0;
+  }
+
+  .secondaryColumn {
+    width: 280px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageHeaderContainer {
+    padding: 0 16px;
+  }
+
+  .contentContainer {
+    flex-direction: column;
+    padding: 16px;
+  }
+
+  .primaryColumn {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .secondaryColumn {
+    width: 100%;
+  }
+
+  .formRow {
+    flex-direction: column;
+  }
+
+  .titleRow {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .titleActions {
+    flex-wrap: wrap;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .sectionHeader {
+    padding: 16px;
+  }
+
+  .sectionBody {
+    padding: 12px 16px 16px;
+  }
+
+  .formCardHeader {
+    padding: 16px 16px 0;
+  }
+
+  .formBody {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pageHeaderContainer {
+    padding: 0 12px;
+  }
+
+  .contentContainer {
+    padding: 12px;
+  }
+
+  .pageHeader {
+    padding-top: 16px;
+  }
+
+  .titleActions {
+    width: 100%;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .formCardTitle {
+    font-size: 18px;
+  }
+}

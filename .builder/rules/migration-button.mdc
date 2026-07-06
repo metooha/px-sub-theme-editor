@@ -1,0 +1,448 @@
+---
+description: Guidelines and rules for migration button
+alwaysApply: false
+---
+# Button Migration Guide: shadcn/ui → Living Design 3.5
+
+## Overview
+
+This guide helps you migrate from the existing shadcn/ui Button (`button.tsx`) to the new Living Design 3.5 Button (`Button.tsx`).
+
+## File Locations
+
+- **Old**: `client/components/ui/button.tsx` (shadcn/ui)
+- **New**: `client/components/ui/Button.tsx` (Living Design 3.5)
+
+Both files coexist temporarily to allow gradual migration.
+
+## Quick Reference
+
+### Import Changes
+
+```tsx
+// OLD - shadcn/ui
+import { Button } from '@/components/ui/button';
+
+// NEW - Living Design 3.5
+import { Button } from '@/components/ui/Button';
+// or
+import { Button } from '@/components/ui';
+```
+
+### Variant Mapping
+
+| shadcn/ui | Living Design 3.5 | Notes |
+|-----------|-------------------|-------|
+| `variant="default"` | `variant="primary"` | Main CTA button |
+| `variant="outline"` | `variant="secondary"` | White with border |
+| `variant="ghost"` | `variant="tertiary"` | Transparent |
+| `variant="destructive"` | `variant="destructive"` | Same name |
+| `variant="secondary"` | `variant="secondary"` | Different styling |
+| `variant="link"` | Use `href` prop | Renders as anchor |
+
+### Size Mapping
+
+| shadcn/ui | Living Design 3.5 | Notes |
+|-----------|-------------------|-------|
+| `size="default"` | `size="small"` | Default is now 'small' |
+| `size="sm"` | `size="small"` | Similar sizing |
+| `size="lg"` | `size="large"` | Larger buttons |
+| `size="icon"` | Use icon-only pattern | See examples |
+
+### Prop Changes
+
+| shadcn/ui | Living Design 3.5 | Notes |
+|-----------|-------------------|-------|
+| `asChild` | Not supported | Use `href` for links |
+| `className` | `UNSAFE_className` | Discouraged |
+| N/A | `leading` | New: leading icon |
+| N/A | `trailing` | New: trailing icon |
+| N/A | `isFullWidth` | New: full-width option |
+
+## Migration Examples
+
+### Example 1: Basic Button
+
+```tsx
+// OLD
+<Button variant="default" onClick={handleClick}>
+  Submit
+</Button>
+
+// NEW
+<Button variant="primary" onClick={handleClick}>
+  Submit
+</Button>
+```
+
+### Example 2: Secondary Button
+
+```tsx
+// OLD
+<Button variant="outline">
+  Cancel
+</Button>
+
+// NEW
+<Button variant="secondary">
+  Cancel
+</Button>
+```
+
+### Example 3: Tertiary/Ghost Button
+
+```tsx
+// OLD
+<Button variant="ghost">
+  Learn More
+</Button>
+
+// NEW
+<Button variant="tertiary">
+  Learn More
+</Button>
+```
+
+### Example 4: Button with Icon (Old Way)
+
+```tsx
+// OLD - Icon inside children
+import { Plus } from 'lucide-react';
+
+<Button variant="default">
+  <Plus className="mr-2 h-4 w-4" />
+  Add Item
+</Button>
+
+// NEW - Use leading prop
+<Button 
+  variant="primary"
+  leading={<Plus />}
+>
+  Add Item
+</Button>
+```
+
+### Example 5: Link Button
+
+```tsx
+// OLD - Using asChild with Link
+import { Link } from 'react-router-dom';
+
+<Button variant="link" asChild>
+  <Link to="/help">Get Help</Link>
+</Button>
+
+// NEW - Use href prop
+<Button variant="tertiary" href="/help">
+  Get Help
+</Button>
+```
+
+### Example 6: Button Group
+
+```tsx
+// OLD - Manual spacing
+<div className="flex gap-2">
+  <Button variant="outline">Cancel</Button>
+  <Button variant="default">Save</Button>
+</div>
+
+// NEW - Use ButtonGroup
+import { ButtonGroup } from '@/components/ui/Button';
+
+<ButtonGroup>
+  <Button variant="secondary">Cancel</Button>
+  <Button variant="primary">Save</Button>
+</ButtonGroup>
+```
+
+### Example 7: Full Width Button
+
+```tsx
+// OLD
+<Button variant="default" className="w-full">
+  Continue
+</Button>
+
+// NEW
+<Button variant="primary" isFullWidth>
+  Continue
+</Button>
+```
+
+### Example 8: Disabled Button
+
+```tsx
+// OLD
+<Button variant="default" disabled>
+  Processing...
+</Button>
+
+// NEW - Same API
+<Button variant="primary" disabled>
+  Processing...
+</Button>
+```
+
+### Example 9: Form Submit Button
+
+```tsx
+// OLD
+<Button type="submit" variant="default">
+  Submit Form
+</Button>
+
+// NEW - Same API
+<Button type="submit" variant="primary">
+  Submit Form
+</Button>
+```
+
+## Step-by-Step Migration Process
+
+### Step 1: Identify All Button Usage
+
+Search your codebase for Button imports:
+
+```bash
+# Find all files importing the old button
+grep -r "from '@/components/ui/button'" client/
+```
+
+### Step 2: Update One File at a Time
+
+1. Change the import:
+   ```tsx
+   // Change this
+   import { Button } from '@/components/ui/button';
+   
+   // To this
+   import { Button } from '@/components/ui/Button';
+   ```
+
+2. Update variant names:
+   - `variant="default"` → `variant="primary"`
+   - `variant="outline"` → `variant="secondary"`
+   - `variant="ghost"` → `variant="tertiary"`
+
+3. Update size names:
+   - `size="default"` → `size="small"` (or omit, it's the default)
+   - `size="lg"` → `size="large"`
+
+4. Move icons to props:
+   - Extract icons from children
+   - Use `leading` or `trailing` props
+
+5. Replace `className` with layouts:
+   - Instead of `className="w-full"`, use `isFullWidth`
+   - Remove custom styling where possible
+
+### Step 3: Test Thoroughly
+
+- Visual regression testing
+- Click handlers still work
+- Form submissions work
+- Links navigate correctly
+- Keyboard navigation works
+- Focus states visible
+
+### Step 4: Remove Old Button (Later)
+
+Once all files are migrated:
+1. Delete `client/components/ui/button.tsx`
+2. Update any remaining imports
+3. Run full test suite
+
+## Common Issues & Solutions
+
+### Issue 1: Button with Complex Children
+
+**Problem**: Old button has complex JSX children with icons
+
+```tsx
+// OLD
+<Button>
+  <div className="flex items-center gap-2">
+    <Icon />
+    <span>Text</span>
+    <Badge>New</Badge>
+  </div>
+</Button>
+```
+
+**Solution**: Use leading prop for icon, keep complex content in children
+
+```tsx
+// NEW
+<Button leading={<Icon />}>
+  <div className="flex items-center gap-2">
+    <span>Text</span>
+    <Badge>New</Badge>
+  </div>
+</Button>
+```
+
+### Issue 2: Custom Styling
+
+**Problem**: Button has custom className for styling
+
+```tsx
+// OLD
+<Button className="bg-custom-color shadow-xl rounded-full">
+  Custom
+</Button>
+```
+
+**Solution**: Avoid custom styling. If absolutely necessary, use UNSAFE_className
+
+```tsx
+// NEW - Discouraged!
+<Button UNSAFE_className="custom-styles">
+  Custom
+</Button>
+
+// BETTER - Use standard variants
+<Button variant="primary">
+  Custom
+</Button>
+```
+
+### Issue 3: asChild Pattern
+
+**Problem**: Using asChild for custom rendering
+
+```tsx
+// OLD
+import { Link } from 'react-router-dom';
+
+<Button asChild>
+  <Link to="/page">Go</Link>
+</Button>
+```
+
+**Solution**: Use href for links, or render custom component separately
+
+```tsx
+// NEW - For links
+<Button href="/page">Go</Button>
+
+// For React Router
+import { Link } from 'react-router-dom';
+<Link to="/page">
+  <Button variant="tertiary">Go</Button>
+</Link>
+```
+
+### Issue 4: Icon-Only Buttons
+
+**Problem**: Button with only an icon
+
+```tsx
+// OLD
+<Button size="icon" variant="ghost">
+  <X className="h-4 w-4" />
+</Button>
+```
+
+**Solution**: Use leading prop and provide aria-label
+
+```tsx
+// NEW
+<Button 
+  variant="tertiary" 
+  leading={<X />}
+  aria-label="Close"
+/>
+```
+
+## Checklist for Each File
+
+Use this checklist when migrating each file:
+
+- [ ] Update import statement
+- [ ] Change `variant="default"` to `variant="primary"`
+- [ ] Change `variant="outline"` to `variant="secondary"`
+- [ ] Change `variant="ghost"` to `variant="tertiary"`
+- [ ] Update size props if needed
+- [ ] Move icons to `leading` or `trailing` props
+- [ ] Replace `className="w-full"` with `isFullWidth`
+- [ ] Remove `asChild` and update link pattern
+- [ ] Add `aria-label` for icon-only buttons
+- [ ] Test button functionality
+- [ ] Test visual appearance
+- [ ] Test keyboard navigation
+- [ ] Test on mobile viewport
+
+## Pages to Migrate
+
+Based on the replacement plan, update buttons in:
+
+1. **High Priority** (currently using buttons):
+   - `client/pages/ItemHealth.tsx`
+   - `client/pages/Campaign.tsx`
+   - `client/components/RecommendationsPanel.tsx`
+   - `client/components/DisplayDashboard.tsx`
+
+2. **Medium Priority**:
+   - Any forms with submit buttons
+   - Navigation components
+   - Modal dialogs
+
+3. **Lower Priority**:
+   - Other pages with buttons
+   - Administrative interfaces
+
+## Testing Strategy
+
+### Visual Testing
+- [ ] Button colors match design system
+- [ ] Hover states work correctly
+- [ ] Focus rings visible
+- [ ] Icons sized appropriately
+- [ ] Spacing looks correct
+
+### Functional Testing
+- [ ] Click handlers fire
+- [ ] Form submissions work
+- [ ] Links navigate correctly
+- [ ] Disabled state prevents clicks
+- [ ] Loading states display
+
+### Accessibility Testing
+- [ ] Tab navigation works
+- [ ] Enter/Space keys trigger buttons
+- [ ] Screen readers announce correctly
+- [ ] aria-label present for icon-only
+- [ ] Focus visible for keyboard users
+
+## Rollback Plan
+
+If issues arise during migration:
+
+1. Keep both button files temporarily
+2. Revert import statements in problematic files
+3. Fix issues in Living Design Button
+4. Re-migrate after fixes
+
+## Benefits of Migration
+
+✅ **Design System Compliance**: Matches Living Design 3.5 specs
+✅ **CSS Modules**: Better performance, no Tailwind conflicts
+✅ **Explicit Icon Props**: Clearer API for icons
+✅ **Better Accessibility**: Built-in ARIA support
+✅ **Consistent Styling**: No custom overrides needed
+✅ **Type Safety**: Better TypeScript support
+
+## Timeline Estimate
+
+- **Small project** (< 20 button usages): 1-2 hours
+- **Medium project** (20-50 button usages): 2-4 hours  
+- **Large project** (50+ button usages): 4-8 hours
+
+## Need Help?
+
+- See `README-Button.md` for full API documentation
+- See `ButtonExample.tsx` for working examples
+- Check design system docs in `design-system-docs/Button.mdx`
+- Review guidelines in `guidelines/Button.md`

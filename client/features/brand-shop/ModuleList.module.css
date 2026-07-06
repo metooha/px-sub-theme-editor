@@ -1,0 +1,183 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border-right: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  background: var(--ld-semantic-color-surface, #fff);
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+.panelCollapsed {
+  width: 40px;
+  min-width: 40px;
+  overflow: hidden;
+}
+
+.collapsedContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--ld-primitive-scale-space-100, 8px) 0;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+}
+
+.collapsedModules {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.collapsedItemSelected {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+}
+
+.headerTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.templateRow {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.templateLabel {
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-default, 400);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+  color: var(--ld-semantic-color-text-subtle);
+}
+
+.templateName {
+  font-family: var(--ld-semantic-font-caption-family);
+  font-size: var(--ld-semantic-font-caption-size);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight);
+  color: var(--ld-semantic-color-text);
+}
+
+.moduleListUl {
+  list-style: none;
+  margin: 0;
+  padding: var(--ld-primitive-scale-space-100, 8px) 0;
+}
+
+.moduleItem {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  padding: 0 var(--ld-primitive-scale-space-100, 8px);
+}
+
+.moduleItemDragging {
+  opacity: 0.5;
+}
+
+.moduleActions {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  gap: 0;
+}
+
+.moduleButton {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding: var(--ld-primitive-scale-space-100, 8px);
+  border: 2px solid transparent;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+  color: var(--ld-semantic-color-text);
+  text-align: left;
+  min-width: 0;
+}
+
+.moduleButton > span:nth-child(2) {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.moduleButton:hover {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+}
+
+.moduleButtonSelected {
+  border-color: var(--ld-semantic-color-action-fill-primary, #0053e2);
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+}
+
+.dragHandle {
+  cursor: grab;
+  color: var(--ld-semantic-color-text-subtlest);
+  font-size: var(--ld-semantic-font-body-small-size);
+  user-select: none;
+}
+
+.moduleLabel {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+/* ─── Resize handle (right edge) ─── */
+.resizeHandle {
+  position: absolute;
+  top: 0;
+  right: -3px;
+  width: 6px;
+  height: 100%;
+  cursor: col-resize;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resizeHandle:hover .resizeIndicator,
+.resizeHandle:active .resizeIndicator {
+  opacity: 1;
+}
+
+.resizeIndicator {
+  width: 2px;
+  height: 40px;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px);
+  background: var(--ld-semantic-color-action-fill-primary, #0053e2);
+  opacity: 0;
+  transition: opacity var(--ld-primitive-duration-150, 150ms) ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resizeIndicator {
+    transition: none;
+  }
+}

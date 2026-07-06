@@ -1,0 +1,44 @@
+/**
+ * Member's Mark Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base → WCP → Sam's Club → Member's Mark
+ * Inherits Sam's Club brand + WCP commerce tokens
+ *
+ * Member's Mark private label brand
+ * Dark gray with beige top nav
+ */
+
+:root {
+  /* Member's Mark brand colors - DARK GRAY */
+  --ld-semantic-color-action-border-secondary: #283645;
+  --ld-semantic-color-action-border-secondary-focused: #283645;
+  --ld-semantic-color-action-border-secondary-hovered: #283645;
+  --ld-semantic-color-action-border-secondary-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  
+  /* Beige top navigation */
+  --ld-semantic-color-top-nav-fill: #fcf6f0;
+  --ld-semantic-color-top-nav-separator: #fcf6f0;
+  --ld-semantic-color-top-nav-text-on-fill: #151f29;
+  --ld-semantic-color-top-nav-text-on-fill-focused: #151f29;
+  --ld-semantic-color-top-nav-text-on-fill-hovered: #151f29;
+  --ld-semantic-color-top-nav-text-on-fill-pressed: #151f29;
+  
+  --ld-semantic-color-surface-brand: #fcf6f0;
+
+  /* Font Family - Gibson (override primitive, same as Sam's Club parent) */
+  --ld-primitive-font-family-sans: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+
+  /* Semantic font overrides */
+  --ld-semantic-font-body-large-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-medium-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-small-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-caption-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-large-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-small-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-large-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-medium-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-small-family: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+
+  /* Inherits Sam's Club brand + WCP commerce tokens */
+}

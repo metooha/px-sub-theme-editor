@@ -1,0 +1,149 @@
+/* DataTableSubComponentsExample — showcases individual DataTable sub-components */
+
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+/* ── Section ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-small-size, 20px);
+  font-weight: 700;
+  line-height: var(--ld-semantic-font-heading-small-lineheight, 1.4);
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.sectionDescription {
+  margin: 0;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.43);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+/* ── Example card ── */
+.exampleCard {
+  border: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+  border-radius: var(--ld-primitive-scale-borderradius-100, 8px);
+  overflow: hidden;
+  background: var(--ld-semantic-color-surface-primary, #fff);
+}
+
+/* ── Variant sub-labels and dividers ── */
+.variantLabel {
+  padding: 8px 16px 4px;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+.variantDivider {
+  height: 1px;
+  background: var(--ld-semantic-color-separator, #E3E4E5);
+  margin: 8px 0;
+}
+
+/* ── Checkbox state grid ── */
+.checkboxGrid {
+  display: grid;
+  grid-template-columns: 100px repeat(3, 1fr);
+  gap: 0;
+  padding: 16px;
+}
+
+.checkboxGridLabel {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  padding: 8px;
+  text-align: center;
+}
+
+.checkboxGridLabel:first-child {
+  text-align: left;
+}
+
+.checkboxGridState {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.checkboxCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: var(--ld-semantic-color-fill-surface-subtle, #F8F8F8);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  margin: 4px;
+}
+
+/* ── Action Content rows ── */
+.actionContentList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.actionContentRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.actionContentRow:last-child {
+  border-bottom: none;
+}
+
+/* ── Config panel row ── */
+.configPanelRow {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.configSummary {
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+/* ── Table options grid ── */
+.optionsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .optionsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.optionLabel {
+  margin: 0 0 8px 0;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text, #2E2F32);
+}

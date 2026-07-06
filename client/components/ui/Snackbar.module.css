@@ -1,0 +1,150 @@
+/* Snackbar Container */
+.snackbar {
+  display: flex;
+  width: 288px;
+  min-height: 52px;
+  align-items: stretch;
+  position: fixed;
+  z-index: var(--ld-semantic-z-index-notification, 1080);
+  
+  /* LD 3.5 Tokens */
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  background: var(--ld-semantic-color-text, #2e2f32);
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.10), 0 5px 10px 3px rgba(0, 0, 0, 0.15);
+  
+  /* Initial state for animation */
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.2s cubic-bezier(0.55, 0.055, 0.675, 0.19),
+              transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Open state with enter animation */
+.snackbar.open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Position Variants */
+.snackbar.bottom-left {
+  bottom: 24px;
+  left: 24px;
+}
+
+.snackbar.bottom-center {
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+}
+
+.snackbar.bottom-center.open {
+  transform: translateX(-50%) translateY(0);
+}
+
+.snackbar.bottom-right {
+  bottom: 24px;
+  right: 24px;
+}
+
+/* Content Area */
+.content {
+  display: flex;
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  align-items: flex-start;
+  flex: 1 0 0;
+}
+
+.message {
+  flex: 1 0 0;
+  color: var(--ld-primitive-color-white, #ffffff);
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+}
+
+/* Action Button */
+.action {
+  display: flex;
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-100, 8px);
+  align-items: flex-start;
+  
+  background: transparent;
+  border: none;
+  cursor: pointer;
+
+  color: var(--ld-primitive-color-white, #ffffff);
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+  text-decoration: underline;
+  text-decoration-skip-ink: none;
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  
+  transition: opacity 0.2s ease;
+}
+
+.action:hover {
+  opacity: 0.8;
+}
+
+.action:focus {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+.action:active {
+  opacity: 0.6;
+}
+
+/* Close Button */
+.close {
+  display: flex;
+  width: var(--ld-primitive-scale-space-600, 48px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  justify-content: center;
+  align-items: flex-start;
+  flex-shrink: 0;
+  
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--ld-primitive-color-white, #ffffff);
+  
+  transition: opacity 0.2s ease;
+}
+
+.close:hover {
+  opacity: 0.8;
+}
+
+.close:focus {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+.close:active {
+  opacity: 0.6;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 640px) {
+  .snackbar {
+    width: calc(100vw - 48px);
+    max-width: 288px;
+  }
+  
+  .snackbar.bottom-left,
+  .snackbar.bottom-right {
+    left: 24px;
+    right: auto;
+  }
+  
+  .snackbar.bottom-center {
+    left: 50%;
+  }
+}

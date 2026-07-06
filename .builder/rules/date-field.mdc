@@ -1,0 +1,112 @@
+---
+description: Guidelines and rules for date field
+alwaysApply: false
+---
+# DateField
+
+A text input for manual date entry in **mm/dd/yyyy** format, built to the Living Design 3.5 specification.
+
+## Purpose
+
+DateField provides a consistent, accessible way to capture date values across the Ad Center. It handles label, placeholder, error, helper text, and an optional calendar icon. Built-in validation on blur ensures the entered value is a valid date.
+
+## Rules
+
+### MUST
+
+- Import from `@/components/ui/DateField` (uppercase `D`).
+- Provide a `label` for every visible date field.
+- Keep `validateOnBlur` enabled (default) unless the consumer handles validation externally.
+- Pair with an external calendar/picker if date selection via UI is needed (DateField is text-only).
+
+### MUST NOT
+
+- Override border colours, border-radius, or focus ring via `UNSAFE_className`.
+- Use `type="date"` native inputs — always use DateField instead.
+- Hard-code colours like `border-[#909196]` or `text-[#74767C]`.
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `string` | — | Label text above the input |
+| `error` | `string` | — | Error message; triggers error state |
+| `helperText` | `string` | — | Helper text shown when no error |
+| `showCalendarIcon` | `boolean` | `false` | Show a decorative calendar icon |
+| `validateOnBlur` | `boolean` | `true` | Run mm/dd/yyyy validation on blur |
+| `onValidationError` | `(error: string) => void` | — | Callback when validation fails |
+| `disabled` | `boolean` | `false` | Disable all interaction |
+| `placeholder` | `string` | `mm/dd/yyyy` | Placeholder text |
+| `UNSAFE_className` | `string` | — | Escape-hatch CSS class |
+| `UNSAFE_style` | `CSSProperties` | — | Escape-hatch inline styles |
+
+All standard `<input>` props (except `className`, `style`, `type`) are forwarded.
+
+## States
+
+| State | Behaviour |
+|-------|-----------|
+| **Default** | `--ld-semantic-color-border-strong` border |
+| **Focused** | `--ld-semantic-color-border-brand` border + focus ring |
+| **Error** | `--ld-semantic-color-border-negative` border, error icon + message |
+| **Disabled** | `--ld-semantic-color-border-disabled` border, reduced text colour, no interaction |
+
+## Token Reference
+
+| Token | Usage |
+|-------|-------|
+| `--ld-semantic-color-border-strong` | Default border |
+| `--ld-semantic-color-border-brand` | Focus border |
+| `--ld-semantic-color-border-negative` | Error border |
+| `--ld-semantic-color-border-disabled` | Disabled border |
+| `--ld-semantic-color-text` | Input text, label |
+| `--ld-semantic-color-text-subtle` | Placeholder, helper text |
+| `--ld-semantic-color-text-negative` | Error message + icon |
+| `--ld-semantic-color-text-disabled` | Disabled text |
+| `--ld-semantic-color-surface` | Input background |
+| `--ld-semantic-color-fill-disabled` | Disabled background |
+| `--ld-semantic-color-action-focus-outline` | Focus ring |
+| `--ld-semantic-font-family-sans` | All text |
+
+## Accessibility
+
+- Label is associated implicitly (wrapping `<label>`).
+- `aria-invalid` is set automatically in error state.
+- `aria-describedby` links to error or helper text.
+- Error message container uses `role="alert"` for screen-reader announcements.
+- Calendar icon is `aria-hidden`.
+
+## Examples
+
+### DO
+
+```tsx
+import { DateField } from '@/components/ui/DateField';
+
+<DateField label="Start date" showCalendarIcon />
+
+<DateField
+  label="End date"
+  error="Please enter a valid date (mm/dd/yyyy)"
+  showCalendarIcon
+/>
+
+<DateField
+  label="Launch date"
+  helperText="Must be today or later"
+  showCalendarIcon
+/>
+```
+
+### DON'T
+
+```tsx
+// Hard-coded colours
+<input className="border border-[#909196] rounded" placeholder="mm/dd/yyyy" />
+
+// Missing label
+<DateField showCalendarIcon />
+
+// Overriding tokens
+<DateField label="Date" UNSAFE_className="border-blue-500" />
+```

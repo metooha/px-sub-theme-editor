@@ -1,0 +1,92 @@
+/**
+ * Data Ventures Theme - Semantic Token Overrides
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE MODEL:
+ * LD Base → PX → Data Ventures
+ * This theme inherits from PX theme
+ *
+ * Key Changes:
+ * - Purple brand color (#6245b7) instead of blue
+ * - Partner/data platform-specific UX
+ */
+
+:root {
+  /* ========================================
+     PRIMARY BRAND COLORS - PURPLE
+     ======================================== */
+  
+  /* Primary Action/Button Colors - PURPLE */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-purple-110, #553aa8);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-purple-110, #553aa8);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-purple-130, #3c228a);
+  
+  /* Brand Border Colors - PURPLE */
+  --ld-semantic-color-border-activated: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-border-brand-bold: var(--ld-primitive-color-purple-160, #1c0859);
+  
+  /* Brand Fill Colors - PURPLE */
+  --ld-semantic-color-fill-activated: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-fill-activated-focused: var(--ld-primitive-color-purple-110, #553aa8);
+  --ld-semantic-color-fill-activated-hovered: var(--ld-primitive-color-purple-110, #553aa8);
+  --ld-semantic-color-fill-activated-pressed: var(--ld-primitive-color-purple-130, #3c228a);
+  --ld-semantic-color-fill-activated-subtle: var(--ld-primitive-color-purple-5, #f5f3f9);
+  --ld-semantic-color-fill-activated-subtle-focused: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-fill-activated-subtle-hovered: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-fill-activated-subtle-pressed: var(--ld-primitive-color-purple-20, #d9d3e8);
+  --ld-semantic-color-fill-brand: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-fill-brand-bold: var(--ld-primitive-color-purple-160, #1c0859);
+  --ld-semantic-color-fill-brand-subtle: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-fill-brand-subtle-focused: var(--ld-primitive-color-gray-30, #d5d6d8);
+  --ld-semantic-color-fill-brand-subtle-hovered: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-fill-brand-subtle-pressed: var(--ld-primitive-color-gray-140, #46474a);
+  
+  /* Brand Text Colors - PURPLE */
+  --ld-semantic-color-text-activated: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-text-brand-bold: var(--ld-primitive-color-purple-160, #1c0859);
+  --ld-semantic-color-text-on-fill-brand: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-text-on-fill-brand-subtle: var(--ld-primitive-color-purple-110, #553aa8);
+  --ld-semantic-color-text-on-fill-brand-subtle-focused: var(--ld-primitive-color-gray-140, #46474a);
+  --ld-semantic-color-text-on-fill-brand-subtle-hovered: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-text-on-fill-brand-subtle-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  
+  /* Page Navigation - PURPLE */
+  --ld-semantic-color-page-nav-fill-activated: var(--ld-primitive-color-purple-5, #f5f3f9);
+  --ld-semantic-color-page-nav-fill-activated-focused: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-page-nav-fill-activated-hovered: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-page-nav-fill-activated-pressed: var(--ld-primitive-color-purple-20, #d9d3e8);
+  --ld-semantic-color-page-nav-fill-focused: var(--ld-primitive-color-purple-5, #f5f3f9);
+  --ld-semantic-color-page-nav-fill-hovered: var(--ld-primitive-color-purple-5, #f5f3f9);
+  --ld-semantic-color-page-nav-fill-pressed: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-page-nav-indicator-activated: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-page-nav-indicator-activated-focused: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-page-nav-indicator-activated-hovered: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-page-nav-indicator-activated-pressed: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-page-nav-indicator-focused: var(--ld-primitive-color-purple-20, #d9d3e8);
+  --ld-semantic-color-page-nav-indicator-hovered: var(--ld-primitive-color-purple-20, #d9d3e8);
+  --ld-semantic-color-page-nav-indicator-pressed: var(--ld-primitive-color-purple-30, #c7bfde);
+  
+  /* Surface Colors - PURPLE */
+  --ld-semantic-color-surface-activated: var(--ld-primitive-color-gray-5, #f8f8f8);
+  --ld-semantic-color-surface-activated-focused: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-surface-activated-hovered: var(--ld-primitive-color-purple-10, #ebe8f3);
+  --ld-semantic-color-surface-activated-pressed: var(--ld-primitive-color-purple-20, #d9d3e8);
+  --ld-semantic-color-surface-brand: var(--ld-primitive-color-purple-10, #ebe8f3);
+  
+  /* Switch Colors - PURPLE */
+  --ld-semantic-color-switch-fill-activated: var(--ld-primitive-color-purple-100, #6245b7);
+  --ld-semantic-color-switch-fill-activated-focused: var(--ld-primitive-color-purple-130, #3c228a);
+  --ld-semantic-color-switch-fill-activated-hovered: var(--ld-primitive-color-purple-130, #3c228a);
+  --ld-semantic-color-switch-fill-activated-pressed: var(--ld-primitive-color-purple-160, #1c0859);
+  --ld-semantic-color-switch-fill-focused: var(--ld-primitive-color-gray-110, #686a70);
+  --ld-semantic-color-switch-fill-hovered: var(--ld-primitive-color-gray-110, #686a70);
+  --ld-semantic-color-switch-fill-pressed: var(--ld-primitive-color-gray-120, #5d5e63);
+}
+
+/*
+ * NOTE: All other tokens inherited from base theme (Developer)
+ * Partner persona UX adjustments included in overrides above
+ */

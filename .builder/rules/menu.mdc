@@ -1,0 +1,688 @@
+---
+description: Guidelines and rules for menu
+alwaysApply: false
+---
+# Menu Component
+
+## Overview
+
+The Menu component displays a list of actions in a small overlay. It is built with Living Design 3.5 semantic tokens to ensure consistent spacing, typography, colors, and interactive states across the application.
+
+**Living Design Documentation**: https://digitaltoolkit.livingdesign.walmart.com/components/menu/
+
+## When to Use
+
+- **Action Lists**: Display a list of actions or options the user can select
+- **Dropdown Menus**: Show options when clicking a button or icon button
+- **Context Menus**: Display contextual actions related to a specific element
+- **Filter/Sort Options**: Present filtering or sorting choices in a compact overlay
+
+## When NOT to Use
+
+- **Navigation**: Use Navigation Menu or sidebar for site navigation
+- **Form Selects**: Use Select component for form dropdowns
+- **Complex Overlays**: Use Dialog or Popover for more complex content
+- **Tooltips**: Use Tooltip component for help text
+
+## Component Structure
+
+The Menu system consists of two components:
+
+1. **Menu** - Container component that manages the overlay, positioning, and keyboard navigation
+2. **MenuItem** - Individual action items within the menu
+
+## API Reference
+
+### Menu Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | Required | MenuItem components |
+| `isOpen` | `boolean` | `false` | Controls menu visibility |
+| `onClose` | `(event) => void` | Required | Callback when menu should close (Escape key, etc.) |
+| `position` | `'bottomLeft' \| 'bottomRight' \| 'topLeft' \| 'topRight'` | `'bottomLeft'` | Menu position relative to trigger |
+| `footer` | `ReactNode` | `undefined` | Optional footer content (custom extension, not in base LD 3.5) |
+
+### MenuItem Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | Required | Menu item text content |
+| `leadingIcon` | `ReactNode` | `undefined` | Icon displayed before text (use small size for LD 3.5 compliance) |
+| `selected` | `boolean` | `false` | Highlights item as currently selected |
+| `disabled` | `boolean` | `false` | Disables interaction |
+| `onClick` | `(event) => void` | `undefined` | Click handler |
+
+## Usage Examples
+
+### Basic Menu with Icons
+
+```tsx
+import { Menu, MenuItem } from '@/components/ui/Menu';
+import * as Icons from '@/components/icons';
+
+function MyComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div>
+      <Button onClick={() => setIsOpen(true)}>
+        Open Menu
+      </Button>
+      
+      <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <MenuItem 
+          leadingIcon={<Icons.Edit />}
+          onClick={() => handleEdit()}
+        >
+          Edit
+        </MenuItem>
+        <MenuItem 
+          leadingIcon={<Icons.Duplicate />}
+          onClick={() => handleDuplicate()}
+        >
+          Duplicate
+        </MenuItem>
+        <MenuItem 
+          leadingIcon={<Icons.Delete />}
+          onClick={() => handleDelete()}
+        >
+          Delete
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+}
+```
+
+### Menu with Selected State
+
+```tsx
+<Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+  <MenuItem 
+    leadingIcon={<Icons.Check />}
+    selected
+    onClick={() => selectOption(1)}
+  >
+    Option 1
+  </MenuItem>
+  <MenuItem onClick={() => selectOption(2)}>
+    Option 2
+  </MenuItem>
+  <MenuItem onClick={() => selectOption(3)}>
+    Option 3
+  </MenuItem>
+</Menu>
+```
+
+### Menu with Disabled Items
+
+```tsx
+<Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+  <MenuItem 
+    leadingIcon={<Icons.Save />}
+    onClick={() => handleSave()}
+  >
+    Save
+  </MenuItem>
+  <MenuItem 
+    leadingIcon={<Icons.Export />}
+    disabled
+  >
+    Export (unavailable)
+  </MenuItem>
+  <MenuItem 
+    leadingIcon={<Icons.Print />}
+    onClick={() => handlePrint()}
+  >
+    Print
+  </MenuItem>
+</Menu>
+```
+
+### Menu with Footer (Custom Extension)
+
+The `footer` prop is a custom extension beyond the base LD 3.5 specification. It allows adding action buttons at the bottom of the menu, useful for "Cancel" / "Apply" patterns in filter menus.
+
+```tsx
+<Menu 
+  isOpen={isOpen} 
+  onClose={() => setIsOpen(false)}
+  footer={
+    <div style={{ display: 'flex', gap: '8px' }}>
+      <Button 
+        variant="secondary" 
+        size="small"
+        onClick={() => handleCancel()}
+      >
+        Cancel
+      </Button>
+      <Button 
+        variant="primary" 
+        size="small"
+        onClick={() => handleApply()}
+      >
+        Apply
+      </Button>
+    </div>
+  }
+>
+  <MenuItem leadingIcon={<Icons.Filter />}>
+    Filter by date
+  </MenuItem>
+  <MenuItem leadingIcon={<Icons.Sort />}>
+    Sort by name
+  </MenuItem>
+</Menu>
+```
+
+### Menu Positioning
+
+```tsx
+{/* Bottom-left positioned (default) */}
+<Menu isOpen={isOpen} onClose={onClose} position="bottomLeft">
+  {/* items */}
+</Menu>
+
+{/* Bottom-right positioned */}
+<Menu isOpen={isOpen} onClose={onClose} position="bottomRight">
+  {/* items */}
+</Menu>
+
+{/* Top-left positioned */}
+<Menu isOpen={isOpen} onClose={onClose} position="topLeft">
+  {/* items */}
+</Menu>
+
+{/* Top-right positioned */}
+<Menu isOpen={isOpen} onClose={onClose} position="topRight">
+  {/* items */}
+</Menu>
+```
+
+## Design Tokens Used
+
+The Menu component uses the following Living Design 3.5 semantic tokens:
+
+### Menu Container Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ld-semantic-color-surface-overlay` | Surface color | Menu background |
+| `--ld-semantic-color-border-subtlest` | Border color | Menu border |
+| `--ld-semantic-border-radius-large` | 12px | Menu border radius |
+| `--ld-semantic-elevation-200` | Shadow | Menu drop shadow |
+| `--ld-semantic-color-separator` | Separator color | Footer border |
+| `--ld-semantic-spacing-200` | 8px | Footer padding |
+
+### MenuItem Tokens
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ld-primitive-scale-space-100` | 4px | Vertical padding, gap |
+| `--ld-primitive-scale-space-200` | 8px | Horizontal padding |
+| `--ld-semantic-font-body-small-family` | Everyday Sans UI | Text font |
+| `--ld-semantic-font-body-small-size` | 14px | Text size |
+| `--ld-semantic-font-body-small-weight-default` | 400 | Text weight |
+| `--ld-semantic-font-body-small-lineheight` | 142.857% | Line height |
+| `--ld-semantic-scale-icon-small` | 16x16px | Icon size |
+
+### Interactive State Tokens
+
+| State | Background Token | Text Color Token |
+|-------|-----------------|------------------|
+| Default | `--ld-semantic-color-action-fill-transparent` | `--ld-semantic-color-action-text-on-fill-transparent` |
+| Hover | `--ld-semantic-color-fill-hovered` | `--ld-semantic-color-action-text-on-fill-transparent-hovered` |
+| Focus | `--ld-semantic-color-fill-focused` | `--ld-semantic-color-action-text-on-fill-transparent-focused` |
+| Pressed | `--ld-semantic-color-fill-pressed` | `--ld-semantic-color-action-text-on-fill-transparent-pressed` |
+| Disabled | `--ld-semantic-color-action-fill-transparent` | `--ld-semantic-color-action-text-on-fill-transparent-disabled` |
+| Selected | `--ld-semantic-color-surface-activated` | `--ld-semantic-color-text` |
+
+## Accessibility
+
+### ARIA Roles
+- Menu container has `role="menu"`
+- Each item has `role="menuitem"`
+- Disabled items have `aria-disabled="true"`
+
+### Keyboard Navigation
+
+The Menu component provides full keyboard navigation support:
+
+| Key | Action |
+|-----|--------|
+| `ArrowDown` | Focus next menu item (wraps to first) |
+| `ArrowUp` | Focus previous menu item (wraps to last) |
+| `Home` | Focus first menu item |
+| `End` | Focus last menu item |
+| `Escape` | Close menu |
+| `Enter` / `Space` | Activate focused menu item |
+
+### Focus Management
+
+- **Auto-focus**: When menu opens, first non-disabled item automatically receives focus
+- **Focus visible**: Focus indicator uses LD 3.5 semantic tokens for consistent styling
+- **Skip disabled**: Keyboard navigation automatically skips disabled items
+
+### Screen Readers
+
+- Menu items are announced with their text content
+- Selected state is conveyed through visual styling (not announced by default)
+- Disabled items are announced as "disabled" or "unavailable"
+
+## Behavior
+
+### Opening and Closing
+
+- **Open**: Set `isOpen={true}` via state management
+- **Close**: Triggered by:
+  - Pressing Escape key
+  - Clicking outside the menu (handled by parent component)
+  - Selecting a menu item (handled by MenuItem onClick)
+
+### State Management
+
+Menu does not manage its own open/close state. The parent component must control this via the `isOpen` prop:
+
+```tsx
+function ParentComponent() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setIsMenuOpen(true)}>
+        Options
+      </Button>
+      
+      <Menu 
+        isOpen={isMenuOpen} 
+        onClose={() => setIsMenuOpen(false)}
+      >
+        <MenuItem onClick={() => {
+          handleAction();
+          setIsMenuOpen(false); // Close after action
+        }}>
+          Action
+        </MenuItem>
+      </Menu>
+    </>
+  );
+}
+```
+
+## Integration Patterns
+
+### With Popover (Recommended)
+
+Menu works best when combined with Popover for positioning and click-outside detection:
+
+```tsx
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
+import { Menu, MenuItem } from '@/components/ui/Menu';
+
+function MenuWithPopover() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <Popover open={isOpen} onOpenChange={setIsOpen}>
+      <PopoverTrigger asChild>
+        <IconButton icon="more-vert" aria-label="More options" />
+      </PopoverTrigger>
+      <PopoverContent>
+        <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+          <MenuItem leadingIcon={<Icons.Edit />}>Edit</MenuItem>
+          <MenuItem leadingIcon={<Icons.Delete />}>Delete</MenuItem>
+        </Menu>
+      </PopoverContent>
+    </Popover>
+  );
+}
+```
+
+### With Icon Button
+
+```tsx
+function ActionsMenu() {
+  const [isOpen, setIsOpen] = useState(false);
+  const buttonRef = useRef(null);
+
+  return (
+    <div style={{ position: 'relative' }}>
+      <IconButton 
+        ref={buttonRef}
+        icon="more-vert"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="More actions"
+        aria-haspopup="menu"
+        aria-expanded={isOpen}
+      />
+      
+      {isOpen && (
+        <div style={{ position: 'absolute', top: '100%', right: 0, marginTop: '4px' }}>
+          <Menu isOpen={isOpen} onClose={() => setIsOpen(false)}>
+            <MenuItem leadingIcon={<Icons.Edit />}>Edit</MenuItem>
+            <MenuItem leadingIcon={<Icons.Duplicate />}>Duplicate</MenuItem>
+            <MenuItem leadingIcon={<Icons.Delete />}>Delete</MenuItem>
+          </Menu>
+        </div>
+      )}
+    </div>
+  );
+}
+```
+
+## Best Practices
+
+### DO
+
+- ✅ Use semantic tokens for all styling (already built into component)
+- ✅ Provide meaningful `aria-label` on trigger buttons
+- ✅ Use small icons (`size="small"`) for menu items to match LD 3.5 spec (16x16px)
+- ✅ Close menu after user selects an action (in MenuItem onClick handler)
+- ✅ Keep menu items concise (1-3 words ideally)
+- ✅ Use leadingIcon for visual recognition
+- ✅ Group related actions together
+- ✅ Place destructive actions (Delete, Remove) at the bottom
+
+### DON'T
+
+- ❌ Don't create custom menu components - reuse this one
+- ❌ Don't override LD 3.5 tokens with hard-coded values
+- ❌ Don't use menu for navigation - use Navigation Menu instead
+- ❌ Don't use menu for form selects - use Select component
+- ❌ Don't put too many items (>10) - consider grouping or alternative UI
+- ❌ Don't nest menus (use separate menus or different pattern)
+- ❌ Don't use large icons - stick to small (16x16) per LD 3.5 spec
+
+## Component Variants
+
+The Menu component supports 2-7 actions per the Figma specification:
+
+- **2 Actions**: Minimal menu (e.g., Edit / Delete)
+- **3 Actions**: Common menu (e.g., Edit / Duplicate / Delete)
+- **4 Actions**: Standard menu (e.g., View / Edit / Download / Delete)
+- **5-7 Actions**: Extended menu for more complex use cases
+
+Beyond 7 actions, consider:
+- Breaking into multiple menus
+- Using grouped sections with dividers
+- Using a different UI pattern (e.g., command palette, sidebar)
+
+## States
+
+### MenuItem States
+
+1. **Default**: Transparent background, standard text color
+2. **Hover**: Subtle background change on mouse over
+3. **Focus**: Visible focus indicator for keyboard navigation
+4. **Pressed/Active**: Darker background when clicking
+5. **Selected**: Highlighted background for current selection
+6. **Disabled**: Muted text, no interaction
+
+### Menu Container States
+
+1. **Open**: Visible with animation
+2. **Closed**: Hidden (returns `null`)
+
+## Accessibility Requirements
+
+### Required Attributes
+
+- Menu trigger must have `aria-haspopup="menu"`
+- Menu trigger must have `aria-expanded={isOpen}`
+- Menu trigger must have meaningful `aria-label` if icon-only
+- Disabled items must have `aria-disabled="true"` (automatically handled)
+
+### Keyboard Support
+
+All keyboard navigation is built into the component:
+
+- **Tab**: Not used (menu items are not in tab order)
+- **Arrow keys**: Navigate between items
+- **Home/End**: Jump to first/last item
+- **Escape**: Close menu
+- **Enter/Space**: Activate item
+
+### Focus Management
+
+- First non-disabled item receives focus when menu opens
+- Focus returns to trigger button when menu closes (handle in parent)
+- Focus indicator is visible and meets WCAG contrast requirements
+
+### Screen Reader Announcements
+
+- Menu role is announced ("menu")
+- Menu items are announced with their text
+- Disabled state is announced
+- Selected state is conveyed visually (consider adding aria-current if needed)
+
+## Design Specifications (Figma)
+
+### Menu Item Layout
+
+- **Display**: Flex container
+- **Padding**: 4px (vertical) × 8px (horizontal)
+  - Token: `var(--ld-primitive-scale-space-100) var(--ld-primitive-scale-space-200)`
+- **Gap**: 4px between icon and text
+  - Token: `var(--ld-primitive-scale-space-100)`
+- **Align items**: Center
+
+### Typography
+
+- **Font Family**: Everyday Sans UI
+  - Token: `var(--ld-semantic-font-body-small-family)`
+- **Font Size**: 14px
+  - Token: `var(--ld-semantic-font-body-small-size)`
+- **Font Weight**: 400 (regular)
+  - Token: `var(--ld-semantic-font-body-small-weight-default)`
+- **Line Height**: 142.857% (20px)
+  - Token: `var(--ld-semantic-font-body-small-lineheight)`
+- **Font Features**: `font-kerning: none`, `font-feature-settings: 'liga' off`
+
+### Icon Specifications
+
+- **Size**: 16×16px
+  - Token: `var(--ld-semantic-scale-icon-small)`
+- **Color**: Matches text color
+  - Token: `var(--ld-semantic-color-action-text-on-fill-transparent)`
+
+### Menu Container
+
+- **Background**: Surface overlay color
+  - Token: `var(--ld-semantic-color-surface-overlay)`
+- **Border**: 1px solid, subtlest border color
+  - Token: `var(--ld-semantic-color-border-subtlest)`
+- **Border Radius**: Large (12px)
+  - Token: `var(--ld-semantic-border-radius-large)`
+- **Shadow**: Elevation 200
+  - Token: `var(--ld-semantic-elevation-200)`
+- **Min Width**: 200px
+- **Max Height**: 400px (with scroll if needed)
+
+## Implementation Notes
+
+### Current Implementation Status
+
+✅ **Fully LD 3.5 Compliant**: The existing Menu and MenuItem components are already implemented according to Living Design 3.5 specifications:
+
+- All spacing uses LD 3.5 primitive and semantic tokens
+- All colors use LD 3.5 semantic color tokens
+- Typography matches Figma specifications exactly
+- Icon sizing matches LD 3.5 small icon scale (16×16px)
+- Interactive states use semantic tokens for hover, focus, pressed, disabled
+- Keyboard navigation fully implemented
+- ARIA roles and attributes correctly set
+- Focus management works as specified
+
+### Backward Compatibility
+
+The Menu component maintains 100% backward compatibility with existing usage:
+
+- All existing props are preserved
+- Footer prop is kept as a custom extension
+- API signatures remain unchanged
+- No breaking changes to existing code
+
+### Custom Extensions
+
+**Footer Support**: The `footer` prop is a custom addition beyond the base LD 3.5 specification. It is kept for backward compatibility and styled to match LD 3.5 design patterns. Use sparingly and only when you need action buttons (Cancel/Apply) in filter menus.
+
+## Related Components
+
+- **Popover**: For positioning and click-outside detection
+- **IconButton**: Common trigger for menus
+- **Button**: Can be used as menu trigger
+- **Select**: Use for form dropdowns instead of Menu
+- **Dropdown Menu**: Radix-based alternative (different pattern)
+- **Context Menu**: For right-click menus
+- **Navigation Menu**: For site navigation
+
+## Common Patterns
+
+### Action Menu (Most Common)
+
+```tsx
+<MenuItem leadingIcon={<Icons.Edit />}>Edit</MenuItem>
+<MenuItem leadingIcon={<Icons.Duplicate />}>Duplicate</MenuItem>
+<MenuItem leadingIcon={<Icons.Delete />}>Delete</MenuItem>
+```
+
+### Filter Menu with Footer
+
+```tsx
+<Menu 
+  isOpen={isOpen}
+  onClose={onClose}
+  footer={
+    <>
+      <Button variant="secondary" size="small" onClick={onCancel}>Cancel</Button>
+      <Button variant="primary" size="small" onClick={onApply}>Apply</Button>
+    </>
+  }
+>
+  <MenuItem leadingIcon={<Icons.Check />} selected>All campaigns</MenuItem>
+  <MenuItem>Active only</MenuItem>
+  <MenuItem>Archived only</MenuItem>
+</Menu>
+```
+
+### Selection Menu (Radio-like)
+
+```tsx
+<Menu isOpen={isOpen} onClose={onClose}>
+  <MenuItem 
+    leadingIcon={selectedScope === 'all' ? <Icons.Check /> : null}
+    selected={selectedScope === 'all'}
+    onClick={() => setSelectedScope('all')}
+  >
+    All items
+  </MenuItem>
+  <MenuItem 
+    leadingIcon={selectedScope === 'active' ? <Icons.Check /> : null}
+    selected={selectedScope === 'active'}
+    onClick={() => setSelectedScope('active')}
+  >
+    Active only
+  </MenuItem>
+</Menu>
+```
+
+## Testing Checklist
+
+When implementing or modifying Menu:
+
+- [ ] Menu opens when trigger is clicked
+- [ ] Menu closes on Escape key
+- [ ] Menu closes when clicking outside (via parent component)
+- [ ] First item receives focus when menu opens
+- [ ] Arrow keys navigate between items
+- [ ] Home/End keys jump to first/last items
+- [ ] Disabled items cannot be focused or activated
+- [ ] Selected items display with correct background
+- [ ] Icons are correctly sized (16×16px)
+- [ ] Footer renders and separates correctly (if used)
+- [ ] Position prop correctly positions the menu
+- [ ] Click handlers fire correctly
+- [ ] Focus returns to trigger when closed
+- [ ] All LD 3.5 semantic tokens are used (no hard-coded values)
+- [ ] Keyboard navigation works correctly
+- [ ] Screen reader announces menu and items
+
+## Troubleshooting
+
+### Menu doesn't close when clicking outside
+
+**Solution**: Menu component doesn't handle click-outside detection. Use Popover component or implement click-outside logic in parent component.
+
+### Icons are too large
+
+**Solution**: Icons should be 16×16px (small size). The MenuItem component automatically sizes icons with `var(--ld-semantic-scale-icon-small)`. Ensure icon components respect the container size.
+
+### Menu items not keyboard navigable
+
+**Solution**: Ensure MenuItem components use the `button` element with `role="menuitem"` (automatically handled by MenuItem component). Don't replace with div or span elements.
+
+### Selected state not visible
+
+**Solution**: Use the `selected` prop on MenuItem. Don't try to apply custom styling - the component handles selected state with LD 3.5 tokens.
+
+### Focus management issues
+
+**Solution**: The Menu component automatically focuses the first item on mount. Ensure `isOpen` prop is controlled correctly and that MenuItem components are direct children of Menu.
+
+## Migration Guide
+
+### From Custom Menus
+
+If you have custom menu implementations, migrate to this component:
+
+**Before**:
+```tsx
+<div className="custom-menu">
+  <button className="menu-item" style={{ background: '#f0f0f0' }}>
+    Action
+  </button>
+</div>
+```
+
+**After**:
+```tsx
+<Menu isOpen={isOpen} onClose={onClose}>
+  <MenuItem>Action</MenuItem>
+</Menu>
+```
+
+### From Radix Dropdown Menu
+
+The Menu component is simpler and more LD 3.5 compliant than Radix DropdownMenu. Migrate when:
+
+- You need strict LD 3.5 visual compliance
+- You don't need nested submenus
+- You want simpler API
+
+Keep DropdownMenu when:
+- You need nested submenus
+- You need complex grouping with separators
+- You need checkbox/radio items with state management
+
+## File Locations
+
+- **Component**: `client/components/ui/Menu.tsx`
+- **Item Component**: `client/components/ui/MenuItem.tsx`
+- **Styles**: `client/components/ui/Menu.module.css`
+- **Item Styles**: `client/components/ui/MenuItem.module.css`
+- **Documentation**: `guidelines/Menu.md` (this file)
+- **Examples**: `client/pages/ComponentLibrary.tsx` (Menu section)
+
+## References
+
+- **Living Design Toolkit**: https://digitaltoolkit.livingdesign.walmart.com/components/menu/
+- **Figma Component**: [LD 3.5] Menu (supports 2-7 actions)
+- **Design Tokens**: See `guidelines/design-tokens.md`
+- **Accessibility**: WCAG 2.1 Level AA compliant
+
+---
+
+**Last Updated**: 2025-01-22  
+**LD Version**: 3.5  
+**Status**: Production-ready, fully LD 3.5 compliant

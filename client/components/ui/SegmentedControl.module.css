@@ -1,0 +1,191 @@
+/* ========================================
+   SegmentedControl — Living Design 3.5
+   Matches [WCP] Segmented Control Figma spec
+   ======================================== */
+
+/* Container */
+.segmentedControl {
+  display: inline-flex;
+  align-items: stretch;
+  /* Segments share borders by stacking with z-index */
+  position: relative;
+}
+
+.segmentedControl--fullWidth {
+  display: flex;
+  width: 100%;
+}
+
+/* ========================================
+   Individual Segment
+   ======================================== */
+
+.segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ld-primitive-scale-space-100, 0.5rem); /* 8px */
+
+  /* Sizing — matches ld-primitive-scale-space-50 / space-250 / min-height space-400 */
+  padding: var(--ld-primitive-scale-space-50, 0.25rem)
+    var(--ld-primitive-scale-space-250, 1.25rem);
+  min-height: var(--ld-primitive-scale-space-400, 2rem); /* 32px */
+
+  /* Flex: equal-width segments */
+  flex: 1 0 0;
+
+  /* Typography */
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem); /* 14px */
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.25rem); /* 20px */
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  text-align: center;
+  white-space: nowrap;
+
+  /* Default (inactive) border — 1px, brand color */
+  border-style: solid;
+  border-width: 1px;
+  border-color: var(--ld-semantic-color-border-brand, #0053e2);
+
+  /* Default (inactive) background */
+  background-color: var(--ld-semantic-color-surface, #ffffff);
+
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition:
+    background-color var(--ld-primitive-duration-200, 0.2s) ease,
+    border-color var(--ld-primitive-duration-200, 0.2s) ease,
+    color var(--ld-primitive-duration-200, 0.2s) ease;
+
+  /* Prevent border-radius inheritance */
+  border-radius: 0;
+}
+
+/* ========================================
+   Position modifiers — rounded outer corners
+   ======================================== */
+
+.segment--left {
+  border-radius:
+    var(--ld-primitive-scale-border-radius-100, 0.5rem)
+    0
+    0
+    var(--ld-primitive-scale-border-radius-100, 0.5rem);
+}
+
+.segment--right {
+  border-radius:
+    0
+    var(--ld-primitive-scale-border-radius-100, 0.5rem)
+    var(--ld-primitive-scale-border-radius-100, 0.5rem)
+    0;
+  /* Collapse the double left border with the previous segment */
+  margin-left: -1px;
+}
+
+.segment--center {
+  /* Collapse both adjacent borders */
+  margin-left: -1px;
+}
+
+/* ========================================
+   Active (selected) state
+   ======================================== */
+
+.segment--active {
+  /* 2px border — activated color */
+  border-width: 2px;
+  border-color: var(--ld-semantic-color-border-activated, #0053e2);
+
+  /* Subtle activated fill */
+  background-color: var(--ld-semantic-color-fill-activated-subtle, #f0f5ff);
+
+  /* Bold text */
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+
+  /* Raise above adjacent inactive segments so the 2px border wins */
+  position: relative;
+  z-index: 1;
+}
+
+/* Correct margin for active right / center segments to account for 2px border */
+.segment--active.segment--right,
+.segment--active.segment--center {
+  margin-left: -2px;
+}
+
+/* ========================================
+   Hover — inactive
+   ======================================== */
+
+.segment:not(.segment--active):not(.segment--disabled):hover {
+  background-color: var(--ld-semantic-color-fill-activated-subtle-hovered, #e9f1fe);
+  border-color: var(--ld-semantic-color-border-activated, #0053e2);
+  z-index: 1;
+  position: relative;
+}
+
+/* ========================================
+   Hover — active
+   ======================================== */
+
+.segment--active:not(.segment--disabled):hover {
+  background-color: var(--ld-semantic-color-fill-activated-subtle-hovered, #e9f1fe);
+}
+
+/* ========================================
+   Pressed
+   ======================================== */
+
+.segment:not(.segment--disabled):active {
+  background-color: var(--ld-semantic-color-fill-activated-subtle-pressed, #c9dcfd);
+  border-color: var(--ld-semantic-color-border-activated, #0053e2);
+  z-index: 1;
+  position: relative;
+}
+
+/* ========================================
+   Focus visible
+   ======================================== */
+
+.segment:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+  z-index: 2;
+  position: relative;
+}
+
+/* ========================================
+   Disabled state
+   ======================================== */
+
+.segment--disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* ========================================
+   Inner elements
+   ======================================== */
+
+.segment__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.segment__icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.segment__label {
+  display: inline-flex;
+  align-items: center;
+}

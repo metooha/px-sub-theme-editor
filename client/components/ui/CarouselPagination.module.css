@@ -1,0 +1,138 @@
+/* CarouselPagination.module.css */
+
+.pagination {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  background: var(--ld-semantic-color-fill-surface-primary, #ffffff);
+  border: 1px solid var(--ld-semantic-color-border-moderate, #e6e6e8);
+  border-radius: 9999px;
+  box-shadow: var(--ld-semantic-elevation-100, 0 1px 3px rgba(0,0,0,0.08));
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, Helvetica, sans-serif);
+  user-select: none;
+}
+
+/* ─── Control Buttons ─── */
+
+.ctrlBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  border: none;
+  background: transparent;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  padding: 0;
+}
+
+.ctrlBtn:hover:not(:disabled) {
+  background: var(--ld-semantic-color-fill-surface-secondary, #f7f7f8);
+}
+
+.ctrlBtn:active:not(:disabled) {
+  background: var(--ld-semantic-color-fill-surface-tertiary, #ebebed);
+}
+
+.ctrlBtn:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.ctrlBtn:disabled {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+  cursor: not-allowed;
+}
+
+/* ─── Separator line between controls and bar ─── */
+
+.pagination::before {
+  /* subtle hairline between buttons and bar — done via gap */
+  content: none;
+}
+
+/* ─── Progress Track Wrapper ─── */
+
+.trackWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 120px;
+  flex: 1;
+  gap: 0;
+}
+
+/* The gray rail */
+.track {
+  position: relative;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--ld-semantic-color-border-moderate, #e6e6e8);
+  overflow: hidden;
+}
+
+/* The filled portion */
+.fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--ld-semantic-color-text, #2e2f32);
+  transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Dot indicators ─── */
+
+.dots {
+  position: absolute;
+  inset: 50% 0 auto 0;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  pointer-events: none;
+  padding: 0 1px;
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 9999px;
+  border: none;
+  background: var(--ld-semantic-color-fill-surface-primary, #ffffff);
+  border: 1.5px solid var(--ld-semantic-color-border-moderate, #e6e6e8);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  pointer-events: all;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.dotActive {
+  background: var(--ld-semantic-color-text, #2e2f32);
+  border-color: var(--ld-semantic-color-text, #2e2f32);
+  transform: scale(1.25);
+}
+
+.dot:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+/* ─── Reduced motion ─── */
+
+@media (prefers-reduced-motion: reduce) {
+  .fill {
+    transition: none;
+  }
+  .dot,
+  .ctrlBtn {
+    transition: none;
+  }
+}

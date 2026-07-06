@@ -1,0 +1,16 @@
+/* DataTableRow */
+.row {
+  transition: background-color 150ms ease;
+}
+
+.row:hover {
+  background-color: var(--ld-semantic-color-fill-subtle, #F8F8F8);
+}
+
+.rowSelected {
+  background-color: var(--ld-semantic-color-fill-brand-subtle, #E6F1FC);
+}
+
+.rowSelected:hover {
+  background-color: var(--ld-semantic-color-fill-brand-subtle, #E6F1FC);
+}

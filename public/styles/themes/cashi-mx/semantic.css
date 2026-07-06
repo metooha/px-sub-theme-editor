@@ -1,0 +1,31 @@
+/**
+ * Cashi MX Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ * 
+ * INHERITANCE: Inherits LD Base directly
+ * 
+ * Cashi MX brand color: #6212b2 (purple)
+ * Mexico financial services
+ */
+
+:root {
+  /* Cashi MX brand colors - PURPLE */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-purple-100, #6212b2);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-purple-120, #500f92);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-purple-120, #500f92);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-purple-100, #6212b2);
+  
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-purple-100, #6212b2);
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-purple-100, #6212b2);
+  --ld-semantic-color-border-activated: var(--ld-primitive-color-purple-100, #6212b2);
+
+  /* Top nav - purple */
+  --ld-semantic-color-top-nav-fill: var(--ld-primitive-color-purple-100, #6212b2);
+  --ld-semantic-color-top-nav-fill-hovered: var(--ld-primitive-color-purple-120, #500f92);
+  --ld-semantic-color-top-nav-fill-pressed: var(--ld-primitive-color-purple-130, #3d0c6e);
+  --ld-semantic-color-top-nav-text-on-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-separator: var(--ld-primitive-color-purple-120, #500f92);
+
+  /* Inherits all other tokens from LD Base */
+}

@@ -1,0 +1,41 @@
+/* DataTableTitle — header bar above the table */
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  background: var(--ld-semantic-color-surface-primary, #fff);
+  border-bottom: var(--ld-semantic-scale-border-width-default, 1px) solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--ld-semantic-font-heading-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-heading-small-size, 20px);
+  font-weight: var(--ld-semantic-font-heading-small-weight, 700);
+  line-height: var(--ld-semantic-font-heading-small-lineheight, 1.4);
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.subtitle {
+  margin: 0;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.43);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  flex-shrink: 0;
+}

@@ -1,0 +1,49 @@
+/**
+ * Do not edit directly — Sam's Club Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ */
+
+
+:root {
+  --ld-primitive-color-black: #000000;
+  --ld-primitive-color-blue-10: #e4f5ff;
+  --ld-primitive-color-blue-100: #0086ed;
+  --ld-primitive-color-blue-110: #007bd9;
+  --ld-primitive-color-blue-120: #006ec4;
+  --ld-primitive-color-blue-130: #0062ad;
+  --ld-primitive-color-blue-140: #005294;
+  --ld-primitive-color-blue-150: #00427b;
+  --ld-primitive-color-blue-160: #003362;
+  --ld-primitive-color-blue-170: #00234a;
+  --ld-primitive-color-blue-180: #001533;
+  --ld-primitive-color-blue-20: #d8f2ff;
+  --ld-primitive-color-blue-30: #bae7ff;
+  --ld-primitive-color-blue-40: #9adbff;
+  --ld-primitive-color-blue-5: #f0f8fc;
+  --ld-primitive-color-blue-50: #7acdff;
+  --ld-primitive-color-blue-60: #59bfff;
+  --ld-primitive-color-blue-70: #39afff;
+  --ld-primitive-color-blue-80: #1ba0ff;
+  --ld-primitive-color-blue-90: #0090fe;
+  --ld-primitive-color-gray-10: #eaf1f5;
+  --ld-primitive-color-gray-100: #586b7e;
+  --ld-primitive-color-gray-110: #4b5d6f;
+  --ld-primitive-color-gray-120: #3e5061;
+  --ld-primitive-color-gray-130: #334253;
+  --ld-primitive-color-gray-140: #283645;
+  --ld-primitive-color-gray-150: #1e2a37;
+  --ld-primitive-color-gray-160: #151f29;
+  --ld-primitive-color-gray-170: #0d141b;
+  --ld-primitive-color-gray-180: #06090d;
+  --ld-primitive-color-gray-20: #e0e8ee;
+  --ld-primitive-color-gray-30: #ccd7e0;
+  --ld-primitive-color-gray-40: #b9c7d2;
+  --ld-primitive-color-gray-5: #f5f9fc;
+  --ld-primitive-color-gray-50: #a7b7c4;
+  --ld-primitive-color-gray-60: #95a7b6;
+  --ld-primitive-color-gray-70: #8598a8;
+  --ld-primitive-color-gray-80: #75889a;
+  --ld-primitive-color-gray-90: #667a8c;
+  --ld-primitive-font-family-mono: 'Bogle Mono', 'Courier New', monospace;
+  --ld-primitive-font-family-sans: Gibson, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+}

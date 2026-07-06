@@ -1,0 +1,27 @@
+/**
+ * Walmart W+ (Plus) Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base → WCP → Walmart W+
+ * Inherits WCP commerce tokens and Customer persona
+ *
+ * Walmart+ membership program
+ * Uses yellow warnings instead of spark
+ */
+
+:root {
+  /* W+ specific overrides */
+  --ld-semantic-color-border-warning: var(--ld-primitive-color-yellow-120, #cca700);
+  --ld-semantic-color-border-warning-bold: var(--ld-primitive-color-yellow-160, #663800);
+  --ld-semantic-color-text-warning: var(--ld-primitive-color-yellow-140, #996900);
+  --ld-semantic-color-text-warning-bold: var(--ld-primitive-color-yellow-160, #663800);
+  --ld-semantic-color-fill-warning: var(--ld-primitive-color-yellow-100, #fff200);
+  --ld-semantic-color-fill-warning-subtle: var(--ld-primitive-color-yellow-10, #fffee6);
+  --ld-semantic-color-notice-fill-warning: var(--ld-primitive-color-yellow-100, #fff200);
+  
+  /* W+ WCP extended tokens */
+  --wcp-semantic-color-surface-overlay-brand-bold: var(--ld-primitive-color-magic-1, #0053e2);
+  --wcp-semantic-color-surface-overlay-brand-subtle: var(--ld-primitive-color-spark-100, #ffc220);
+  
+  /* Inherits WCP commerce tokens and all LD Base tokens */
+}

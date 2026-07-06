@@ -1,0 +1,427 @@
+---
+description: Guidelines and rules for tab
+alwaysApply: false
+---
+# Tab Navigation Component
+
+## Overview
+
+The Tab Navigation component allows for page-level navigation between sets of content, with a selected state, typically used at the top of the screen. It provides a consistent, accessible way to organize and switch between different views of related content.
+
+**Location**: `client/components/ui/Tab.tsx`  
+**Styles**: `client/components/ui/Tab.module.css`  
+**Examples**: `client/components/examples/TabExample.tsx`
+
+## Living Design 3.5 Compliance
+
+This component is fully compliant with Living Design 3.5 specifications:
+- ✅ Uses semantic design tokens for all colors, typography, and spacing
+- ✅ Implements proper focus states with LD 3.5 focus rings
+- ✅ Supports keyboard navigation (Tab, Arrow keys, Enter, Space)
+- ✅ Provides full ARIA support for screen readers
+- ✅ Responsive small-screen mode for mobile layouts
+- ✅ Active state indicator with rounded top corners
+
+**Documentation**: [Living Design Tab Navigation](https://digitaltoolkit.livingdesign.walmart.com/components/tab-navigation/)
+
+## Component Architecture
+
+The Tab component provides a composable API with four main components:
+
+1. **`Tabs`** - Root container that manages tab state
+2. **`TabList`** - Container for tab triggers
+3. **`Tab`** - Individual tab trigger button
+4. **`TabPanel`** - Content container for each tab
+
+## Basic Usage
+
+### Uncontrolled Tabs
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/tabs';
+
+function MyComponent() {
+  return (
+    <Tabs defaultValue="tab1">
+      <TabList>
+        <Tab value="tab1">First Tab</Tab>
+        <Tab value="tab2">Second Tab</Tab>
+        <Tab value="tab3">Third Tab</Tab>
+      </TabList>
+      
+      <TabPanel value="tab1">
+        <p>Content for first tab</p>
+      </TabPanel>
+      
+      <TabPanel value="tab2">
+        <p>Content for second tab</p>
+      </TabPanel>
+      
+      <TabPanel value="tab3">
+        <p>Content for third tab</p>
+      </TabPanel>
+    </Tabs>
+  );
+}
+```
+
+### Controlled Tabs
+
+```tsx
+import { useState } from 'react';
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/tabs';
+
+function MyComponent() {
+  const [selectedTab, setSelectedTab] = useState('overview');
+  
+  return (
+    <Tabs value={selectedTab} onValueChange={setSelectedTab}>
+      <TabList>
+        <Tab value="overview">Overview</Tab>
+        <Tab value="analytics">Analytics</Tab>
+        <Tab value="reports">Reports</Tab>
+      </TabList>
+      
+      <TabPanel value="overview">
+        <p>Overview content</p>
+      </TabPanel>
+      
+      <TabPanel value="analytics">
+        <p>Analytics content</p>
+      </TabPanel>
+      
+      <TabPanel value="reports">
+        <p>Reports content</p>
+      </TabPanel>
+    </Tabs>
+  );
+}
+```
+
+## API Reference
+
+### Tabs Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | Controlled active tab value |
+| `defaultValue` | `string` | - | Default active tab for uncontrolled mode |
+| `onValueChange` | `(value: string) => void` | - | Callback when active tab changes |
+| `children` | `ReactNode` | - | Tab navigation and content panels |
+| `UNSAFE_className` | `string` | - | Custom className (escape hatch) |
+| `UNSAFE_style` | `CSSProperties` | - | Custom inline styles (escape hatch) |
+
+### TabList Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | - | Tab trigger buttons |
+| `smallScreen` | `boolean` | `false` | Enable mobile-responsive mode (tabs fill width evenly) |
+| `UNSAFE_className` | `string` | - | Custom className (escape hatch) |
+| `UNSAFE_style` | `CSSProperties` | - | Custom inline styles (escape hatch) |
+
+### Tab Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | **Required**. Unique identifier for this tab |
+| `children` | `ReactNode` | - | **Required**. Tab label text |
+| `leading` | `ReactNode` | - | Leading content (typically an icon) |
+| `trailing` | `ReactNode` | - | Trailing content (typically a badge or count) |
+| `disabled` | `boolean` | `false` | Whether the tab is disabled |
+| `UNSAFE_className` | `string` | - | Custom className (escape hatch) |
+| `UNSAFE_style` | `CSSProperties` | - | Custom inline styles (escape hatch) |
+| `onClick` | `(event: MouseEvent) => void` | - | Click handler |
+
+### TabPanel Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | - | **Required**. Value that identifies which tab controls this panel |
+| `children` | `ReactNode` | - | **Required**. Content to display when panel is active |
+| `UNSAFE_className` | `string` | - | Custom className (escape hatch) |
+| `UNSAFE_style` | `CSSProperties` | - | Custom inline styles (escape hatch) |
+
+## Advanced Usage
+
+### Tabs with Trailing Badges
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/tabs';
+import { Tag } from '@/components/ui/tag';
+
+<Tabs value={selectedTab} onValueChange={setSelectedTab}>
+  <TabList>
+    <Tab 
+      value="active"
+      trailing={<Tag variant="neutral" size="small">24</Tag>}
+    >
+      Active campaigns
+    </Tab>
+    <Tab 
+      value="paused"
+      trailing={<Tag variant="neutral" size="small">8</Tag>}
+    >
+      Paused
+    </Tab>
+    <Tab 
+      value="completed"
+      trailing={<Tag variant="neutral" size="small">156</Tag>}
+    >
+      Completed
+    </Tab>
+  </TabList>
+  
+  <TabPanel value="active">
+    {/* Active campaigns content */}
+  </TabPanel>
+  <TabPanel value="paused">
+    {/* Paused campaigns content */}
+  </TabPanel>
+  <TabPanel value="completed">
+    {/* Completed campaigns content */}
+  </TabPanel>
+</Tabs>
+```
+
+### Small Screen Mode (Mobile Responsive)
+
+```tsx
+<Tabs defaultValue="home">
+  <TabList smallScreen>
+    <Tab value="home">Home</Tab>
+    <Tab value="search">Search</Tab>
+    <Tab value="cart">Cart</Tab>
+    <Tab value="account">Account</Tab>
+  </TabList>
+  
+  <TabPanel value="home">{/* Content */}</TabPanel>
+  <TabPanel value="search">{/* Content */}</TabPanel>
+  <TabPanel value="cart">{/* Content */}</TabPanel>
+  <TabPanel value="account">{/* Content */}</TabPanel>
+</Tabs>
+```
+
+### Disabled Tabs
+
+```tsx
+<Tabs defaultValue="available">
+  <TabList>
+    <Tab value="available">Available</Tab>
+    <Tab value="locked" disabled>Locked</Tab>
+    <Tab value="premium" disabled>Premium Only</Tab>
+  </TabList>
+  
+  <TabPanel value="available">
+    <p>This tab is available to all users.</p>
+  </TabPanel>
+</Tabs>
+```
+
+## Design Tokens Used
+
+The Tab component uses the following Living Design 3.5 semantic tokens:
+
+### Colors
+- `--ld-semantic-color-page-nav-fill` - Tab background (transparent)
+- `--ld-semantic-color-page-nav-fill-hovered` - Hover state background
+- `--ld-semantic-color-page-nav-fill-focused` - Focus state background
+- `--ld-semantic-color-page-nav-fill-pressed` - Pressed state background
+- `--ld-semantic-color-page-nav-fill-activated` - Active tab background
+- `--ld-semantic-color-page-nav-indicator-activated` - Active tab indicator (blue bar)
+- `--ld-semantic-color-page-nav-text-on-fill` - Tab text color
+- `--ld-semantic-color-separator` - Divider between tabs
+- `--ld-semantic-color-action-focus-outline` - Focus ring color
+
+### Typography
+- `--ld-semantic-font-body-small-family` - Font family (Everyday Sans UI)
+- `--ld-semantic-font-body-small-size` - Font size (14px)
+- `--ld-semantic-font-body-small-weight-default` - Normal weight (400)
+- `--ld-semantic-font-body-small-weight-alt` - Bold weight for active tab (700)
+- `--ld-semantic-font-body-small-lineheight` - Line height (20px)
+
+### Spacing
+- `--ld-primitive-scale-space-50` - 4px (indicator height, padding)
+- `--ld-primitive-scale-space-100` - 8px (content gap, padding)
+- `--ld-primitive-scale-space-150` - 12px (horizontal padding)
+- `--ld-primitive-scale-space-200` - 16px (top padding)
+- `--ld-primitive-scale-space-400` - 32px (label container height)
+- `--ld-primitive-scale-space-600` - 48px (total tab height)
+
+### Border Radius
+- `--ld-primitive-scale-borderradius-25` - 2px (indicator rounded top corners)
+
+### Durations
+- `--ld-primitive-duration-200` - 0.2s (transition timing)
+
+## Best Practices
+
+### Do ✅
+
+- **Keep tab labels short** - Use 1-2 words when possible
+- **Limit tab count** - Use 2-5 tabs maximum for optimal usability
+- **Use semantic values** - Choose descriptive, meaningful tab values
+- **Enable smallScreen mode** - For mobile-responsive layouts
+- **Use TabPanel** - Always wrap content in TabPanel for proper semantics
+- **Show counts with badges** - Use trailing Tags to display item counts
+- **Provide feedback** - Active tab is clearly indicated with blue bar
+- **Use controlled mode** - When you need to sync tab state with URL or other state
+
+### Don't ❌
+
+- **Don't nest tabs** - Avoid tabs within tabs (use different navigation patterns)
+- **Don't use for few items** - If you only have 2 items, consider radio buttons or toggle
+- **Don't hide critical actions** - Keep important CTAs visible on all tabs
+- **Don't use long labels** - Avoid multi-word labels that wrap or truncate
+- **Don't exceed 5 tabs** - Too many tabs reduce usability; consider dropdown or different pattern
+- **Don't manually implement tabs** - Always use the Tab component (never create custom tab buttons)
+- **Don't override tokens** - Use the component's built-in LD 3.5 token support
+
+## Accessibility
+
+The Tab component provides full accessibility support:
+
+### Keyboard Navigation
+
+- **Tab** - Focus next/previous element in page
+- **Arrow Left/Right** - Navigate between tabs (when focused)
+- **Enter/Space** - Activate focused tab
+- **Home/End** - Jump to first/last tab (future enhancement)
+
+### Screen Reader Support
+
+- `role="tablist"` - Identifies the tab list container
+- `role="tab"` - Identifies each tab trigger
+- `role="tabpanel"` - Identifies each content panel
+- `aria-selected="true"` - Indicates active tab
+- `aria-disabled="true"` - Indicates disabled tabs
+- `tabindex="-1"` - Non-active tabs not in tab order
+- `tabindex="0"` - Active tab is focusable
+
+### Focus States
+
+- Clear focus rings using LD 3.5 focus outline tokens
+- Focus state includes blue background highlight
+- Focus visible on both keyboard and mouse interactions
+
+### Color Contrast
+
+- All text meets WCAG 2.1 AA contrast requirements
+- Active indicator provides clear visual distinction
+- Hover states are subtle but perceptible
+
+## Migration Guide
+
+### From Manual Tab Implementation
+
+**Before** (Manual buttons with inline styles):
+```tsx
+const [selectedTab, setSelectedTab] = useState("active");
+
+<div className="border-b border-gray-200">
+  <div className="flex gap-0">
+    <button
+      onClick={() => setSelectedTab("active")}
+      className={`px-3 pb-2 pt-4 text-sm relative ${
+        selectedTab === "active"
+          ? "font-bold text-gray-900 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-1 after:bg-blue-600"
+          : "font-normal text-gray-900"
+      }`}
+    >
+      Active
+    </button>
+    {/* More buttons... */}
+  </div>
+</div>
+
+{selectedTab === "active" && <div>Active Content</div>}
+```
+
+**After** (LD 3.5 Tab component):
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/tabs';
+
+const [selectedTab, setSelectedTab] = useState("active");
+
+<Tabs value={selectedTab} onValueChange={setSelectedTab}>
+  <TabList>
+    <Tab value="active">Active</Tab>
+    <Tab value="applied">Applied</Tab>
+    <Tab value="dismissed">Dismissed</Tab>
+  </TabList>
+  
+  <TabPanel value="active">
+    <div>Active Content</div>
+  </TabPanel>
+  <TabPanel value="applied">
+    <div>Applied Content</div>
+  </TabPanel>
+  <TabPanel value="dismissed">
+    <div>Dismissed Content</div>
+  </TabPanel>
+</Tabs>
+```
+
+### From Radix Tabs
+
+The old `client/components/ui/tabs.tsx` file has been completely replaced with LD 3.5-compliant exports. The API is different but more composable:
+
+**Before** (Radix Tabs):
+```tsx
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+
+<Tabs defaultValue="tab1">
+  <TabsList>
+    <TabsTrigger value="tab1">Tab 1</TabsTrigger>
+    <TabsTrigger value="tab2">Tab 2</TabsTrigger>
+  </TabsList>
+  <TabsContent value="tab1">Content 1</TabsContent>
+  <TabsContent value="tab2">Content 2</TabsContent>
+</Tabs>
+```
+
+**After** (LD 3.5 Tabs):
+```tsx
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/tabs';
+
+<Tabs defaultValue="tab1">
+  <TabList>
+    <Tab value="tab1">Tab 1</Tab>
+    <Tab value="tab2">Tab 2</Tab>
+  </TabList>
+  <TabPanel value="tab1">Content 1</TabPanel>
+  <TabPanel value="tab2">Content 2</TabPanel>
+</Tabs>
+```
+
+**Key Differences**:
+- `TabsList` → `TabList` (no 's')
+- `TabsTrigger` → `Tab`
+- `TabsContent` → `TabPanel`
+- Styling is now handled by LD 3.5 tokens (no className needed)
+
+## Examples
+
+See `client/components/examples/TabExample.tsx` for comprehensive examples including:
+- Basic uncontrolled tabs
+- Controlled tabs with state
+- Tabs with trailing badges
+- Small screen responsive mode
+- Disabled tabs
+
+## Component Library
+
+View live examples at: `/component-library/tabs`
+
+## Related Components
+
+- **Tag** - Use for trailing badge counts in tabs
+- **Divider** - Tab component includes built-in dividers between tabs
+- **Panel** - Tabs often used within resizable panels for content organization
+
+## Support
+
+For questions or issues with the Tab component:
+- Check the [Living Design 3.5 Documentation](https://digitaltoolkit.livingdesign.walmart.com/components/tab-navigation/)
+- Review examples in the component library
+- See migration guide above for common patterns

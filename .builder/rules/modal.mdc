@@ -1,0 +1,150 @@
+---
+description: Guidelines and rules for modal
+alwaysApply: false
+---
+## Purpose
+Modals present critical information or prompt users for input. Modals intentionally interrupt a user’s path by blocking access to the main content until the task is completed or the user dismisses the Modal.
+
+## Rules
+- **MUST** use the Living Design Modal component.
+- **MUST** trap focus while open and restore focus to the trigger on close.
+- **MUST** provide an accessible name (title).
+- **MUST** open in response to user interaction with an interactive element (e.g., a [Button](/components/button/)).
+- **MUST NOT** create ad-hoc overlays with raw CSS.
+- **MUST NOT** layer a Modal on top of Bottom Sheet, Panel, or another Modal.
+- **MUST NOT** modify Modal to cover the full screen; respect the Modal’s documented size and margin constraints.
+- **SHOULD** use Modals sparingly to limit disruption to the user.
+- **SHOULD NOT** use a Modal to display system errors; consider using an [Alert](/components/alert/) instead.
+
+## Sizes
+A Modal Container’s width is controlled by a `size` prop (names may differ in your API). Respecting responsive margins, the `size` dictates the Container’s maximum width.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { Button, Modal } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function ModalExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Edit details</Button>
+
+      <Modal
+        // Adapt prop names to your actual API:
+        // open={open}
+        // onOpenChange={setOpen}
+        // title="Edit details" // accessible name; used for aria-labelledby
+        // size="sm" | "md" | "lg"
+        // closeOnScrimClick={true}
+        // closeOnEscape={true}
+        open={open}
+        onOpenChange={setOpen}
+        title="Edit details"
+        size="md"
+      >
+        {/* Content */}
+        <div>
+          Make changes and then save. You can close the modal to discard changes.
+        </div>
+
+        {/* Action content (optional): fixed-position area for actions */}
+        <div>
+          <Button onClick={() => setOpen(false)} variant="secondary">
+            Cancel
+          </Button>
+          <Button onClick={() => setOpen(false)}>Save</Button>
+        </div>
+      </Modal>
+    </>
+  );
+}
+```
+
+## Usage
+Use when briefly interrupting the user's current journey for short, infrequent tasks (such as edits or management).
+
+Don’t use when the user must complete complex or repeated tasks; consider using a new screen instead.
+
+### Size
+A Modal maintains responsive margins; within those margins, `size` determines the maximum container width.
+
+## Examples
+
+## Best practices
+### Use when
+- Use when briefly interrupting the user's current journey.
+- Use when user needs to complete short, infrequent tasks, such as edits or management.
+
+### Don't use when
+- Don't use when the user must complete complex or repeated tasks. Consider using a new screen instead.
+
+### Do
+- Do open a Modal in response to user interaction with an interactive element, such as a [Button](/components/button/).
+
+### Don't
+- Don't layer a Modal on top of Bottom Sheet, Panel, or another Modal.
+- Don't use a Modal to display system errors. Consider using an [Alert](/components/alert/) for error messaging.
+- Don't use a Modal to contain the amount of interaction and content usually found on a separate screen.
+- Don't modify Modal to cover the full screen. Respect the Modal's size and margin constraints.
+
+## Placement
+Modals are centered within a screen. They maintain a margin around them so users understand they are a temporary overlay on top of content.
+
+## Anatomy
+![Anatomy of modal component](./modal-web-anatomy-1.png)
+
+Modal
+1. Layout container
+2. Scrim
+3. Container
+4. Header
+5. Content
+6. Action content (optional)
+
+![Anatomy of modal component](./modal-web-anatomy-2.png)
+
+ModalHeader
+1. Container
+2. Title
+3. Close button
+
+### Action content
+Action content (a nested component) is a fixed-position area at the bottom of a Modal that allows for flexibility of content. It should contain interactive elements, such as [Button](/components/button/), that relate to the Modal's content.
+
+### Title
+The Modal's title is always left-aligned.
+
+The Modal's title should not exceed two lines. Consult with Content Strategy for circumstances where the title of your Modal is more than a few words.
+
+## Behavior
+### Closing
+A Modal can be closed in the following ways (when enabled in the component API):
+1. Clicking or tapping on the Close icon
+2. Clicking or tapping on the underlying scrim
+3. Pressing the ESC key on the keyboard
+
+### Responsiveness
+#### Margins
+A Modal maintains separation from the screen's edge with margins, which indicates the Modal’s temporary nature to users.
+
+Minimum margins are responsively set on the system's breakpoints:
+1. **Large and above:** `64` pixels on all sides
+2. **Medium:** `32` pixels on all sides
+3. **Small:** `16` pixels on all sides
+
+#### Height
+Modal height should be determined by the content within the Modal. The maximum height of a Modal is 100% viewport height minus the required margins as described above.
+
+## Accessibility
+- **MUST** trap focus while open and prevent interaction with underlying content.
+- **MUST** return focus to the element that triggered the Modal when it closes.
+- **SHOULD** avoid launching a snackbar when closing a Modal. Focus will not be on the Snackbar so it won't be announced by screen readers.
+  - It's possible to work around this behavior by adding a 1-second delay before firing the Snackbar. See the Snackbar docs/FAQ in your system for a web-specific workaround.
+
+## Token usage
+- Prefer component defaults (Modal should be token-wired for elevation/scrim, radius, typography, spacing).
+- Only use tokens for layout around the Modal, not for restyling the Modal.

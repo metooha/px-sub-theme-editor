@@ -1,0 +1,239 @@
+---
+description: Guidelines and rules for component library integration
+alwaysApply: false
+---
+# Component Library Integration Checklist
+
+## Quick Reference for Component Creation
+
+When creating a new component in `client/components/ui/`, ensure ALL of the following requirements are met before marking the task as complete.
+
+---
+
+## Files Required
+
+### Core Component Files
+- [ ] `client/components/ui/ComponentName.tsx` - Main component implementation
+- [ ] `client/components/ui/ComponentName.module.css` - Styles using LD 3.5 semantic tokens ONLY
+- [ ] `client/components/examples/ComponentNameExample.tsx` - Interactive demos and examples
+- [ ] `guidelines/components/ComponentName.md` - Complete API documentation
+
+### Component Library Integration Files
+- [ ] `client/pages/component-library/ComponentNames.tsx` - Dedicated library page (plural naming)
+- [ ] Route added to `client/App.tsx`
+- [ ] Entry added to `client/pages/component-library/Overview.tsx`
+- [ ] Section added to `client/pages/ComponentLibrary.tsx`
+
+---
+
+## Integration Steps Checklist
+
+### Step 1: Create Dedicated Library Page
+- [ ] File created at `client/pages/component-library/ComponentNames.tsx` (plural, PascalCase)
+- [ ] Page includes component title and description
+- [ ] Page renders ComponentNameExample inside Suspense wrapper
+- [ ] Page uses LD 3.5 semantic tokens for all styling
+- [ ] Page follows pattern from Buttons.tsx or Panels.tsx
+
+### Step 2: Register Route
+- [ ] Import added to `client/App.tsx`: `import ComponentNamesPage from "./pages/component-library/ComponentNames"`
+- [ ] Route added inside ComponentLibraryLayout section
+- [ ] Route path uses kebab-case plural: `<Route path="component-names" element={<ComponentNamesPage />} />`
+- [ ] Component accessible at `/component-library/component-names`
+
+### Step 3: Update Overview Page
+- [ ] Entry added to `componentSections` array in `client/pages/component-library/Overview.tsx`
+- [ ] Entry placed alphabetically in the array
+- [ ] Entry includes: `title`, `description`, `path`, `icon`
+- [ ] Icon chosen from existing icon library (view at `/component-library/icons`)
+- [ ] Path matches route: `/component-library/component-names`
+
+### Step 4: Add to ComponentLibrary.tsx (Property Tester)
+- [ ] Component and Example imported at top
+- [ ] Added to `allSections` search array with keywords
+- [ ] Component section added with `<Section>` wrapper
+- [ ] Added to `ComponentType` union type
+- [ ] Configuration added to `componentConfigs` object
+- [ ] Code generation added to `generateCode()` switch statement
+- [ ] Preview rendering added to `renderPreview()` switch statement
+
+---
+
+## Validation Checklist
+
+### Build & TypeScript
+- [ ] Build succeeds: `pnpm run build:client` (no errors)
+- [ ] TypeScript checks pass: `pnpm run typecheck` (no errors)
+- [ ] Dev server runs without errors
+
+### Runtime Testing
+- [ ] Component library overview page loads without errors
+- [ ] New component appears in overview list with correct icon
+- [ ] Clicking component in overview navigates to dedicated page
+- [ ] Dedicated page loads and renders without errors
+- [ ] Example component displays all variants correctly
+- [ ] Property Tester shows component in dropdown
+- [ ] Property Tester generates correct code
+- [ ] Property Tester preview renders correctly
+- [ ] No browser console errors on any page
+
+### Accessibility & Quality
+- [ ] Component follows LD 3.5 design token standards
+- [ ] All variants demonstrated in example
+- [ ] All sizes demonstrated in example
+- [ ] All states shown (hover, focus, disabled, etc.)
+- [ ] Component documentation is complete
+- [ ] Example includes code snippets
+
+---
+
+## Common Mistakes to Avoid
+
+### ❌ Don't Do This
+- Creating component without dedicated library page
+- Using `ComponentName.tsx` (singular) for page - should be `ComponentNames.tsx` (plural)
+- Forgetting to add to Overview.tsx (component won't be discoverable)
+- Using hard-coded colors/spacing instead of LD tokens
+- Skipping Property Tester integration
+- Not testing in browser before marking complete
+
+### ✅ Do This Instead
+- Always create dedicated library page with plural naming
+- Add to all four required locations (dedicated page, route, overview, ComponentLibrary.tsx)
+- Use LD semantic tokens exclusively (`var(--ld-semantic-color-*)`)
+- Complete Property Tester integration for interactive testing
+- Test thoroughly in browser before completing
+
+---
+
+## File Naming Conventions
+
+| File Type | Naming Convention | Example |
+|-----------|-------------------|---------|
+| Component | PascalCase, singular | `Panel.tsx` |
+| CSS Module | PascalCase, singular | `Panel.module.css` |
+| Example | PascalCase + "Example" | `PanelExample.tsx` |
+| Library Page | PascalCase, plural | `Panels.tsx` |
+| Route Path | kebab-case, plural | `"panels"` |
+| URL | kebab-case, plural | `/component-library/panels` |
+
+---
+
+## Example: Complete Integration
+
+Here's a complete example for a "Panel" component:
+
+### Files Created
+```
+client/components/ui/Panel.tsx               ✅
+client/components/ui/Panel.module.css        ✅
+client/components/examples/PanelExample.tsx  ✅
+client/pages/component-library/Panels.tsx    ✅
+guidelines/components/Panel.md               ✅
+```
+
+### Integrations Added
+```typescript
+// client/App.tsx
+import PanelsPage from "./pages/component-library/Panels";
+<Route path="panels" element={<PanelsPage />} />
+
+// client/pages/component-library/Overview.tsx
+{
+  title: 'Panels',
+  description: 'Modal overlay containers with header, content, and footer',
+  path: '/component-library/panels',
+  icon: 'Sidebar'
+}
+
+// client/pages/ComponentLibrary.tsx
+import { Panel } from '@/components/ui/Panel';
+import { PanelExample } from '@/components/examples/PanelExample';
+// ... added to sections, Property Tester, etc.
+```
+
+### Accessible At
+- Overview list: `/component-library` → Click "Panels"
+- Direct URL: `/component-library/panels`
+- Property Tester: ComponentLibrary.tsx → Select "Panel" from dropdown
+
+---
+
+## Template: Dedicated Library Page
+
+```tsx
+import React from 'react';
+import ComponentNameExample from '@/components/examples/ComponentNameExample';
+
+export default function ComponentNamesPage() {
+  return (
+    <div style={{
+      padding: '48px',
+      maxWidth: '1400px',
+      margin: '0 auto'
+    }}>
+      <div style={{ marginBottom: '32px' }}>
+        <h1 style={{
+          fontSize: '32px',
+          fontWeight: '700',
+          fontFamily: 'var(--ld-semantic-font-family-sans)',
+          color: 'var(--ld-semantic-color-text-primary, #2E2F32)',
+          marginBottom: '12px'
+        }}>
+          Component Names
+        </h1>
+        <p style={{
+          fontSize: '16px',
+          lineHeight: '1.6',
+          color: 'var(--ld-semantic-color-text-secondary, #74767C)',
+          maxWidth: '800px'
+        }}>
+          Describe the component's purpose, variants, and use cases here.
+        </p>
+      </div>
+
+      <div style={{
+        backgroundColor: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)',
+        padding: '32px',
+        borderRadius: '8px',
+        border: '1px solid var(--ld-semantic-color-border-moderate, #E6E6E8)'
+      }}>
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <ComponentNameExample />
+        </React.Suspense>
+      </div>
+    </div>
+  );
+}
+```
+
+---
+
+## Final Checklist Before Completion
+
+✅ **Only mark component creation complete when ALL boxes are checked:**
+
+- [ ] All core component files created
+- [ ] All integration files created/updated
+- [ ] Component builds without errors
+- [ ] Component loads in browser without errors
+- [ ] Component appears in Overview page
+- [ ] Dedicated page accessible via URL
+- [ ] Property Tester integration works
+- [ ] All variants/sizes demonstrated
+- [ ] Documentation is complete
+- [ ] LD 3.5 tokens used exclusively
+
+---
+
+## References
+
+- **Full Process**: See `.builder/rules/RULE_CreateNewComponent.mdc`
+- **Token Documentation**: See `design-system-docs/*-tokens.mdx`
+- **Example Components**: View at `/component-library`
+- **Icon Library**: View at `/component-library/icons`
+
+---
+
+**Last Updated**: 2025-02-15  
+**Enforcement**: This checklist is MANDATORY for all new component creation.

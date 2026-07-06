@@ -1,0 +1,143 @@
+/* Popover Content Styles using LD 3.5 Design Tokens */
+.popoverContent {
+  /* Layout */
+  min-width: 200px;
+  max-width: 360px;
+  padding: var(--ld-primitive-scale-space-200);
+  
+  /* Visual */
+  background-color: var(--ld-semantic-color-fill-surface-primary, #ffffff);
+  border: none;
+  border-radius: var(--ld-primitive-scale-borderradius-100, 8px);
+  
+  /* Elevation */
+  box-shadow: 
+    0px 2px 4px rgba(46, 47, 50, 0.08),
+    0px 4px 12px rgba(46, 47, 50, 0.12);
+  
+  /* Typography */
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.43);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  
+  /* Positioning */
+  z-index: 50;
+  outline: none;
+  
+  /* Animations */
+  animation-duration: var(--ld-primitive-duration-200, 200ms);
+  animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Entry animations */
+.popoverContent[data-state="open"] {
+  animation-name: popoverFadeIn, popoverScaleIn;
+}
+
+.popoverContent[data-state="closed"] {
+  animation-name: popoverFadeOut, popoverScaleOut;
+}
+
+/* Side-specific slide animations */
+.popoverContent[data-side="top"] {
+  animation-name: popoverFadeIn, popoverSlideDownOut;
+}
+
+.popoverContent[data-side="bottom"] {
+  animation-name: popoverFadeIn, popoverSlideUpOut;
+}
+
+.popoverContent[data-side="left"] {
+  animation-name: popoverFadeIn, popoverSlideRightOut;
+}
+
+.popoverContent[data-side="right"] {
+  animation-name: popoverFadeIn, popoverSlideLeftOut;
+}
+
+/* Arrow/Nubbin Styles */
+.popoverArrow {
+  fill: var(--ld-semantic-color-fill-surface-primary, #ffffff);
+  filter: drop-shadow(0px -1px 1px rgba(46, 47, 50, 0.08));
+}
+
+/* Keyframe Animations */
+@keyframes popoverFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes popoverFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes popoverScaleIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes popoverScaleOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.95);
+  }
+}
+
+@keyframes popoverSlideUpOut {
+  from {
+    transform: translateY(4px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes popoverSlideDownOut {
+  from {
+    transform: translateY(-4px);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes popoverSlideLeftOut {
+  from {
+    transform: translateX(4px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes popoverSlideRightOut {
+  from {
+    transform: translateX(-4px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Focus visible state */
+.popoverContent:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused, 2px) solid 
+    var(--ld-semantic-color-action-focus-outline, #0071dc);
+  outline-offset: var(--ld-primitive-scale-space-50, 4px);
+}

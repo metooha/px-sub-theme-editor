@@ -1,0 +1,219 @@
+---
+description: Guidelines and rules for quantity stepper
+alwaysApply: false
+---
+# QuantityStepper Component
+
+## Overview
+
+The QuantityStepper lets users increase or decrease a numeric quantity — most commonly a product count in a cart, wishlist, or product detail page. It morphs between an "Add" button state (count = 0) and an expanded stepper state (count > 0) with smooth animated transitions.
+
+## Component Location
+
+- **Component**: `client/components/ui/QuantityStepper.tsx`
+- **Styles**: `client/components/ui/QuantityStepper.module.css`
+- **Examples**: `client/components/examples/QuantityStepperExample.tsx`
+
+---
+
+## API
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'primary' \| 'secondary' \| 'tertiary'` | `'secondary'` | Visual style. Match the surrounding context. |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Size of the stepper. |
+| `defaultCount` | `number` | `0` | Starting quantity. `0` renders the Add button state. |
+| `maxQuantity` | `number` | `undefined` | Cap on how high the count can go. When reached, the + button is disabled and "Max N" is shown. |
+| `addLabel` | `string` | `'Add'` | Text shown in the "+ Add" state. |
+| `showAddLabel` | `boolean` | `true` | When `false`, hides the text and shows only the + icon in the collapsed state (icon-only mode). |
+| `cartLabel` | `string` | `undefined` | Replaces the "+ Add" button with a text-only CTA (e.g. "Add to cart"). |
+| `countLabel` | `string` | `'added'` | Text shown after the count in expanded state (e.g. "3 added"). |
+| `showTrashOnRemove` | `boolean` | `false` | When `true`, replaces the − button with a trash icon when count = 1. Clicking removes the item entirely. Use in cart/bag contexts. |
+| `disabled` | `boolean` | `false` | Disables the entire component. |
+| `onChange` | `(count: number) => void` | `undefined` | Fired whenever the quantity changes. |
+
+---
+
+## Variants
+
+### Primary
+Use on high-emphasis surfaces (e.g. product tiles with a blue card background). The filled blue background makes it the strongest call-to-action.
+
+```tsx
+<QuantityStepper variant="primary" size="medium" />
+```
+
+### Secondary
+Use on white/light surfaces. The bordered white pill is the default for most product grid and list contexts.
+
+```tsx
+<QuantityStepper variant="secondary" size="medium" />
+```
+
+### Tertiary
+Use on subtler backgrounds (grey cards, overlays) where a full border still needs to read but without the white fill. The border uses a lighter grey tone.
+
+```tsx
+<QuantityStepper variant="tertiary" size="medium" />
+```
+
+---
+
+## Sizes
+
+| Size | Height | Icon | Use case |
+|------|--------|------|----------|
+| `small` | 32px | 16px | Compact lists, table rows, tight layouts |
+| `medium` | 40px | 24px | Standard product tiles and cart rows |
+| `large` | 52px | 32px | Hero or featured product areas |
+
+---
+
+## Modes
+
+### Standard (+ Add label)
+Default mode. Shows "+ Add" button when count = 0, expands to a stepper when count > 0.
+
+```tsx
+<QuantityStepper variant="secondary" />
+```
+
+### Icon-only (no Add label)
+When `showAddLabel={false}` and no `cartLabel`, the collapsed state is a small circle showing only the + icon (or the count when there are items). Hovering or clicking the circle expands it to the full stepper, and it auto-collapses 500ms after the mouse leaves.
+
+Use this in dense product grids where horizontal space is limited.
+
+```tsx
+<QuantityStepper variant="secondary" showAddLabel={false} />
+```
+
+### Cart label CTA
+When `cartLabel` is set, the collapsed state renders as a text-only button (e.g. "Add to cart"). Once clicked, it expands to the stepper.
+
+```tsx
+<QuantityStepper variant="primary" cartLabel="Add to cart" />
+```
+
+### Trash on Remove
+When `showTrashOnRemove={true}`, the minus button is replaced by a trash icon whenever count = 1. Pressing the trash icon resets count to 0. When count > 1, the normal − button is shown.
+
+This communicates clearly to the user that pressing the action at count = 1 will remove the item entirely rather than just decrementing.
+
+```tsx
+<QuantityStepper variant="secondary" defaultCount={1} showTrashOnRemove />
+```
+
+### Max quantity
+Use `maxQuantity` to cap the count. When reached, the + button becomes disabled and the label changes to "Max N".
+
+```tsx
+<QuantityStepper variant="secondary" maxQuantity={10} />
+```
+
+---
+
+## When to Use Each Mode
+
+| Context | Recommended configuration |
+|---------|--------------------------|
+| Product tile grid | `variant="secondary"`, `size="medium"` |
+| Product tile grid (compact) | `variant="secondary"`, `size="small"` |
+| Product detail page | `variant="primary"`, `size="large"`, `cartLabel="Add to cart"` |
+| Cart / bag line item | `variant="tertiary"`, `size="medium"`, `showTrashOnRemove` |
+| Compact overlay / popover | `variant="secondary"`, `size="small"`, `showAddLabel={false}` |
+| Wishlist inline row | `variant="secondary"`, `size="small"` |
+
+---
+
+## Interaction Design
+
+### Expand / collapse animation
+The stepper morphs between a circle (collapsed) and a pill (expanded) using CSS transitions on `max-width`. The easing curves are intentionally asymmetric:
+- **Expand**: 400ms with a snappy overshoot curve (`cubic-bezier(0.22, 1, 0.36, 1)`)
+- **Collapse**: 320ms with a smooth departure curve (`cubic-bezier(0.4, 0, 0.6, 1)`)
+
+### Auto-collapse (all modes)
+After 5 seconds of inactivity, the expanded stepper automatically collapses to a circle showing only the count. Clicking the circle re-expands it. Each increment or decrement resets the 5-second timer.
+
+In icon-only mode, the stepper also collapses on mouse leave (500ms) and on blur (300ms) for quicker interaction in dense layouts. Hovering or focusing cancels those timers.
+
+### Count at 0
+When the count returns to 0, the stepper always collapses back to the Add button state immediately, regardless of mode.
+
+---
+
+## Accessibility
+
+- The pill container has `role="button"` when collapsed and `role="group"` when expanded.
+- The − and + buttons each have descriptive `aria-label` attributes.
+- When `showTrashOnRemove` is active at count = 1, the aria-label changes to "Remove item".
+- Focus management: pressing Tab moves through the − / count / + elements in expanded state. The collapsed pill is a single focusable element.
+- `prefers-reduced-motion`: all CSS transitions and animations are disabled for users who prefer reduced motion.
+- `disabled` state: the pill gets `aria-disabled="true"` and all buttons are `disabled`.
+
+---
+
+## Do's and Don'ts
+
+### Do
+- Use `showTrashOnRemove` in cart and bag contexts — it clearly signals a destructive action at quantity 1.
+- Always pair `maxQuantity` with any business rule that limits per-item purchase quantity.
+- Use `size="small"` in dense list views to preserve vertical rhythm.
+- Match the variant to the surface: `primary` on colour backgrounds, `secondary` on white, `tertiary` on grey.
+
+### Don't
+- Don't use the stepper for non-quantity inputs (ratings, pagination, etc.) — use dedicated components for those.
+- Don't omit `onChange` in controlled contexts — wire it up to update your cart/state store.
+- Don't use `showAddLabel={false}` (icon-only) in contexts where the user may not recognize the + circle as an add action. Prefer the labelled version in unfamiliar contexts.
+- Don't set `maxQuantity` lower than `defaultCount` — this will render the component in a permanently disabled-increment state from load.
+- Don't place multiple steppers so close together that the auto-expand hover areas overlap.
+
+---
+
+## Examples
+
+```tsx
+// Standard product tile
+<QuantityStepper
+  variant="secondary"
+  size="medium"
+  onChange={(count) => updateCart(itemId, count)}
+/>
+
+// Cart line item with trash on remove
+<QuantityStepper
+  variant="tertiary"
+  size="medium"
+  defaultCount={lineItem.quantity}
+  showTrashOnRemove
+  onChange={(count) => count === 0 ? removeItem(itemId) : updateCart(itemId, count)}
+/>
+
+// Product detail with cart label and max quantity
+<QuantityStepper
+  variant="primary"
+  size="large"
+  cartLabel="Add to cart"
+  maxQuantity={12}
+  onChange={(count) => setSelectedQty(count)}
+/>
+
+// Dense grid with icon-only collapsed state
+<QuantityStepper
+  variant="secondary"
+  size="small"
+  showAddLabel={false}
+  onChange={(count) => updateCart(itemId, count)}
+/>
+```
+
+---
+
+## References
+
+- [Nielsen Norman Group — Quantity Steppers UX](https://www.nngroup.com/articles/input-steppers/) — Steppers are preferred over free-text inputs for small numeric ranges (1–10). They reduce errors and speed up interaction.
+- [Baymard Institute — Cart UX Research](https://baymard.com/blog/cart-page-usability) — Recommends inline quantity editing directly in the cart row rather than navigating away. The trash icon at count = 1 is cited as best practice for removal affordance.
+- [WCAG 2.1 SC 4.1.2](https://www.w3.org/TR/WCAG21/#name-role-value) — All interactive controls must have a name, role, and state exposed to assistive technologies.
+- [Living Design 3.5 Tokens](../design-system/DesignTokens.md) — All colors and spacing must use `var(--ld-semantic-*)` tokens.

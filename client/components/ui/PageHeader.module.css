@@ -1,0 +1,68 @@
+.pageHeader {
+  background: var(--ld-semantic-color-surface-brand, #e9f1fe);
+  display: flex;
+  align-items: flex-start;
+  gap: 48px;
+  /* Full-bleed: extend to viewport edges regardless of parent max-width */
+  width: 100vw;
+  box-sizing: border-box;
+  margin-left: calc(-50vw + 50%);
+  margin-top: -48px;
+  margin-bottom: 32px;
+  /* Padding dynamically matches the parent's content inset from viewport edge */
+  padding: 32px calc(50vw - 50%);
+}
+
+.titleBlock {
+  flex-shrink: 0;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ld-semantic-color-text-secondary, #74767C);
+  font-family: var(--ld-semantic-font-family-sans);
+  margin-bottom: 4px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: var(--ld-semantic-font-family-sans);
+  color: var(--ld-semantic-color-text-primary, #2E2F32);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.description {
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--ld-semantic-color-text-secondary, #74767C);
+  font-family: var(--ld-semantic-font-family-sans);
+  margin: 0;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .pageHeader {
+    flex-direction: column;
+    gap: 12px;
+    margin-top: -48px;
+    margin-bottom: 24px;
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .title {
+    font-size: 24px;
+  }
+
+  .description {
+    max-width: none;
+    font-size: 14px;
+  }
+}

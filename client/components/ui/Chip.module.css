@@ -1,0 +1,138 @@
+/* Chip Base Styles - LD 3.5 */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  border-radius: var(--ld-primitive-scale-border-radius-50, 4px); /* Square with subtle rounding */
+  border: var(--ld-semantic-scale-border-width-interactive, 1px) solid var(--ld-semantic-color-input-border);
+  background-color: var(--ld-semantic-color-input-fill);
+  color: var(--ld-semantic-color-input-text-on-fill);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, border-width 0.15s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Focus visible */
+.chip:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50, 2px);
+}
+
+/* Hover - Unselected (light gray fill) */
+.chip:hover:not(:disabled):not(.chip--selected) {
+  background-color: var(--ld-semantic-color-input-fill-hovered);
+  border-color: var(--ld-semantic-color-input-border);
+  color: var(--ld-semantic-color-input-text-on-fill);
+}
+
+/* Focus - Unselected (light gray fill) */
+.chip:focus:not(:disabled):not(.chip--selected) {
+  background-color: var(--ld-semantic-color-input-fill-focused);
+  border-color: var(--ld-semantic-color-input-border);
+}
+
+/* Pressed - Unselected (light gray fill) */
+.chip:active:not(:disabled):not(.chip--selected) {
+  background-color: var(--ld-semantic-color-input-fill-pressed);
+  border-color: var(--ld-semantic-color-input-border);
+  color: var(--ld-semantic-color-input-text-on-fill);
+}
+
+/* Disabled - No fill, light gray border and text */
+.chip:disabled {
+  cursor: not-allowed;
+  background-color: transparent; /* No fill when disabled */
+  border-color: var(--ld-semantic-color-input-border-disabled);
+  color: var(--ld-semantic-color-input-text-on-fill-disabled);
+  border-width: var(--ld-semantic-scale-border-width-interactive, 1px);
+}
+
+/* ==================== */
+/* Size Variants         */
+/* ==================== */
+
+.chip--size-small {
+  padding: 0 var(--ld-primitive-scale-space-200, 16px);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.25rem);
+  height: 32px; /* Exact 32px height per spec */
+  min-height: 32px;
+}
+
+.chip--size-medium {
+  padding: 0 var(--ld-primitive-scale-space-200, 16px);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.25rem);
+  height: 40px; /* Exact 40px height per spec */
+  min-height: 40px;
+}
+
+/* ==================== */
+/* Selected State        */
+/* ==================== */
+
+/* Selected State (2px border, NO fill, dark text) */
+.chip--selected {
+  background-color: var(--ld-semantic-color-input-fill); /* White/no fill */
+  border-color: var(--ld-semantic-color-input-border-activated);
+  border-width: var(--ld-semantic-scale-border-width-interactive-activated, 2px);
+  color: var(--ld-semantic-color-input-text-on-fill); /* Dark text, not white */
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+}
+
+.chip--selected:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-input-fill-hovered); /* Light gray on hover */
+  border-color: var(--ld-semantic-color-input-border-activated);
+  color: var(--ld-semantic-color-input-text-on-fill);
+}
+
+.chip--selected:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-input-fill-pressed); /* Light gray on press */
+  border-color: var(--ld-semantic-color-input-border-activated);
+  color: var(--ld-semantic-color-input-text-on-fill);
+}
+
+.chip--selected:disabled {
+  background-color: transparent; /* No fill when disabled */
+  border-color: var(--ld-semantic-color-input-border-disabled);
+  border-width: var(--ld-semantic-scale-border-width-interactive-activated, 2px);
+  color: var(--ld-semantic-color-input-text-on-fill-disabled);
+}
+
+/* ==================== */
+/* Icon Containers       */
+/* ==================== */
+
+.chip__iconLeading,
+.chip__iconTrailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chip__iconLeading svg,
+.chip__iconTrailing svg {
+  width: var(--ld-semantic-scale-icon-small, 1rem);
+  height: var(--ld-semantic-scale-icon-small, 1rem);
+}
+
+/* Icon sizes remain 16px for both small and medium */
+
+/* Label */
+.chip__label {
+  display: inline-flex;
+  align-items: center;
+}

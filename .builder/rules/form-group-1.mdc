@@ -1,0 +1,117 @@
+---
+description: Guidelines and rules for form group 1
+alwaysApply: false
+---
+# FormGroup - LD 3.5 Component
+
+## Overview
+
+`FormGroup` is a semantic wrapper that groups related form controls (checkboxes, radio buttons, etc.) using a `<fieldset>` and `<legend>` structure. It provides a consistent label, optional helper text, and error state with proper accessibility.
+
+## Import
+
+```tsx
+import { FormGroup } from '@/components/ui/FormGroup';
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `ReactNode` | — | Group label rendered as `<legend>` |
+| `helperText` | `ReactNode` | — | Helper text below the label (hidden when `error` is set) |
+| `error` | `ReactNode` | — | Error message with icon (takes precedence over `helperText`) |
+| `required` | `boolean` | `false` | Shows asterisk (*) after the label |
+| `disabled` | `boolean` | `false` | Dims group and prevents interaction |
+| `children` | `ReactNode` | — | Form controls to group |
+| `UNSAFE_className` | `string` | — | Escape hatch for additional CSS classes |
+| `UNSAFE_style` | `CSSProperties` | — | Escape hatch for inline styles |
+
+## Usage
+
+### Basic Checkbox Group
+
+```tsx
+<FormGroup label="Select options">
+  <Checkbox label="Option A" />
+  <Checkbox label="Option B" />
+  <Checkbox label="Option C" />
+</FormGroup>
+```
+
+### With Helper Text
+
+```tsx
+<FormGroup label="Preferences" helperText="Choose all that apply">
+  <Checkbox label="Email" />
+  <Checkbox label="SMS" />
+</FormGroup>
+```
+
+### Error State
+
+```tsx
+<FormGroup label="Required field" error="Please select at least one">
+  <Checkbox label="Accept terms" />
+</FormGroup>
+```
+
+### With Radio Buttons
+
+```tsx
+<FormGroup label="Choose one">
+  <RadioGroup value={val} onValueChange={setVal}>
+    <Radio value="a" label="Option A" />
+    <Radio value="b" label="Option B" />
+  </RadioGroup>
+</FormGroup>
+```
+
+### Required
+
+```tsx
+<FormGroup label="Contact method" required>
+  <Checkbox label="Phone" />
+  <Checkbox label="Email" />
+</FormGroup>
+```
+
+### Disabled
+
+```tsx
+<FormGroup label="Unavailable" disabled>
+  <Checkbox label="A" disabled />
+  <Checkbox label="B" disabled />
+</FormGroup>
+```
+
+## Token Reference
+
+| Element | Token | Fallback |
+|---------|-------|----------|
+| Label font family | `--ld-semantic-font-body-small-family` | Everyday Sans UI |
+| Label font size | `--ld-semantic-font-body-small-size` | 14px |
+| Label line height | `--ld-semantic-font-body-small-lineheight` | 20px |
+| Label color | `--ld-semantic-color-text` | #2E2F32 |
+| Helper text color | `--ld-semantic-color-text-subtle` | #74767C |
+| Error color | `--ld-semantic-color-feedback-fill-destructive` | #ea1100 |
+| Error icon size | `--ld-semantic-scale-icon-small` | 16px |
+| Controls gap | `--ld-primitive-scale-space-100` | 8px |
+| Meta gap | `--ld-primitive-scale-space-50` | 4px |
+
+## Accessibility
+
+- Uses `<fieldset>` and `<legend>` for screen reader group context
+- `aria-describedby` links to helper or error text
+- `aria-invalid` set on fieldset when error is present
+- Error text uses `role="alert"` for live announcements
+- Required indicator (`*`) hidden from screen readers with `aria-hidden`
+- Disabled state uses native `<fieldset disabled>` to disable all children
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `client/components/ui/FormGroup.tsx` | Component |
+| `client/components/ui/FormGroup.module.css` | Styles |
+| `client/components/examples/FormGroupExample.tsx` | Examples |

@@ -1,0 +1,178 @@
+---
+description: Guidelines and rules for chip
+alwaysApply: false
+---
+## Purpose
+Chips represent selectable, compact labels with **subtle rounded corners (4px)** used for categorizing content and general selections. They are interactive toggle buttons that visually indicate selection state.
+
+**For filtering interfaces**, use the **FilterChip** component instead, which has pill-shaped (fully rounded) corners.
+
+## Import
+
+```tsx
+import { Chip } from "@/components/ui/Chip";
+```
+
+## Rules
+- **MUST** use the Living Design Chip component (`@/components/ui/Chip`).
+- **MUST** use Chips only for **selectable** items (Chips are not static labels — use Tag for that).
+- **MUST** keep Chip height consistent; the label **MUST NOT** wrap to multiple lines.
+- **SHOULD** use Chips when the set of options is small and easy to scan.
+- **MUST NOT** use Chips for navigation. Use Button or Link instead.
+- **MUST NOT** use Chips in place of the Tabs pattern. Use Tab Navigation instead.
+
+## Props Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `selected` | `boolean` | `false` | Whether the chip is in selected/pressed state |
+| `onSelectedChange` | `(selected: boolean) => void` | — | Callback when chip selection changes |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Size variant |
+| `variant` | `'default' \| 'primary'` | `'default'` | Visual variant (default = dark fill selected, primary = blue fill selected) |
+| `iconLeading` | `React.ReactNode` | — | Optional leading icon/content |
+| `iconTrailing` | `React.ReactNode` | — | Optional trailing icon/content |
+| `disabled` | `boolean` | `false` | Whether the chip is disabled |
+| `UNSAFE_className` | `string` | — | Escape hatch for additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | — | Escape hatch for inline styles |
+
+All standard `<button>` HTML attributes are also supported (except `className` and `style`).
+
+## Variants
+
+### default
+Dark fill when selected using input tokens (`--ld-semantic-color-input-fill-activated`). Suitable for neutral filters.
+
+### primary
+Walmart blue fill when selected using action tokens (`--ld-semantic-color-action-fill-primary`). Suitable for primary/prominent selections.
+
+## Sizes
+
+| Size | Min Height | Font Size | Padding |
+|------|-----------|-----------|---------|
+| small | 32px | 14px | 4px 12px |
+| medium | 36px | 14px | 6px 16px |
+| large | 40px | 16px | 8px 20px |
+
+## States
+- **Default** — Unselected, ready for interaction
+- **Hover** — Mouse over, subtle background change
+- **Focus-visible** — Keyboard focus, visible outline ring
+- **Pressed/Active** — Click/tap in progress
+- **Selected** — Toggle ON state, inverted/filled colors
+- **Disabled** — Non-interactive, reduced opacity
+
+## Design Tokens Used
+
+Chips use the **INPUT token family** for consistency with other selectable/filterable UI elements.
+
+### Unselected State
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill` |
+| Border | `--ld-semantic-color-input-border` (2px) |
+| Text | `--ld-semantic-color-input-text-on-fill` |
+
+### Selected (default variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-activated` |
+| Border | `--ld-semantic-color-input-border-activated` |
+| Text | `--ld-semantic-color-input-indicator-activated` |
+
+### Selected (primary variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-action-fill-primary` |
+| Border | `--ld-semantic-color-action-fill-primary` |
+| Text | `--ld-semantic-color-action-text-on-fill-primary` |
+
+### Focus
+| Property | Token |
+|----------|-------|
+| Outline | `--ld-semantic-color-action-focus-outline` |
+
+## Usage Examples
+
+### Basic chip (general selection)
+```tsx
+const [active, setActive] = React.useState(false);
+
+<Chip selected={active} onSelectedChange={setActive}>
+  Category
+</Chip>
+```
+
+### Multi-select pattern
+```tsx
+const [selections, setSelections] = React.useState({ featured: false, new: false });
+
+<div role="group" aria-label="Category selections" style={{ display: 'flex', gap: 8 }}>
+  <Chip
+    selected={selections.featured}
+    onSelectedChange={(v) => setSelections(prev => ({ ...prev, featured: v }))}
+  >
+    Featured
+  </Chip>
+  <Chip
+    selected={selections.new}
+    onSelectedChange={(v) => setSelections(prev => ({ ...prev, new: v }))}
+  >
+    New
+  </Chip>
+</div>
+```
+
+### With icons
+```tsx
+import { Star } from '@/components/icons';
+
+<Chip iconLeading={<Star />} selected>
+  Favorites
+</Chip>
+```
+
+### Single-select (radio-like)
+```tsx
+const [selected, setSelected] = React.useState('featured');
+const categories = ['Featured', 'New', 'Sale'];
+
+<div role="group" aria-label="Categories">
+  {categories.map(cat => (
+    <Chip
+      key={cat}
+      variant="primary"
+      selected={selected === cat.toLowerCase()}
+      onSelectedChange={() => setSelected(cat.toLowerCase())}
+    >
+      {cat}
+    </Chip>
+  ))}
+</div>
+```
+
+## Accessibility
+- Renders as `<button>` element for proper semantics.
+- Uses `aria-pressed` to communicate selected state to screen readers.
+- Tab navigates between chips; Space/Enter toggles selection (native button behavior).
+- Focus-visible outline meets contrast requirements.
+- Group chips with `role="group"` and `aria-label` on the container.
+
+## Best Practices
+
+### Use when
+- Category selection and general toggle selections.
+- Content categorization interfaces.
+- **For filters**, use FilterChip instead (pill-shaped).
+
+### Don't use when
+- Items are not selectable — use Tag instead.
+- Too many items — use Select instead.
+- Single exclusive selection from a set — consider Radio.
+- Navigation — use Button or Link.
+- Tab-based content switching — use Tabs.
+
+## Component Hierarchy
+- **Chip**: Interactive, selectable toggle buttons with subtle rounding (this component)
+- **FilterChip**: Interactive, pill-shaped buttons specifically for filtering
+- **Tag**: Static, non-interactive labels with optional dismiss
+- **Badge**: Non-interactive count/status indicators

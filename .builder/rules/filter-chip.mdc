@@ -1,0 +1,281 @@
+---
+description: Guidelines and rules for filter chip
+alwaysApply: false
+---
+## Purpose
+Filter chips are **pill-shaped** (fully rounded) selectable buttons specifically designed for filtering interfaces. They are interactive toggle buttons that visually indicate selection state and use the same INPUT token family as regular Chips.
+
+**FilterChip** (pill-shaped) is for filtering. **Chip** (subtle rounding) is for general selections and categories.
+
+## Import
+
+```tsx
+import { FilterChip } from "@/components/ui/FilterChip";
+```
+
+## Anatomy
+
+Per the Figma design spec, FilterChip consists of the following parts:
+
+### Variant: Multi (with dropdown)
+1. **Container** — The pill-shaped button wrapper
+2. **Leading Slot** (optional) — Icon or media element
+3. **Text label** — Primary label text
+4. **Count** (optional) — Numeric indicator (e.g., "(2)")
+5. **Trailing Action** — Dropdown chevron icon when opened
+
+### Variant: Toggle (simple toggle)
+1. **Container** — The pill-shaped button wrapper
+2. **Leading Slot** (optional) — Media/icon element
+3. **Text label** — Primary label text
+
+### Variant: All Filters (summary chip)
+1. **Container** — The pill-shaped button wrapper
+2. **[LD 3.5] Sliders Icon** — Special icon for "All Filters" chip
+3. **Text label** (optional) — "All Filters" or custom text
+4. **Count** (optional) — Number of active filters (e.g., "(2)")
+
+## Rules
+- **MUST** use the Living Design FilterChip component (`@/components/ui/FilterChip`).
+- **MUST** use FilterChips specifically for **filtering interfaces** (not general selections).
+- **MUST** keep FilterChip height consistent; the label **MUST NOT** wrap to multiple lines.
+- **SHOULD** use FilterChips when the set of filter options is small and easy to scan.
+- **MUST NOT** use FilterChips for navigation. Use Button or Link instead.
+- **For general selections/categories**, use Chip (not FilterChip).
+
+## Props Reference
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `selected` | `boolean` | `false` | Whether the filter chip is in selected/pressed state |
+| `onSelectedChange` | `(selected: boolean) => void` | — | Callback when filter chip selection changes |
+| `size` | `'small' \| 'medium' \| 'large'` | `'medium'` | Size variant |
+| `variant` | `'default' \| 'primary'` | `'default'` | Visual variant (default = dark fill selected, primary = blue fill selected) |
+| `iconLeading` | `React.ReactNode` | — | Optional leading icon/content |
+| `iconTrailing` | `React.ReactNode` | — | Optional trailing icon/content |
+| `disabled` | `boolean` | `false` | Whether the filter chip is disabled |
+| `UNSAFE_className` | `string` | — | Escape hatch for additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | — | Escape hatch for inline styles |
+
+All standard `<button>` HTML attributes are also supported (except `className` and `style`).
+
+## Variants
+
+### default
+Dark fill when selected using INPUT tokens (`--ld-semantic-color-input-fill-activated`). Suitable for neutral filters.
+
+### primary
+Walmart blue fill when selected using ACTION tokens (`--ld-semantic-color-action-fill-primary`). Suitable for primary/prominent filters.
+
+## Sizes
+
+| Size | Min Height | Font Size | Padding | Border Radius |
+|------|-----------|-----------|---------|--------------|
+| small | 32px | 14px | 4px 12px | 9999px (pill) |
+| medium | 36px | 14px | 6px 16px | 9999px (pill) |
+| large | 40px | 16px | 8px 20px | 9999px (pill) |
+
+## States
+- **Default** — Unselected, ready for interaction
+- **Hover** — Mouse over, subtle background change
+- **Focus-visible** — Keyboard focus, visible outline ring
+- **Pressed/Active** — Click/tap in progress
+- **Selected** — Toggle ON state, inverted/filled colors
+- **Disabled** — Non-interactive, reduced opacity
+
+## Design Tokens Used
+
+FilterChips use the **INPUT token family** (same as Chip) for consistency across selectable UI elements.
+
+### Border Width Tokens (Per Figma Spec)
+| State | Token |
+|-------|-------|
+| Default | `--ld-semantic-scale-borderwidth-interactive` (2px) |
+| Hovered | `--ld-semantic-scale-borderwidth-interactive-hovered` (2px) |
+| Focused | `--ld-semantic-scale-borderwidth-interactive-focused` (2px) |
+| Pressed | `--ld-semantic-scale-borderwidth-interactive-pressed` (2px) |
+| Activated (Selected) | `--ld-semantic-scale-borderwidth-interactive-activated` (2px) |
+
+### Unselected State
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill` |
+| Border Color | `--ld-semantic-color-input-border` |
+| Border Width | `--ld-semantic-scale-borderwidth-interactive` |
+| Text | `--ld-semantic-color-input-text-on-fill` |
+| Border Radius | `--ld-primitive-scale-borderradius-round` (9999px) |
+
+### Hover State (Unselected)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-hovered` |
+| Border Color | `--ld-semantic-color-input-border-hovered` |
+| Border Width | `--ld-semantic-scale-borderwidth-interactive-hovered` |
+
+### Focused State
+| Property | Token |
+|----------|-------|
+| Border Color | `--ld-semantic-color-input-border-focused` |
+| Border Width | `--ld-semantic-scale-borderwidth-interactive-focused` |
+| Background | `--ld-semantic-color-fill-focused` |
+| Outline | `--ld-semantic-color-action-focus-outline` (2px) |
+
+### Pressed State (Unselected)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-pressed` |
+| Border Color | `--ld-semantic-color-input-border-pressed` |
+| Border Width | `--ld-semantic-scale-borderwidth-interactive-pressed` |
+
+### Selected (default variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-activated` |
+| Border Color | `--ld-semantic-color-input-border-activated` |
+| Border Width | `--ld-semantic-scale-borderwidth-interactive-activated` |
+| Text | `--ld-semantic-color-input-indicator-activated` |
+
+### Selected + Hovered (default variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-activated-hovered` |
+| Border Color | `--ld-semantic-color-input-border-activated-hovered` |
+
+### Selected + Focused (default variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-activated-focused` |
+| Border Color | `--ld-semantic-color-input-border-activated-focused` |
+
+### Selected + Pressed (default variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-activated-pressed` |
+| Border Color | `--ld-semantic-color-input-border-activated-pressed` |
+
+### Disabled State
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-input-fill-disabled` |
+| Border Color | `--ld-semantic-color-input-border-disabled` |
+| Text | `--ld-semantic-color-input-text-on-fill-disabled` |
+
+### Selected (primary variant)
+| Property | Token |
+|----------|-------|
+| Background | `--ld-semantic-color-action-fill-primary` |
+| Border | `--ld-semantic-color-action-fill-primary` |
+| Text | `--ld-semantic-color-action-text-on-fill-primary` |
+
+## Usage Examples
+
+### Basic filter chip
+```tsx
+const [active, setActive] = React.useState(false);
+
+<FilterChip selected={active} onSelectedChange={setActive}>
+  Filter
+</FilterChip>
+```
+
+### Multi-select filter pattern
+```tsx
+const [filters, setFilters] = React.useState({ open: false, closed: false });
+
+<div role="group" aria-label="Status filters" style={{ display: 'flex', gap: 8 }}>
+  <FilterChip
+    selected={filters.open}
+    onSelectedChange={(v) => setFilters(prev => ({ ...prev, open: v }))}
+  >
+    Open
+  </FilterChip>
+  <FilterChip
+    selected={filters.closed}
+    onSelectedChange={(v) => setFilters(prev => ({ ...prev, closed: v }))}
+  >
+    Closed
+  </FilterChip>
+</div>
+```
+
+### With icons
+```tsx
+import { Filter } from '@/components/icons';
+
+<FilterChip iconLeading={<Filter />} selected>
+  Filtered
+</FilterChip>
+```
+
+### With count
+```tsx
+// Display count of selected items in filter
+const selectedCount = 3;
+
+<FilterChip selected={selectedCount > 0}>
+  Categories {selectedCount > 0 && `(${selectedCount})`}
+</FilterChip>
+
+// "All Filters" variant with count
+<FilterChip
+  iconLeading={<SlidersIcon />}
+  selected={hasActiveFilters}
+>
+  All Filters {activeFilterCount > 0 && `(${activeFilterCount})`}
+</FilterChip>
+```
+
+### Single-select (radio-like)
+```tsx
+const [selected, setSelected] = React.useState('all');
+const filters = ['All', 'Open', 'Closed'];
+
+<div role="group" aria-label="Filters">
+  {filters.map(filter => (
+    <FilterChip
+      key={filter}
+      variant="primary"
+      selected={selected === filter.toLowerCase()}
+      onSelectedChange={() => setSelected(filter.toLowerCase())}
+    >
+      {filter}
+    </FilterChip>
+  ))}
+</div>
+```
+
+## Accessibility
+- Renders as `<button>` element for proper semantics.
+- Uses `aria-pressed` to communicate selected state to screen readers.
+- Tab navigates between filter chips; Space/Enter toggles selection (native button behavior).
+- Focus-visible outline meets contrast requirements.
+- Group filter chips with `role="group"` and `aria-label` on the container.
+
+## Best Practices
+
+### Use when
+- Filtering lists or datasets where users can toggle one or more filters.
+- Status filters (Open, Closed, Active, etc.).
+- Quick filter UI that needs to be immediately visible.
+
+### Don't use when
+- General category selection — use Chip instead (subtle rounding).
+- Items are not selectable — use Tag instead.
+- Too many filter options — use Select instead.
+- Navigation — use Button or Link.
+- Tab-based content switching — use Tabs.
+
+## Chip vs FilterChip
+
+| Component | Border Radius | Use Case |
+|-----------|---------------|----------|
+| **Chip** | 4px (subtle rounding) | Categories, general selections |
+| **FilterChip** | 9999px (pill) | Filtering interfaces |
+
+Both components:
+- Use the same INPUT token family
+- Support the same variants (default, primary)
+- Have identical interaction patterns
+- Support icons and all standard states
+
+The only difference is visual: border-radius.

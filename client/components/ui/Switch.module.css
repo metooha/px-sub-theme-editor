@@ -1,0 +1,111 @@
+/* Container with switch and label */
+.container {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-semantic-spacing-3, 12px);
+}
+
+/* Track (background pill) */
+.track {
+  position: relative;
+  width: 48px;
+  height: 24px;
+  border: none;
+  border-radius: 9999px; /* Fully rounded */
+  background-color: var(--ld-semantic-color-switch-fill);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+/* Track hover state (unchecked) */
+.track:not(.track--checked):not(.track--disabled):hover {
+  background-color: var(--ld-semantic-color-switch-fill-hovered);
+}
+
+/* Track focus state (unchecked) */
+.track:not(.track--checked):not(.track--disabled):focus-visible {
+  background-color: var(--ld-semantic-color-switch-fill-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+/* Track active/pressed state (unchecked) */
+.track:not(.track--checked):not(.track--disabled):active {
+  background-color: var(--ld-semantic-color-switch-fill-pressed);
+}
+
+/* Track checked state */
+.track--checked {
+  background-color: var(--ld-semantic-color-switch-fill-activated);
+}
+
+/* Track hover state (checked) */
+.track--checked:not(.track--disabled):hover {
+  background-color: var(--ld-semantic-color-switch-fill-activated-hovered);
+}
+
+/* Track focus state (checked) */
+.track--checked:not(.track--disabled):focus-visible {
+  background-color: var(--ld-semantic-color-switch-fill-activated-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+/* Track active/pressed state (checked) */
+.track--checked:not(.track--disabled):active {
+  background-color: var(--ld-semantic-color-switch-fill-activated-pressed);
+}
+
+/* Track disabled state (unchecked) */
+.track--disabled {
+  background-color: var(--ld-semantic-color-switch-fill-disabled);
+  cursor: not-allowed;
+}
+
+/* Track disabled state (checked) */
+.track--checked.track--disabled {
+  background-color: var(--ld-semantic-color-switch-fill-activated-disabled);
+}
+
+/* Handle (moving circle) */
+.handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--ld-semantic-color-switch-indicator);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease;
+  pointer-events: none;
+}
+
+/* Handle checked position */
+.handle--checked {
+  transform: translateX(24px); /* 48px track width - 20px handle width - 4px padding */
+}
+
+/* Handle disabled state */
+.handle--disabled {
+  background-color: var(--ld-semantic-color-switch-indicator-disabled);
+}
+
+/* Label text */
+.label {
+  font-family: var(--ld-semantic-font-body-small-family);
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-default);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+  color: var(--ld-semantic-color-text);
+  cursor: pointer;
+  user-select: none;
+}
+
+/* Label disabled state */
+.label--disabled {
+  color: var(--ld-semantic-color-text-disabled);
+  cursor: not-allowed;
+}

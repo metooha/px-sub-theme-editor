@@ -1,0 +1,965 @@
+---
+description: Guidelines and rules for theme switcher plan
+alwaysApply: false
+---
+# Theme Switcher Implementation Plan
+
+## Overview
+
+This plan outlines the implementation of a dynamic theme switching system that allows users to switch between different design token sets (Base Theme and Walmart B2B Theme) on the Component Library page. The system will be extensible for adding additional themes in the future.
+
+---
+
+## Architecture Design
+
+### 1. Theme File Structure
+
+```
+client/styles/themes/
+├── base/
+│   ├── primitive.css      (LD base primitives + WCP primitives)
+│   └── semantic.css       (LD base semantics + WCP semantics)
+├── walmart-b2b/
+│   ├── primitive.css      (B2B-specific primitive overrides)
+│   └── semantic.css       (B2B-specific semantic overrides)
+└── theme-registry.ts      (Theme metadata and loader)
+```
+
+### 2. Theme Loading Strategy
+
+**Approach: CSS Custom Property Swapping**
+
+- Each theme is a separate CSS file with `:root` variables
+- Themes are loaded dynamically by swapping `<link>` tags in the document head
+- Only ONE theme's CSS is active at a time (prevents conflicts)
+- Base theme loads by default on initial page load
+- Theme preference stored in localStorage for persistence
+
+**Why This Approach:**
+- ✅ No CSS conflicts between themes
+- ✅ Clean separation of concerns
+- ✅ Easy to add new themes (just add new CSS files)
+- ✅ Leverages existing CSS custom properties
+- ✅ No runtime performance hit (pure CSS)
+
+### 3. Theme Context Provider
+
+```tsx
+// client/contexts/ThemeContext.tsx
+
+interface Theme {
+  id: string;
+  name: string;
+  description: string;
+  primitiveCSS: string;  // Path to primitive.css
+  semanticCSS: string;   // Path to semantic.css
+}
+
+interface ThemeContextValue {
+  currentTheme: string;
+  availableThemes: Theme[];
+  switchTheme: (themeId: string) => void;
+}
+```
+
+---
+
+## Implementation Steps
+
+### Phase 1: Token File Organization
+
+#### Step 1.1: Add WCP Tokens to Base Theme
+**Files to modify:**
+- `client/styles/themes/base/primitive.css` (create)
+- `client/styles/themes/base/semantic.css` (create)
+
+**Actions:**
+1. Copy existing `client/styles/semantic.css` content
+2. Add WCP tokens from attachment file 1 (semantic.css with WCP section)
+3. Ensure no duplicates - WCP tokens should EXTEND, not replace
+4. Organize with clear section comments:
+   ```css
+   /* ═══════════════════════════════════════════════════ */
+   /* LD Base Semantic Tokens                            */
+   /* ═══════════════════════════════════════════════════ */
+   
+   /* LD tokens here... */
+   
+   /* ═══════════════════════════════════════════════════ */
+   /* WCP Extended Semantic Tokens                       */
+   /* ═══════════════════════════════════════════════════ */
+   
+   /* WCP tokens here... */
+   ```
+
+**Expected Additions:**
+- WCP action tokens: `--wcp-semantic-color-action-fill-primary-alt`, etc.
+- WCP border tokens: `--wcp-semantic-color-border-savings-subtle`, etc.
+- WCP surface tokens: `--wcp-semantic-color-surface-express`, etc.
+- WCP text tokens: `--wcp-semantic-color-text-onFill-confidence`, etc.
+- WCP bottom nav tokens
+- WCP input tokens
+- WCP notice tokens
+- WCP rating tokens
+
+#### Step 1.2: Create Walmart B2B Theme Files
+**Files to create:**
+- `client/styles/themes/walmart-b2b/primitive.css` (from attachment file 4)
+- `client/styles/themes/walmart-b2b/semantic.css` (from attachment file 3)
+
+**Key Differences in B2B Theme:**
+Looking at the B2B semantic.css vs base:
+- Primary button color: `#002e99` (darker blue) vs `#0053e2` (Walmart blue)
+- Brand colors: Use `#001e60` instead of `#0053e2`
+- Activated states: Different blue shades
+- Surface overlays: Different brand color treatments
+
+**Structure:**
+```css
+/**
+ * Walmart B2B Theme - Semantic Tokens
+ * Overrides for Living Design 3.5 targeting B2B customers
+ */
+
+:root {
+  /* Only include tokens that DIFFER from base theme */
+  /* All other tokens inherit from base theme */
+  
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-magic-1, #0053e2);
+  /* etc... */
+}
+```
+
+---
+
+### Phase 2: Theme Loading System
+
+#### Step 2.1: Create Theme Registry
+**File to create:** `client/contexts/theme-registry.ts`
+
+```typescript
+export interface Theme {
+  id: 'base' | 'walmart-b2b';
+  name: string;
+  description: string;
+  primitiveCSS: string;
+  semanticCSS: string;
+}
+
+export const AVAILABLE_THEMES: Theme[] = [
+  {
+    id: 'base',
+    name: 'Walmart Connect (Base)',
+    description: 'Default Walmart Connect Ad Center theme with WCP extensions',
+    primitiveCSS: '/styles/themes/base/primitive.css',
+    semanticCSS: '/styles/themes/base/semantic.css',
+  },
+  {
+    id: 'walmart-b2b',
+    name: 'Walmart Business (B2B)',
+    description: 'Walmart Business platform theme with darker brand colors',
+    primitiveCSS: '/styles/themes/walmart-b2b/primitive.css',
+    semanticCSS: '/styles/themes/walmart-b2b/semantic.css',
+  },
+];
+
+export const DEFAULT_THEME = 'base';
+```
+
+#### Step 2.2: Create Theme Provider Context
+**File to create:** `client/contexts/ThemeContext.tsx`
+
+**Responsibilities:**
+1. Load theme CSS files dynamically
+2. Manage current theme state
+3. Persist theme preference to localStorage
+4. Provide theme switching function
+5. Remove old theme CSS when switching
+
+**Key Functions:**
+```typescript
+const loadThemeCSS = (theme: Theme) => {
+  // Remove existing theme links
+  document.querySelectorAll('link[data-theme]').forEach(link => link.remove());
+  
+  // Add new theme links
+  const primitiveLink = document.createElement('link');
+  primitiveLink.rel = 'stylesheet';
+  primitiveLink.href = theme.primitiveCSS;
+  primitiveLink.setAttribute('data-theme', 'primitive');
+  
+  const semanticLink = document.createElement('link');
+  semanticLink.rel = 'stylesheet';
+  semanticLink.href = theme.semanticCSS;
+  semanticLink.setAttribute('data-theme', 'semantic');
+  
+  document.head.appendChild(primitiveLink);
+  document.head.appendChild(semanticLink);
+};
+```
+
+#### Step 2.3: Wrap App with ThemeProvider
+**File to modify:** `client/App.tsx` or `client/main.tsx`
+
+```tsx
+import { ThemeProvider } from './contexts/ThemeContext';
+
+function App() {
+  return (
+    <ThemeProvider>
+      {/* Existing app content */}
+    </ThemeProvider>
+  );
+}
+```
+
+---
+
+### Phase 3: Theme Switcher UI
+
+#### Step 3.1: Create ThemeSwitcher Component
+**File to create:** `client/components/ThemeSwitcher.tsx`
+
+**Features:**
+- Dropdown select showing available themes
+- Visual indicator of current theme
+- Theme description on hover
+- Smooth transition when switching
+- Uses LD 3.5 design tokens for styling
+
+**Design Specs:**
+```tsx
+<div className="theme-switcher">
+  <label>Theme:</label>
+  <select value={currentTheme} onChange={handleThemeChange}>
+    <option value="base">Walmart Connect (Base)</option>
+    <option value="walmart-b2b">Walmart Business (B2B)</option>
+  </select>
+  <span className="theme-description">{currentThemeDescription}</span>
+</div>
+```
+
+**Styling:**
+- Use `var(--ld-semantic-color-border)` for select border
+- Use `var(--ld-semantic-color-surface)` for background
+- Use `var(--ld-semantic-font-family-sans)` for typography
+- Add focus states with `var(--ld-semantic-color-action-focus-outline)`
+
+#### Step 3.2: Integrate into Component Library
+**File to modify:** `client/pages/ComponentLibrary.tsx`
+
+**Location:** Top of page header, right side
+
+```tsx
+<div style={{ 
+  marginBottom: '40px',
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  padding: '32px',
+  borderRadius: 'var(--ld-primitive-scale-border-radius-100)',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'start'
+}}>
+  <div>
+    <h1>Living Design 3.5 Component Library</h1>
+    <p>...</p>
+  </div>
+  <ThemeSwitcher />
+</div>
+```
+
+---
+
+### Phase 4: Documentation & Rules
+
+#### Step 4.1: Create Theme Addition Guide
+**File to create:** `guidelines/RULE_ThemeSwitcher.md`
+
+**Contents:**
+
+```markdown
+# Theme Switcher System
+
+## Overview
+
+The theme switcher allows dynamic swapping of design token sets across the entire application. Themes modify CSS custom properties at the `:root` level.
+
+## Adding a New Theme
+
+### 1. Create Theme Files
+
+Create a new directory under `client/styles/themes/[theme-name]/`:
+
+```
+client/styles/themes/your-theme-name/
+├── primitive.css
+└── semantic.css
+```
+
+### 2. Primitive Tokens (primitive.css)
+
+**When to modify:**
+- Rarely needed unless introducing entirely new color palettes
+- Most themes only modify semantic tokens
+
+**Structure:**
+```css
+/**
+ * [Theme Name] - Primitive Tokens
+ * Generated on [Date]
+ */
+
+:root {
+  /* Only include primitives that DIFFER from base */
+  /* Copy base primitives, then modify as needed */
+}
+```
+
+### 3. Semantic Tokens (semantic.css)
+
+**When to modify:**
+- Most common place for theme customization
+- Override action colors, text colors, surface colors, etc.
+
+**Structure:**
+```css
+/**
+ * [Theme Name] - Semantic Tokens
+ * Generated on [Date]
+ */
+
+:root {
+  /* LD Base Semantic Tokens */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-blue-130, #002e99);
+  /* ... */
+  
+  /* Custom Extended Tokens (optional) */
+  --custom-semantic-color-xyz: var(--ld-primitive-color-..., #...);
+}
+```
+
+### 4. Register Theme
+
+Add to `client/contexts/theme-registry.ts`:
+
+```typescript
+{
+  id: 'your-theme-name',
+  name: 'Display Name',
+  description: 'Brief description of theme purpose',
+  primitiveCSS: '/styles/themes/your-theme-name/primitive.css',
+  semanticCSS: '/styles/themes/your-theme-name/semantic.css',
+}
+```
+
+### 5. Testing Checklist
+
+- [ ] All components render correctly
+- [ ] No console errors about missing tokens
+- [ ] Focus states visible
+- [ ] Hover states work
+- [ ] Text is readable on all backgrounds
+- [ ] Icons use currentColor properly
+- [ ] Button variants look distinct
+- [ ] Accessibility contrast ratios met (WCAG AA)
+
+## Token Override Principles
+
+### What to Override
+
+**Common Overrides:**
+- `--ld-semantic-color-action-fill-primary` (primary button color)
+- `--ld-semantic-color-text-brand` (brand text color)
+- `--ld-semantic-color-border-brand` (brand border color)
+- `--ld-semantic-color-fill-brand` (brand fill color)
+- `--ld-semantic-color-surface-overlay-brand-subtle` (brand surface overlays)
+
+**Rarely Override:**
+- Spacing tokens (should remain consistent)
+- Typography tokens (font family should stay Everyday Sans)
+- Border radius tokens (consistency across themes)
+- Animation duration (UX consistency)
+
+### What NOT to Override
+
+**Never Override:**
+- Primitive tokens in other themes (only define in base)
+- Component-specific tokens without testing all components
+- Accessibility-related tokens (focus outlines, disabled states)
+- Structural tokens (elevation, spacing scale)
+
+## Theme-Specific Extensions
+
+You can add theme-specific tokens with custom prefixes:
+
+```css
+/* Base theme has WCP extensions */
+--wcp-semantic-color-action-fill-primary-alt: ...;
+
+/* B2B theme could have its own */
+--b2b-semantic-color-custom-feature: ...;
+```
+
+**Naming Convention:**
+- Prefix: `--[theme-prefix]-semantic-[category]-[name]`
+- Example: `--wcp-semantic-color-action-fill-primary-alt`
+- Example: `--b2b-semantic-color-surface-premium`
+
+## File Organization Rules
+
+### Directory Structure
+```
+client/styles/themes/
+├── base/                  ← Default theme (LD + WCP)
+│   ├── primitive.css
+│   └── semantic.css
+├── walmart-b2b/          ← B2B customer theme
+│   ├── primitive.css
+│   └── semantic.css
+├── [future-theme]/       ← Add new themes here
+│   ├── primitive.css
+│   └── semantic.css
+└── README.md             ← Quick reference guide
+```
+
+### File Headers
+
+All theme files MUST include:
+```css
+/**
+ * Do not edit directly — [Theme Name]
+ * Generated on [Date]
+ * 
+ * Description: [What this theme is for]
+ * Base: [LD version] + [Extensions]
+ */
+```
+
+---
+
+## Implementation Tasks
+
+### Task 1: Extract WCP Tokens to Base Theme
+**Goal:** Add WCP extended tokens to the base theme without removing existing LD tokens
+
+**Files:**
+1. Create `client/styles/themes/base/primitive.css`
+   - Copy from current `client/styles/primitive.css`
+   - No changes needed (already complete)
+
+2. Create `client/styles/themes/base/semantic.css`
+   - Copy from current `client/styles/semantic.css`
+   - Add WCP section from attachment file 1
+   - Tokens to add:
+     - `--wcp-semantic-color-action-*` (10 tokens)
+     - `--wcp-semantic-color-border-*` (2 tokens)
+     - `--wcp-semantic-color-bottomNav-*` (2 tokens)
+     - `--wcp-semantic-color-fill-*` (11 tokens)
+     - `--wcp-semantic-color-input-*` (6 tokens)
+     - `--wcp-semantic-color-notice-*` (6 tokens)
+     - `--wcp-semantic-color-rating-*` (4 tokens)
+     - `--wcp-semantic-color-surface-*` (4 tokens)
+     - `--wcp-semantic-color-text-*` (12 tokens)
+
+### Task 2: Create Walmart B2B Theme
+**Goal:** Create a separate theme with B2B-specific token overrides
+
+**Files:**
+1. Create `client/styles/themes/walmart-b2b/primitive.css`
+   - Copy from attachment file 4
+   - Keep all primitive tokens (same as base, may have minor differences)
+
+2. Create `client/styles/themes/walmart-b2b/semantic.css`
+   - Copy from attachment file 3
+   - Key differences to document:
+     - Primary action color: `#002e99` (darker blue)
+     - Brand color: `#001e60` (navy blue)
+     - Activated states: Different shades
+     - B2B-specific WCP overrides (cyan alt button)
+
+### Task 3: Build Theme Loading Infrastructure
+
+**File:** `client/contexts/theme-registry.ts`
+```typescript
+export interface Theme {
+  id: string;
+  name: string;
+  description: string;
+  primitiveCSS: string;
+  semanticCSS: string;
+  previewColor?: string; // Visual indicator color
+}
+
+export const THEMES: Theme[] = [
+  {
+    id: 'base',
+    name: 'Walmart Connect',
+    description: 'Default theme for Walmart Connect Ad Center',
+    primitiveCSS: '/styles/themes/base/primitive.css',
+    semanticCSS: '/styles/themes/base/semantic.css',
+    previewColor: '#0053e2', // Walmart blue
+  },
+  {
+    id: 'walmart-b2b',
+    name: 'Walmart Business',
+    description: 'Theme for Walmart Business B2B platform',
+    primitiveCSS: '/styles/themes/walmart-b2b/primitive.css',
+    semanticCSS: '/styles/themes/walmart-b2b/semantic.css',
+    previewColor: '#002e99', // Darker navy
+  },
+];
+
+export const DEFAULT_THEME = 'base';
+```
+
+**File:** `client/contexts/ThemeContext.tsx`
+```typescript
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { THEMES, DEFAULT_THEME, type Theme } from './theme-registry';
+
+interface ThemeContextValue {
+  currentTheme: string;
+  availableThemes: Theme[];
+  switchTheme: (themeId: string) => void;
+  isLoading: boolean;
+}
+
+const ThemeContext = createContext<ThemeContextValue | undefined>(undefined);
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  const [currentTheme, setCurrentTheme] = useState<string>(() => {
+    return localStorage.getItem('ld-theme') || DEFAULT_THEME;
+  });
+  const [isLoading, setIsLoading] = useState(false);
+
+  const switchTheme = (themeId: string) => {
+    const theme = THEMES.find(t => t.id === themeId);
+    if (!theme) return;
+
+    setIsLoading(true);
+
+    // Remove existing theme links
+    document.querySelectorAll('link[data-theme-layer]').forEach(link => {
+      link.remove();
+    });
+
+    // Load new theme
+    const primitiveLink = document.createElement('link');
+    primitiveLink.rel = 'stylesheet';
+    primitiveLink.href = theme.primitiveCSS;
+    primitiveLink.setAttribute('data-theme-layer', 'primitive');
+    primitiveLink.setAttribute('data-theme-id', theme.id);
+
+    const semanticLink = document.createElement('link');
+    semanticLink.rel = 'stylesheet';
+    semanticLink.href = theme.semanticCSS;
+    semanticLink.setAttribute('data-theme-layer', 'semantic');
+    semanticLink.setAttribute('data-theme-id', theme.id);
+
+    // Wait for both to load
+    Promise.all([
+      new Promise(resolve => primitiveLink.onload = resolve),
+      new Promise(resolve => semanticLink.onload = resolve),
+    ]).then(() => {
+      setIsLoading(false);
+    });
+
+    document.head.appendChild(primitiveLink);
+    document.head.appendChild(semanticLink);
+
+    // Persist preference
+    localStorage.setItem('ld-theme', themeId);
+    setCurrentTheme(themeId);
+  };
+
+  // Load initial theme
+  useEffect(() => {
+    switchTheme(currentTheme);
+  }, []);
+
+  return (
+    <ThemeContext.Provider value={{
+      currentTheme,
+      availableThemes: THEMES,
+      switchTheme,
+      isLoading,
+    }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme must be used within ThemeProvider');
+  }
+  return context;
+}
+```
+
+### Task 4: Create Theme Switcher UI Component
+
+**File:** `client/components/ThemeSwitcher.tsx`
+
+**Design:**
+- Compact dropdown select
+- Shows theme name + description
+- Visual color indicator for each theme
+- Loading state while switching
+- Follows LD 3.5 design patterns
+
+**Component Structure:**
+```tsx
+import { useTheme } from '@/contexts/ThemeContext';
+import { ChevronDown } from '@/components/icons';
+
+export function ThemeSwitcher() {
+  const { currentTheme, availableThemes, switchTheme, isLoading } = useTheme();
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="theme-switcher">
+      <label>Active Theme:</label>
+      <button onClick={() => setIsOpen(!isOpen)}>
+        {availableThemes.find(t => t.id === currentTheme)?.name}
+        <ChevronDown />
+      </button>
+      
+      {isOpen && (
+        <div className="dropdown">
+          {availableThemes.map(theme => (
+            <button
+              key={theme.id}
+              onClick={() => {
+                switchTheme(theme.id);
+                setIsOpen(false);
+              }}
+            >
+              <span className="color-indicator" style={{ backgroundColor: theme.previewColor }} />
+              <div>
+                <div className="name">{theme.name}</div>
+                <div className="description">{theme.description}</div>
+              </div>
+            </button>
+          ))}
+        </div>
+      )}
+      
+      {isLoading && <span>Loading theme...</span>}
+    </div>
+  );
+}
+```
+
+### Task 5: Update Component Library Page
+
+**File:** `client/pages/ComponentLibrary.tsx`
+
+**Changes:**
+1. Import ThemeSwitcher
+2. Add to page header (top right)
+3. Ensure proper layout with flexbox
+
+```tsx
+{/* Page Header */}
+<div style={{ 
+  marginBottom: '40px',
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  padding: '32px',
+  borderRadius: 'var(--ld-primitive-scale-border-radius-100)',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'flex-start',
+  gap: '32px'
+}}>
+  <div style={{ flex: 1 }}>
+    <h1>Living Design 3.5 Component Library</h1>
+    <p>...</p>
+  </div>
+  <ThemeSwitcher />
+</div>
+```
+
+---
+
+## Token Comparison: Base vs B2B
+
+### Key Differences to Highlight
+
+| Token | Base Theme | B2B Theme | Impact |
+|-------|-----------|-----------|--------|
+| `action-fill-primary` | `#0053e2` | `#002e99` | Primary buttons darker |
+| `text-brand` | `#0053e2` | `#001e60` | Brand text darker |
+| `border-brand` | `#0053e2` | `#0053e2` (magic-1) | Brand borders same |
+| `fill-activated` | `#0053e2` | `#001e60` | Active states darker |
+| `text-activated` | `#114ab6` | `#001e60` | Active text darker |
+
+### WCP Extensions (Both Themes)
+
+**Base Theme WCP:**
+- Yellow spark buttons: `--wcp-semantic-color-action-fill-primary-alt: #ffc220`
+- Savings indicators: `--wcp-semantic-color-fill-savings-bold: #ea1100`
+- Holiday themes: `--wcp-semantic-color-fill-holiday-member`
+- Confidence badges: `--wcp-semantic-color-fill-confidence`
+
+**B2B Theme WCP:**
+- Cyan alt buttons: `--wcp-semantic-color-action-fill-primary-alt: #4dbdf5`
+- Different text treatments for confidence, savings, etc.
+
+---
+
+## Migration Strategy
+
+### Current State
+- Single `client/styles/semantic.css` loaded globally
+- Single `client/styles/primitive.css` loaded globally
+- All components use these tokens
+
+### Target State
+- Multiple theme directories under `client/styles/themes/`
+- ThemeProvider loads appropriate theme CSS dynamically
+- Components unchanged (still reference same token names)
+- User can switch themes via UI
+
+### Migration Steps
+
+1. **Phase 1:** Create theme structure (no breaking changes)
+   - Move existing CSS to `themes/base/`
+   - Keep old files as symlinks or duplicates temporarily
+   - Add B2B theme files
+   - No code changes yet
+
+2. **Phase 2:** Add ThemeProvider (progressive enhancement)
+   - Wrap app in ThemeProvider
+   - ThemeProvider loads base theme by default
+   - Old CSS files still present as fallback
+   - No visual changes
+
+3. **Phase 3:** Add UI switcher (feature complete)
+   - Add ThemeSwitcher component to Component Library
+   - Users can now switch themes
+   - Remove old CSS files
+   - Update index.html to not load theme CSS (ThemeProvider handles it)
+
+4. **Phase 4:** Documentation & Training
+   - Create RULE_ThemeSwitcher.md
+   - Update RULES_INDEX.md
+   - Add theme examples to Component Library
+
+---
+
+## Technical Considerations
+
+### Performance
+- **CSS Loading:** Themes load async, minimal blocking
+- **Cache Strategy:** Browser caches theme CSS files
+- **Bundle Size:** Themes are separate files, not bundled in JS
+
+### Browser Compatibility
+- CSS Custom Properties: Supported in all modern browsers
+- localStorage: Widely supported
+- Dynamic link injection: Standard approach
+
+### Accessibility
+- Theme switcher is keyboard navigable
+- Focus states preserved across themes
+- Contrast ratios must meet WCAG AA in ALL themes
+- Screen reader announces theme changes
+
+### Edge Cases
+- **Theme fails to load:** Fall back to base theme
+- **localStorage unavailable:** Use default theme
+- **Mid-session switch:** All components re-render with new tokens
+- **Component unmounted during switch:** No memory leaks
+
+---
+
+## Future Enhancements
+
+### Potential Additions
+1. **Dark Mode Theme:** Create `themes/dark/` with inverted colors
+2. **High Contrast Theme:** For accessibility (WCAG AAA)
+3. **Seasonal Themes:** Holiday-specific color overrides
+4. **Customer-Specific Themes:** White-label for different clients
+5. **Preview Mode:** See all themes side-by-side
+
+### Advanced Features
+- Theme preview thumbnails
+- Live theme editor for designers
+- Export theme as JSON
+- Import custom themes
+- Theme inheritance (B2B extends base, only override deltas)
+
+---
+
+## Testing Plan
+
+### Manual Testing
+1. Switch to each theme on Component Library page
+2. Verify all sections render correctly:
+   - Buttons (all variants)
+   - Badges (all variants)
+   - Icon Buttons (all variants)
+   - Links (all variants)
+   - Tags (all variants)
+   - Cards
+   - Icons (should use currentColor)
+   - Design token swatches (should update to show new colors)
+
+3. Test interactive states:
+   - Hover states
+   - Focus states
+   - Active/pressed states
+   - Disabled states
+
+4. Test persistence:
+   - Switch theme
+   - Reload page
+   - Verify theme persists
+
+### Automated Testing (Future)
+```typescript
+describe('Theme Switcher', () => {
+  it('loads base theme by default', () => {
+    expect(getComputedStyle(document.documentElement)
+      .getPropertyValue('--ld-semantic-color-action-fill-primary'))
+      .toBe('#0053e2');
+  });
+
+  it('switches to B2B theme', () => {
+    switchTheme('walmart-b2b');
+    expect(getComputedStyle(document.documentElement)
+      .getPropertyValue('--ld-semantic-color-action-fill-primary'))
+      .toBe('#002e99');
+  });
+
+  it('persists theme to localStorage', () => {
+    switchTheme('walmart-b2b');
+    expect(localStorage.getItem('ld-theme')).toBe('walmart-b2b');
+  });
+});
+```
+
+---
+
+## Token Inventory
+
+### Base Theme (LD + WCP)
+- **LD Semantic:** ~200 tokens
+- **WCP Extended:** ~57 tokens
+- **Total:** ~257 semantic tokens
+- **Primitives:** ~200 tokens
+
+### B2B Theme
+- **Modified LD Semantic:** ~30 tokens (overrides)
+- **WCP B2B Extended:** ~10 tokens (different values)
+- **Inherits:** All other tokens from base
+
+---
+
+## Success Criteria
+
+### Must Have
+- [x] Two working themes (Base, B2B)
+- [x] Theme switcher UI on Component Library page
+- [x] Theme persistence via localStorage
+- [x] All components render correctly in both themes
+- [x] Documentation for adding new themes
+
+### Nice to Have
+- [ ] Theme preview thumbnails
+- [ ] Smooth transition animations between themes
+- [ ] Theme comparison view (side-by-side)
+- [ ] Export theme configuration
+
+---
+
+## Timeline Estimate
+
+| Phase | Tasks | Complexity |
+|-------|-------|------------|
+| File Setup | Create theme directories and files | Low |
+| Token Migration | Add WCP to base, create B2B theme | Medium |
+| Context Provider | Build ThemeProvider and registry | Medium |
+| UI Component | Create ThemeSwitcher component | Low |
+| Integration | Add to Component Library page | Low |
+| Documentation | Write rules and procedures | Medium |
+| Testing | Verify all components work | Medium |
+
+---
+
+## References
+
+### Design Token Files
+1. **Base Theme Semantic (with WCP):** Attachment file 1
+2. **Base Theme Primitive:** Attachment file 2
+3. **B2B Theme Semantic:** Attachment file 3
+4. **B2B Theme Primitive:** Attachment file 4
+
+### Related Documentation
+- `guidelines/RULE_DesignSystemEnforcement.md` - Token usage rules
+- `guidelines/Button.md` - Component using action tokens
+- `client/styles/semantic.css` - Current base semantic tokens
+
+---
+
+## Risk Mitigation
+
+### Potential Issues
+
+**Issue:** Theme CSS fails to load
+- **Mitigation:** Add error boundary, fall back to inline base theme
+- **Detection:** Monitor link.onerror events
+
+**Issue:** Theme partially loaded (only primitive or semantic)
+- **Mitigation:** Load both files as a transaction, rollback if either fails
+- **Detection:** Promise.all() on both link.onload events
+
+**Issue:** Token name conflicts between themes
+- **Mitigation:** Use clear namespacing (ld-, wcp-, b2b-)
+- **Prevention:** Document token naming conventions
+
+**Issue:** Components break with different token values
+- **Mitigation:** Thorough testing of all components in all themes
+- **Prevention:** Use semantic tokens (not primitives) in components
+
+**Issue:** Performance degradation with many themes
+- **Mitigation:** Lazy load theme CSS only when selected
+- **Monitoring:** Track CSS load times
+
+---
+
+## Rollback Plan
+
+If theme switching causes issues:
+
+1. **Immediate:** Remove ThemeProvider, restore single CSS files
+2. **Quick:** Disable theme switcher UI, lock to base theme
+3. **Gradual:** Fix issues theme-by-theme, re-enable switcher
+
+**Rollback Command:**
+```bash
+# Restore original structure
+mv client/styles/themes/base/* client/styles/
+rm -rf client/styles/themes/
+# Remove ThemeProvider from App.tsx
+# Remove ThemeSwitcher from ComponentLibrary.tsx
+```
+
+---
+
+## Conclusion
+
+This theme switcher system provides:
+- ✅ Clean separation of theme token sets
+- ✅ Easy addition of new themes
+- ✅ No component code changes required
+- ✅ User-friendly switching experience
+- ✅ Extensible for future needs
+- ✅ Clear documentation and procedures
+
+The implementation follows Living Design 3.5 principles and maintains backward compatibility while enabling powerful theming capabilities.

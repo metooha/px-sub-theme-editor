@@ -1,0 +1,135 @@
+/* Radio Base Styles - LD 3.5 */
+
+/* Wrapper: flex row with label */
+.wrapper {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  cursor: pointer;
+}
+
+.wrapper--disabled {
+  cursor: not-allowed;
+}
+
+/* Radio circle — 24×24 */
+.radio {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--ld-primitive-scale-space-300, 24px);
+  height: var(--ld-primitive-scale-space-300, 24px);
+  flex-shrink: 0;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px);
+  border: var(--ld-semantic-scale-border-width-interactive, 2px) solid var(--ld-semantic-color-input-border);
+  background-color: white;
+  cursor: pointer;
+  transition: background-color var(--ld-primitive-duration-200, 150ms) ease,
+              border-color var(--ld-primitive-duration-200, 150ms) ease;
+  outline: none;
+  padding: 0;
+}
+
+/* ------ Unselected States ------ */
+
+/* Hover - Unselected */
+.radio:hover:not([data-disabled]) {
+  background-color: var(--ld-semantic-color-input-fill-hovered);
+  border-color: var(--ld-semantic-color-input-border-hovered);
+}
+
+/* Focus visible */
+.radio:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50, 2px);
+  background-color: var(--ld-semantic-color-input-fill-focused);
+  border-color: var(--ld-semantic-color-input-border-focused);
+}
+
+/* Pressed - Unselected */
+.radio:active:not([data-disabled]) {
+  background-color: var(--ld-semantic-color-input-fill-pressed);
+  border-color: var(--ld-semantic-color-input-border-pressed);
+}
+
+/* Disabled - Unselected */
+.radio[data-disabled] {
+  background-color: white;
+  border-color: var(--ld-semantic-color-input-border-disabled);
+  cursor: not-allowed;
+}
+
+/* ------ Selected (Activated) States ------ */
+
+/* Enabled - Selected */
+.radio[data-state="checked"] {
+  background-color: var(--ld-semantic-color-input-fill-activated);
+  border-color: var(--ld-semantic-color-input-border-activated);
+}
+
+/* Hover - Selected */
+.radio[data-state="checked"]:hover:not([data-disabled]) {
+  background-color: var(--ld-semantic-color-input-fill-activated-hovered);
+  border-color: var(--ld-semantic-color-input-border-activated-hovered);
+}
+
+/* Focus - Selected */
+.radio[data-state="checked"]:focus-visible {
+  background-color: var(--ld-semantic-color-input-fill-activated-focused);
+  border-color: var(--ld-semantic-color-input-border-activated-focused);
+}
+
+/* Pressed - Selected */
+.radio[data-state="checked"]:active:not([data-disabled]) {
+  background-color: var(--ld-semantic-color-input-fill-activated-pressed);
+  border-color: var(--ld-semantic-color-input-border-activated-pressed);
+}
+
+/* Disabled - Selected */
+.radio[data-state="checked"][data-disabled] {
+  background-color: var(--ld-semantic-color-input-fill-activated-disabled);
+  border-color: var(--ld-semantic-color-input-border-activated-disabled);
+  cursor: not-allowed;
+}
+
+/* ------ Indicator (inner dot, 8×8) ------ */
+
+.indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px);
+  background-color: var(--ld-semantic-color-input-indicator-activated);
+}
+
+/* ------ Label ------ */
+
+.label {
+  display: flex;
+  padding: var(--ld-primitive-scale-space-25, 2px) 0;
+  align-items: center;
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-semantic-font-family-sans));
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 20px);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  color: var(--ld-semantic-color-text);
+  user-select: none;
+}
+
+/* Selected label → bold */
+.label--checked {
+  font-weight: var(--ld-semantic-font-body-small-weight-alt, 700);
+}
+
+/* Disabled label */
+.label--disabled {
+  color: var(--ld-semantic-color-text-disabled);
+}

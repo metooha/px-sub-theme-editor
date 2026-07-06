@@ -1,0 +1,102 @@
+---
+description: Guidelines and rules for banner
+alwaysApply: false
+---
+## Purpose
+A Banner displays an important, succinct message to broad user-groups. Banners are system-generated (not user-generated) and require a user action to be dismissed.
+
+## Rules
+- **MUST** use the Living Design Banner component.
+- **MUST** use Banner only for messages intended for a broad user group (regional/national/wide-reaching incidents).
+- **MUST** require an explicit user action to dismiss.
+- **MUST** keep Banner text centered (do not change alignment).
+- **MUST NOT** add icons to the Banner.
+- **MUST NOT** use Banner for marketing or promotional information.
+- **SHOULD** use at most one Banner per page/screen.
+- **SHOULD** keep the message short and to the point.
+- **SHOULD** include a text link only when you need to direct the user to another page.
+
+## Usage
+Use when the message relates to a large number or broad group of users.
+
+Don't use when the message pertains to an individual user's momentary experience; use an [Alert](/components/alert) instead.
+
+## Variants
+Choose the variant that matches the intent/severity of the message (names may differ in your API):
+- Info
+- Success
+- Warning
+- Error
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { Banner } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function BannerExample() {
+  const [open, setOpen] = React.useState(true);
+
+  if (!open) return null;
+
+  return (
+    <Banner
+      // Adapt prop names to your actual API:
+      // variant="warning"
+      // onDismiss={() => setOpen(false)} // Banner requires user action to dismiss
+      // action={{ label: "Learn more", href: "/status" }} // optional link action
+      variant="warning"
+      onDismiss={() => setOpen(false)}
+      action={{ label: "View status", href: "/status" }}
+    >
+      We're investigating a regional outage affecting some users.
+    </Banner>
+  );
+}
+```
+
+## Best practices
+### Use when
+- Use when the message relates to a regional, national, or otherwise far-reaching incident that is crucial to all users.
+- Use when the message relates to a large number or broad group of users.
+
+### Don't use when
+- Don't use when the message pertains to an individual user's momentary experience. Use an [Alert](/components/alert) instead.
+
+### Do
+- Do use at-most one Banner per page or screen.
+- Do keep the message short and to the point.
+- Do choose the color/variant appropriate to the hierarchy and intent of your message.
+- Do add a text link if you need to direct the user to a new page.
+
+### Don't
+- Don't add icons to the Banner.
+- Don't change the alignment of the text. Banner text is always centered.
+- Don't use the Banner to relay marketing or promotional information.
+
+## Placement
+- The Banner should always appear as the top-most element on the page, above the app header.
+- The Banner should span the full width of the viewport/container and remain visually distinct from page content.
+
+## Content strategy
+The text label should clearly explain the intent (success, error, etc.) and the specific message. This allows users with low vision, color blindness, or other visual impairments to understand the importance of the Banner.
+
+## Anatomy
+1. Container
+2. Text label
+3. Close button
+
+## Behavior
+### Responsiveness
+- Messages should be short, but may wrap to a second line when needed; this increases Banner height.
+- On larger screens, avoid showing readable text wider than ~700px; wrap text as needed.
+
+## Accessibility
+- **MUST** ensure the message is understandable without color (text must carry meaning).
+- **SHOULD** ensure the Banner is announced appropriately if it appears dynamically (follow `guidelines/accessibility.md` for announcement patterns).
+- Close control **MUST** have an accessible name (e.g., "Dismiss banner").
+
+## Token usage
+- Prefer component defaults (Banner should be token-wired for color, typography, spacing).
+- Only use tokens for layout around the Banner, not for restyling the Banner.

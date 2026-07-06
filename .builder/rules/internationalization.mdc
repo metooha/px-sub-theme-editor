@@ -1,0 +1,416 @@
+---
+description: Guidelines and rules for internationalization
+alwaysApply: false
+---
+# Internationalization (i18n) Guidelines
+
+## Overview
+
+This project uses **react-i18next** for internationalization. Every user-facing string must be translatable. This document defines the rules and patterns all contributors must follow when adding new features, pages, or components.
+
+**Supported languages**: English (`en`), Spanish (`es`), French (`fr`)
+**Fallback language**: English (`en`)
+
+## Architecture
+
+```
+client/
+├── i18n.ts                          # i18next configuration
+├── locales/
+│   ├── en/
+│   │   ├── common.json              # Shared/global strings (default namespace)
+│   │   ├── pages.json               # Page-specific strings
+│   │   └── marty.json               # AI assistant strings
+│   ├── es/
+│   │   ├── common.json
+│   │   ├── pages.json
+│   │   └── marty.json
+│   └── fr/
+│       ├── common.json
+│       ├── pages.json
+│       └── marty.json
+└── components/ui/LanguageSelector.tsx  # Language switcher UI
+```
+
+## The Golden Rule
+
+**Never hardcode user-facing text.** Every string a user can read — labels, headings, placeholders, error messages, aria-labels, tooltips, button text — must come from a translation key.
+
+---
+
+## Namespaces
+
+| Namespace | File | Purpose | When to use |
+|-----------|------|---------|-------------|
+| `common` | `common.json` | Shared strings used across multiple pages/components | Navigation, actions (Save, Cancel), sidebar labels, masthead, shared UI elements |
+| `pages` | `pages.json` | Page-specific strings | Content unique to a single page or feature |
+| `marty` | `marty.json` | AI assistant (Marty) strings | Chat UI, assistant prompts, AI-related labels |
+
+**Rule**: `common` is the default namespace. If you call `useTranslation()` with no argument, it reads from `common.json`.
+
+---
+
+## How to Add Translatable Strings
+
+### Step 1: Add keys to ALL three language files
+
+When adding a new string, you must add the key to `en`, `es`, and `fr` simultaneously. Never add a key to only one language.
+
+```jsonc
+// client/locales/en/common.json
+{
+  "myFeature": {
+    "title": "My Feature",
+    "description": "This feature does something useful."
+  }
+}
+
+// client/locales/es/common.json
+{
+  "myFeature": {
+    "title": "Mi funcionalidad",
+    "description": "Esta funcionalidad hace algo útil."
+  }
+}
+
+// client/locales/fr/common.json
+{
+  "myFeature": {
+    "title": "Ma fonctionnalité",
+    "description": "Cette fonctionnalité fait quelque chose d'utile."
+  }
+}
+```
+
+### Step 2: Use the `useTranslation` hook in your component
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+export function MyFeature() {
+  // For common namespace (default):
+  const { t } = useTranslation();
+
+  // For pages namespace:
+  const { t } = useTranslation('pages');
+
+  return (
+    <h1>{t('myFeature.title')}</h1>
+  );
+}
+```
+
+### Step 3: When using multiple namespaces in one component
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+export function MyPage() {
+  const { t } = useTranslation();           // common namespace
+  const { t: tp } = useTranslation('pages'); // pages namespace
+
+  return (
+    <div>
+      <button>{t('actions.save')}</button>       {/* from common.json */}
+      <h1>{tp('myPage.title')}</h1>              {/* from pages.json */}
+    </div>
+  );
+}
+```
+
+---
+
+## Key Naming Conventions
+
+### Structure
+
+Keys are organized as nested objects grouped by feature or section:
+
+```
+namespace.section.key
+```
+
+### Rules
+
+| Rule | Correct | Wrong |
+|------|---------|-------|
+| Use camelCase for keys | `campaignName` | `campaign-name`, `Campaign_Name` |
+| Group by feature/section | `dataTable.colStatus` | `colStatus` |
+| Be descriptive but concise | `searchPlaceholder` | `sp`, `theSearchInputPlaceholderText` |
+| Use consistent suffixes | `title`, `description`, `label`, `placeholder`, `error`, `ariaLabel` | Mixing conventions |
+| Keep nesting to 2-3 levels max | `myFeature.form.nameLabel` | `myFeature.form.fields.name.label.text` |
+
+### Common key suffixes
+
+| Suffix | Use for | Example |
+|--------|---------|---------|
+| `title` | Page/section headings | `catalog.title` |
+| `description` | Descriptive/body text | `catalog.description` |
+| `label` | Form field labels | `form.emailLabel` |
+| `placeholder` | Input placeholders | `form.emailPlaceholder` |
+| `error` | Error messages | `form.emailError` |
+| `ariaLabel` | Accessibility labels | `sidebar.expandAriaLabel` |
+| `tooltip` | Tooltip text | `actions.deleteTooltip` |
+| `empty` | Empty state messages | `table.emptyMessage` |
+
+---
+
+## Which Namespace to Use
+
+### Use `common` when:
+
+- The string is reused across 2+ pages (nav items, action buttons, shared labels)
+- It belongs to the app shell (masthead, sidebar, language selector)
+- It is a generic UI pattern (Save, Cancel, Close, Loading...)
+
+### Use `pages` when:
+
+- The string is specific to a single page or feature
+- It describes page-specific content (column headers, section titles unique to that view)
+- It is demo/example content tied to a specific page
+
+### Use `marty` when:
+
+- The string is related to the AI assistant feature
+
+**When in doubt, use `pages`** — it is easier to promote a key to `common` later than to untangle shared keys.
+
+---
+
+## What Must Be Translated
+
+### Always translate
+
+- Headings and titles
+- Button labels and link text
+- Form field labels, placeholders, and helper text
+- Error and validation messages
+- Toast / notification messages
+- Empty state text
+- Table column headers
+- Tab labels
+- Breadcrumb text
+- Tooltip and popover content
+- `aria-label` attributes
+- `alt` text on images
+- Status text (Live, Paused, Completed, etc.)
+
+### Do NOT translate
+
+- Brand names and product names (Walmart, Marty)
+- Technical identifiers (CSS class names, IDs, enum values)
+- URLs and email addresses
+- Code examples and syntax
+- Icon-only content (use `aria-label` for the accessible name — and translate that)
+- Numeric-only values (currency amounts, dates are handled by formatters, not translation keys)
+
+---
+
+## Interpolation (Dynamic Values)
+
+Use i18next interpolation for strings that contain dynamic data:
+
+```jsonc
+// en/pages.json
+{
+  "results": {
+    "showing": "Showing {{count}} results",
+    "page": "Page {{current}} of {{total}}"
+  }
+}
+```
+
+```tsx
+t('results.showing', { count: 42 })      // "Showing 42 results"
+t('results.page', { current: 1, total: 5 }) // "Page 1 of 5"
+```
+
+**Never concatenate translated strings with variables:**
+
+```tsx
+// WRONG
+t('showing') + ' ' + count + ' ' + t('results')
+
+// CORRECT
+t('results.showing', { count })
+```
+
+Concatenation breaks in languages where word order differs from English.
+
+---
+
+## Pluralization
+
+Use the i18next `count` interpolation for plurals:
+
+```jsonc
+// en/common.json
+{
+  "items": {
+    "selected": "{{count}} item selected",
+    "selected_other": "{{count}} items selected"
+  }
+}
+
+// es/common.json
+{
+  "items": {
+    "selected": "{{count}} elemento seleccionado",
+    "selected_other": "{{count}} elementos seleccionados"
+  }
+}
+```
+
+```tsx
+t('items.selected', { count: 1 })  // "1 item selected"
+t('items.selected', { count: 5 })  // "5 items selected"
+```
+
+---
+
+## HTML Content in Translations
+
+When a translated string contains HTML markup, use `dangerouslySetInnerHTML` or the `Trans` component:
+
+```jsonc
+// en/pages.json
+{
+  "banner": {
+    "message": "This is <strong>important</strong> information."
+  }
+}
+```
+
+```tsx
+// Option A: dangerouslySetInnerHTML (simple cases)
+<p dangerouslySetInnerHTML={{ __html: t('banner.message') }} />
+
+// Option B: Trans component (preferred for complex cases)
+import { Trans } from 'react-i18next';
+<Trans i18nKey="banner.message" components={{ strong: <strong /> }} />
+```
+
+---
+
+## Checklist for New Features
+
+Use this checklist every time you add a new page, component, or feature:
+
+- [ ] **No hardcoded strings**: Every user-visible string uses `t('key')`
+- [ ] **All three languages updated**: Keys added to `en`, `es`, and `fr` JSON files
+- [ ] **Correct namespace chosen**: `common` for shared, `pages` for page-specific, `marty` for AI
+- [ ] **Keys follow naming conventions**: camelCase, grouped by feature, descriptive suffixes
+- [ ] **Dynamic values use interpolation**: `t('key', { variable })`, never string concatenation
+- [ ] **Aria-labels translated**: All accessibility attributes use `t()` calls
+- [ ] **No text in CSS or inline styles**: Strings belong in JSON files, not stylesheets
+- [ ] **Tested in all languages**: Switch language via the LanguageSelector and verify layout doesn't break (translated strings can be longer/shorter)
+
+---
+
+## Common Patterns
+
+### Page header
+
+```tsx
+const { t } = useTranslation('pages');
+
+<h1>{t('myPage.title')}</h1>
+<p>{t('myPage.description')}</p>
+```
+
+### Table column headers
+
+```tsx
+const { t } = useTranslation('pages');
+
+<DataTableHeader>{t('myTable.colName')}</DataTableHeader>
+<DataTableHeader>{t('myTable.colStatus')}</DataTableHeader>
+```
+
+### Status values with a lookup map
+
+```tsx
+const STATUS_KEYS: Record<string, string> = {
+  Live: 'myFeature.statusLive',
+  Paused: 'myFeature.statusPaused',
+};
+
+<Tag>{t(STATUS_KEYS[item.status])}</Tag>
+```
+
+### Dynamically mapped categories
+
+```tsx
+const CATEGORY_KEYS: Record<string, string> = {
+  electronics: 'catalog.catElectronics',
+  clothing: 'catalog.catClothing',
+};
+
+categories.map(cat => (
+  <span key={cat}>{t(CATEGORY_KEYS[cat] ?? cat)}</span>
+))
+```
+
+### Aria-labels with context
+
+```jsonc
+// en/pages.json
+{
+  "dataTable": {
+    "actionsFor": "Actions for {{name}}"
+  }
+}
+```
+
+```tsx
+<IconButton aria-label={t('dataTable.actionsFor', { name: item.name })}>
+  <MoreHorizontal />
+</IconButton>
+```
+
+---
+
+## Adding a New Language
+
+1. Create a new folder: `client/locales/{langCode}/`
+2. Copy all three JSON files from `en/` as a starting point
+3. Translate all values (keys stay the same)
+4. Import the new files in `client/i18n.ts` and add them to `resources`
+5. Add the language code to `supportedLngs` in the i18n config
+6. Add the language option to `LanguageSelector.tsx` with its flag icon
+
+---
+
+## Enforcement
+
+When reviewing code or AI-generated changes:
+
+1. **Search for hardcoded strings**: Look for quoted English text in JSX that is not inside `t()`
+2. **Check JSON parity**: Ensure every key in `en/*.json` also exists in `es/*.json` and `fr/*.json`
+3. **Verify interpolation**: Ensure dynamic values are passed as variables, not concatenated
+
+```bash
+# Find potential hardcoded strings in page components
+grep -rn ">[A-Z][a-z]" client/pages/ --include="*.tsx" | grep -v "t(" | grep -v "//"
+
+# Check for missing keys across languages (basic)
+diff <(jq -r '[paths | join(".")]' client/locales/en/common.json | sort) \
+     <(jq -r '[paths | join(".")]' client/locales/es/common.json | sort)
+```
+
+---
+
+## Summary
+
+| Do | Don't |
+|----|-------|
+| Use `t('key')` for all user-visible text | Hardcode English strings in JSX |
+| Add keys to all 3 language files at once | Add keys to English only |
+| Use interpolation for dynamic values | Concatenate strings with `+` |
+| Group keys by feature section | Use flat, ungrouped key names |
+| Use `common` for shared, `pages` for specific | Put everything in one namespace |
+| Test with non-English language active | Assume English-only layout works everywhere |
+
+---
+
+Last updated: 2025-02-20

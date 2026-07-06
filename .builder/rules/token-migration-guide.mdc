@@ -1,0 +1,288 @@
+---
+description: Guidelines and rules for token migration guide
+alwaysApply: false
+---
+# Living Design 3.5 Token Migration Guide
+
+This guide provides mappings for converting hard-coded colors and Tailwind utilities to Living Design 3.5 semantic tokens.
+
+## 🎯 Migration Strategy
+
+**ALWAYS use semantic tokens instead of:**
+- ❌ Hard-coded hex colors (`bg-[#0071DC]`)
+- ❌ Tailwind color utilities (`bg-gray-100`, `text-gray-600`)
+- ❌ Inline styles with hard-coded values
+
+**WHY?** Tokens enable:
+- ✅ Theme switching across all Walmart brands
+- ✅ Consistent design system compliance
+- ✅ Centralized color management
+- ✅ Accessibility and contrast compliance
+
+---
+
+## 📋 Common Color Mappings
+
+### Background Colors
+
+| ❌ WRONG | ✅ CORRECT TOKEN | Use Case |
+|---------|-----------------|----------|
+| `bg-white` | `bg-[var(--ld-semantic-color-background)]` | Main screen background |
+| `bg-[#FFFFFF]` | `bg-[var(--ld-semantic-color-background)]` | Main screen background |
+| `bg-[#F6F6F6]` | `bg-[var(--ld-semantic-color-background-subtle)]` | Subtle accent background |
+| `bg-[#F8F8F8]` | `bg-[var(--ld-semantic-color-background-subtle)]` | Subtle accent background |
+| `bg-gray-50` | `bg-[var(--ld-semantic-color-background-subtle)]` | Subtle background |
+| `bg-gray-100` | `bg-[var(--ld-semantic-color-fill-subtle)]` | Card/surface fills |
+| `bg-[#2E2F32]` | `bg-[var(--ld-semantic-color-background-inverse)]` | Dark/inverse backgrounds |
+
+### Text Colors
+
+| ❌ WRONG | ✅ CORRECT TOKEN | Use Case |
+|---------|-----------------|----------|
+| `text-[#2E2F32]` | `text-[var(--ld-semantic-color-text-primary)]` | Primary text |
+| `text-gray-900` | `text-[var(--ld-semantic-color-text-primary)]` | Primary text |
+| `text-[#515357]` | `text-[var(--ld-semantic-color-text-subtle)]` | Secondary/subtle text |
+| `text-gray-600` | `text-[var(--ld-semantic-color-text-subtle)]` | Subtle text |
+| `text-[#74767C]` | `text-[var(--ld-semantic-color-text-subtlest)]` | Least emphasis text |
+| `text-gray-500` | `text-[var(--ld-semantic-color-text-subtlest)]` | Placeholder text |
+| `text-white` | `text-[var(--ld-semantic-color-text-inverse)]` | Text on dark bg |
+
+### Border Colors
+
+| ❌ WRONG | ✅ CORRECT TOKEN | Use Case |
+|---------|-----------------|----------|
+| `border-[#2E2F32]` | `border-[var(--ld-semantic-color-border)]` | Generic borders |
+| `border-[#74767C]` | `border-[var(--ld-semantic-color-border-subtlest)]` | Subtle borders |
+| `border-gray-300` | `border-[var(--ld-semantic-color-border-subtlest)]` | Divider borders |
+| `border-[#E3E4E5]` | `border-[var(--ld-semantic-color-border-subtlest)]` | Card borders |
+| `border-[#BABBBE]` | `border-[var(--ld-semantic-color-border-disabled)]` | Disabled state |
+
+### Interactive/Action Colors (Use Button Component Instead!)
+
+| ❌ WRONG | ✅ CORRECT (Button Component) | Use Case |
+|---------|------------------------------|----------|
+| `bg-[#0071DC]` | `<Button variant="primary">` | Primary actions |
+| `bg-[#0053E2]` | `<Button variant="primary">` | Primary actions |
+| `bg-blue-600` | `<Button variant="primary">` | Primary actions |
+| `hover:bg-gray-100` | `<Button variant="secondary">` | Secondary actions |
+| `bg-transparent hover:bg-gray-50` | `<Button variant="tertiary">` | Tertiary actions |
+
+**Note:** For buttons, ALWAYS use the `Button` component from `@/components/ui/Button`. The component internally uses all the correct tokens.
+
+### Accent/Status Colors
+
+| ❌ WRONG | ✅ CORRECT TOKEN | Use Case |
+|---------|-----------------|----------|
+| `bg-green-100` | `bg-[var(--ld-semantic-color-fill-positive-subtle)]` | Success states |
+| `text-green-700` | `text-[var(--ld-semantic-color-text-positive)]` | Success text |
+| `bg-red-100` | `bg-[var(--ld-semantic-color-fill-negative-subtle)]` | Error states |
+| `text-red-700` | `text-[var(--ld-semantic-color-text-negative)]` | Error text |
+| `bg-yellow-100` | `bg-[var(--ld-semantic-color-fill-warning-subtle)]` | Warning states |
+| `text-orange-700` | `text-[var(--ld-semantic-color-text-warning)]` | Warning text |
+| `bg-blue-100` | `bg-[var(--ld-semantic-color-fill-info-subtle)]` | Info states |
+| `text-blue-700` | `text-[var(--ld-semantic-color-text-info)]` | Info text |
+
+---
+
+## 🔧 Utility Class Alternatives
+
+Instead of repeating token classes, create utility classes in `global.css`:
+
+```css
+/* Add to client/global.css @layer components section */
+@layer components {
+  /* Backgrounds */
+  .bg-ld-main { background-color: var(--ld-semantic-color-background); }
+  .bg-ld-subtle { background-color: var(--ld-semantic-color-background-subtle); }
+  .bg-ld-inverse { background-color: var(--ld-semantic-color-background-inverse); }
+  
+  /* Text */
+  .text-ld-primary { color: var(--ld-semantic-color-text-primary); }
+  .text-ld-subtle { color: var(--ld-semantic-color-text-subtle); }
+  .text-ld-subtlest { color: var(--ld-semantic-color-text-subtlest); }
+  .text-ld-inverse { color: var(--ld-semantic-color-text-inverse); }
+  
+  /* Borders */
+  .border-ld { border-color: var(--ld-semantic-color-border); }
+  .border-ld-subtle { border-color: var(--ld-semantic-color-border-subtle); }
+  .border-ld-subtlest { border-color: var(--ld-semantic-color-border-subtlest); }
+  
+  /* Interactive states */
+  .hover-ld-subtle:hover { background-color: var(--ld-semantic-color-action-fill-transparent-hovered); }
+}
+```
+
+Then use simplified classes:
+```jsx
+// ✅ CORRECT - Using utility classes
+<div className="bg-ld-subtle text-ld-primary border-ld-subtlest">
+
+// ✅ ALSO CORRECT - Using tokens directly
+<div className="bg-[var(--ld-semantic-color-background-subtle)]">
+```
+
+---
+
+## 📝 Complete Token Reference
+
+### All Background Tokens
+
+```css
+--ld-semantic-color-background                    /* #ffffff - Main screen background */
+--ld-semantic-color-background-subtle             /* #f8f8f8 - Subtle accent background */
+--ld-semantic-color-background-inverse            /* #2e2f32 - Dark/inverse background */
+```
+
+### All Fill Tokens (Cards, Surfaces)
+
+```css
+--ld-semantic-color-fill-subtle                   /* #f1f1f2 - Subtle fill */
+--ld-semantic-color-fill-subtlest                 /* #f8f8f8 - Most subtle fill */
+--ld-semantic-color-fill-brand                    /* #0053e2 - Brand accent fill */
+--ld-semantic-color-fill-positive                 /* #d9f0cc - Success/positive fill */
+--ld-semantic-color-fill-positive-subtle          /* #edf7e6 - Subtle success fill */
+--ld-semantic-color-fill-negative                 /* #ffebe8 - Error/danger fill */
+--ld-semantic-color-fill-negative-subtle          /* #fff5f3 - Subtle error fill */
+--ld-semantic-color-fill-warning                  /* #fff3e0 - Warning fill */
+--ld-semantic-color-fill-warning-subtle           /* #fff9ed - Subtle warning fill */
+--ld-semantic-color-fill-info                     /* #e5f1fb - Info fill */
+--ld-semantic-color-fill-info-subtle              /* #f2f8fd - Subtle info fill */
+```
+
+### All Text Tokens
+
+```css
+--ld-semantic-color-text-primary                  /* #2e2f32 - Primary text */
+--ld-semantic-color-text-subtle                   /* #515357 - Secondary text */
+--ld-semantic-color-text-subtlest                 /* #74767c - Least emphasis text */
+--ld-semantic-color-text-inverse                  /* #ffffff - Text on dark bg */
+--ld-semantic-color-text-disabled                 /* #babbbe - Disabled text */
+--ld-semantic-color-text-brand                    /* #0053e2 - Brand text/links */
+--ld-semantic-color-text-positive                 /* #2a8703 - Success text */
+--ld-semantic-color-text-negative                 /* #ea1100 - Error text */
+--ld-semantic-color-text-warning                  /* #995213 - Warning text */
+--ld-semantic-color-text-info                     /* #0053e2 - Info text */
+```
+
+### All Border Tokens
+
+```css
+--ld-semantic-color-border                        /* #2e2f32 - Generic border */
+--ld-semantic-color-border-subtle                 /* #515357 - Subtle border */
+--ld-semantic-color-border-subtlest               /* #74767c - Most subtle border */
+--ld-semantic-color-border-disabled               /* #babbbe - Disabled border */
+--ld-semantic-color-border-brand                  /* #0053e2 - Brand border */
+--ld-semantic-color-border-positive               /* #2a8703 - Success border */
+--ld-semantic-color-border-negative               /* #ea1100 - Error border */
+--ld-semantic-color-border-warning                /* #995213 - Warning border */
+--ld-semantic-color-border-info                   /* #0053e2 - Info border */
+```
+
+---
+
+## 🚀 Migration Examples
+
+### Example 1: Page Background
+
+```tsx
+// ❌ BEFORE
+<div className="min-h-screen bg-[#F6F6F6] flex flex-col">
+
+// ✅ AFTER
+<div className="min-h-screen bg-ld-subtle flex flex-col">
+```
+
+### Example 2: Card/Panel
+
+```tsx
+// ❌ BEFORE
+<div className="bg-white p-6 border border-gray-300 rounded-lg">
+
+// ✅ AFTER
+<div className="bg-ld-main p-6 border border-ld-subtlest rounded-lg">
+```
+
+### Example 3: Text Colors
+
+```tsx
+// ❌ BEFORE
+<h1 className="text-[32px] font-normal text-[#2E2F32]">
+<p className="text-sm text-[#515357]">
+
+// ✅ AFTER
+<h1 className="text-[32px] font-normal text-ld-primary">
+<p className="text-sm text-ld-subtle">
+```
+
+### Example 4: Buttons (Use Component!)
+
+```tsx
+// ❌ BEFORE
+<button className="px-6 h-10 rounded-full bg-[#0071DC] text-white font-bold">
+  Create Campaign
+</button>
+
+// ✅ AFTER
+import { Button } from '@/components/ui/Button';
+<Button variant="primary" size="medium">
+  Create Campaign
+</Button>
+```
+
+### Example 5: Hover States
+
+```tsx
+// ❌ BEFORE
+<button className="p-2 rounded-full hover:bg-gray-100">
+  <Icon />
+</button>
+
+// ✅ AFTER
+<button className="p-2 rounded-full hover-ld-subtle">
+  <Icon />
+</button>
+```
+
+---
+
+## ⚠️ Common Pitfalls
+
+1. **Don't use hard-coded colors for buttons**
+   - Always use the `Button` component from `@/components/ui/Button`
+
+2. **Don't mix token systems**
+   - ❌ `className="bg-white text-[var(--ld-semantic-color-text-primary)]"`
+   - ✅ `className="bg-ld-main text-ld-primary"`
+
+3. **Don't override component tokens**
+   - ❌ `<Button className="bg-[#0071DC]">` (breaks theming!)
+   - ✅ `<Button variant="primary">`
+
+4. **Don't use primitive tokens directly**
+   - ❌ `var(--ld-primitive-color-blue-100)`
+   - ✅ `var(--ld-semantic-color-action-fill-primary)`
+
+---
+
+## 📚 Additional Resources
+
+- **Token Documentation**: See `client/styles/themes/base/semantic.css` for all available tokens
+- **Component Usage**: See `guidelines/Button.md` for Button component specs
+- **Design System**: Check `design-system-docs/` folder for component documentation
+
+---
+
+## ✅ Migration Checklist
+
+- [ ] Replace all `bg-[#...]` with semantic tokens
+- [ ] Replace all `text-[#...]` with semantic tokens
+- [ ] Replace all `border-[#...]` with semantic tokens
+- [ ] Replace Tailwind color utilities (`bg-white`, `bg-gray-*`, etc.)
+- [ ] Convert custom buttons to `Button` component
+- [ ] Add utility classes to `global.css` for common patterns
+- [ ] Test across all themes (walmart, walmart-b2b, sams-club, etc.)
+- [ ] Verify no hard-coded colors remain in page
+
+---
+
+*Last updated: 2025-02-14*

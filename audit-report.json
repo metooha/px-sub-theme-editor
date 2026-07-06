@@ -1,0 +1,1063 @@
+{
+  "findings": [
+    {
+      "file": "AGENTS.md",
+      "lines": 497,
+      "chars": 19914,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (497 lines)",
+        "File > 6000 chars (19914 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builderrules",
+      "lines": 1,
+      "chars": 0,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/agents.mdc",
+      "lines": 645,
+      "chars": 33268,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (645 lines)",
+        "File > 6000 chars (33268 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/app-sidebar.mdc",
+      "lines": 132,
+      "chars": 5052,
+      "severity": "Warning",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/attribution-dropdown-summary.mdc",
+      "lines": 315,
+      "chars": 8739,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (315 lines)",
+        "File > 6000 chars (8739 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/badge.mdc",
+      "lines": 137,
+      "chars": 4554,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/banner.mdc",
+      "lines": 102,
+      "chars": 4076,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/bottom-sheet.mdc",
+      "lines": 128,
+      "chars": 6011,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6011 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/brand-shop-builder.mdc",
+      "lines": 131,
+      "chars": 4564,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/breadcrumb.mdc",
+      "lines": 212,
+      "chars": 7769,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (212 lines)",
+        "File > 6000 chars (7769 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/button-library-summary.mdc",
+      "lines": 382,
+      "chars": 8893,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (382 lines)",
+        "File > 6000 chars (8893 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/button-standardization-summary.mdc",
+      "lines": 488,
+      "chars": 11203,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (488 lines)",
+        "File > 6000 chars (11203 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/button.mdc",
+      "lines": 139,
+      "chars": 4151,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/callout.mdc",
+      "lines": 141,
+      "chars": 6337,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6337 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/card-1.mdc",
+      "lines": 118,
+      "chars": 3229,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/card-elevation-rule.mdc",
+      "lines": 242,
+      "chars": 7172,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (242 lines)",
+        "File > 6000 chars (7172 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/card.mdc",
+      "lines": 215,
+      "chars": 5236,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (215 lines)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/charts-and-graphs.mdc",
+      "lines": 142,
+      "chars": 3820,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/checkbox.mdc",
+      "lines": 136,
+      "chars": 5094,
+      "severity": "Warning",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/chip.mdc",
+      "lines": 178,
+      "chars": 6046,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6046 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/color.mdc",
+      "lines": 134,
+      "chars": 7333,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (7333 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/component-consolidation-summary.mdc",
+      "lines": 531,
+      "chars": 13284,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (531 lines)",
+        "File > 6000 chars (13284 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/component-inventory.mdc",
+      "lines": 201,
+      "chars": 12018,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (201 lines)",
+        "File > 6000 chars (12018 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/component-library-integration.mdc",
+      "lines": 239,
+      "chars": 8195,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (239 lines)",
+        "File > 6000 chars (8195 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/component-property-tester.mdc",
+      "lines": 91,
+      "chars": 2230,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/component-visibility.mdc",
+      "lines": 32,
+      "chars": 1005,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/content-message.mdc",
+      "lines": 184,
+      "chars": 8748,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (8748 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/create-new-component.mdc",
+      "lines": 104,
+      "chars": 2895,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/css-variables-source.mdc",
+      "lines": 56,
+      "chars": 2495,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/data-table.mdc",
+      "lines": 486,
+      "chars": 16876,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (486 lines)",
+        "File > 6000 chars (16876 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/date-field.mdc",
+      "lines": 112,
+      "chars": 3872,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/date-picker-calendar.mdc",
+      "lines": 240,
+      "chars": 6512,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (240 lines)",
+        "File > 6000 chars (6512 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/date-picker.mdc",
+      "lines": 372,
+      "chars": 9733,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (372 lines)",
+        "File > 6000 chars (9733 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/date-range-picker.mdc",
+      "lines": 286,
+      "chars": 8050,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (286 lines)",
+        "File > 6000 chars (8050 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/deploy-app.mdc",
+      "lines": 20,
+      "chars": 1105,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/design-system-enforcement.mdc",
+      "lines": 129,
+      "chars": 3830,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/design-system-terminology.mdc",
+      "lines": 314,
+      "chars": 11455,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (314 lines)",
+        "File > 6000 chars (11455 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/design-token-enforcement.mdc",
+      "lines": 148,
+      "chars": 4181,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/design-tokens-overview.mdc",
+      "lines": 203,
+      "chars": 8671,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (203 lines)",
+        "File > 6000 chars (8671 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/design-tokens.mdc",
+      "lines": 779,
+      "chars": 24604,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (779 lines)",
+        "File > 6000 chars (24604 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/dev-server-health-check.mdc",
+      "lines": 44,
+      "chars": 1481,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/divider.mdc",
+      "lines": 83,
+      "chars": 2062,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/figma-asset-extraction.mdc",
+      "lines": 54,
+      "chars": 2035,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/filter-chip.mdc",
+      "lines": 281,
+      "chars": 10023,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (281 lines)",
+        "File > 6000 chars (10023 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/form-group-1.mdc",
+      "lines": 117,
+      "chars": 3476,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/form-group.mdc",
+      "lines": 132,
+      "chars": 4941,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/getting-started-pages-guide.mdc",
+      "lines": 434,
+      "chars": 15712,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (434 lines)",
+        "File > 6000 chars (15712 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/guidelines-page-sync.mdc",
+      "lines": 49,
+      "chars": 2098,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/guidelines-react.mdc",
+      "lines": 64,
+      "chars": 2046,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/guidelines.mdc",
+      "lines": 88,
+      "chars": 3932,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/icon-button-default.mdc",
+      "lines": 252,
+      "chars": 4961,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (252 lines)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/icon-button.mdc",
+      "lines": 251,
+      "chars": 7184,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (251 lines)",
+        "File > 6000 chars (7184 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/icon-usage.mdc",
+      "lines": 124,
+      "chars": 3495,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/iconbutton-migration-plan.mdc",
+      "lines": 372,
+      "chars": 10529,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (372 lines)",
+        "File > 6000 chars (10529 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/index.mdc",
+      "lines": 127,
+      "chars": 6604,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6604 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/internationalization.mdc",
+      "lines": 416,
+      "chars": 11309,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (416 lines)",
+        "File > 6000 chars (11309 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/ld-tag-implementation-summary.mdc",
+      "lines": 187,
+      "chars": 5830,
+      "severity": "Warning",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/link-button-1.mdc",
+      "lines": 131,
+      "chars": 3516,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/link-button-and-spot-icon.mdc",
+      "lines": 92,
+      "chars": 2493,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/link-button.mdc",
+      "lines": 95,
+      "chars": 4251,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/link.mdc",
+      "lines": 150,
+      "chars": 4809,
+      "severity": "Warning",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/list-1.mdc",
+      "lines": 92,
+      "chars": 3723,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/list.mdc",
+      "lines": 199,
+      "chars": 6240,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6240 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/living-design-component-reference.mdc",
+      "lines": 1089,
+      "chars": 49095,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (1089 lines)",
+        "File > 6000 chars (49095 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/living-design-migration-assessment.mdc",
+      "lines": 502,
+      "chars": 13041,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (502 lines)",
+        "File > 6000 chars (13041 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/llm-integration-instructions.mdc",
+      "lines": 756,
+      "chars": 28379,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (756 lines)",
+        "File > 6000 chars (28379 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/magic-box.mdc",
+      "lines": 76,
+      "chars": 3161,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/markdown-organization.mdc",
+      "lines": 62,
+      "chars": 2054,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/menu-1.mdc",
+      "lines": 99,
+      "chars": 4406,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/menu.mdc",
+      "lines": 688,
+      "chars": 21221,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (688 lines)",
+        "File > 6000 chars (21221 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/metric.mdc",
+      "lines": 127,
+      "chars": 6176,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6176 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/migration-button.mdc",
+      "lines": 448,
+      "chars": 9664,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (448 lines)",
+        "File > 6000 chars (9664 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/modal.mdc",
+      "lines": 150,
+      "chars": 5967,
+      "severity": "Warning",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/new-project-agent-prompt.mdc",
+      "lines": 155,
+      "chars": 6376,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6376 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/no-emojis-use-icons.mdc",
+      "lines": 79,
+      "chars": 2018,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/nudge.mdc",
+      "lines": 104,
+      "chars": 4492,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/organize-ui.mdc",
+      "lines": 7,
+      "chars": 409,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/overview-components.mdc",
+      "lines": 36,
+      "chars": 1516,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/panel.mdc",
+      "lines": 123,
+      "chars": 4662,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/plan-radix-migration.mdc",
+      "lines": 82,
+      "chars": 2519,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/plan-table-standardization.mdc",
+      "lines": 398,
+      "chars": 10648,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (398 lines)",
+        "File > 6000 chars (10648 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/popover.mdc",
+      "lines": 103,
+      "chars": 4380,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/progress-tracker.mdc",
+      "lines": 204,
+      "chars": 6696,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (204 lines)",
+        "File > 6000 chars (6696 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/project-agent-rules.mdc",
+      "lines": 134,
+      "chars": 4459,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/quantity-stepper.mdc",
+      "lines": 219,
+      "chars": 9093,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (219 lines)",
+        "File > 6000 chars (9093 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/radio.mdc",
+      "lines": 140,
+      "chars": 4863,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/rating.mdc",
+      "lines": 247,
+      "chars": 6750,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (247 lines)",
+        "File > 6000 chars (6750 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/readme-button.mdc",
+      "lines": 374,
+      "chars": 9209,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (374 lines)",
+        "File > 6000 chars (9209 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/readme-card-header.mdc",
+      "lines": 216,
+      "chars": 6043,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (216 lines)",
+        "File > 6000 chars (6043 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/responsive-design.mdc",
+      "lines": 450,
+      "chars": 9500,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (450 lines)",
+        "File > 6000 chars (9500 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/responsive-layout.mdc",
+      "lines": 127,
+      "chars": 2982,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/select.mdc",
+      "lines": 160,
+      "chars": 6198,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6198 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/skeleton.mdc",
+      "lines": 247,
+      "chars": 7647,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (247 lines)",
+        "File > 6000 chars (7647 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/spinner.mdc",
+      "lines": 289,
+      "chars": 7678,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (289 lines)",
+        "File > 6000 chars (7678 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/standalone-components.mdc",
+      "lines": 60,
+      "chars": 2233,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/switch.mdc",
+      "lines": 254,
+      "chars": 8551,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (254 lines)",
+        "File > 6000 chars (8551 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/tab.mdc",
+      "lines": 427,
+      "chars": 13660,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (427 lines)",
+        "File > 6000 chars (13660 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/table-component-usage.mdc",
+      "lines": 277,
+      "chars": 6502,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (277 lines)",
+        "File > 6000 chars (6502 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/tag-1.mdc",
+      "lines": 96,
+      "chars": 3810,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/tag.mdc",
+      "lines": 289,
+      "chars": 9314,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (289 lines)",
+        "File > 6000 chars (9314 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/text-area-1.mdc",
+      "lines": 136,
+      "chars": 4742,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/text-area.mdc",
+      "lines": 332,
+      "chars": 9564,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (332 lines)",
+        "File > 6000 chars (9564 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/text-field.mdc",
+      "lines": 170,
+      "chars": 6927,
+      "severity": "Critical",
+      "issues": [
+        "File > 6000 chars (6927 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/theme-addition.mdc",
+      "lines": 83,
+      "chars": 2216,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/theme-switcher-plan.mdc",
+      "lines": 965,
+      "chars": 27292,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (965 lines)",
+        "File > 6000 chars (27292 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/theme-switcher.mdc",
+      "lines": 92,
+      "chars": 2768,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/token-migration-guide.mdc",
+      "lines": 288,
+      "chars": 11062,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (288 lines)",
+        "File > 6000 chars (11062 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/token-usage-best-practices.mdc",
+      "lines": 488,
+      "chars": 15394,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (488 lines)",
+        "File > 6000 chars (15394 chars)"
+      ],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/token-usage-enforcement.mdc",
+      "lines": 93,
+      "chars": 2756,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/tokens.mdc",
+      "lines": 56,
+      "chars": 2102,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/typography.mdc",
+      "lines": 101,
+      "chars": 2871,
+      "severity": "Good",
+      "issues": [],
+      "alwaysApply": false
+    },
+    {
+      "file": ".builder/rules/ui-component-replacement-plan.mdc",
+      "lines": 707,
+      "chars": 19920,
+      "severity": "Critical",
+      "issues": [
+        "File > 200 lines (707 lines)",
+        "File > 6000 chars (19920 chars)"
+      ],
+      "alwaysApply": false
+    }
+  ],
+  "alwaysApplyCount": 0,
+  "totalLinesAlwaysOn": 0
+}

@@ -1,0 +1,46 @@
+/**
+ * Date Range Picker Component Styles
+ * Living Design 3.5 - Token-based styling
+ */
+
+.dateRangePicker {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  border-radius: var(--ld-primitive-scale-border-radius-100, 8px);
+  box-shadow: var(--ld-semantic-elevation-100);
+  background: var(--ld-semantic-color-surface, #ffffff);
+  width: fit-content;
+}
+
+/* Calendars container - side by side */
+.calendars {
+  display: flex;
+  gap: var(--ld-primitive-scale-space-300, 24px);
+}
+
+/* Individual calendar wrapper */
+.calendar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+}
+
+/* Actions bar with Cancel and Apply buttons */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ld-primitive-scale-space-150, 12px);
+  padding-top: var(--ld-primitive-scale-space-200, 16px);
+  border-top: 1px solid var(--ld-semantic-color-border-subtle, #e5e7e8);
+}
+
+/* Responsive: Stack calendars vertically on smaller screens */
+@media (max-width: 768px) {
+  .calendars {
+    flex-direction: column;
+    gap: var(--ld-primitive-scale-space-200, 16px);
+  }
+}

@@ -1,0 +1,60 @@
+.componentCard {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ld-semantic-color-fill-surface-primary, #ffffff);
+  box-shadow: var(--ld-semantic-elevation-100);
+  border-radius: 8px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  cursor: pointer;
+  overflow: hidden;
+  /* Equal height via grid stretch */
+  height: 100%;
+}
+
+.componentCard:hover {
+  box-shadow: var(--ld-semantic-elevation-200);
+  transform: translateY(-2px);
+}
+
+.cardPreview {
+  border-bottom: 1px solid var(--ld-semantic-color-separator);
+  background: var(--ld-semantic-color-fill-subtle, #FAFAFA);
+}
+
+.cardBody {
+  padding: 16px 20px 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: var(--ld-semantic-font-family-sans);
+  color: var(--ld-semantic-color-text-primary, #2E2F32);
+  margin-bottom: 4px;
+}
+
+.cardDescription {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ld-semantic-color-text-secondary, #74767C);
+  margin: 0;
+}
+
+.sharedBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--ld-semantic-font-family-sans);
+  background: var(--ld-semantic-color-fill-brand-subtle, #E6F1FC);
+  color: var(--ld-semantic-color-text-on-fill-brand-subtle, #0053E2);
+  margin-bottom: 4px;
+  width: fit-content;
+}

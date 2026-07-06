@@ -1,0 +1,50 @@
+/* ============================================
+   MENUBAR – LD 3.5 Tokens
+   Root bar + trigger styles (items reuse DropdownMenu.module.css)
+   ============================================ */
+
+/* --- Root bar --- */
+.root {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  padding: var(--ld-primitive-scale-space-50, 4px);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: 1px solid var(--ld-semantic-color-border-subtlest, #e3e4e5);
+  background-color: var(--ld-semantic-color-fill-primary, #ffffff);
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+/* --- Trigger button --- */
+.trigger {
+  display: flex;
+  cursor: default;
+  user-select: none;
+  align-items: center;
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-200, 16px);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: none;
+  background: var(--ld-semantic-color-action-fill-transparent, transparent);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: 500;
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.25rem);
+  color: var(--ld-semantic-color-text, #2e2f32);
+  outline: none;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.trigger:hover {
+  background: var(--ld-semantic-color-fill-hovered, #f1f1f2);
+}
+
+.trigger:focus-visible {
+  outline: var(--ld-semantic-scale-borderwidth-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline, #0071dc);
+  outline-offset: var(--ld-primitive-scale-space-50, 2px);
+}
+
+.trigger[data-state="open"] {
+  background: var(--ld-semantic-color-surface-activated, #e8e8e9);
+  color: var(--ld-semantic-color-text, #2e2f32);
+}

@@ -1,0 +1,123 @@
+---
+description: Guidelines and rules for panel
+alwaysApply: false
+---
+## Purpose
+A Panel provides room for additional information or prompts users for input. Panels appear as a result of user interaction and **block access to the main content** until dismissed (modal behavior).
+
+Use a Panel to complete a **secondary task** without navigating away from the current page (similar to a modal surface).
+
+## Rules
+- **MUST** use the Living Design Panel component.
+- **MUST** open in response to a user action on an interactive element (e.g., a [Button](/components/button/)).
+- **MUST** block interaction with underlying content while open (scrim + modal behavior).
+- **MUST** be user-dismissible and provide at least one explicit dismissal control (e.g., close button).
+- **MUST** support `Escape` to dismiss on desktop/web when applicable.
+- **MUST** return focus to the element that triggered the Panel when it closes.
+- **MUST NOT** use a Panel for primary tasks that should be part of the main page.
+- **MUST NOT** use a Panel for prolonged interactions or repeatable/complex flows; consider a dedicated page/screen instead.
+- **MUST NOT** layer a Panel on top of Bottom Sheet, Modal, or another Panel.
+
+## Usage
+Use a Panel to pause activity on the main page to complete a short, secondary task such as:
+- Form input or edits
+- Product sort/filter
+- A focused list of secondary links/content
+
+## Sizes
+Panels are available in 3 widths (names may differ in your API). Use documented sizes only.
+
+## Placement
+The Panel can appear from either the **left** or **right** edge of the viewport. Choose the side that best matches your information architecture and avoids covering critical context.
+
+## Anatomy
+### Panel
+1. Layout container
+2. Scrim (overlay/backdrop)
+3. Container
+4. Header
+5. Content
+6. Action content (optional)
+
+### Panel header
+1. Container
+2. Title
+3. Close button
+
+## Behavior
+### Closing
+A Panel can be closed in the following ways (when enabled in the component API):
+1. Clicking or tapping the Close button/icon
+2. Clicking or tapping the scrim (outside the Panel)
+3. Pressing the `Escape` key on the keyboard
+
+If the Panel contains unsaved user input, dismissal behavior **SHOULD** be guarded (e.g., confirm before discarding).
+
+### Responsiveness
+#### Width
+- On smaller screens, the maximum width of the Panel **SHOULD** be viewport width minus 24px.
+- On larger screens, width is determined by the selected Panel size.
+
+#### Height
+The Panel height should be 100% of the viewport height.
+
+## Accessibility
+- **MUST** trap focus while open and prevent interaction with underlying content.
+- **MUST** return focus to the triggering element when the Panel closes.
+- **SHOULD** avoid launching a snackbar at the same moment the Panel closes; focus will not be on the snackbar so it may not be announced by screen readers.
+  - If you must show a snackbar after closing, consider adding a short delay (commonly ~1 second) before triggering it. See your system’s Snackbar docs/FAQ for platform-specific guidance.
+
+## Token usage
+- Prefer component defaults (Panel should be token-wired for scrim/elevation, spacing, typography, and surface styling).
+- Only use tokens for layout around the Panel, not for restyling Panel internals.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { Button, Panel } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function PanelExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <>
+      <Button variant="secondary" onClick={() => setOpen(true)}>
+        Open panel
+      </Button>
+
+      <Panel
+        // Adapt prop names to your actual API:
+        // side="right" | "left"
+        // size="sm" | "md" | "lg"
+        // closeOnScrimClick={true}
+        // closeOnEscape={true}
+        open={open}
+        onOpenChange={setOpen}
+        title="Filters"
+        side="right"
+        size="md"
+      >
+        {/* Keep the task short and focused; content may scroll. */}
+      </Panel>
+    </>
+  );
+}
+```
+
+## Best practices
+### Use when
+- Use when completing a secondary task that temporarily pauses interaction with the main page.
+
+### Don’t use when
+- Don’t use for primary tasks that should remain on the main page.
+- Don’t use for prolonged or repeatable tasks; consider a dedicated page/screen.
+
+## Do / Don’t
+### Do
+- Do use Panels for short, secondary tasks like sorting/filtering or quick edits.
+- Do ensure the Panel is clearly dismissible and restores focus to the trigger.
+
+### Don’t
+- Don’t stack Panels or combine with other modal surfaces (Modal, Bottom Sheet).

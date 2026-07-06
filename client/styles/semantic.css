@@ -1,0 +1,812 @@
+/**
+ * Do not edit directly
+ * Generated on Fri, 13 Feb 2026 05:50:13 GMT
+ * Living Design 3.5 Semantic Tokens
+ */
+
+
+:root {
+  /* ========================================
+     BACKGROUND COLORS
+     ======================================== */
+  --ld-semantic-color-background: var(--ld-primitive-color-white, #ffffff); /* Use for the screen's main background color */
+  --ld-semantic-color-background-inverse: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for a background color that's the opposite lightness of `color.background` */
+  --ld-semantic-color-background-subtle: var(--ld-primitive-color-gray-5, #f8f8f8); /* Use for a subtle, neutral background that accentuates overlaid surfaces */
+
+  /* ========================================
+     BORDER COLORS
+     ======================================== */
+  /* Accent borders */
+  --ld-semantic-color-border-accent-blue: var(--ld-primitive-color-blue-100, #0053e2); /* Use for border with a blue accent */
+  --ld-semantic-color-border-accent-blue-bold: var(--ld-primitive-color-blue-130, #002e99); /* Use for bold blue accent border */
+  --ld-semantic-color-border-accent-cyan: var(--ld-primitive-color-cyan-100, #0076b3); /* Use for border with a cyan accent */
+  --ld-semantic-color-border-accent-cyan-bold: var(--ld-primitive-color-cyan-130, #004a70); /* Use for bold cyan accent border */
+  --ld-semantic-color-border-accent-gray: var(--ld-primitive-color-gray-100, #74767c); /* Use for border with a gray accent */
+  --ld-semantic-color-border-accent-gray-bold: var(--ld-primitive-color-gray-130, #515357); /* Use for bold gray accent border */
+  --ld-semantic-color-border-accent-green: var(--ld-primitive-color-green-100, #2a8703); /* Use for border with a green accent */
+  --ld-semantic-color-border-accent-green-bold: var(--ld-primitive-color-green-130, #1d5f02); /* Use for bold green accent border */
+  --ld-semantic-color-border-accent-orange: var(--ld-primitive-color-orange-120, #c83c00); /* Use for border with an orange accent */
+  --ld-semantic-color-border-accent-orange-bold: var(--ld-primitive-color-orange-130, #af2f00); /* Use for bold orange accent border */
+  --ld-semantic-color-border-accent-pink: var(--ld-primitive-color-pink-100, #cb2c90); /* Use for border with a pink accent */
+  --ld-semantic-color-border-accent-pink-bold: var(--ld-primitive-color-pink-130, #8c1e64); /* Use for bold pink accent border */
+  --ld-semantic-color-border-accent-purple: var(--ld-primitive-color-purple-100, #63327e); /* Use for border with a purple accent */
+  --ld-semantic-color-border-accent-purple-bold: var(--ld-primitive-color-purple-130, #452358); /* Use for bold purple accent border */
+  --ld-semantic-color-border-accent-red: var(--ld-primitive-color-red-100, #ea1100); /* Use for border with a red accent */
+  --ld-semantic-color-border-accent-red-bold: var(--ld-primitive-color-red-130, #a20c00); /* Use for bold red accent border */
+  --ld-semantic-color-border-accent-spark: var(--ld-primitive-color-spark-140, #995213); /* Use for border with a spark accent */
+  --ld-semantic-color-border-accent-spark-bold: var(--ld-primitive-color-spark-160, #662b0d); /* Use for bold spark accent border */
+  --ld-semantic-color-border-accent-teal: var(--ld-primitive-color-teal-100, #00809e); /* Use for border with a teal accent */
+  --ld-semantic-color-border-accent-teal-bold: var(--ld-primitive-color-teal-130, #005a6f); /* Use for bold teal accent border */
+  --ld-semantic-color-border-accent-yellow: var(--ld-primitive-color-yellow-140, #996900); /* Use for border with a yellow accent */
+  --ld-semantic-color-border-accent-yellow-bold: var(--ld-primitive-color-yellow-160, #663800); /* Use for bold yellow accent border */
+
+  /* Generic borders */
+  --ld-semantic-color-border: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for the border of generic elements */
+  --ld-semantic-color-border-activated: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the border of elements in an activated state */
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the border of elements that reinforce your brand */
+  --ld-semantic-color-border-brand-bold: var(--ld-primitive-color-blue-160, #001e60); /* Use for bold brand border */
+  --ld-semantic-color-border-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for the border of elements in a disabled state */
+  --ld-semantic-color-border-edited: var(--ld-primitive-color-purple-100, #63327e); /* Use for the border of elements in an edited state */
+  --ld-semantic-color-border-edited-bold: var(--ld-primitive-color-purple-130, #452358); /* Use for bold edited border */
+  --ld-semantic-color-border-info: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the border of elements that communicate information */
+  --ld-semantic-color-border-info-bold: var(--ld-primitive-color-blue-130, #002e99); /* Use for bold info border */
+  --ld-semantic-color-border-inverse: var(--ld-primitive-color-white, #ffffff); /* Use for the border elements with opposite lightness of `color.border` */
+  --ld-semantic-color-border-magic-start: var(--ld-primitive-color-magic-1, #0053E2); /* Use for the start of a gradient border that indicates the involvement of an AI agent */
+  --ld-semantic-color-border-magic-middle: var(--ld-primitive-color-magic-2, #3D90EC); /* Use for the middle of a gradient border that indicates the involvement of an AI agent */
+  --ld-semantic-color-border-magic-stop: var(--ld-primitive-color-magic-3, #79CDF6); /* Use for the end of a gradient border that indicates the involvement of an AI agent */
+  --ld-semantic-color-border-negative: var(--ld-primitive-color-red-100, #ea1100); /* Use for the border of elements that indicate danger or error state */
+  --ld-semantic-color-border-negative-bold: var(--ld-primitive-color-red-130, #a20c00); /* Use for bold negative border */
+  --ld-semantic-color-border-positive: var(--ld-primitive-color-green-100, #2a8703); /* Use for the border of elements that communicate a favorable outcome */
+  --ld-semantic-color-border-positive-bold: var(--ld-primitive-color-green-130, #1d5f02); /* Use for bold positive border */
+  --ld-semantic-color-border-subtle: var(--ld-primitive-color-gray-130, #515357); /* Use for the border of generic elements with less emphasis */
+  --ld-semantic-color-border-subtlest: var(--ld-primitive-color-gray-100, #74767c); /* Use for the border of generic elements with the least emphasis */
+  --ld-semantic-color-border-warning: var(--ld-primitive-color-spark-140, #995213); /* Use for the border of elements that communicate caution */
+  --ld-semantic-color-border-warning-bold: var(--ld-primitive-color-spark-160, #662b0d); /* Use for bold warning border */
+
+  /* ========================================
+     CHART COLORS
+     ======================================== */
+  --ld-semantic-color-chart-categorical-1: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-chart-categorical-2: var(--ld-primitive-color-pink-70, #df74b1);
+  --ld-semantic-color-chart-categorical-3: var(--ld-primitive-color-spark-120, #cc851a);
+  --ld-semantic-color-chart-categorical-4: var(--ld-primitive-color-cyan-80, #0092db);
+  --ld-semantic-color-chart-categorical-5: var(--ld-primitive-color-orange-130, #af2f00);
+  --ld-semantic-color-chart-categorical-6: var(--ld-primitive-color-purple-60, #a184b2);
+  --ld-semantic-color-chart-categorical-7: var(--ld-primitive-color-green-90, #3f931c);
+  --ld-semantic-color-chart-categorical-8: var(--ld-primitive-color-pink-120, #b1267d);
+
+  /* ========================================
+     ACTION/INTERACTIVE COLORS (Buttons)
+     ======================================== */
+  /* Action borders */
+  --ld-semantic-color-action-border-secondary: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-border-secondary-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-border-secondary-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-border-secondary-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-border-secondary-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-tertiary: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-tertiary-hovered: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-tertiary-focused: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-tertiary-pressed: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-tertiary-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-border-transparent: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-border-transparent-hovered: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-border-transparent-focused: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-border-transparent-pressed: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-border-transparent-disabled: var(--ld-primitive-color-transparent-dark-0, #00000000);
+
+  /* Action fills */
+  --ld-semantic-color-action-fill-negative: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-action-fill-negative-focused: var(--ld-primitive-color-red-110, #ce0f00);
+  --ld-semantic-color-action-fill-negative-hovered: var(--ld-primitive-color-red-110, #ce0f00);
+  --ld-semantic-color-action-fill-negative-pressed: var(--ld-primitive-color-red-130, #a20c00);
+  --ld-semantic-color-action-fill-negative-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-blue-110, #114ab6);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-blue-110, #114ab6);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-action-fill-primary-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-fill-secondary: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-fill-secondary-focused: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-action-fill-secondary-hovered: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-action-fill-secondary-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-action-fill-secondary-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-fill-tertiary: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-fill-tertiary-focused: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-action-fill-tertiary-hovered: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-action-fill-tertiary-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-action-fill-tertiary-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-fill-transparent: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-fill-transparent-focused: var(--ld-primitive-color-transparent-dark-10, #0000001a);
+  --ld-semantic-color-action-fill-transparent-hovered: var(--ld-primitive-color-transparent-dark-10, #0000001a);
+  --ld-semantic-color-action-fill-transparent-pressed: var(--ld-primitive-color-transparent-dark-20, #00000033);
+  --ld-semantic-color-action-fill-transparent-disabled: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-action-fill-accent-white: var(--ld-primitive-color-transparent-light-0, #ffffff00);
+  --ld-semantic-color-action-fill-accent-white-focused: var(--ld-primitive-color-transparent-light-10, #ffffff1a);
+  --ld-semantic-color-action-fill-accent-white-hovered: var(--ld-primitive-color-transparent-light-10, #ffffff1a);
+  --ld-semantic-color-action-fill-accent-white-pressed: var(--ld-primitive-color-transparent-light-20, #ffffff33);
+  --ld-semantic-color-action-fill-accent-white-disabled: var(--ld-primitive-color-transparent-light-0, #ffffff00);
+
+  /* Action text on fill */
+  --ld-semantic-color-action-text-on-fill-negative: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-negative-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-negative-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-negative-pressed: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-negative-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-primary: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-primary-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-primary-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-primary-pressed: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-primary-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-secondary: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-secondary-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-secondary-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-secondary-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-secondary-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-text-on-fill-tertiary: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-tertiary-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-tertiary-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-tertiary-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-tertiary-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-text-on-fill-transparent: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-transparent-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-transparent-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-transparent-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-action-text-on-fill-transparent-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-action-text-on-fill-accent-white: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-accent-white-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-accent-white-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-action-text-on-fill-accent-white-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-action-text-on-fill-accent-white-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+
+  /* Focus outline */
+  --ld-semantic-color-action-focus-outline: var(--ld-primitive-color-blue-100, #0053e2); /* Focus outline color for interactive elements */
+
+  /* ========================================
+     BOTTOM NAVIGATION COLORS
+     ======================================== */
+  --ld-semantic-color-bottom-nav-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-bottom-nav-fill-activated: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-bottom-nav-separator: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-bottom-nav-text-on-fill: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-bottom-nav-text-on-fill-hovered: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-bottom-nav-text-on-fill-focused: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-bottom-nav-text-on-fill-pressed: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-bottom-nav-text-on-fill-activated: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-bottom-nav-text-on-fill-activated-hovered: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-bottom-nav-text-on-fill-activated-focused: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-bottom-nav-text-on-fill-activated-pressed: var(--ld-primitive-color-blue-100, #0053e2);
+
+  /* ========================================
+     FIELD/INPUT COLORS
+     ======================================== */
+  --ld-semantic-color-field-border: var(--ld-primitive-color-gray-80, #909196);
+  --ld-semantic-color-field-border-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-field-border-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-field-border-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-field-border-magic: var(--ld-primitive-color-magic-1, #0053E2);
+  --ld-semantic-color-field-border-magic-hovered: var(--ld-primitive-color-magic-1, #0053E2);
+  --ld-semantic-color-field-border-magic-focused: var(--ld-primitive-color-magic-1, #0053E2);
+  --ld-semantic-color-field-border-negative: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-field-border-negative-hovered: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-field-border-negative-focused: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-field-border-negative-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-field-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-negative: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-negative-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-negative-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-fill-negative-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-field-text-on-fill: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-field-text-on-fill-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-field-text-subtle-on-fill: var(--ld-primitive-color-gray-130, #515357); /* Use for a field's leading icon */
+  --ld-semantic-color-field-text-subtle-on-fill-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for a field's leading icon when disabled */
+
+  /* ========================================
+     INPUT COLORS (Checkboxes, Radio buttons)
+     ======================================== */
+  --ld-semantic-color-input-border: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-input-border-activated: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-activated-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-activated-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-activated-pressed: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-border-activated-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-input-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-input-fill-hovered: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-input-fill-focused: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-input-fill-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-input-fill-disabled: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-input-fill-activated: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-fill-activated-hovered: var(--ld-primitive-color-gray-150, #3a3b3e);
+  --ld-semantic-color-input-fill-activated-focused: var(--ld-primitive-color-gray-150, #3a3b3e);
+  --ld-semantic-color-input-fill-activated-pressed: var(--ld-primitive-color-gray-140, #46474a);
+  --ld-semantic-color-input-fill-activated-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-input-indicator-activated: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-input-text-on-fill: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-input-text-on-fill-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+
+  /* ========================================
+     LINK COLORS
+     ======================================== */
+  --ld-semantic-color-link-text: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-link-text-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-link-text-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-link-text-pressed: var(--ld-primitive-color-gray-180, #171819);
+  --ld-semantic-color-link-text-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-link-text-accent-white: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-link-text-accent-white-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-link-text-accent-white-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-link-text-accent-white-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-link-text-accent-white-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --ld-semantic-color-link-text-subtle: var(--ld-primitive-color-gray-130, #515357);
+  --ld-semantic-color-link-text-subtle-focused: var(--ld-primitive-color-gray-130, #515357);
+  --ld-semantic-color-link-text-subtle-hovered: var(--ld-primitive-color-gray-130, #515357);
+  --ld-semantic-color-link-text-subtle-pressed: var(--ld-primitive-color-gray-150, #3a3b3e);
+  --ld-semantic-color-link-text-subtle-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+
+  /* ========================================
+     LOADING/SKELETON COLORS
+     ======================================== */
+  --ld-semantic-color-loading: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-loading-magic: var(--ld-primitive-color-magic-2, #3D90EC);
+  --ld-semantic-color-loading-magic-subtle: var(--ld-primitive-color-magic-4, #E9F1FE);
+  --ld-semantic-color-loading-subtle: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-loading-subtlest: var(--ld-primitive-color-gray-5, #f8f8f8);
+  --ld-semantic-color-loading-white: var(--ld-primitive-color-white, #ffffff);
+
+  /* ========================================
+     NOTICE/TOAST COLORS
+     ======================================== */
+  --ld-semantic-color-notice-fill-info: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-notice-fill-negative: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-notice-fill-positive: var(--ld-primitive-color-green-100, #2a8703);
+  --ld-semantic-color-notice-fill-warning: var(--ld-primitive-color-spark-100, #ffc220);
+  --ld-semantic-color-notice-text-on-fill-info: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-notice-text-on-fill-negative: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-notice-text-on-fill-positive: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-notice-text-on-fill-warning: var(--ld-primitive-color-gray-160, #2e2f32);
+
+  /* ========================================
+     PAGE NAVIGATION COLORS
+     ======================================== */
+  --ld-semantic-color-page-nav-fill: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-page-nav-fill-hovered: var(--ld-primitive-color-blue-5, #f0f5ff);
+  --ld-semantic-color-page-nav-fill-focused: var(--ld-primitive-color-blue-5, #f0f5ff);
+  --ld-semantic-color-page-nav-fill-pressed: var(--ld-primitive-color-blue-10, #e9f1fe);
+  --ld-semantic-color-page-nav-fill-activated: var(--ld-primitive-color-blue-5, #f0f5ff);
+  --ld-semantic-color-page-nav-fill-activated-hovered: var(--ld-primitive-color-blue-10, #e9f1fe);
+  --ld-semantic-color-page-nav-fill-activated-focused: var(--ld-primitive-color-blue-10, #e9f1fe);
+  --ld-semantic-color-page-nav-fill-activated-pressed: var(--ld-primitive-color-blue-20, #c9dcfd);
+  --ld-semantic-color-page-nav-indicator: var(--ld-primitive-color-transparent-dark-0, #00000000);
+  --ld-semantic-color-page-nav-indicator-hovered: var(--ld-primitive-color-blue-20, #c9dcfd);
+  --ld-semantic-color-page-nav-indicator-focused: var(--ld-primitive-color-blue-20, #c9dcfd);
+  --ld-semantic-color-page-nav-indicator-pressed: var(--ld-primitive-color-blue-30, #acc8fb);
+  --ld-semantic-color-page-nav-indicator-activated: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-page-nav-indicator-activated-hovered: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-page-nav-indicator-activated-focused: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-page-nav-indicator-activated-pressed: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-page-nav-text-on-fill: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-page-nav-text-on-fill-activated: var(--ld-primitive-color-gray-160, #2e2f32);
+
+  /* ========================================
+     PROGRESS BAR COLORS
+     ======================================== */
+  --ld-semantic-color-progress-fill: var(--ld-primitive-color-gray-80, #909196);
+  --ld-semantic-color-progress-fill-info: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-progress-fill-negative: var(--ld-primitive-color-red-100, #ea1100);
+  --ld-semantic-color-progress-fill-positive: var(--ld-primitive-color-green-100, #2a8703);
+  --ld-semantic-color-progress-fill-subtle: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-progress-fill-warning: var(--ld-primitive-color-spark-140, #995213);
+
+  /* ========================================
+     RATING COLORS
+     ======================================== */
+  --ld-semantic-color-rating-border: var(--ld-primitive-color-spark-120, #cc851a);
+  --ld-semantic-color-rating-fill: var(--ld-primitive-color-spark-100, #ffc220);
+
+  /* ========================================
+     SCRIM/OVERLAY COLORS
+     ======================================== */
+  --ld-semantic-color-scrim: var(--ld-primitive-color-transparent-dark-40, #00000066);
+
+  /* ========================================
+     SEPARATOR/DIVIDER COLORS
+     ======================================== */
+  --ld-semantic-color-separator: var(--ld-primitive-color-gray-20, #e3e4e5);
+
+  /* ========================================
+     SWITCH/TOGGLE COLORS
+     ======================================== */
+  --ld-semantic-color-switch-fill: var(--ld-primitive-color-gray-100, #74767c);
+  --ld-semantic-color-switch-fill-hovered: var(--ld-primitive-color-gray-110, #686a70);
+  --ld-semantic-color-switch-fill-focused: var(--ld-primitive-color-gray-110, #686a70);
+  --ld-semantic-color-switch-fill-pressed: var(--ld-primitive-color-gray-130, #515357);
+  --ld-semantic-color-switch-fill-disabled: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-switch-fill-activated: var(--ld-primitive-color-blue-100, #0053e2);
+  --ld-semantic-color-switch-fill-activated-hovered: var(--ld-primitive-color-blue-110, #114ab6);
+  --ld-semantic-color-switch-fill-activated-focused: var(--ld-primitive-color-blue-110, #114ab6);
+  --ld-semantic-color-switch-fill-activated-pressed: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-switch-fill-activated-disabled: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-switch-indicator: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-switch-indicator-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+
+  /* ========================================
+     TOP NAVIGATION COLORS
+     ======================================== */
+  --ld-semantic-color-top-nav-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-fill-hovered: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-top-nav-fill-focused: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --ld-semantic-color-top-nav-fill-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-top-nav-separator: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --ld-semantic-color-top-nav-text-on-fill: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-top-nav-text-on-fill-hovered: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-top-nav-text-on-fill-focused: var(--ld-primitive-color-gray-160, #2e2f32);
+  --ld-semantic-color-top-nav-text-on-fill-pressed: var(--ld-primitive-color-gray-180, #171819);
+  --ld-semantic-color-top-nav-app-name: var(--ld-semantic-color-text-brand, var(--ld-primitive-color-blue-100, #0053e2)); /* Use for the app name text in the top nav — defaults to brand text color */
+
+  /* ========================================
+     FILL/BACKGROUND COLORS (Generic surfaces)
+     ======================================== */
+  /* Accent fills */
+  --ld-semantic-color-fill-accent-blue: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the background of elements with a blue accent */
+  --ld-semantic-color-fill-accent-blue-subtle: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for the background of elements with a blue accent but with less emphasis */
+  --ld-semantic-color-fill-accent-cyan: var(--ld-primitive-color-cyan-100, #0076b3); /* Use for the background of elements with a cyan accent */
+  --ld-semantic-color-fill-accent-cyan-subtle: var(--ld-primitive-color-cyan-10, #e7f6fe); /* Use for the background of elements with a cyan accent but with less emphasis */
+  --ld-semantic-color-fill-accent-gray: var(--ld-primitive-color-gray-100, #74767c); /* Use for the background of elements with a gray accent */
+  --ld-semantic-color-fill-accent-gray-subtle: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for the background of elements with a gray accent but with less emphasis */
+  --ld-semantic-color-fill-accent-green: var(--ld-primitive-color-green-100, #2a8703); /* Use for the background of elements with a green accent */
+  --ld-semantic-color-fill-accent-green-subtle: var(--ld-primitive-color-green-10, #eaf3e6); /* Use for the background of elements with a green accent but with less emphasis */
+  --ld-semantic-color-fill-accent-orange: var(--ld-primitive-color-orange-100, #fa6400); /* Use for the background of elements with a orange accent */
+  --ld-semantic-color-fill-accent-orange-subtle: var(--ld-primitive-color-orange-10, #fff0e6); /* Use for the background of elements with a orange accent but with less emphasis */
+  --ld-semantic-color-fill-accent-pink: var(--ld-primitive-color-pink-100, #cb2c90); /* Use for the background of elements with a pink accent */
+  --ld-semantic-color-fill-accent-pink-subtle: var(--ld-primitive-color-pink-10, #fce9f5); /* Use for the background of elements with a pink accent but with less emphasis */
+  --ld-semantic-color-fill-accent-purple: var(--ld-primitive-color-purple-100, #63327e); /* Use for the background of elements with a purple accent */
+  --ld-semantic-color-fill-accent-purple-subtle: var(--ld-primitive-color-purple-10, #efebf2); /* Use for the background of elements with a purple accent but with less emphasis */
+  --ld-semantic-color-fill-accent-red: var(--ld-primitive-color-red-100, #ea1100); /* Use for the background of elements with a red accent */
+  --ld-semantic-color-fill-accent-red-subtle: var(--ld-primitive-color-red-10, #fde9e8); /* Use for the background of elements with a red accent but with less emphasis */
+  --ld-semantic-color-fill-accent-spark: var(--ld-primitive-color-spark-100, #ffc220); /* Use for the background of elements with a spark accent */
+  --ld-semantic-color-fill-accent-spark-subtle: var(--ld-primitive-color-spark-10, #fef6de); /* Use for the background of elements with a spark accent but with less emphasis */
+  --ld-semantic-color-fill-accent-teal: var(--ld-primitive-color-teal-100, #00809e); /* Use for the background of elements with a teal accent */
+  --ld-semantic-color-fill-accent-teal-subtle: var(--ld-primitive-color-teal-10, #e1f3f8); /* Use for the background of elements with a teal accent but with less emphasis */
+  --ld-semantic-color-fill-accent-yellow: var(--ld-primitive-color-yellow-100, #fff200); /* Use for the background of elements with a yellow accent */
+  --ld-semantic-color-fill-accent-yellow-subtle: var(--ld-primitive-color-yellow-10, #fffee6); /* Use for the background of elements with a yellow accent but with less emphasis */
+
+  /* Generic fills */
+  --ld-semantic-color-fill: var(--ld-primitive-color-white, #ffffff); /* Use for the background of generic elements */
+  --ld-semantic-color-fill-focused: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for the background of generic elements in focused state */
+  --ld-semantic-color-fill-hovered: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for the background of generic elements in hovered state */
+  --ld-semantic-color-fill-pressed: var(--ld-primitive-color-gray-20, #e3e4e5); /* Use for the background of generic elements in pressed state */
+  --ld-semantic-color-fill-subtle: var(--ld-primitive-color-gray-5, #f8f8f8); /* Use for the background of generic elements with less emphasis */
+  --ld-semantic-color-fill-activated: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the background of elements in an activated state */
+  --ld-semantic-color-fill-activated-focused: var(--ld-primitive-color-blue-110, #114ab6); /* Use for the background of elements in an activated and focused state */
+  --ld-semantic-color-fill-activated-hovered: var(--ld-primitive-color-blue-110, #114ab6); /* Use for the background of elements in an activated and hovered state */
+  --ld-semantic-color-fill-activated-pressed: var(--ld-primitive-color-blue-130, #002e99); /* Use for the background of elements in an activated and pressed state */
+  --ld-semantic-color-fill-activated-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for the background of elements in an activated and disabled state */
+  --ld-semantic-color-fill-activated-subtle: var(--ld-primitive-color-blue-5, #f0f5ff); /* Use for the background of elements in an activated state but with less emphasis */
+  --ld-semantic-color-fill-activated-subtle-focused: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for the background of elements in an activated and focused state but with less emphasis */
+  --ld-semantic-color-fill-activated-subtle-hovered: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for the background of elements in an activated and hovered state but with less emphasis */
+  --ld-semantic-color-fill-activated-subtle-pressed: var(--ld-primitive-color-blue-20, #c9dcfd); /* Use for the background of elements in an activated and pressed state but with less emphasis */
+  --ld-semantic-color-fill-activated-subtle-disabled: var(--ld-primitive-color-gray-5, #f8f8f8); /* Use for the background of elements in an activated and disabled state but with less emphasis */
+  --ld-semantic-color-fill-disabled: var(--ld-primitive-color-white, #ffffff); /* Use for the background of generic elements in disabled state */
+  --ld-semantic-color-fill-brand: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the background of elements that reinforce your brand */
+  --ld-semantic-color-fill-brand-bold: var(--ld-primitive-color-blue-160, #001e60); /* Use for the background of elements that reinforce your brand but with more emphasis */
+  --ld-semantic-color-fill-brand-subtle: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for the background of elements that reinforce your brand, but with less emphasis */
+  --ld-semantic-color-fill-edited: var(--ld-primitive-color-purple-100, #63327e); /* Use for the background of elements in an edited state */
+  --ld-semantic-color-fill-edited-subtle: var(--ld-primitive-color-purple-10, #efebf2); /* Use for the background of elements in an edited state but with less emphasis */
+  --ld-semantic-color-fill-info: var(--ld-primitive-color-blue-100, #0053e2); /* Use for the background of elements that communicate information */
+  --ld-semantic-color-fill-info-subtle: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for the background of elements that communicate information, but with less emphasis */
+  --ld-semantic-color-fill-inverse: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for the background of elements with opposite lightness of `color.fill` */
+  --ld-semantic-color-fill-negative: var(--ld-primitive-color-red-100, #ea1100); /* Use for the background of elements that indicate danger or error state */
+  --ld-semantic-color-fill-negative-subtle: var(--ld-primitive-color-red-10, #fde9e8); /* Use for the background of elements that indicate danger or error state, but with less emphasis */
+  --ld-semantic-color-fill-positive: var(--ld-primitive-color-green-100, #2a8703); /* Use for the background of elements that communicate a favorable outcome */
+  --ld-semantic-color-fill-positive-subtle: var(--ld-primitive-color-green-10, #eaf3e6); /* Use for the background of elements that communicate a favorable outcome but with less emphasis */
+  --ld-semantic-color-fill-transparent: var(--ld-primitive-color-transparent-dark-0, #00000000); /* Use for the background of elements with transparent fill */
+  --ld-semantic-color-fill-warning: var(--ld-primitive-color-spark-100, #ffc220); /* Use for the background of elements that emphasize caution */
+  --ld-semantic-color-fill-warning-subtle: var(--ld-primitive-color-spark-10, #fef6de); /* Use for the background of elements that emphasize caution but with less emphasis */
+
+  /* ========================================
+     SURFACE/ELEVATION COLORS
+     ======================================== */
+  --ld-semantic-color-surface: var(--ld-primitive-color-white, #ffffff); /* Use for elevated UIs such as cards, modals or dropdown menus */
+  --ld-semantic-color-surface-focused: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for elevated UI containers in a focused state */
+  --ld-semantic-color-surface-hovered: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for elevated UI containers in a hovered state */
+  --ld-semantic-color-surface-pressed: var(--ld-primitive-color-gray-20, #e3e4e5); /* Use for elevated UI containers in a pressed state */
+  --ld-semantic-color-surface-activated: var(--ld-primitive-color-blue-5, #f0f5ff); /* Use for elevated UI containers in an activated state */
+  --ld-semantic-color-surface-activated-focused: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for elevated UI containers in an activated and focused state */
+  --ld-semantic-color-surface-activated-hovered: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for elevated UI containers in an activated and hovered state */
+  --ld-semantic-color-surface-activated-pressed: var(--ld-primitive-color-blue-20, #c9dcfd); /* Use for elevated UI containers in an activated and pressed state */
+  --ld-semantic-color-surface-brand: var(--ld-primitive-color-blue-10, #e9f1fe); /* Use for elevated UI containers with a branded background color */
+  --ld-semantic-color-surface-overlay: var(--ld-primitive-color-white, #ffffff); /* Use for the background color of overlays such as Modal, Bottom Sheet and Panel */
+  --ld-semantic-color-surface-overlay-brand-subtle: var(--ld-primitive-color-cyan-20, #c9ebfd); /* Use for the background of overlays that are the brand subtle color. */
+  --ld-semantic-color-surface-overlay-inverse: var(--ld-primitive-color-blue-160, #001e60); /* Use for the background color of overlays such as Modal, Bottom Sheet and Panel on an inverse background or surface. */
+  --ld-semantic-color-surface-subtle: var(--ld-primitive-color-gray-5, #f8f8f8); /* Use for elevated UI containers with less emphasis */
+  --ld-semantic-color-surface-subtle-focused: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for elevated UI containers with less emphasis with a focused state */
+  --ld-semantic-color-surface-subtle-hovered: var(--ld-primitive-color-gray-10, #f1f1f2); /* Use for elevated UI containers with less emphasis with a hovered state */
+  --ld-semantic-color-surface-subtle-pressed: var(--ld-primitive-color-gray-20, #e3e4e5); /* Use for elevated UI containers with less emphasis with a pressed state */
+
+  /* ========================================
+     TEXT COLORS
+     ======================================== */
+  /* Accent text colors */
+  --ld-semantic-color-text-accent-blue: var(--ld-primitive-color-blue-100, #0053e2); /* Use for text with a blue accent */
+  --ld-semantic-color-text-accent-blue-bold: var(--ld-primitive-color-blue-130, #002e99); /* Use for bold blue accent text */
+  --ld-semantic-color-text-accent-cyan: var(--ld-primitive-color-cyan-100, #0076b3); /* Use for text with a cyan accent */
+  --ld-semantic-color-text-accent-cyan-bold: var(--ld-primitive-color-cyan-130, #004a70); /* Use for bold cyan accent text */
+  --ld-semantic-color-text-accent-gray: var(--ld-primitive-color-gray-100, #74767c); /* Use for text with a gray accent */
+  --ld-semantic-color-text-accent-gray-bold: var(--ld-primitive-color-gray-130, #515357); /* Use for bold gray accent text */
+  --ld-semantic-color-text-accent-green: var(--ld-primitive-color-green-100, #2a8703); /* Use for text with a green accent */
+  --ld-semantic-color-text-accent-green-bold: var(--ld-primitive-color-green-130, #1d5f02); /* Use for bold green accent text */
+  --ld-semantic-color-text-accent-orange: var(--ld-primitive-color-orange-120, #c83c00); /* Use for text with a orange accent */
+  --ld-semantic-color-text-accent-orange-bold: var(--ld-primitive-color-orange-130, #af2f00); /* Use for bold orange accent text */
+  --ld-semantic-color-text-accent-pink: var(--ld-primitive-color-pink-100, #cb2c90); /* Use for text with a pink accent */
+  --ld-semantic-color-text-accent-pink-bold: var(--ld-primitive-color-pink-130, #8c1e64); /* Use for bold pink accent text */
+  --ld-semantic-color-text-accent-purple: var(--ld-primitive-color-purple-100, #63327e); /* Use for text with a purple accent */
+  --ld-semantic-color-text-accent-purple-bold: var(--ld-primitive-color-purple-130, #452358); /* Use for bold purple accent text */
+  --ld-semantic-color-text-accent-red: var(--ld-primitive-color-red-100, #ea1100); /* Use for text with a red accent */
+  --ld-semantic-color-text-accent-red-bold: var(--ld-primitive-color-red-130, #a20c00); /* Use for bold red accent text */
+  --ld-semantic-color-text-accent-spark: var(--ld-primitive-color-spark-140, #995213); /* Use for text with a spark accent */
+  --ld-semantic-color-text-accent-spark-bold: var(--ld-primitive-color-spark-160, #662b0d); /* Use for bold spark accent text */
+  --ld-semantic-color-text-accent-teal: var(--ld-primitive-color-teal-100, #00809e); /* Use for text with a teal accent */
+  --ld-semantic-color-text-accent-teal-bold: var(--ld-primitive-color-teal-130, #005a6f); /* Use for bold teal accent text */
+  --ld-semantic-color-text-accent-yellow: var(--ld-primitive-color-yellow-140, #996900); /* Use for text with a yellow accent */
+  --ld-semantic-color-text-accent-yellow-bold: var(--ld-primitive-color-yellow-160, #663800); /* Use for bold yellow accent text */
+
+  /* Text on accent fills */
+  --ld-semantic-color-text-on-fill-accent-blue: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a blue accent */
+  --ld-semantic-color-text-on-fill-accent-blue-subtle: var(--ld-primitive-color-blue-130, #002e99); /* Use for text on elements with a blue accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-cyan: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a cyan accent */
+  --ld-semantic-color-text-on-fill-accent-cyan-subtle: var(--ld-primitive-color-cyan-130, #004a70); /* Use for text on elements with a cyan accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-gray: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a gray accent */
+  --ld-semantic-color-text-on-fill-accent-gray-subtle: var(--ld-primitive-color-gray-130, #515357); /* Use for text on elements with a gray accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-green: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a green accent */
+  --ld-semantic-color-text-on-fill-accent-green-subtle: var(--ld-primitive-color-green-130, #1d5f02); /* Use for text on elements with a green accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-orange: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements with an orange accent */
+  --ld-semantic-color-text-on-fill-accent-orange-subtle: var(--ld-primitive-color-orange-130, #af2f00); /* Use for text on elements with an orange accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-pink: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a pink accent */
+  --ld-semantic-color-text-on-fill-accent-pink-subtle: var(--ld-primitive-color-pink-130, #8c1e64); /* Use for text on elements with a pink accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-purple: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a purple accent */
+  --ld-semantic-color-text-on-fill-accent-purple-subtle: var(--ld-primitive-color-purple-130, #452358); /* Use for text on elements with a purple accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-red: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a red accent */
+  --ld-semantic-color-text-on-fill-accent-red-subtle: var(--ld-primitive-color-red-130, #a20c00); /* Use for text on elements with a red accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-spark: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements with a spark accent */
+  --ld-semantic-color-text-on-fill-accent-spark-subtle: var(--ld-primitive-color-spark-160, #662b0d); /* Use for text on elements with a spark accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-teal: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with a teal accent */
+  --ld-semantic-color-text-on-fill-accent-teal-subtle: var(--ld-primitive-color-teal-130, #005a6f); /* Use for text on elements with a teal accent but with less emphasis */
+  --ld-semantic-color-text-on-fill-accent-yellow: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements with a yellow accent */
+  --ld-semantic-color-text-on-fill-accent-yellow-subtle: var(--ld-primitive-color-yellow-160, #663800); /* Use for text on elements with a yellow accent but with less emphasis */
+
+  /* Generic text on fill */
+  --ld-semantic-color-text-on-fill: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on generic elements */
+  --ld-semantic-color-text-on-fill-activated: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements in an activated state */
+  --ld-semantic-color-text-on-fill-activated-disabled: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements in an activated state in a disabled state */
+  --ld-semantic-color-text-on-fill-activated-subtle: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements in an activated state but with less emphasis */
+  --ld-semantic-color-text-on-fill-activated-subtle-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for text on elements in an activated state but with less emphasis in a disabled state */
+  --ld-semantic-color-text-on-fill-brand: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with branded fill */
+  --ld-semantic-color-text-on-fill-brand-bold: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with branded fill but with more emphasis */
+  --ld-semantic-color-text-on-fill-brand-subtle: var(--ld-primitive-color-blue-110, #114ab6); /* Use for text on elements with subtle branded fill */
+  --ld-semantic-color-text-on-fill-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for text on generic elements in disabled state */
+  --ld-semantic-color-text-on-fill-edited: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements in an edited state */
+  --ld-semantic-color-text-on-fill-edited-subtle: var(--ld-primitive-color-purple-130, #452358); /* Use for text on elements in an edited state but with less emphasis */
+  --ld-semantic-color-text-on-fill-info: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements that communicate information */
+  --ld-semantic-color-text-on-fill-info-subtle: var(--ld-primitive-color-blue-130, #002e99); /* Use for text on elements that communicate information but with less emphasis */
+  --ld-semantic-color-text-on-fill-inverse: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements with inverse fill */
+  --ld-semantic-color-text-on-fill-negative: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements that indicate danger or error state */
+  --ld-semantic-color-text-on-fill-negative-subtle: var(--ld-primitive-color-red-130, #a20c00); /* Use for text on elements that indicate danger or error state but with less emphasis */
+  --ld-semantic-color-text-on-fill-positive: var(--ld-primitive-color-white, #ffffff); /* Use for text on elements that communicate a favorable outcome */
+  --ld-semantic-color-text-on-fill-positive-subtle: var(--ld-primitive-color-green-130, #1d5f02); /* Use for text on elements that communicate a favorable outcome but with less emphasis */
+  --ld-semantic-color-text-on-fill-transparent: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements with transparent fill */
+  --ld-semantic-color-text-on-fill-warning: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for text on elements that emphasize caution */
+  --ld-semantic-color-text-on-fill-warning-subtle: var(--ld-primitive-color-spark-160, #662b0d); /* Use for text on elements that emphasize caution but with less emphasis */
+
+  /* Generic text */
+  --ld-semantic-color-text: var(--ld-primitive-color-gray-160, #2e2f32); /* Use for primary text, such as headings and body copy */
+  --ld-semantic-color-text-activated: var(--ld-primitive-color-blue-110, #114ab6); /* Use for text that indicates an activated state */
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-blue-100, #0053e2); /* Use for text that reinforces your brand */
+  --ld-semantic-color-text-brand-bold: var(--ld-primitive-color-blue-160, #001e60); /* Use for bold brand text */
+  --ld-semantic-color-text-disabled: var(--ld-primitive-color-gray-50, #babbbe); /* Use for text that indicates a disabled state */
+  --ld-semantic-color-text-edited: var(--ld-primitive-color-purple-100, #63327e); /* Use for text that indicates an edited state */
+  --ld-semantic-color-text-edited-bold: var(--ld-primitive-color-purple-130, #452358); /* Use for bold edited text */
+  --ld-semantic-color-text-info: var(--ld-primitive-color-blue-100, #0053e2); /* Use for text that reinforces your info */
+  --ld-semantic-color-text-info-bold: var(--ld-primitive-color-blue-130, #002e99); /* Use for bold info text */
+  --ld-semantic-color-text-info-inverse: var(--ld-primitive-color-blue-20, #c9dcfd); /* Use for the color of info text on an inverse background or surface. */
+  --ld-semantic-color-text-inverse: var(--ld-primitive-color-white, #ffffff); /* Use for text that's the opposite lightness of `color.text` */
+  --ld-semantic-color-text-magic-start: var(--ld-primitive-color-magic-1, #0053E2); /* Use for the start of gradient text that indicates the involvement of an AI agent */
+  --ld-semantic-color-text-magic-middle: var(--ld-primitive-color-magic-2, #3D90EC); /* Use for the middle of gradient text that indicates the involvement of an AI agent */
+  --ld-semantic-color-text-magic-stop: var(--ld-primitive-color-magic-3, #79CDF6); /* Use for the end of gradient text that indicates the involvement of an AI agent */
+  --ld-semantic-color-text-negative: var(--ld-primitive-color-red-100, #ea1100); /* Use for critical text that indicates an error such as input field error messaging */
+  --ld-semantic-color-text-negative-bold: var(--ld-primitive-color-red-130, #a20c00); /* Use for bold negative text */
+  --ld-semantic-color-text-negative-inverse: var(--ld-primitive-color-red-50, #f69991); /* Use for the color of negative text on an inverse background or surface. */
+  --ld-semantic-color-text-positive: var(--ld-primitive-color-green-100, #2a8703); /* Use for text that communicates a favorable outcome */
+  --ld-semantic-color-text-positive-bold: var(--ld-primitive-color-green-130, #1d5f02); /* Use for bold positive text */
+  --ld-semantic-color-text-positive-inverse: var(--ld-primitive-color-green-50, #95c381); /* Use for the color of positive text on an inverse background or surface. */
+  --ld-semantic-color-text-subtle: var(--ld-primitive-color-gray-130, #515357); /* Use for navigation and form field labels */
+  --ld-semantic-color-text-subtlest: var(--ld-primitive-color-gray-100, #74767c); /* Use for secondary text such as supplementary helper text on an element */
+  --ld-semantic-color-text-warning: var(--ld-primitive-color-spark-140, #995213); /* Use for text that emphasizes caution such as an alert message */
+  --ld-semantic-color-text-warning-bold: var(--ld-primitive-color-spark-160, #662b0d); /* Use for bold warning text */
+  --ld-semantic-color-text-warning-inverse: var(--ld-primitive-color-spark-30, #ffedbc); /* Use for the color of warning text on an inverse background or surface. */
+
+  /* ========================================
+     ELEVATION/SHADOW TOKENS
+     ======================================== */
+  --ld-semantic-elevation-100: 0 0.0625rem 0.125rem 0.0625rem #00000026, 0 -0.0625rem 0.125rem 0 #0000001a;
+  --ld-semantic-elevation-200: 0 0.1875rem 0.3125rem 0.125rem #00000026, 0 -0.0625rem 0.1875rem 0 #0000001a;
+  --ld-semantic-elevation-300: 0 0.3125rem 0.625rem 0.1875rem #00000026, 0 -0.0625rem 0.25rem 0 #0000001a;
+
+  /* ========================================
+     TYPOGRAPHY TOKENS
+     ======================================== */
+  /* Font families */
+  --ld-semantic-font-family-sans: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-family-mono: var(--ld-primitive-font-family-mono, EverydaySansMono, 'Courier New', 'monospace');
+
+  /* Action text (buttons, links) */
+  --ld-semantic-font-action-weight: var(--ld-primitive-font-weight-700, 700);
+
+  /* Body text styles */
+  --ld-semantic-font-body-large-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-body-large-line-height: var(--ld-primitive-font-line-height-300, 1.5rem);
+  --ld-semantic-font-body-large-size: var(--ld-primitive-font-size-150, 1.125rem);
+  --ld-semantic-font-body-large-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-body-large-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  --ld-semantic-font-body-medium-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-body-medium-line-height: var(--ld-primitive-font-line-height-300, 1.5rem);
+  --ld-semantic-font-body-medium-size: var(--ld-primitive-font-size-100, 1rem);
+  --ld-semantic-font-body-medium-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-body-medium-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  --ld-semantic-font-body-small-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-body-small-line-height: var(--ld-primitive-font-line-height-250, 1.25rem);
+  --ld-semantic-font-body-small-size: var(--ld-primitive-font-size-50, 0.875rem);
+  --ld-semantic-font-body-small-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-body-small-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  /* Monospace body text */
+  --ld-semantic-font-body-mono-large-family: var(--ld-primitive-font-family-mono, EverydaySansMono, 'Courier New', 'monospace');
+  --ld-semantic-font-body-mono-medium-family: var(--ld-primitive-font-family-mono, EverydaySansMono, 'Courier New', 'monospace');
+  --ld-semantic-font-body-mono-small-family: var(--ld-primitive-font-family-mono, EverydaySansMono, 'Courier New', 'monospace');
+
+  /* Caption text */
+  --ld-semantic-font-caption-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-caption-line-height: var(--ld-primitive-font-line-height-200, 1rem);
+  --ld-semantic-font-caption-mono-family: var(--ld-primitive-font-family-mono, EverydaySansMono, 'Courier New', 'monospace');
+  --ld-semantic-font-caption-size: var(--ld-primitive-font-size-25, 0.75rem);
+  --ld-semantic-font-caption-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-caption-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  /* Display text (largest headings) */
+  --ld-semantic-font-display-large-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-display-large-line-height-b-s: var(--ld-primitive-font-line-height-500, 2.5rem);
+  --ld-semantic-font-display-large-line-height-b-l: var(--ld-primitive-font-line-height-650, 3.25rem);
+  --ld-semantic-font-display-large-size-b-s: var(--ld-primitive-font-size-500, 2rem);
+  --ld-semantic-font-display-large-size-b-l: var(--ld-primitive-font-size-700, 2.625rem);
+  --ld-semantic-font-display-large-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-display-large-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  --ld-semantic-font-display-small-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-display-small-line-height-b-s: var(--ld-primitive-font-line-height-450, 2.25rem);
+  --ld-semantic-font-display-small-line-height-b-l: var(--ld-primitive-font-line-height-600, 3rem);
+  --ld-semantic-font-display-small-size-b-s: var(--ld-primitive-font-size-400, 1.75rem);
+  --ld-semantic-font-display-small-size-b-l: var(--ld-primitive-font-size-600, 2.25rem);
+  --ld-semantic-font-display-small-weight-alt: var(--ld-primitive-font-weight-700, 700);
+  --ld-semantic-font-display-small-weight-default: var(--ld-primitive-font-weight-400, 400);
+
+  /* Heading text */
+  --ld-semantic-font-heading-large-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-heading-large-line-height-b-s: var(--ld-primitive-font-line-height-400, 2rem);
+  --ld-semantic-font-heading-large-line-height-b-l: var(--ld-primitive-font-line-height-500, 2.5rem);
+  --ld-semantic-font-heading-large-size-b-s: var(--ld-primitive-font-size-300, 1.5rem);
+  --ld-semantic-font-heading-large-size-b-l: var(--ld-primitive-font-size-500, 2rem);
+  --ld-semantic-font-heading-large-weight-alt: var(--ld-primitive-font-weight-400, 400);
+  --ld-semantic-font-heading-large-weight-default: var(--ld-primitive-font-weight-700, 700);
+
+  --ld-semantic-font-heading-medium-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-heading-medium-line-height-b-s: var(--ld-primitive-font-line-height-350, 1.75rem);
+  --ld-semantic-font-heading-medium-line-height-b-l: var(--ld-primitive-font-line-height-450, 2.25rem);
+  --ld-semantic-font-heading-medium-size-b-s: var(--ld-primitive-font-size-200, 1.25rem);
+  --ld-semantic-font-heading-medium-size-b-l: var(--ld-primitive-font-size-300, 1.5rem);
+  --ld-semantic-font-heading-medium-weight-alt: var(--ld-primitive-font-weight-400, 400);
+  --ld-semantic-font-heading-medium-weight-default: var(--ld-primitive-font-weight-700, 700);
+
+  --ld-semantic-font-heading-small-family: var(--ld-primitive-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --ld-semantic-font-heading-small-line-height-b-s: var(--ld-primitive-font-line-height-300, 1.5rem);
+  --ld-semantic-font-heading-small-line-height-b-l: var(--ld-primitive-font-line-height-350, 1.75rem);
+  --ld-semantic-font-heading-small-size-b-s: var(--ld-primitive-font-size-150, 1.125rem);
+  --ld-semantic-font-heading-small-size-b-l: var(--ld-primitive-font-size-200, 1.25rem);
+  --ld-semantic-font-heading-small-weight-alt: var(--ld-primitive-font-weight-400, 400);
+  --ld-semantic-font-heading-small-weight-default: var(--ld-primitive-font-weight-700, 700);
+
+  /* ========================================
+     SCALE TOKENS
+     ======================================== */
+  /* Border width */
+  --ld-semantic-scale-border-width-interactive: var(--ld-primitive-scale-border-width-100, 0.0625rem);
+  --ld-semantic-scale-border-width-interactive-focused: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-hovered: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-pressed: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-activated: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-activated-focused: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-activated-hovered: var(--ld-primitive-scale-border-width-200, 0.125rem);
+  --ld-semantic-scale-border-width-interactive-activated-pressed: var(--ld-primitive-scale-border-width-200, 0.125rem);
+
+  /* Icon sizes */
+  --ld-semantic-scale-icon-large: 2rem;
+  --ld-semantic-scale-icon-medium: 1.5rem;
+  --ld-semantic-scale-icon-small: 1rem;
+
+  /* Pictogram sizes */
+  --ld-semantic-scale-pictogram-large: 4rem;
+  --ld-semantic-scale-pictogram-medium: 3.5rem;
+  --ld-semantic-scale-pictogram-small: 3rem;
+  --ld-semantic-scale-pictogram-x-large: 4.5rem;
+
+  /* ========================================
+     SPACING TOKENS
+     ======================================== */
+  --ld-semantic-spacing-25: var(--ld-primitive-scale-space-25, 0.125rem); /* 2px */
+  --ld-semantic-spacing-50: var(--ld-primitive-scale-space-50, 0.25rem); /* 4px */
+  --ld-semantic-spacing-100: var(--ld-primitive-scale-space-100, 0.5rem); /* 8px */
+  --ld-semantic-spacing-150: var(--ld-primitive-scale-space-150, 0.75rem); /* 12px */
+  --ld-semantic-spacing-200: var(--ld-primitive-scale-space-200, 1rem); /* 16px */
+  --ld-semantic-spacing-250: var(--ld-primitive-scale-space-250, 1.25rem); /* 20px */
+  --ld-semantic-spacing-300: var(--ld-primitive-scale-space-300, 1.5rem); /* 24px */
+  --ld-semantic-spacing-400: var(--ld-primitive-scale-space-400, 2rem); /* 32px */
+  --ld-semantic-spacing-500: var(--ld-primitive-scale-space-500, 2.5rem); /* 40px */
+  --ld-semantic-spacing-600: var(--ld-primitive-scale-space-600, 3rem); /* 48px */
+  --ld-semantic-spacing-700: var(--ld-primitive-scale-space-700, 3.5rem); /* 56px */
+  --ld-semantic-spacing-800: var(--ld-primitive-scale-space-800, 4rem); /* 64px */
+  --ld-semantic-spacing-900: var(--ld-primitive-scale-space-900, 4.5rem); /* 72px */
+  --ld-semantic-spacing-1000: var(--ld-primitive-scale-space-1000, 5rem); /* 80px */
+
+  /* Component-specific spacing */
+  --ld-semantic-spacing-component-padding-small: var(--ld-primitive-scale-space-100, 0.5rem);
+  --ld-semantic-spacing-component-padding-medium: var(--ld-primitive-scale-space-150, 0.75rem);
+  --ld-semantic-spacing-component-padding-large: var(--ld-primitive-scale-space-200, 1rem);
+  --ld-semantic-spacing-component-gap-small: var(--ld-primitive-scale-space-100, 0.5rem);
+  --ld-semantic-spacing-component-gap-medium: var(--ld-primitive-scale-space-150, 0.75rem);
+  --ld-semantic-spacing-component-gap-large: var(--ld-primitive-scale-space-200, 1rem);
+  --ld-semantic-spacing-layout-margin-small: var(--ld-primitive-scale-space-200, 1rem);
+  --ld-semantic-spacing-layout-margin-medium: var(--ld-primitive-scale-space-300, 1.5rem);
+  --ld-semantic-spacing-layout-margin-large: var(--ld-primitive-scale-space-400, 2rem);
+  --ld-semantic-spacing-layout-padding-small: var(--ld-primitive-scale-space-200, 1rem);
+  --ld-semantic-spacing-layout-padding-medium: var(--ld-primitive-scale-space-300, 1.5rem);
+  --ld-semantic-spacing-layout-padding-large: var(--ld-primitive-scale-space-400, 2rem);
+  --ld-semantic-spacing-section-gap-small: var(--ld-primitive-scale-space-300, 1.5rem);
+  --ld-semantic-spacing-section-gap-medium: var(--ld-primitive-scale-space-400, 2rem);
+  --ld-semantic-spacing-section-gap-large: var(--ld-primitive-scale-space-600, 3rem);
+
+  /* ========================================
+     BORDER RADIUS TOKENS
+     ======================================== */
+  --ld-semantic-border-radius-small: var(--ld-primitive-scale-border-radius-25, 0.125rem); /* 2px */
+  --ld-semantic-border-radius-medium: var(--ld-primitive-scale-border-radius-50, 0.25rem); /* 4px */
+  --ld-semantic-border-radius-large: var(--ld-primitive-scale-border-radius-100, 0.5rem); /* 8px */
+  --ld-semantic-border-radius-xlarge: var(--ld-primitive-scale-border-radius-200, 1rem); /* 16px */
+  --ld-semantic-border-radius-xxlarge: var(--ld-primitive-scale-border-radius-300, 1.5rem); /* 24px */
+  --ld-semantic-border-radius-xxxlarge: var(--ld-primitive-scale-border-radius-400, 2rem); /* 32px */
+  --ld-semantic-border-radius-round: var(--ld-primitive-scale-border-radius-round, 62.5rem); /* Full round/pill */
+  --ld-semantic-border-radius-button: var(--ld-primitive-scale-border-radius-round, 62.5rem); /* Button radius - pill shape */
+  --ld-semantic-border-radius-card: var(--ld-primitive-scale-border-radius-100, 0.5rem); /* Card radius */
+  --ld-semantic-border-radius-input: var(--ld-primitive-scale-border-radius-50, 0.25rem); /* Input field radius */
+  --ld-semantic-border-radius-modal: var(--ld-primitive-scale-border-radius-100, 0.5rem); /* Modal radius */
+  --ld-semantic-border-radius-popover: var(--ld-primitive-scale-border-radius-100, 0.5rem); /* Popover radius */
+  --ld-semantic-border-radius-tag: var(--ld-primitive-scale-border-radius-50, 0.25rem); /* Tag radius */
+  --ld-semantic-border-radius-badge: var(--ld-primitive-scale-border-radius-round, 62.5rem); /* Badge radius - pill shape */
+
+  /* ========================================
+     DURATION/TIMING TOKENS
+     ======================================== */
+  --ld-semantic-duration-instant: var(--ld-primitive-duration-100, 0.10s); /* Instant feedback */
+  --ld-semantic-duration-fast: var(--ld-primitive-duration-200, 0.20s); /* Fast transitions */
+  --ld-semantic-duration-medium: var(--ld-primitive-duration-300, 0.30s); /* Medium transitions */
+  --ld-semantic-duration-slow: var(--ld-primitive-duration-400, 0.40s); /* Slow transitions */
+  --ld-semantic-duration-slower: var(--ld-primitive-duration-500, 0.50s); /* Slower animations */
+  --ld-semantic-duration-slowest: var(--ld-primitive-duration-600, 0.60s); /* Slowest animations */
+  --ld-semantic-duration-glacial: var(--ld-primitive-duration-700, 0.70s); /* Very slow animations */
+
+  /* Component-specific durations */
+  --ld-semantic-duration-button-hover: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-button-press: var(--ld-primitive-duration-100, 0.10s);
+  --ld-semantic-duration-modal-open: var(--ld-primitive-duration-300, 0.30s);
+  --ld-semantic-duration-modal-close: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-popover-open: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-popover-close: var(--ld-primitive-duration-100, 0.10s);
+  --ld-semantic-duration-tooltip-show: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-tooltip-hide: var(--ld-primitive-duration-100, 0.10s);
+  --ld-semantic-duration-dropdown-open: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-dropdown-close: var(--ld-primitive-duration-100, 0.10s);
+  --ld-semantic-duration-fade-in: var(--ld-primitive-duration-300, 0.30s);
+  --ld-semantic-duration-fade-out: var(--ld-primitive-duration-200, 0.20s);
+  --ld-semantic-duration-slide-in: var(--ld-primitive-duration-300, 0.30s);
+  --ld-semantic-duration-slide-out: var(--ld-primitive-duration-200, 0.20s);
+
+  /* ========================================
+     TIMING FUNCTION TOKENS
+     ======================================== */
+  --ld-semantic-timing-ease-in: var(--ld-primitive-timing-ease-in-100, cubic-bezier(0.55, 0.055, 0.675, 0.19));
+  --ld-semantic-timing-ease-out: var(--ld-primitive-timing-ease-out-100, cubic-bezier(0.165, 0.84, 0.44, 1));
+  --ld-semantic-timing-ease-in-out: var(--ld-primitive-timing-ease-in-out-100, cubic-bezier(0.77, 0, 0.175, 1));
+  --ld-semantic-timing-linear: var(--ld-primitive-timing-linear-100, linear);
+
+  /* Component-specific timing functions */
+  --ld-semantic-timing-button: var(--ld-primitive-timing-ease-out-100, cubic-bezier(0.165, 0.84, 0.44, 1));
+  --ld-semantic-timing-modal: var(--ld-primitive-timing-ease-in-out-100, cubic-bezier(0.77, 0, 0.175, 1));
+  --ld-semantic-timing-popover: var(--ld-primitive-timing-ease-out-100, cubic-bezier(0.165, 0.84, 0.44, 1));
+  --ld-semantic-timing-dropdown: var(--ld-primitive-timing-ease-out-100, cubic-bezier(0.165, 0.84, 0.44, 1));
+  --ld-semantic-timing-fade: var(--ld-primitive-timing-ease-in-out-100, cubic-bezier(0.77, 0, 0.175, 1));
+  --ld-semantic-timing-slide: var(--ld-primitive-timing-ease-out-100, cubic-bezier(0.165, 0.84, 0.44, 1));
+
+  /* ========================================
+     BREAKPOINT TOKENS
+     ======================================== */
+  --ld-semantic-breakpoint-small: var(--ld-primitive-scale-breakpoint-small, 0); /* 0px - Mobile */
+  --ld-semantic-breakpoint-medium: var(--ld-primitive-scale-breakpoint-medium, 37.5rem); /* 600px - Tablet */
+  --ld-semantic-breakpoint-large: var(--ld-primitive-scale-breakpoint-large, 56.25rem); /* 900px - Desktop */
+  --ld-semantic-breakpoint-xlarge: var(--ld-primitive-scale-breakpoint-xlarge, 75rem); /* 1200px - Large desktop */
+  --ld-semantic-breakpoint-xxlarge: var(--ld-primitive-scale-breakpoint-xxlarge, 120rem); /* 1920px - Extra large desktop */
+
+  /* ========================================
+     FOCUS RING/OUTLINE TOKENS
+     ======================================== */
+  --ld-semantic-focus-ring-color: var(--ld-primitive-color-blue-100, #0053e2); /* Focus ring color */
+  --ld-semantic-focus-ring-color-inverse: var(--ld-primitive-color-white, #ffffff); /* Focus ring on dark backgrounds */
+  --ld-semantic-focus-ring-color-negative: var(--ld-primitive-color-red-100, #ea1100); /* Focus ring for error states */
+  --ld-semantic-focus-ring-width: 0.125rem; /* 2px focus ring width */
+  --ld-semantic-focus-ring-width-thick: 0.25rem; /* 4px thick focus ring */
+  --ld-semantic-focus-ring-offset: 0.125rem; /* 2px offset from element */
+  --ld-semantic-focus-ring-offset-large: 0.25rem; /* 4px larger offset */
+  --ld-semantic-focus-ring-style: solid; /* Focus ring style */
+
+  /* ========================================
+     Z-INDEX TOKENS
+     ======================================== */
+  --ld-semantic-z-index-base: 0; /* Base level */
+  --ld-semantic-z-index-dropdown: 1000; /* Dropdowns */
+  --ld-semantic-z-index-sticky: 1020; /* Sticky headers */
+  --ld-semantic-z-index-fixed: 1030; /* Fixed elements */
+  --ld-semantic-z-index-modal-backdrop: 1040; /* Modal backdrop */
+  --ld-semantic-z-index-modal: 1050; /* Modal dialogs */
+  --ld-semantic-z-index-popover: 1060; /* Popovers */
+  --ld-semantic-z-index-tooltip: 1070; /* Tooltips */
+  --ld-semantic-z-index-notification: 1080; /* Toast notifications */
+  --ld-semantic-z-index-overlay: 1090; /* Full-screen overlays */
+  --ld-semantic-z-index-top: 1100; /* Highest level */
+
+  /* ========================================
+     OPACITY TOKENS
+     ======================================== */
+  --ld-semantic-opacity-0: 0; /* Fully transparent */
+  --ld-semantic-opacity-10: 0.1; /* 10% opacity */
+  --ld-semantic-opacity-20: 0.2; /* 20% opacity */
+  --ld-semantic-opacity-30: 0.3; /* 30% opacity */
+  --ld-semantic-opacity-40: 0.4; /* 40% opacity */
+  --ld-semantic-opacity-50: 0.5; /* 50% opacity */
+  --ld-semantic-opacity-60: 0.6; /* 60% opacity */
+  --ld-semantic-opacity-70: 0.7; /* 70% opacity */
+  --ld-semantic-opacity-80: 0.8; /* 80% opacity */
+  --ld-semantic-opacity-90: 0.9; /* 90% opacity */
+  --ld-semantic-opacity-100: 1; /* Fully opaque */
+
+  /* Component-specific opacity */
+  --ld-semantic-opacity-disabled: 0.4; /* Disabled state opacity */
+  --ld-semantic-opacity-hover-overlay: 0.08; /* Hover overlay opacity */
+  --ld-semantic-opacity-pressed-overlay: 0.12; /* Pressed overlay opacity */
+  --ld-semantic-opacity-skeleton: 0.12; /* Loading skeleton opacity */
+  --ld-semantic-opacity-backdrop: 0.4; /* Modal backdrop opacity */
+  --ld-semantic-opacity-tooltip: 0.95; /* Tooltip opacity */
+
+  /* ========================================
+     BORDER WIDTH TOKENS
+     ======================================== */
+  --ld-semantic-border-width-thin: var(--ld-primitive-scale-border-width-100, 0.0625rem); /* 1px */
+  --ld-semantic-border-width-medium: var(--ld-primitive-scale-border-width-200, 0.125rem); /* 2px */
+  --ld-semantic-border-width-thick: 0.1875rem; /* 3px */
+  --ld-semantic-border-width-thicker: 0.25rem; /* 4px */
+  --ld-semantic-border-width-none: 0; /* No border */
+}

@@ -1,0 +1,289 @@
+---
+description: Guidelines and rules for tag
+alwaysApply: false
+---
+# Tag Component
+
+## Overview
+
+Tags highlight one or more attributes of an item, or help group related items together. The Tag component follows Living Design 3.5 specifications and uses semantic design tokens exclusively.
+
+**Documentation**: https://digitaltoolkit.livingdesign.walmart.com/components/tag/
+
+## Import
+
+```tsx
+import { Tag } from '@/components/ui/Tag';
+```
+
+## Component API
+
+### Props
+
+```typescript
+export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
+  variant?: 'primary' | 'secondary' | 'tertiary';
+  color?: 'brand' | 'positive' | 'negative' | 'warning' | 'info' | 'edited' | 
+          'blue' | 'spark' | 'green' | 'red' | 'purple' | 'gray' | 
+          'cyan' | 'orange' | 'pink' | 'yellow' | 'teal';
+  leading?: React.ReactNode;
+  children: React.ReactNode;
+}
+```
+
+### Default Values
+
+- `variant`: `'secondary'` (text-only, no background)
+- `color`: `'brand'`
+
+## Variants
+
+### Primary (Filled)
+Full colored background with white or dark text on top. Use for high emphasis tags.
+
+```tsx
+<Tag variant="primary" color="brand">Brand Tag</Tag>
+<Tag variant="primary" color="positive">Positive Tag</Tag>
+<Tag variant="primary" color="negative">Negative Tag</Tag>
+```
+
+### Secondary (Text-only)
+Transparent background with bold colored text. Use for medium emphasis tags (default).
+
+```tsx
+<Tag variant="secondary" color="brand">Brand Tag</Tag>
+<Tag variant="secondary" color="positive">Positive Tag</Tag>
+<Tag variant="secondary" color="negative">Negative Tag</Tag>
+```
+
+### Tertiary (Subtle)
+Subtle colored background with colored text. Use for low emphasis tags.
+
+```tsx
+<Tag variant="tertiary" color="brand">Brand Tag</Tag>
+<Tag variant="tertiary" color="positive">Positive Tag</Tag>
+<Tag variant="tertiary" color="negative">Negative Tag</Tag>
+```
+
+## Colors
+
+The Tag component supports 17 semantic colors:
+
+### Semantic Colors
+- **brand**: Primary brand color (Walmart blue)
+- **positive**: Success/positive state (green)
+- **negative**: Error/negative state (red)
+- **warning**: Warning state (orange)
+- **info**: Informational state (blue)
+- **edited**: Modified/edited state (purple)
+
+### Accent Colors
+- **blue**: Accent blue
+- **spark**: Accent spark (orange-brown)
+- **green**: Accent green
+- **red**: Accent red
+- **purple**: Accent purple
+- **gray**: Accent gray
+- **cyan**: Accent cyan
+- **orange**: Accent orange
+- **pink**: Accent pink
+- **yellow**: Accent yellow
+- **teal**: Accent teal
+
+## Usage Examples
+
+### Basic Tag
+
+```tsx
+// Default (secondary variant, brand color)
+<Tag>Label</Tag>
+
+// Filled brand tag
+<Tag variant="primary" color="brand">Brand</Tag>
+
+// Text-only positive tag
+<Tag variant="secondary" color="positive">Success</Tag>
+
+// Subtle negative tag
+<Tag variant="tertiary" color="negative">Error</Tag>
+```
+
+### With Leading Icon
+
+```tsx
+import * as Icons from '@/components/icons';
+
+<Tag variant="primary" color="positive" leading={<Icons.Check size={14} />}>
+  Verified
+</Tag>
+
+<Tag variant="secondary" color="warning" leading={<Icons.Warning size={14} />}>
+  Pending
+</Tag>
+
+<Tag variant="tertiary" color="info" leading={<Icons.Info size={14} />}>
+  Information
+</Tag>
+```
+
+### Multiple Tags with Spacing
+
+When using multiple tags together, space them 4px apart:
+
+```tsx
+<div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+  <Tag variant="primary" color="brand">New</Tag>
+  <Tag variant="primary" color="positive">Active</Tag>
+  <Tag variant="primary" color="warning">Pending</Tag>
+</div>
+```
+
+### All Variant × Color Combinations
+
+The component supports **51 combinations** (3 variants × 17 colors). Here are examples for each variant:
+
+```tsx
+// Primary Variants (Filled)
+<Tag variant="primary" color="brand">Brand</Tag>
+<Tag variant="primary" color="positive">Positive</Tag>
+<Tag variant="primary" color="negative">Negative</Tag>
+<Tag variant="primary" color="warning">Warning</Tag>
+<Tag variant="primary" color="info">Info</Tag>
+<Tag variant="primary" color="edited">Edited</Tag>
+<Tag variant="primary" color="blue">Blue</Tag>
+<Tag variant="primary" color="spark">Spark</Tag>
+<Tag variant="primary" color="green">Green</Tag>
+<Tag variant="primary" color="red">Red</Tag>
+<Tag variant="primary" color="purple">Purple</Tag>
+<Tag variant="primary" color="gray">Gray</Tag>
+<Tag variant="primary" color="cyan">Cyan</Tag>
+<Tag variant="primary" color="orange">Orange</Tag>
+<Tag variant="primary" color="pink">Pink</Tag>
+<Tag variant="primary" color="yellow">Yellow</Tag>
+<Tag variant="primary" color="teal">Teal</Tag>
+
+// Secondary Variants (Text-only) - Same colors available
+// Tertiary Variants (Subtle) - Same colors available
+```
+
+## Design Tokens
+
+The Tag component uses Living Design 3.5 semantic tokens exclusively. See `client/components/ui/Tag.module.css` for the complete token mapping.
+
+### Typography Tokens
+- Font family: `--ld-semantic-font-caption-family` (Everyday Sans UI)
+- Font size: `--ld-semantic-font-caption-size` (12px / 0.75rem)
+- Font weight: `--ld-semantic-font-caption-weight-default` (400)
+- Line height: `--ld-semantic-font-caption-lineheight` (16px / 133.333%)
+
+### Color Tokens (Examples)
+
+**Primary Variant**:
+- Background: `--ld-semantic-color-fill-{color}`
+- Text: `--ld-semantic-color-text-on-fill-{color}`
+
+**Secondary Variant**:
+- Background: `transparent`
+- Text: `--ld-semantic-color-text-{color}-bold`
+
+**Tertiary Variant**:
+- Background: `--ld-semantic-color-fill-{color}-subtle`
+- Text: `--ld-semantic-color-text-on-fill-{color}-subtle`
+
+### Icon Token
+- Size: `--ld-semantic-scale-icon-small` (16px / 1rem)
+
+## Migration Guide
+
+### From Old API to New API
+
+**Old Tag API** (deprecated):
+```tsx
+<Tag variant="success" size="md">Success</Tag>
+<Tag variant="warning" dismissible onDismiss={...}>Warning</Tag>
+<Tag variant="destructive" clickable>Error</Tag>
+<Tag variant="info" icon={<Icon />}>Info</Tag>
+```
+
+**New Tag API**:
+```tsx
+<Tag variant="primary" color="positive">Success</Tag>
+<Tag variant="primary" color="warning">Warning</Tag>
+<Tag variant="primary" color="negative">Error</Tag>
+<Tag variant="primary" color="info" leading={<Icon size={14} />}>Info</Tag>
+```
+
+### Migration Mapping
+
+| Old Variant | New API |
+|-------------|---------|
+| `variant="success"` | `variant="primary" color="positive"` |
+| `variant="warning"` | `variant="primary" color="warning"` |
+| `variant="destructive"` | `variant="primary" color="negative"` |
+| `variant="error"` | `variant="primary" color="negative"` |
+| `variant="info"` | `variant="primary" color="info"` |
+| `variant="primary"` | `variant="primary" color="brand"` |
+| `variant="secondary"` | `variant="secondary" color="brand"` |
+| `variant="default"` | `variant="secondary" color="brand"` (default) |
+
+### Removed Features
+
+The new Tag component **does not support**:
+- ❌ `size` prop (always uses 12px font per LD 3.5 spec)
+- ❌ `dismissible` / `onDismiss` (not in LD 3.5 spec)
+- ❌ `clickable` / `onClick` (use Button or Chip instead)
+- ❌ `disabled` (not in LD 3.5 spec)
+- ❌ `icon` prop (use `leading` instead)
+
+### Why These Changes?
+
+1. **Alignment with LD 3.5**: The new component strictly follows Living Design 3.5 specifications
+2. **Semantic tokens only**: No hard-coded colors or values
+3. **Clear separation of concerns**: Tags are for labeling, not interaction (use Chip or Button for interactive elements)
+4. **Consistent sizing**: Fixed 12px font ensures visual consistency across the app
+
+## When to Use Tag
+
+### Use Tag when you need to:
+- Label items with attributes (e.g., "New", "Sale", "Trending")
+- Show status or state (e.g., "Active", "Pending", "Completed")
+- Categorize or group items (e.g., "Electronics", "Home", "Fashion")
+- Display metadata (e.g., "Updated", "Draft", "Published")
+
+### Don't use Tag when you need:
+- **Interactive selection** → Use `Chip` or `FilterChip`
+- **Numerical badges** → Use `Badge`
+- **OLQ scores** → Use `OLQTag`
+- **Clickable actions** → Use `Button` or `Link`
+- **Dismissible items** → Use dismissible `Chip` or custom solution
+
+## Accessibility
+
+- Tags render as `<span>` elements (not interactive)
+- Supports all standard HTML span attributes
+- Use semantic color names that communicate meaning
+- Icon + text provides redundant information for screen readers
+
+## Best Practices
+
+1. **Use semantic colors**: Choose colors that match the meaning (positive=green, negative=red, etc.)
+2. **Keep text short**: 1-2 words maximum for best readability
+3. **Consistent spacing**: Use 4px gap between multiple tags
+4. **Don't overuse primary**: Reserve filled tags for high emphasis items
+5. **Leading icons optional**: Only use icons when they add meaningful context
+6. **Icon size**: Always use 14px icons in tags (not 16px or larger)
+
+## Examples in the Codebase
+
+See these files for working examples:
+- `client/pages/component-library/ComponentTester.tsx` - Interactive sandbox
+- `client/pages/ComponentLibrary.tsx` - Component library showcase
+- `client/components/ui/Tag.tsx` - Component implementation
+- `client/components/ui/Tag.module.css` - Token-based styles
+
+## Related Components
+
+- **OLQTag**: Specialized tag for displaying OLQ percentage scores
+- **Badge**: For numerical indicators and counts
+- **Chip**: For interactive selection and filtering
+- **FilterChip**: For toggle-based filtering with counts

@@ -1,0 +1,134 @@
+---
+description: Agent protocol for pre-task questions, PM workflows, and deployment
+alwaysApply: false
+---
+# Project Agent Rules — PX Template
+
+This project uses the Living Design 3.5 (LD 3.5) design system. All UI must be built with LD components and semantic design tokens. No exceptions.
+
+---
+
+## MANDATORY PRE-TASK PROTOCOL — Ask Before You Build
+
+Before writing a single line of code for any design or UI request, ask the relevant questions below. Do not assume. Do not guess. Do not start implementing.
+
+| Task type | Ask about |
+|---|---|
+| New page or layout | Breakpoints, tokens, states, data freshness |
+| Carousel / scroll list | Shadow clipping, auto-advance, touch targets |
+| Tabs / nav / buttons | Active state per page, navigation route + delay |
+| Animation / transition | Feel (spring? ease? instant?), duration, timing |
+| Data / content update | Dates relative to today? Real vs randomized names/addresses? |
+
+Only after receiving answers should implementation begin.
+
+---
+
+## Deployment
+
+Deploying is powered by Netlify or Vercel via MCP integrations. Use the appropriate MCP tools. Never ask the user to run terminal commands.
+
+---
+
+## File Organization
+
+Break complex pages into smaller files under client/features/[feature]/. Even within a single page, extract sections into auxiliary components to keep things maintainable. Split early and often.
+
+---
+
+## Component Rules — NO EXCEPTIONS
+
+### Search before creating
+
+Before writing any component, search in this order:
+1. client/components/ui/ — Living Design 3.5 components
+2. design-system-docs/ — MDX specs for all available components
+3. guidelines/components/ — Implementation guides
+
+### Never use external UI libraries
+
+NEVER install or import from any external UI library. Banned libraries include:
+- shadcn/ui, @radix-ui/*, @headlessui/*, @mui/*, antd, chakra-ui
+- lucide-react, react-icons, heroicons (for icons)
+
+### Never modify LD components
+
+Do NOT edit any file in client/components/ui/. If a variation is needed, create a new wrapper component that composes the original.
+
+### Consolidate duplicates immediately
+
+If you find multiple components that serve the same purpose, consolidate to ONE canonical component, update all references, and delete the duplicates.
+
+---
+
+## Design Token Rules — CRITICAL
+
+Never use hard-coded colors, spacing, or typography. Always use var(--ld-semantic-*) tokens with a hex fallback.
+
+### Key tokens
+
+| Token | Usage |
+|---|---|
+| `--ld-semantic-color-action-fill-primary` | Primary action (Walmart blue) |
+| `--ld-semantic-color-text` | Body text |
+| `--ld-semantic-color-text-subtle` | Secondary text |
+| `--ld-semantic-color-surface` | Card / panel surface |
+| `--ld-semantic-color-separator` | Dividers and section separators |
+| `--ld-semantic-color-link` | Default link color |
+| `--ld-semantic-font-family-sans` | Everyday Sans UI |
+
+---
+
+## Page Layout Rules
+
+Every page uses the standard shell:
+
+
+<div className={styles.root}>
+  <MastHead />
+  <div className={styles.appRow}>
+    <AppSidebar menuItems={...} />
+    <main className={styles.main}>
+      {page content}
+    </main>
+  </div>
+</div>
+```
+
+- Never use max-width constraints on page content containers
+- Standard responsive breakpoints: 1024px, 768px, 480px
+- Padding scale: 32px → 24px → 16px → 12px
+
+---
+
+## Pre-task Checklist
+
+Before completing any task, verify:
+- No @radix-ui/* imports
+- No hard-coded hex colors anywhere
+- No hard-coded px spacing values
+- No inline SVGs
+- No external icon libraries
+- No raw <button>, <a>, <table>, <input>, <select>, <textarea> elements
+- No custom sidebar, tab, or dropdown implementations
+- No max-width on page content containers
+- All styles use var(--ld-semantic-*) tokens exclusively
+- All link colors use var(--ld-semantic-color-link-*) tokens
+- All icons from @/components/icons
+- Responsive breakpoints implemented for any new layout
+- Theme compliance check passed
+
+---
+
+## Quick Links
+
+| Resource | Location |
+|---|---|
+| All rules index | .builder/rules/RULES_INDEX.mdc |
+| Component specs | guidelines/components/ |
+| Design tokens | guidelines/design-system/DesignTokens.md |
+| Icon library | client/components/icons/ + /component-library#icons |
+| Responsive layout rule | .builder/rules/RULE_ResponsiveLayout.mdc |
+| Animation rule | .builder/rules/RULE_AnimationAndMotion.mdc |
+| Theme compliance | .builder/rules/RULE_ThemeCompliance.mdc |
+| Brand Shop Builder | .builder/rules/RULE_BrandShopBuilder.mdc |

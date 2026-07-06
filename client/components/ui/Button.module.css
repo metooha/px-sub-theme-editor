@@ -1,0 +1,244 @@
+/* Button Base Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ld-primitive-scale-space-100);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-weight: 700;
+  border-radius: 9999px; /* Fully rounded pill shape */
+  border: var(--ld-semantic-scale-border-width-interactive-focused) solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--ld-primitive-duration-200) ease-in-out;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.button:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Size Variants */
+.button--size-small {
+  padding: var(--ld-primitive-scale-space-100) var(--ld-primitive-scale-space-200);
+  font-size: var(--ld-semantic-font-body-small-size);
+  line-height: var(--ld-semantic-font-body-small-line-height);
+  min-height: 32px; /* LD 3.5 spec */
+}
+
+.button--size-medium {
+  padding: 0 var(--ld-primitive-scale-space-250);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  line-height: var(--ld-semantic-font-body-medium-line-height);
+  height: 40px; /* LD 3.5 spec */
+  min-height: 40px;
+}
+
+.button--size-large {
+  padding: var(--ld-primitive-scale-space-200) var(--ld-primitive-scale-space-300);
+  font-size: var(--ld-semantic-font-body-large-size);
+  line-height: var(--ld-semantic-font-body-large-line-height);
+  min-height: 56px; /* LD 3.5 spec */
+}
+
+/* Full Width */
+.button--fullWidth {
+  width: 100%;
+}
+
+/* Primary Variant */
+.button--variant-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+  border-color: var(--ld-semantic-color-action-fill-primary);
+}
+
+.button--variant-primary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered);
+  border-color: var(--ld-semantic-color-action-fill-primary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-hovered);
+}
+
+.button--variant-primary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-primary-pressed);
+  border-color: var(--ld-semantic-color-action-fill-primary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-pressed);
+}
+
+.button--variant-primary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-primary-disabled);
+  border-color: var(--ld-semantic-color-action-fill-primary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-disabled);
+}
+
+/* Secondary Variant */
+.button--variant-secondary {
+  background-color: var(--ld-semantic-color-action-fill-secondary);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary);
+  border-width: 1px;
+  border-color: var(--ld-semantic-color-action-border-secondary);
+}
+
+.button--variant-secondary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-secondary-hovered);
+  border-color: var(--ld-semantic-color-action-border-secondary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-hovered);
+}
+
+.button--variant-secondary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-secondary-pressed);
+  border-color: var(--ld-semantic-color-action-border-secondary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-pressed);
+}
+
+.button--variant-secondary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-secondary-disabled);
+  border-color: var(--ld-semantic-color-action-border-secondary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-disabled);
+}
+
+/* Tertiary Variant */
+.button--variant-tertiary {
+  background-color: var(--ld-semantic-color-action-fill-tertiary);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary);
+  border-width: 1px;
+  border-color: var(--ld-semantic-color-action-border-tertiary);
+}
+
+.button--variant-tertiary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-hovered);
+  border-color: var(--ld-semantic-color-action-border-tertiary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-hovered);
+}
+
+.button--variant-tertiary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-pressed);
+  border-color: var(--ld-semantic-color-action-border-tertiary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-pressed);
+}
+
+.button--variant-tertiary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-disabled);
+  border-color: var(--ld-semantic-color-action-border-tertiary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-disabled);
+}
+
+/* Destructive Variant */
+.button--variant-destructive {
+  background-color: var(--ld-semantic-color-action-fill-negative);
+  color: var(--ld-semantic-color-action-text-on-fill-negative);
+  border-color: var(--ld-semantic-color-action-fill-negative);
+}
+
+.button--variant-destructive:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-negative-hovered);
+  border-color: var(--ld-semantic-color-action-fill-negative-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-hovered);
+}
+
+.button--variant-destructive:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-negative-pressed);
+  border-color: var(--ld-semantic-color-action-fill-negative-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-pressed);
+}
+
+.button--variant-destructive:disabled {
+  background-color: var(--ld-semantic-color-action-fill-negative-disabled);
+  border-color: var(--ld-semantic-color-action-fill-negative-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-disabled);
+}
+
+/* Icon Containers */
+.button__leading,
+.button__trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.button__leading {
+  margin-left: -4px;
+}
+
+.button__trailing {
+  margin-right: -4px;
+}
+
+.button__content {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Icon sizing based on button size */
+.button--size-small .button__leading svg,
+.button--size-small .button__trailing svg {
+  width: 16px;
+  height: 16px;
+}
+
+.button--size-medium .button__leading svg,
+.button--size-medium .button__trailing svg {
+  width: 20px;
+  height: 20px;
+}
+
+.button--size-large .button__leading svg,
+.button--size-large .button__trailing svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Loading State */
+.button--loading {
+  cursor: wait;
+  pointer-events: none;
+}
+
+/* Override disabled opacity so loading button appears at full opacity */
+.button--loading:disabled {
+  opacity: 1;
+}
+
+/* Spinner animation */
+@keyframes button-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.button__spinner {
+  display: block;
+  flex-shrink: 0;
+  animation: button-spin 0.75s linear infinite;
+  transform-origin: center;
+  /* Conic gradient mask replicates the LD 3.5 angular gradient fade:
+     transparent at the trailing edge (3 o'clock), solid through the arc body,
+     fading back to transparent at the leading tip */
+  -webkit-mask-image: conic-gradient(
+    from 90deg at 50% 50%,
+    transparent 0deg,
+    black 138.6deg,
+    black 270deg,
+    transparent 360deg
+  );
+  mask-image: conic-gradient(
+    from 90deg at 50% 50%,
+    transparent 0deg,
+    black 138.6deg,
+    black 270deg,
+    transparent 360deg
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button__spinner {
+    animation: none;
+  }
+}

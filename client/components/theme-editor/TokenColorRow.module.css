@@ -1,0 +1,138 @@
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  position: relative;
+  transition: background 120ms ease;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.rowOverridden {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  border-left: 3px solid var(--ld-semantic-color-action-fill-primary, #0053e2);
+  /* Bleed the highlight to both edges of the section body (16px padding) so the
+     row fills the full container width while keeping content alignment. */
+  width: auto;
+  margin-left: -16px;
+  margin-right: -16px;
+  padding-left: 13px;
+  padding-right: 16px;
+}
+
+.swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  border: 1.5px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  outline: none;
+  box-sizing: border-box;
+  position: relative;
+  background: transparent;
+  transition: transform 80ms ease, box-shadow 80ms ease;
+}
+
+.swatch:hover {
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.labels {
+  flex: 1;
+  min-width: 0;
+}
+
+.labelText {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  font-family: var(--ld-semantic-font-family-sans);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tokenName {
+  font-size: 10px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  font-family: monospace;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-top: 1px;
+}
+
+.pickerTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  cursor: pointer;
+  font-size: 11px;
+  font-family: var(--ld-semantic-font-family-sans);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  outline: none;
+  transition: background 80ms ease, border-color 80ms ease;
+}
+
+.pickerTrigger:hover {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  border-color: var(--ld-semantic-color-border-strong, #74767c);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+}
+
+.pickerTrigger:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 4px;
+  border: none;
+  background: transparent;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  cursor: pointer;
+  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 120ms ease, color 80ms ease, background 80ms ease;
+  outline: none;
+}
+
+.resetBtnVisible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.resetBtn:hover {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+}
+
+.resetBtn:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}

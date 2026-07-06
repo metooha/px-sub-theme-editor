@@ -1,0 +1,42 @@
+/* Divider – LD 3.5 compliant */
+
+/* ── Horizontal (default) ── */
+.divider {
+  border: none;
+  margin: 0;
+  padding: 0;
+  height: 1px;
+  width: 100%;
+  background-color: var(--ld-semantic-color-separator, #e3e4e5);
+  flex-shrink: 0;
+}
+
+/* ── Vertical ── */
+.divider--vertical {
+  height: auto;
+  width: 1px;
+  align-self: stretch;
+}
+
+/* ── Titled wrapper ── */
+.divider__titled {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-150, 0.75rem);
+  width: 100%;
+}
+
+.divider__titled .divider {
+  flex: 1;
+  min-width: 0;
+}
+
+.divider__label {
+  flex-shrink: 0;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  white-space: nowrap;
+}

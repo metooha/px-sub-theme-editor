@@ -1,0 +1,62 @@
+---
+description: Markdown file placement and naming conventions
+alwaysApply: false
+---
+# RULE: Markdown File Organization
+
+## Overview
+
+All markdown documentation files MUST be organized in the appropriate directories. NO markdown files should exist in the project root except for essential project documentation.
+
+## Directory Structure
+
+### Allowed in Root
+
+**ONLY these files are permitted in project root:**
+
+- `README.md` - Project README (if exists)
+- `CHANGELOG.md` - Version history (if exists)
+- `LICENSE.md` - License file (if exists)
+
+### guidelines/
+
+Primary location for all Living Design and component documentation.
+
+| Subdirectory | Purpose | File naming |
+|---|---|---|
+| `guidelines/components/` | Component-specific usage guidelines | `ComponentName.md` (PascalCase) |
+| `guidelines/design-system/` | Core design system docs and token references | Descriptive names |
+| `guidelines/implementations/` | Completed implementation summaries | `[FEATURE]-SUMMARY.md` |
+| `guidelines/migrations/` | Migration plans | `[FEATURE]-PLAN.md` |
+| `guidelines/rules/` | Enforced rules and standards | `RULE_[RuleName].md` |
+
+### .builder/rules/
+
+Builder-specific rules in `.mdc` format.
+
+---
+
+## File Organization Checklist
+
+When creating or finding a markdown file, ask:
+
+1. Is this a component guideline? → `guidelines/components/[ComponentName].md`
+2. Is this design system documentation? → `guidelines/design-system/[filename].md`
+3. Is this an implementation summary? → `guidelines/implementations/[FEATURE]-SUMMARY.md`
+4. Is this a migration plan? → `guidelines/migrations/[FEATURE]-PLAN.md`
+5. Is this an enforced rule? → `.builder/rules/RULE_[RuleName].mdc`
+6. Is this project root documentation? → Keep in root only if README/LICENSE/CHANGELOG
+
+---
+
+## Update Checklist
+
+After moving files:
+
+- [ ] Update any links in other files that referenced the old path
+- [ ] Verify no broken links in documentation
+- [ ] Search codebase for hardcoded file paths
+
+---
+
+**IMPORTANT**: This rule applies to ALL new markdown files created in the future.

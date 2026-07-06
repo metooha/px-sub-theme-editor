@@ -1,0 +1,195 @@
+.section {
+  border: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 16px;
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+}
+
+.sectionHeader {
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--ld-semantic-color-action-fill-primary, #0053e2) 6%, transparent),
+    transparent 60%
+  );
+}
+
+.sectionTitle {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--ld-semantic-color-text-brand, #0053e2);
+  font-family: var(--ld-semantic-font-family-sans);
+  margin-bottom: 2px;
+}
+
+.sectionSubtitle {
+  display: block;
+  font-size: 11px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+/* ── Seed list ── */
+.seeds {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Each seed row ── */
+.row {
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.rowMain {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+}
+
+/* ── Swatch ── */
+.swatchWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  border: 2px solid rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  display: block;
+  padding: 0;
+  transition: transform 100ms ease, box-shadow 100ms ease;
+  outline: none;
+}
+
+.swatch:hover {
+  transform: scale(1.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+}
+
+.swatch:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.hiddenPicker {
+  display: none;
+}
+
+/* ── Label + pills ── */
+.rowInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.rowLabelRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.rowLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  font-family: var(--ld-semantic-font-family-sans);
+  white-space: nowrap;
+}
+
+.tokenCount {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  font-family: var(--ld-semantic-font-family-sans);
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  border: none;
+  border-radius: 4px;
+  padding: 1px 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.tokenCount:hover {
+  background: var(--ld-semantic-color-fill-surface-secondary, #e8e8e8);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+}
+
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.pill {
+  font-size: 10px;
+  font-weight: 500;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--ld-semantic-color-action-fill-primary, #0053e2) 10%, transparent);
+  color: var(--ld-semantic-color-text-brand, #0053e2);
+  font-family: var(--ld-semantic-font-family-sans);
+  white-space: nowrap;
+}
+
+/* ── Primitive label button ── */
+.primitiveLabel {
+  flex-shrink: 0;
+  padding: 5px 10px;
+  border: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--ld-semantic-font-family-mono, monospace);
+  color: var(--ld-semantic-color-text-secondary, #515357);
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  cursor: pointer;
+  white-space: nowrap;
+  outline: none;
+  transition: border-color 100ms ease, color 100ms ease;
+}
+
+.primitiveLabel:hover {
+  border-color: var(--ld-semantic-color-border-brand, #0053e2);
+  color: var(--ld-semantic-color-text-brand, #0053e2);
+}
+
+/* ── Expanded token list ── */
+.tokenList {
+  padding: 4px 16px 12px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tokenEntry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tokenDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.tokenName {
+  font-size: 11px;
+  font-family: var(--ld-semantic-font-family-mono, monospace);
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}

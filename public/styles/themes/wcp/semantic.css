@@ -1,0 +1,98 @@
+/**
+ * WCP (Walmart Commerce Platform) Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base (includes Developer) + Customer tokens
+ *
+ * This theme includes:
+ * - Customer persona tokens
+ * - WCP-specific tokens (wcp- prefix) for commerce features
+ *
+ * Used by: Walmart (main), Walmart B2B
+ */
+
+:root {
+  /* ═══════════════════════════════════════════════════════════════ */
+  /* WCP — Extended Semantic Tokens (wcp- prefix)                   */
+  /* ═══════════════════════════════════════════════════════════════ */
+  
+  /* WCP Alternative Primary Action (typically Spark Yellow) */
+  --wcp-semantic-color-action-fill-primary-alt: var(--ld-primitive-color-spark-100, #ffc220);
+  --wcp-semantic-color-action-fill-primary-alt-disabled: var(--ld-primitive-color-gray-50, #babbbe);
+  --wcp-semantic-color-action-fill-primary-alt-focused: var(--ld-primitive-color-spark-110, #e6a31d);
+  --wcp-semantic-color-action-fill-primary-alt-hovered: var(--ld-primitive-color-spark-90, #ffc836);
+  --wcp-semantic-color-action-fill-primary-alt-pressed: var(--ld-primitive-color-spark-110, #e6a31d);
+  --wcp-semantic-color-action-text-on-fill-primary-alt: var(--ld-primitive-color-blue-160, #001e60);
+  --wcp-semantic-color-action-text-on-fill-primary-alt-disabled: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-action-text-on-fill-primary-alt-focused: var(--ld-primitive-color-blue-160, #001e60);
+  --wcp-semantic-color-action-text-on-fill-primary-alt-hovered: var(--ld-primitive-color-blue-160, #001e60);
+  --wcp-semantic-color-action-text-on-fill-primary-alt-pressed: var(--ld-primitive-color-blue-160, #001e60);
+  
+  /* WCP Border Colors */
+  --wcp-semantic-color-border-savings-subtle: var(--ld-primitive-color-red-130, #a20c00);
+  --wcp-semantic-color-border-social: var(--ld-primitive-color-magic-1, #0053e2);
+  
+  /* WCP Bottom Nav */
+  --wcp-semantic-color-bottom-nav-fill-brand: var(--ld-primitive-color-blue-130, #002e99);
+  --wcp-semantic-color-bottom-nav-text-on-fill-brand: var(--ld-primitive-color-white, #ffffff);
+  
+  /* WCP Fill Colors */
+  --wcp-semantic-color-fill-confidence: var(--ld-primitive-color-blue-160, #001e60);
+  --wcp-semantic-color-fill-confidence-bold: var(--ld-primitive-color-blue-180, #0e002e);
+  --wcp-semantic-color-fill-confidence-subtle: var(--ld-primitive-color-magic-4, #e9f1fe);
+  --wcp-semantic-color-fill-holiday-member: var(--ld-primitive-color-spark-100, #ffc220);
+  --wcp-semantic-color-fill-holiday-restricted: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --wcp-semantic-color-fill-savings-bold: var(--ld-primitive-color-red-100, #ea1100);
+  --wcp-semantic-color-fill-savings-subtle: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-fill-scarcity: var(--ld-primitive-color-spark-10, #fef6de);
+  --wcp-semantic-color-fill-social: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-fill-status: var(--ld-primitive-color-spark-50, #fbe298);
+  --wcp-semantic-color-fill-urgent: var(--ld-primitive-color-yellow-100, #fff200);
+  
+  /* WCP Input Colors */
+  --wcp-semantic-color-input-fill-activated-brand: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-input-fill-activated-brand-disabled: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-input-fill-activated-brand-focused: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --wcp-semantic-color-input-fill-activated-brand-hovered: var(--ld-primitive-color-gray-10, #f1f1f2);
+  --wcp-semantic-color-input-fill-activated-brand-pressed: var(--ld-primitive-color-gray-20, #e3e4e5);
+  --wcp-semantic-color-input-text-on-fill-activated-brand: var(--ld-primitive-color-magic-1, #0053e2);
+  
+  /* WCP Notice Colors */
+  --wcp-semantic-color-notice-fill-brand: var(--ld-primitive-color-magic-1, #0053e2);
+  --wcp-semantic-color-notice-fill-inverse: var(--ld-primitive-color-gray-160, #2e2f32);
+  --wcp-semantic-color-notice-fill-primary: var(--ld-primitive-color-magic-4, #e9f1fe);
+  --wcp-semantic-color-notice-text-on-fill-brand: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-notice-text-on-fill-inverse: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-notice-text-on-fill-primary: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* WCP Rating Colors */
+  --wcp-semantic-color-rating-fill-activated: var(--ld-primitive-color-spark-100, #ffc220);
+  --wcp-semantic-color-rating-fill-focused: var(--ld-primitive-color-spark-50, #fbe298);
+  --wcp-semantic-color-rating-fill-hovered: var(--ld-primitive-color-spark-50, #fbe298);
+  --wcp-semantic-color-rating-fill-pressed: var(--ld-primitive-color-spark-110, #e6a31d);
+  
+  /* WCP Surface Colors */
+  --wcp-semantic-color-surface-express: var(--ld-primitive-color-yellow-10, #fffee6);
+  --wcp-semantic-color-surface-overlay-brand-bold: var(--ld-primitive-color-blue-130, #002e99);
+  --wcp-semantic-color-surface-overlay-brand-subtle: var(--ld-primitive-color-blue-5, #f0f5ff);
+  --wcp-semantic-color-surface-overlay-subtle: var(--ld-primitive-color-gray-5, #f8f8f8);
+  
+  /* WCP Text on Fill Colors */
+  --wcp-semantic-color-text-on-fill-confidence: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-text-on-fill-confidence-alt: var(--ld-primitive-color-spark-100, #ffc220);
+  --wcp-semantic-color-text-on-fill-confidence-bold: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-text-on-fill-confidence-subtle: var(--ld-primitive-color-blue-130, #002e99);
+  --wcp-semantic-color-text-on-fill-holiday-member: var(--ld-primitive-color-blue-180, #0e002e);
+  --wcp-semantic-color-text-on-fill-holiday-restricted: var(--ld-primitive-color-gray-130, #515357);
+  --wcp-semantic-color-text-on-fill-savings-bold: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-text-on-fill-savings-subtle: var(--ld-primitive-color-red-130, #a20c00);
+  --wcp-semantic-color-text-on-fill-scarcity: var(--ld-primitive-color-spark-160, #662b0d);
+  --wcp-semantic-color-text-on-fill-social: var(--ld-primitive-color-magic-1, #0053e2);
+  --wcp-semantic-color-text-on-fill-status: var(--ld-primitive-color-gray-150, #3a3b3e);
+  --wcp-semantic-color-text-on-fill-urgent: var(--ld-primitive-color-gray-160, #2e2f32);
+}
+
+/*
+ * NOTE: All ld- prefixed tokens are inherited from base theme (Developer)
+ * Customer persona overrides are included in the WCP tokens above
+ */

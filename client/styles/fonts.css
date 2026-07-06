@@ -1,0 +1,41 @@
+/**
+ * Font Face Definitions
+ * Custom fonts loaded from Living Design toolkit
+ */
+
+/* Everyday Sans UI - Regular */
+@font-face {
+  font-family: 'Everyday Sans UI';
+  src: url('https://digitaltoolkit.livingdesign.walmart.com/preview/assets/EverydaySans-Regular-r0uVHZvI.woff2') format('woff2'),
+       url('https://digitaltoolkit.livingdesign.walmart.com/static/EverydaySans-Regular-fe51779240a3ee51402c198b4e4635b2.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Everyday Sans UI - Bold */
+@font-face {
+  font-family: 'Everyday Sans UI';
+  src: url('https://digitaltoolkit.livingdesign.walmart.com/static/EverydaySans-Bold-4f3c98fc3543aa5dd1e8e47028abd3b2.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Everyday Sans Mono - Regular */
+@font-face {
+  font-family: 'Everyday Sans Mono';
+  src: url('https://digitaltoolkit.livingdesign.walmart.com/static/EverydaySansMono-Regular-76b2fdcf3a8ab024e41c5bc84e9ba661.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Everyday Sans Mono - Bold */
+@font-face {
+  font-family: 'Everyday Sans Mono';
+  src: url('https://digitaltoolkit.livingdesign.walmart.com/static/EverydaySansMono-Bold-76fee85c8fa207d8e7b1f49071d14e8b.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

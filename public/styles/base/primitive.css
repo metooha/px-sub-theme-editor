@@ -1,0 +1,363 @@
+/**
+ * Do not edit directly
+ * Generated on Fri, 13 Feb 2026 05:50:13 GMT
+ * Living Design 3.5 Primitive Tokens
+ */
+
+
+:root {
+  /* Base colors */
+  --ld-primitive-color-black: #000000;
+  --ld-primitive-color-white: #ffffff;
+  
+  /* Blue color scale */
+  --ld-primitive-color-blue-5: #f0f5ff;
+  --ld-primitive-color-blue-10: #e9f1fe;
+  --ld-primitive-color-blue-20: #c9dcfd;
+  --ld-primitive-color-blue-30: #acc8fb;
+  --ld-primitive-color-blue-40: #90b5f9;
+  --ld-primitive-color-blue-50: #7aa5f6;
+  --ld-primitive-color-blue-60: #5e93f3;
+  --ld-primitive-color-blue-70: #4380ef;
+  --ld-primitive-color-blue-80: #2e70eb;
+  --ld-primitive-color-blue-90: #175ee2;
+  --ld-primitive-color-blue-100: #0053e2;
+  --ld-primitive-color-blue-110: #114ab6;
+  --ld-primitive-color-blue-120: #003fb2;
+  --ld-primitive-color-blue-130: #002e99;
+  --ld-primitive-color-blue-140: #002185;
+  --ld-primitive-color-blue-150: #001270;
+  --ld-primitive-color-blue-160: #001e60;
+  --ld-primitive-color-blue-170: #080042;
+  --ld-primitive-color-blue-180: #0e002e;
+
+  /* Cyan color scale */
+  --ld-primitive-color-cyan-5: #f0faff;
+  --ld-primitive-color-cyan-10: #e7f6fe;
+  --ld-primitive-color-cyan-20: #c9ebfd;
+  --ld-primitive-color-cyan-30: #90d6f9;
+  --ld-primitive-color-cyan-40: #79cdf6;
+  --ld-primitive-color-cyan-50: #4dbdf5;
+  --ld-primitive-color-cyan-60: #2eacea;
+  --ld-primitive-color-cyan-70: #189ee2;
+  --ld-primitive-color-cyan-80: #0092db;
+  --ld-primitive-color-cyan-90: #0083c7;
+  --ld-primitive-color-cyan-100: #0076b3;
+  --ld-primitive-color-cyan-110: #006599;
+  --ld-primitive-color-cyan-120: #005985;
+  --ld-primitive-color-cyan-130: #004a70;
+  --ld-primitive-color-cyan-140: #003857;
+  --ld-primitive-color-cyan-150: #002e42;
+  --ld-primitive-color-cyan-160: #001e2e;
+  --ld-primitive-color-cyan-170: #00101a;
+  --ld-primitive-color-cyan-180: #000c16;
+
+  /* Gray color scale */
+  --ld-primitive-color-gray-5: #f8f8f8;
+  --ld-primitive-color-gray-10: #f1f1f2;
+  --ld-primitive-color-gray-20: #e3e4e5;
+  --ld-primitive-color-gray-30: #d5d6d8;
+  --ld-primitive-color-gray-40: #c7c8cb;
+  --ld-primitive-color-gray-50: #babbbe;
+  --ld-primitive-color-gray-60: #acadb0;
+  --ld-primitive-color-gray-70: #9e9fa3;
+  --ld-primitive-color-gray-80: #909196;
+  --ld-primitive-color-gray-90: #828489;
+  --ld-primitive-color-gray-100: #74767c;
+  --ld-primitive-color-gray-110: #686a70;
+  --ld-primitive-color-gray-120: #5d5e63;
+  --ld-primitive-color-gray-130: #515357;
+  --ld-primitive-color-gray-140: #46474a;
+  --ld-primitive-color-gray-150: #3a3b3e;
+  --ld-primitive-color-gray-160: #2e2f32;
+  --ld-primitive-color-gray-170: #232325;
+  --ld-primitive-color-gray-180: #171819;
+
+  /* Green color scale */
+  --ld-primitive-color-green-5: #f4f9f2;
+  --ld-primitive-color-green-10: #eaf3e6;
+  --ld-primitive-color-green-20: #d4e7cd;
+  --ld-primitive-color-green-30: #bfdbb3;
+  --ld-primitive-color-green-40: #aacf9a;
+  --ld-primitive-color-green-50: #95c381;
+  --ld-primitive-color-green-60: #7fb768;
+  --ld-primitive-color-green-70: #6aab4f;
+  --ld-primitive-color-green-80: #559f35;
+  --ld-primitive-color-green-90: #3f931c;
+  --ld-primitive-color-green-100: #2a8703;
+  --ld-primitive-color-green-110: #267a03;
+  --ld-primitive-color-green-120: #226c02;
+  --ld-primitive-color-green-130: #1d5f02;
+  --ld-primitive-color-green-140: #195102;
+  --ld-primitive-color-green-150: #154402;
+  --ld-primitive-color-green-160: #113601;
+  --ld-primitive-color-green-170: #0d2901;
+  --ld-primitive-color-green-180: #081b01;
+
+  /* Magic gradient colors */
+  --ld-primitive-color-magic-1: #0053E2;
+  --ld-primitive-color-magic-2: #3D90EC;
+  --ld-primitive-color-magic-3: #79CDF6;
+  --ld-primitive-color-magic-4: #E9F1FE;
+
+  /* Orange color scale */
+  --ld-primitive-color-orange-5: #fff7f2;
+  --ld-primitive-color-orange-10: #fff0e6;
+  --ld-primitive-color-orange-20: #fee0cc;
+  --ld-primitive-color-orange-30: #fed1b3;
+  --ld-primitive-color-orange-40: #fdc199;
+  --ld-primitive-color-orange-50: #fdb280;
+  --ld-primitive-color-orange-60: #fca266;
+  --ld-primitive-color-orange-70: #fc934d;
+  --ld-primitive-color-orange-80: #fb8333;
+  --ld-primitive-color-orange-90: #fb741a;
+  --ld-primitive-color-orange-100: #fa6400;
+  --ld-primitive-color-orange-110: #e15300;
+  --ld-primitive-color-orange-120: #c83c00;
+  --ld-primitive-color-orange-130: #af2f00;
+  --ld-primitive-color-orange-140: #962300;
+  --ld-primitive-color-orange-150: #7d1900;
+  --ld-primitive-color-orange-160: #641100;
+  --ld-primitive-color-orange-170: #4b0a00;
+  --ld-primitive-color-orange-180: #320500;
+
+  /* Pink color scale */
+  --ld-primitive-color-pink-5: #fef6fb;
+  --ld-primitive-color-pink-10: #fce9f5;
+  --ld-primitive-color-pink-20: #f8d2e3;
+  --ld-primitive-color-pink-30: #f4bdd3;
+  --ld-primitive-color-pink-40: #f0adcc;
+  --ld-primitive-color-pink-50: #ea9ac3;
+  --ld-primitive-color-pink-60: #e587ba;
+  --ld-primitive-color-pink-70: #df74b1;
+  --ld-primitive-color-pink-80: #d95fa7;
+  --ld-primitive-color-pink-90: #d3479d;
+  --ld-primitive-color-pink-100: #cb2c90;
+  --ld-primitive-color-pink-110: #b62781;
+  --ld-primitive-color-pink-120: #b1267d;
+  --ld-primitive-color-pink-130: #8c1e64;
+  --ld-primitive-color-pink-140: #781a55;
+  --ld-primitive-color-pink-150: #651648;
+  --ld-primitive-color-pink-160: #51123a;
+  --ld-primitive-color-pink-170: #3e0e2c;
+  --ld-primitive-color-pink-180: #2e0a21;
+
+  /* Purple color scale */
+  --ld-primitive-color-purple-5: #f7f5f9;
+  --ld-primitive-color-purple-10: #efebf2;
+  --ld-primitive-color-purple-20: #e0d6e5;
+  --ld-primitive-color-purple-30: #d0c2d8;
+  --ld-primitive-color-purple-40: #c1adcb;
+  --ld-primitive-color-purple-50: #b199bf;
+  --ld-primitive-color-purple-60: #a184b2;
+  --ld-primitive-color-purple-70: #9270a5;
+  --ld-primitive-color-purple-80: #825b98;
+  --ld-primitive-color-purple-90: #73478b;
+  --ld-primitive-color-purple-100: #63327e;
+  --ld-primitive-color-purple-110: #592d71;
+  --ld-primitive-color-purple-120: #4f2865;
+  --ld-primitive-color-purple-130: #452358;
+  --ld-primitive-color-purple-140: #3b1e4c;
+  --ld-primitive-color-purple-150: #32193f;
+  --ld-primitive-color-purple-160: #281432;
+  --ld-primitive-color-purple-170: #1e0f26;
+  --ld-primitive-color-purple-180: #140a19;
+
+  /* Red color scale */
+  --ld-primitive-color-red-5: #fef2f1;
+  --ld-primitive-color-red-10: #fde9e8;
+  --ld-primitive-color-red-20: #fbd0cc;
+  --ld-primitive-color-red-30: #f9bdb8;
+  --ld-primitive-color-red-40: #f8aca6;
+  --ld-primitive-color-red-50: #f69991;
+  --ld-primitive-color-red-60: #f4857c;
+  --ld-primitive-color-red-70: #f27066;
+  --ld-primitive-color-red-80: #f0594d;
+  --ld-primitive-color-red-90: #ee392b;
+  --ld-primitive-color-red-100: #ea1100;
+  --ld-primitive-color-red-110: #ce0f00;
+  --ld-primitive-color-red-120: #b70d00;
+  --ld-primitive-color-red-130: #a20c00;
+  --ld-primitive-color-red-140: #8d0a00;
+  --ld-primitive-color-red-150: #780900;
+  --ld-primitive-color-red-160: #630700;
+  --ld-primitive-color-red-170: #500600;
+  --ld-primitive-color-red-180: #3d0400;
+
+  /* Spark (Yellow/Orange) color scale */
+  --ld-primitive-color-spark-5: #fffcf4;
+  --ld-primitive-color-spark-10: #fef6de;
+  --ld-primitive-color-spark-20: #fff3d2;
+  --ld-primitive-color-spark-30: #ffedbc;
+  --ld-primitive-color-spark-40: #ffe7a6;
+  --ld-primitive-color-spark-50: #fbe298;
+  --ld-primitive-color-spark-60: #ffda79;
+  --ld-primitive-color-spark-70: #ffd463;
+  --ld-primitive-color-spark-80: #ffce4d;
+  --ld-primitive-color-spark-90: #ffc836;
+  --ld-primitive-color-spark-100: #ffc220;
+  --ld-primitive-color-spark-110: #e6a31d;
+  --ld-primitive-color-spark-120: #cc851a;
+  --ld-primitive-color-spark-130: #b36a16;
+  --ld-primitive-color-spark-140: #995213;
+  --ld-primitive-color-spark-150: #803d10;
+  --ld-primitive-color-spark-160: #662b0d;
+  --ld-primitive-color-spark-170: #4d1c0a;
+  --ld-primitive-color-spark-180: #330f06;
+
+  /* Teal color scale */
+  --ld-primitive-color-teal-5: #f0f9fb;
+  --ld-primitive-color-teal-10: #e1f3f8;
+  --ld-primitive-color-teal-20: #c3e7ef;
+  --ld-primitive-color-teal-30: #a3dbe9;
+  --ld-primitive-color-teal-40: #82cfe1;
+  --ld-primitive-color-teal-50: #5dc3da;
+  --ld-primitive-color-teal-60: #25b6d3;
+  --ld-primitive-color-teal-70: #00a9c6;
+  --ld-primitive-color-teal-80: #009ab7;
+  --ld-primitive-color-teal-90: #008daa;
+  --ld-primitive-color-teal-100: #00809e;
+  --ld-primitive-color-teal-110: #00748f;
+  --ld-primitive-color-teal-120: #00667f;
+  --ld-primitive-color-teal-130: #005a6f;
+  --ld-primitive-color-teal-140: #004d5f;
+  --ld-primitive-color-teal-150: #00404f;
+  --ld-primitive-color-teal-160: #00333f;
+  --ld-primitive-color-teal-170: #00262f;
+  --ld-primitive-color-teal-180: #001a1f;
+
+  /* Yellow color scale */
+  --ld-primitive-color-yellow-5: #fffef2;
+  --ld-primitive-color-yellow-10: #fffee6;
+  --ld-primitive-color-yellow-20: #fffccc;
+  --ld-primitive-color-yellow-30: #fffbb3;
+  --ld-primitive-color-yellow-40: #fffa99;
+  --ld-primitive-color-yellow-50: #fff980;
+  --ld-primitive-color-yellow-60: #fff766;
+  --ld-primitive-color-yellow-70: #fff64d;
+  --ld-primitive-color-yellow-80: #fff533;
+  --ld-primitive-color-yellow-90: #fff31a;
+  --ld-primitive-color-yellow-100: #fff200;
+  --ld-primitive-color-yellow-110: #e6cb00;
+  --ld-primitive-color-yellow-120: #cca700;
+  --ld-primitive-color-yellow-130: #b38600;
+  --ld-primitive-color-yellow-140: #996900;
+  --ld-primitive-color-yellow-150: #804f00;
+  --ld-primitive-color-yellow-160: #663800;
+  --ld-primitive-color-yellow-170: #4d2500;
+  --ld-primitive-color-yellow-180: #331500;
+
+  /* Transparent colors - Dark variants */
+  --ld-primitive-color-transparent-dark-0: #00000000;
+  --ld-primitive-color-transparent-dark-10: #0000001a;
+  --ld-primitive-color-transparent-dark-20: #00000033;
+  --ld-primitive-color-transparent-dark-30: #0000004d;
+  --ld-primitive-color-transparent-dark-40: #00000066;
+  --ld-primitive-color-transparent-dark-50: #00000080;
+  --ld-primitive-color-transparent-dark-60: #00000099;
+  --ld-primitive-color-transparent-dark-70: #000000b3;
+  --ld-primitive-color-transparent-dark-80: #000000cc;
+  --ld-primitive-color-transparent-dark-90: #000000e6;
+
+  /* Transparent colors - Light variants */
+  --ld-primitive-color-transparent-light-0: #ffffff00;
+  --ld-primitive-color-transparent-light-10: #ffffff1a;
+  --ld-primitive-color-transparent-light-20: #ffffff33;
+  --ld-primitive-color-transparent-light-30: #ffffff4d;
+  --ld-primitive-color-transparent-light-40: #ffffff66;
+  --ld-primitive-color-transparent-light-50: #ffffff80;
+  --ld-primitive-color-transparent-light-60: #ffffff99;
+  --ld-primitive-color-transparent-light-70: #ffffffb3;
+  --ld-primitive-color-transparent-light-80: #ffffffcc;
+  --ld-primitive-color-transparent-light-90: #ffffffe6;
+
+  /* Duration tokens */
+  --ld-primitive-duration-100: 0.10s;
+  --ld-primitive-duration-200: 0.20s;
+  --ld-primitive-duration-300: 0.30s;
+  --ld-primitive-duration-400: 0.40s;
+  --ld-primitive-duration-500: 0.50s;
+  --ld-primitive-duration-600: 0.60s;
+  --ld-primitive-duration-700: 0.70s;
+
+  /* Font family tokens */
+  --ld-primitive-font-family-mono: EverydaySansMono, 'Courier New', 'monospace';
+  --ld-primitive-font-family-sans: 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+
+  /* Font line height tokens */
+  --ld-primitive-font-line-height-200: 1rem;
+  --ld-primitive-font-line-height-250: 1.25rem;
+  --ld-primitive-font-line-height-300: 1.5rem;
+  --ld-primitive-font-line-height-350: 1.75rem;
+  --ld-primitive-font-line-height-400: 2rem;
+  --ld-primitive-font-line-height-450: 2.25rem;
+  --ld-primitive-font-line-height-500: 2.5rem;
+  --ld-primitive-font-line-height-550: 2.75rem;
+  --ld-primitive-font-line-height-600: 3rem;
+  --ld-primitive-font-line-height-650: 3.25rem;
+
+  /* Font size tokens */
+  --ld-primitive-font-size-25: 0.75rem;
+  --ld-primitive-font-size-50: 0.875rem;
+  --ld-primitive-font-size-100: 1rem;
+  --ld-primitive-font-size-150: 1.125rem;
+  --ld-primitive-font-size-200: 1.25rem;
+  --ld-primitive-font-size-300: 1.5rem;
+  --ld-primitive-font-size-400: 1.75rem;
+  --ld-primitive-font-size-500: 2rem;
+  --ld-primitive-font-size-600: 2.25rem;
+  --ld-primitive-font-size-700: 2.625rem;
+
+  /* Font weight tokens */
+  --ld-primitive-font-weight-100: 100;
+  --ld-primitive-font-weight-200: 200;
+  --ld-primitive-font-weight-300: 300;
+  --ld-primitive-font-weight-400: 400;
+  --ld-primitive-font-weight-500: 500;
+  --ld-primitive-font-weight-600: 600;
+  --ld-primitive-font-weight-700: 700;
+  --ld-primitive-font-weight-800: 800;
+  --ld-primitive-font-weight-900: 900;
+
+  /* Border radius scale */
+  --ld-primitive-scale-border-radius-25: 0.125rem;
+  --ld-primitive-scale-border-radius-50: 0.25rem;
+  --ld-primitive-scale-border-radius-100: 0.5rem;
+  --ld-primitive-scale-border-radius-200: 1rem;
+  --ld-primitive-scale-border-radius-300: 1.5rem;
+  --ld-primitive-scale-border-radius-400: 2rem;
+  --ld-primitive-scale-border-radius-round: 62.5rem;
+
+  /* Border width scale */
+  --ld-primitive-scale-border-width-100: 0.0625rem;
+  --ld-primitive-scale-border-width-200: 0.125rem;
+
+  /* Breakpoint scale */
+  --ld-primitive-scale-breakpoint-small: 0;
+  --ld-primitive-scale-breakpoint-medium: 37.5rem;
+  --ld-primitive-scale-breakpoint-large: 56.25rem;
+  --ld-primitive-scale-breakpoint-xlarge: 75rem;
+  --ld-primitive-scale-breakpoint-xxlarge: 120rem;
+
+  /* Space/Spacing scale */
+  --ld-primitive-scale-space-25: 0.125rem;
+  --ld-primitive-scale-space-50: 0.25rem;
+  --ld-primitive-scale-space-100: 0.5rem;
+  --ld-primitive-scale-space-150: 0.75rem;
+  --ld-primitive-scale-space-200: 1rem;
+  --ld-primitive-scale-space-250: 1.25rem;
+  --ld-primitive-scale-space-300: 1.5rem;
+  --ld-primitive-scale-space-400: 2rem;
+  --ld-primitive-scale-space-500: 2.5rem;
+  --ld-primitive-scale-space-600: 3rem;
+  --ld-primitive-scale-space-700: 3.5rem;
+  --ld-primitive-scale-space-800: 4rem;
+  --ld-primitive-scale-space-900: 4.5rem;
+  --ld-primitive-scale-space-1000: 5rem;
+
+  /* Timing/Easing functions */
+  --ld-primitive-timing-ease-in-100: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  --ld-primitive-timing-ease-in-out-100: cubic-bezier(0.77, 0, 0.175, 1);
+  --ld-primitive-timing-ease-out-100: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ld-primitive-timing-linear-100: linear;
+}

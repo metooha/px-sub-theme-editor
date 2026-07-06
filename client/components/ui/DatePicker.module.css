@@ -1,0 +1,30 @@
+/**
+ * DatePicker Component Styles
+ * Living Design 3.5 - Token-based styling
+ */
+
+.datePicker {
+  position: relative;
+  width: 100%;
+}
+
+.datePicker__fieldWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.datePicker__iconButton {
+  flex-shrink: 0;
+  pointer-events: auto;
+}
+
+.datePicker__popoverContent {
+  width: auto !important;
+  min-width: 320px;
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  background: var(--ld-semantic-color-surface-overlay, #ffffff);
+  border-radius: var(--ld-primitive-scale-border-radius-100, 8px);
+  box-shadow: var(--ld-semantic-elevation-300);
+  border: 1px solid var(--ld-semantic-color-border-subtlest, #74767c);
+  z-index: 50;
+}

@@ -1,0 +1,15 @@
+/**
+ * AX Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ * 
+ * INHERITANCE: Inherits LD Base
+ * CHILDREN: AX Sam's Club, AX Walmart
+ * 
+ * AX-specific overrides for advertising experience platforms
+ */
+
+:root {
+  /* AX theme base - add overrides as needed */
+  /* Children like AX Sam's Club add specific brand colors */
+  /* Inherits all tokens from LD Base */
+}

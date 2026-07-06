@@ -1,0 +1,154 @@
+/* FilterChip (Toggle) Base Styles - LD 3.5 */
+/* Single size variant: 32px height */
+.filterChip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 12px;
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  min-height: 32px;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px); /* Pill shape for filters */
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ld-semantic-color-filter-border);
+  background-color: var(--ld-semantic-color-filter-fill);
+  color: var(--ld-semantic-color-filter-text-on-fill);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, border-width 0.15s ease;
+  white-space: nowrap;
+  box-sizing: border-box;
+  margin: 0;
+  text-decoration: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+/* Focus visible */
+.filterChip:focus-visible {
+  border-width: 2px;
+  border-color: var(--ld-semantic-color-filter-border-focused);
+  background-color: var(--ld-semantic-color-filter-fill-focused);
+  color: var(--ld-semantic-color-filter-text-on-fill-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+/* Hover - Unselected */
+.filterChip:hover:not(:disabled) {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-hovered);
+  border-color: var(--ld-semantic-color-filter-border-hovered);
+  color: var(--ld-semantic-color-filter-text-on-fill-hovered);
+}
+
+/* Pressed - Unselected */
+.filterChip:active:not(:disabled) {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-pressed);
+  border-color: var(--ld-semantic-color-filter-border-pressed);
+  color: var(--ld-semantic-color-filter-text-on-fill-pressed);
+}
+
+/* Disabled */
+.filterChip:disabled {
+  cursor: not-allowed;
+  background-color: var(--ld-semantic-color-filter-fill-disabled);
+  border-color: var(--ld-semantic-color-filter-border-disabled);
+  color: var(--ld-semantic-color-filter-text-on-fill-disabled);
+}
+
+/* ==================== */
+/* Selected State (Toggle) */
+/* ==================== */
+
+.filterChip--selected {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-activated);
+  border-color: var(--ld-semantic-color-filter-border-activated);
+  color: var(--ld-semantic-color-filter-text-on-fill-activated);
+}
+
+.filterChip--selected:hover:not(:disabled) {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-activated-hovered);
+  border-color: var(--ld-semantic-color-filter-border-activated-hovered);
+  color: var(--ld-semantic-color-filter-text-on-fill-activated-hovered);
+}
+
+.filterChip--selected:focus-visible {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-activated-focused);
+  border-color: var(--ld-semantic-color-filter-border-activated-focused);
+  color: var(--ld-semantic-color-filter-text-on-fill-activated-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+.filterChip--selected:active:not(:disabled) {
+  border-width: 2px;
+  background-color: var(--ld-semantic-color-filter-fill-activated-pressed);
+  border-color: var(--ld-semantic-color-filter-border-activated-pressed);
+  color: var(--ld-semantic-color-filter-text-on-fill-activated-pressed);
+}
+
+.filterChip--selected:disabled {
+  background-color: var(--ld-semantic-color-filter-fill-disabled);
+  border-color: var(--ld-semantic-color-filter-border-disabled);
+  color: var(--ld-semantic-color-filter-text-on-fill-disabled);
+}
+
+/* ==================== */
+/* Icon Containers       */
+/* ==================== */
+
+.filterChip__iconLeading,
+.filterChip__iconTrailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.filterChip__iconLeading svg,
+.filterChip__iconTrailing svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Label */
+.filterChip__label {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ==================== */
+/* Multi-Select Variant  */
+/* ==================== */
+
+/* Multi-Select variant always has chevron trailing icon */
+.filterChip--multiSelect {
+  /* Inherits all base styles */
+}
+
+/* ==================== */
+/* All Filters Variant   */
+/* ==================== */
+
+/* All Filters variant always has Sliders icon */
+.filterChip--allFilters {
+  /* Inherits all base styles */
+}
+
+/* Icon-only state when label is hidden */
+.filterChip--allFilters:has(.filterChip__iconLeading):not(:has(.filterChip__label)) {
+  /* Constrain to icon-only size: 28x28 */
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 6px;
+}

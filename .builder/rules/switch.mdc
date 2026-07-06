@@ -1,0 +1,254 @@
+---
+description: Guidelines and rules for switch
+alwaysApply: false
+---
+## Purpose
+Switches are controls that have an on/off state, similar to a physical light switch. When the user turns the switch on, the setting is immediately applied (no additional "save" button needed).
+
+## Rules
+- **MUST** use the Living Design 3.5 Switch component from `@/components/ui/Switch`
+- **MUST** provide a label (either via `label` prop or `aria-labelledby`)
+- **MUST** support focus-visible and disabled states
+- **MUST** use semantic tokens for all styling (no hard-coded colors)
+- **MUST NOT** create custom switch styles via CSS
+- **MUST NOT** use for delayed actions (use checkbox instead)
+- **MUST NOT** omit label unless nearby text clearly acts as the label
+
+## Usage
+Use when:
+- Toggling a setting that takes effect immediately (no "save" required)
+- Enabling or disabling a feature
+- Turning on/off notifications or preferences
+- Binary on/off states (e.g., dark mode, airplane mode)
+
+Don't use when:
+- Multiple options need to be selected (use checkboxes)
+- The action requires confirmation (use checkbox with save button)
+- The state change is not immediate
+
+## States
+- **Enabled (Off)**: Default unchecked state, interactive
+- **Enabled (On)**: Checked state, interactive
+- **Hovered (Off)**: Mouse hover on unchecked switch
+- **Hovered (On)**: Mouse hover on checked switch
+- **Focused (Off)**: Keyboard focus on unchecked switch
+- **Focused (On)**: Keyboard focus on checked switch
+- **Pressed (Off)**: Active/pressed unchecked state
+- **Pressed (On)**: Active/pressed checked state
+- **Disabled (Off)**: Non-interactive unchecked state
+- **Disabled (On)**: Non-interactive checked state
+
+## Design Specifications
+
+### Dimensions
+- **Track**: 48px × 24px (fully rounded)
+- **Handle**: 20px diameter circle
+- **Gap**: 2px padding between handle and track edges
+- **Label spacing**: 12px gap between switch and label
+
+### Semantic Tokens
+
+#### Track (Background)
+- Off states:
+  - Default: `--ld-semantic-color-switch-fill` (#74767C)
+  - Hovered: `--ld-semantic-color-switch-fill-hovered` (#515357)
+  - Focused: `--ld-semantic-color-switch-fill-focused` (#515357)
+  - Pressed: `--ld-semantic-color-switch-fill-pressed` (#2E2F32)
+  - Disabled: `--ld-semantic-color-switch-fill-disabled` (#E3E4E5)
+
+- On states:
+  - Default: `--ld-semantic-color-switch-fill-activated` (#0053E2)
+  - Hovered: `--ld-semantic-color-switch-fill-activated-hovered` (#002E99)
+  - Focused: `--ld-semantic-color-switch-fill-activated-focused` (#002E99)
+  - Pressed: `--ld-semantic-color-switch-fill-activated-pressed` (#001E60)
+  - Disabled: `--ld-semantic-color-switch-fill-activated-disabled` (#E3E4E5)
+
+#### Handle (Thumb)
+- Enabled: `--ld-semantic-color-switch-indicator` (#FFFFFF)
+- Disabled: `--ld-semantic-color-switch-indicator-disabled` (#BABBBE)
+
+#### Label
+- Enabled: `--ld-semantic-color-text`
+- Disabled: `--ld-semantic-color-text-disabled`
+- Font: `--ld-semantic-font-body-small-family` (Everyday Sans UI)
+- Size: `--ld-semantic-font-body-small-size` (14px)
+- Weight: `--ld-semantic-font-body-small-weight-default` (400)
+
+## Accessibility
+- Uses `<button>` element with `role="switch"` and `aria-checked`
+- Keyboard navigation: Tab to focus, Space/Enter to toggle
+- Focus indicator visible and meets contrast requirements
+- Label properly associated via `label` prop or `aria-labelledby`
+- Disabled state communicated to assistive technology
+- Screen reader announces role and checked state
+
+## React Usage
+
+```tsx
+import { Switch } from '@/components/ui/Switch';
+
+// Controlled usage (recommended)
+function SettingsForm() {
+  const [notifications, setNotifications] = useState(false);
+  
+  return (
+    <Switch 
+      label="Enable notifications" 
+      checked={notifications} 
+      onChange={setNotifications} 
+    />
+  );
+}
+
+// Uncontrolled usage
+function SimpleToggle() {
+  return <Switch label="Dark mode" defaultChecked />;
+}
+
+// Disabled state
+function DisabledExample() {
+  return (
+    <>
+      <Switch label="Disabled off" disabled />
+      <Switch label="Disabled on" checked disabled />
+    </>
+  );
+}
+
+// Custom label pattern (using aria-labelledby)
+function CustomLabelExample() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <div style={{ flex: 1 }}>
+        <div id="setting-label">Advanced Settings</div>
+        <div style={{ fontSize: '12px', color: 'var(--ld-semantic-color-text-secondary)' }}>
+          Enable experimental features
+        </div>
+      </div>
+      <Switch aria-labelledby="setting-label" defaultChecked />
+    </div>
+  );
+}
+```
+
+## API Reference
+
+### SwitchProps
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `label` | `React.ReactNode` | - | Label text for the switch (required unless `aria-labelledby` is provided) |
+| `aria-labelledby` | `string` | - | ID to link external label element |
+| `checked` | `boolean` | - | Controlled checked state |
+| `defaultChecked` | `boolean` | `false` | Default checked state for uncontrolled usage |
+| `onChange` | `(checked: boolean) => void` | - | Callback when switch state changes |
+| `disabled` | `boolean` | `false` | Whether the switch is disabled |
+| `id` | `string` | - | HTML id attribute |
+| `UNSAFE_className` | `string` | - | Additional CSS class (avoid using) |
+| `UNSAFE_style` | `React.CSSProperties` | - | Additional inline styles (avoid using) |
+
+## Best Practices
+
+### Do
+- Use for settings that take effect immediately
+- Provide clear, concise labels that describe the setting
+- Use controlled components for form integration
+- Show the current state clearly through the switch position
+- Group related switches in a settings form
+
+### Don't
+- Don't use for actions that require a "Save" button
+- Don't use multiple switches to represent mutually exclusive options (use radio buttons)
+- Don't use for critical actions without confirmation
+- Don't omit the label for accessibility
+- Don't override semantic tokens with custom colors
+
+## Content Strategy
+- Label should clearly describe what will be enabled/disabled
+- Use affirmative language ("Enable notifications" not "Disable notifications")
+- Keep labels short and scannable (1-4 words ideal)
+- Place label to the right of the switch for consistency
+
+## Examples
+
+### Settings Panel
+```tsx
+function NotificationSettings() {
+  const [email, setEmail] = useState(true);
+  const [push, setPush] = useState(false);
+  const [sms, setSms] = useState(false);
+  
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <Switch label="Email notifications" checked={email} onChange={setEmail} />
+      <Switch label="Push notifications" checked={push} onChange={setPush} />
+      <Switch label="SMS notifications" checked={sms} onChange={setSms} />
+    </div>
+  );
+}
+```
+
+### Form Integration
+```tsx
+function ProfileSettings() {
+  const [formData, setFormData] = useState({
+    publicProfile: false,
+    showEmail: false,
+    allowMessages: true
+  });
+  
+  const updateSetting = (key: string) => (value: boolean) => {
+    setFormData(prev => ({ ...prev, [key]: value }));
+  };
+  
+  return (
+    <form>
+      <Switch 
+        label="Public profile" 
+        checked={formData.publicProfile} 
+        onChange={updateSetting('publicProfile')} 
+      />
+      <Switch 
+        label="Show email address" 
+        checked={formData.showEmail} 
+        onChange={updateSetting('showEmail')} 
+      />
+      <Switch 
+        label="Allow direct messages" 
+        checked={formData.allowMessages} 
+        onChange={updateSetting('allowMessages')} 
+      />
+    </form>
+  );
+}
+```
+
+## Anatomy
+1. Track (background pill)
+2. Handle (moving circle indicator)
+3. Label (text description)
+
+## Related Components
+- **Checkbox**: Use when selection doesn't take effect immediately or when multiple selections are needed
+- **Radio Button**: Use for mutually exclusive options
+- **Toggle Button**: Use for view/mode switching in toolbars
+
+## Migration from Old Component
+
+If migrating from the Radix-based switch:
+
+```tsx
+// OLD (Radix API)
+import { Switch } from '@/components/ui/switch';
+<Switch checked={value} onCheckedChange={setValue} />
+
+// NEW (LD 3.5 API)
+import { Switch } from '@/components/ui/Switch';
+<Switch checked={value} onChange={setValue} label="Setting name" />
+```
+
+Key differences:
+- Import from uppercase `Switch.tsx`
+- Use `onChange` instead of `onCheckedChange`
+- `label` prop is now built-in (no separate Label component needed)
+- Semantic tokens used throughout (no custom styling needed)

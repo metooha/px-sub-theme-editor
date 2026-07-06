@@ -1,0 +1,66 @@
+/* SpotIcon Container - Base Styles */
+.spotIcon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px);
+}
+
+/* Size Variants - Container */
+.spotIcon--small {
+  width: var(--ld-primitive-scale-space-600, 48px);
+  height: var(--ld-primitive-scale-space-600, 48px);
+  padding: var(--ld-primitive-scale-space-150, 12px);
+}
+
+.spotIcon--large {
+  width: var(--ld-primitive-scale-space-800, 64px);
+  height: var(--ld-primitive-scale-space-800, 64px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+}
+
+/* Color Variants - Container Background */
+.spotIcon--brand {
+  background: var(--ld-semantic-color-fill-brand-subtle);
+}
+
+.spotIcon--neutral {
+  background: var(--ld-semantic-color-fill-brand-subtle);
+}
+
+.spotIcon--white {
+  background: var(--ld-semantic-color-fill-surface-primary);
+}
+
+/* Icon Inner Wrapper - Base Styles */
+.spotIconInner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Size Variants - Icon Size */
+.spotIconInner--small {
+  width: var(--ld-semantic-scale-icon-medium, 24px);
+  height: var(--ld-semantic-scale-icon-medium, 24px);
+}
+
+.spotIconInner--large {
+  width: var(--ld-semantic-scale-icon-large, 32px);
+  height: var(--ld-semantic-scale-icon-large, 32px);
+}
+
+/* Color Variants - Icon Color */
+.spotIconInner--brand {
+  color: var(--ld-semantic-color-text-onfill-brand-subtle);
+}
+
+.spotIconInner--neutral {
+  color: var(--ld-semantic-color-text-onfill);
+}
+
+.spotIconInner--white {
+  color: var(--ld-semantic-color-text-onfill-brand-subtle);
+}

@@ -1,0 +1,34 @@
+/**
+ * Walmart B2B (Business) Theme - Primitive Token Overrides
+ * Generated for Walmart Business platform
+ * 
+ * INHERITANCE MODEL:
+ * This theme inherits ALL primitive tokens from the base theme (styles/themes/base/primitive.css)
+ * The B2B theme does NOT override any primitive color scales or base values
+ * 
+ * Why is this file nearly empty?
+ * - B2B theme uses the exact same primitive color scales as the base theme
+ * - Differences are only in the SEMANTIC layer (how colors are applied)
+ * - This keeps primitives consistent across all themes
+ * 
+ * If you need to add B2B-specific primitive colors in the future, add them here
+ */
+
+:root {
+  /* 
+   * No primitive token overrides for B2B theme
+   * All primitives inherited from base theme:
+   * - Blue scale: blue-5 through blue-180
+   * - Gray scale: gray-5 through gray-180  
+   * - Green, Red, Orange, Cyan, Purple, Pink, Teal, Yellow, Spark scales
+   * - Magic gradient colors
+   * - Transparent colors
+   * - Spacing scale
+   * - Border radius scale
+   * - Font families, sizes, weights, line heights
+   * - Duration/timing values
+   * 
+   * B2B theme differences are semantic (how we use these colors),
+   * not primitive (the colors themselves)
+   */
+}

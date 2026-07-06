@@ -1,0 +1,82 @@
+---
+description: Migration plan to remove all @radix-ui dependencies
+alwaysApply: false
+---
+# Radix UI Removal — Migration Plan
+
+> **Goal**: Remove all `@radix-ui/react-*` dependencies from the project and replace with native HTML/React implementations that preserve accessibility and behavior.
+
+---
+
+## 1. Current State
+
+**27 Radix packages** in `package.json` (devDependencies).  
+**20 component files** under `client/components/ui/` import from `@radix-ui`.  
+**6 packages** are listed in package.json but never imported anywhere.  
+**6 component files** using Radix are never imported outside their own file (dead code).
+
+---
+
+## 2. Phase 0 — Quick Wins (No Code Changes Required)
+
+Remove unused packages from `package.json` and delete dead-code component files.
+
+### Unused Packages (not imported anywhere)
+
+`@radix-ui/react-hover-card`, `react-progress`, `react-switch`, `react-tabs`, `react-toast`, `react-separator`
+
+### Dead-Code Component Files
+
+`aspect-ratio.tsx`, `form.tsx`, `label.tsx`, `Popover.tsx` (uppercase duplicate), `sidebar.tsx`, `toggle-group.tsx`
+
+---
+
+## 3. Phase 1 — Example/Demo-Only Components
+
+Rewrite using native HTML elements, React state, and CSS. Public API stays identical.
+
+Priority order (simplest first): collapsible, toggle, avatar, slider, accordion, tooltip, scroll-area, popover, dropdown-menu, context-menu, menubar, navigation-menu, alert-dialog, command.
+
+---
+
+## 4. Phase 2 — Production-Critical Components
+
+| Component | Radix Package | Complexity |
+|---|---|---|
+| Modal.tsx | react-dialog | Medium |
+| Checkbox.tsx | react-checkbox | Medium |
+| Radio.tsx + radio-group.tsx | react-radio-group | Medium-High |
+| Select.tsx | react-select | **High** |
+
+---
+
+## 5. Phase 3 — Shared Utilities
+
+Create reusable utilities before Phase 1-2:
+
+| Utility | Purpose |
+|---|---|
+| `useClickOutside` | Close overlays on outside click |
+| `useFocusTrap` | Trap focus inside overlay |
+| `useEscapeKey` | Close on Escape press |
+| `useListboxNavigation` | Arrow key navigation |
+| `Portal` component | Portal rendering |
+| `Slot` component | Polymorphic `asChild` pattern |
+
+---
+
+## 6. Execution Order
+
+
+Phase 0 → Phase 3 (utilities) → Phase 1 (demo-only) → Phase 2 (production)
+```
+
+---
+
+## 7. Definition of Done
+
+- [ ] All `@radix-ui/react-*` packages removed from `package.json`
+- [ ] `pnpm build` succeeds with no errors
+- [ ] All component library pages render and function correctly
+- [ ] Keyboard navigation works on all interactive components
+- [ ] No accessibility regressions

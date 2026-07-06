@@ -1,0 +1,170 @@
+---
+description: Guidelines and rules for text field
+alwaysApply: false
+---
+## Purpose
+Text Fields collect single-line user input such as names, emails, addresses, phone numbers, and other short-form data. They are found within forms and can also be part of cards, search interfaces, or modals.
+
+## Rules
+- **MUST** use the Living Design Text Field component.
+- **MUST** provide a visible label (or an accessible name when visually hidden).
+- **MUST** support error/validation states using documented APIs.
+- **MUST** support disabled and read-only states using documented APIs.
+- **SHOULD** use helper text to provide supplemental instruction/context.
+- **MUST** limit leading icons to 24x24px (medium sized) non-interactive icons only.
+- **MUST NOT** show Text Field width larger than 700px on larger screens as it decreases legibility.
+
+## States
+- Default
+- Focus-visible
+- Disabled
+- Read-only
+- Error
+- Magic (AI-filled)
+
+## Sizes
+Text Field supports multiple sizes to accommodate different layout needs and content density. Size names may differ in your API (e.g., small, medium, large or sm, md, lg).
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { TextField } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function TextFieldExamples() {
+  const [value, setValue] = React.useState("");
+
+  return (
+    <>
+      <TextField
+        label="Email address"
+        value={value}
+        onValueChange={setValue}
+        helperText="We'll never share your email with anyone."
+        // Adapt prop names to your actual API:
+        // size="sm" | "md" | "lg"
+        // leadingIcon={<EmailIcon />} // 24x24, non-interactive
+        // trailingContent={<Button variant="tertiary">Clear</Button>}
+      />
+
+      <TextField
+        label="Phone number (required)"
+        value={value}
+        onValueChange={setValue}
+        required
+        helperText="Format: (123)456-7890"
+      />
+
+      <TextField
+        label="Account number (read-only)"
+        value="1234-5678-9012"
+        readOnly
+      />
+
+      <TextField
+        label="Unavailable field"
+        value="This field is disabled"
+        disabled
+      />
+
+      <TextField
+        label="Username"
+        value={value}
+        onValueChange={setValue}
+        // Error replaces helper text with guidance.
+        errorMessage="Username must be at least 3 characters."
+      />
+
+      <TextField
+        label="AI suggestion"
+        value="AI generated content…"
+        // Magic = AI-filled state; revert to default after user edits.
+        state="magic"
+        readOnly={false}
+      />
+    </>
+  );
+}
+```
+
+## Usage
+Text Fields are used for collecting single-line user input within forms. Inputs may include names, descriptions, emails, phone numbers, addresses, and other short-form data.
+
+### Disabled
+A disabled Text Field is unable to accept user input. It may require prior information or data to become enabled.
+
+### Error
+Error state displays when text input isn't accepted. Error messages replace helper text with additional instructions.
+
+### Helper text
+Helper text adds context to the Text Field's value and clarifies its use within a form.
+
+### Leading icon
+Leading icons should be used when emphasizing the type of field input. Examples of Text Fields that might include a leading icon include email, security, and calendar. The use of an icon will provide additional context to the field. Only 24x24px (medium sized) non-interactive icons can be used as a leading icon.
+
+### Read-only
+Read-only Text Fields display information that can't be modified. The content is not disabled so it can be selected and copied.
+
+### Trailing
+The trailing slot can be used to include suffix text, an icon or tertiary button.
+
+### Magic
+The Magic state is used when AI has automatically filled in the Text Field's content. It provides clear visual feedback to users that the content was AI-generated. Once a user modifies the Text Field's content, it should be reverted to the default state to indicate manual input.
+
+The Magic state's colors will respond to the super agent theme of Sparky, Squiggly, Marty, or Wibey.
+
+## Best practices
+### Use when
+- Use when a user must enter a phone number, name, email, address, or other single-line information.
+- Use when gathering information that will help improve the user experience, such as zip code or credit card number.
+
+### Don't use when
+- Don't use when another form input component, such as [Select](/components/select/) or [Textarea](/components/textarea/), might be more appropriate.
+
+### Do
+- Do use a label for instructions critical to the Text Field.
+- Do use helper text to provide additional information such as form-constraints or instructions. Be specific.
+
+### Don't
+- Don't replace the leading icon with non-icons, such as text or illustrations.
+
+## Content strategy
+The text label should clearly provide instruction for the field. Add additional copy above the Text Field if more context is needed.
+
+If specific formatting is needed, use helper text to make that clear. For example, (123)456-7890 or MM/DD/YYYY.
+
+When an error occurs, make sure the copy clearly explains what happened and how to fix or what to do next.
+
+### Required fields
+Provide clear and unambiguous labels for required fields that prevent users from making incomplete or incorrect form submissions.
+
+- For forms with only one field (a password confirmation prompt, for instance), add the word "required" to the field label.
+- For forms with two or more fields, add the text "* Required fields" above the form, and add an asterisk next to each required field's label.
+
+## Anatomy
+1. Text label
+2. Value
+3. Leading icon (optional)
+4. Trailing (optional)
+5. Container
+6. Helper text (optional)
+
+## Behavior
+### Responsiveness
+Don't show Text Field width larger than 700px on larger screens as it decreases legibility.
+
+## Accessibility
+- Label must be associated to the control (`label` + `id` or equivalent).
+- Errors must be announced and associated (`aria-invalid`, `aria-describedby`) when applicable.
+- For read-only, ensure the field remains focusable/selectable (do not use `disabled` when the intent is "copyable but not editable").
+- Required fields must be marked with `aria-required` or equivalent, in addition to visual indicators.
+- Leading icons must be decorative only (`aria-hidden="true"`) since they are non-interactive.
+- Keyboard users **MUST** be able to focus, type, and navigate between fields using standard Tab/Shift+Tab.
+
+## Token usage
+- Prefer component defaults (Text Field should be token-wired for color, typography, spacing, radius).
+- Only use tokens for layout around the Text Field (spacing/gaps), not for restyling the Text Field.
+
+## References
+Raluca Budiu, [Marking Required Fields in Forms](https://www.nngroup.com/articles/required-fields/) (Nielsen Norman Group, 2019)

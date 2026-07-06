@@ -1,0 +1,134 @@
+---
+description: Guidelines and rules for color
+alwaysApply: false
+---
+## Rules
+- **MUST** use semantic color tokens (preferred) for text, surfaces, borders, and interactive states.
+- **MUST NOT** use raw hex/RGB/HSL values in product code.
+- **MUST** ensure text meets contrast requirements for its background; if unsure, ask for the correct token pairing.
+- **MUST** use the component’s built-in variants for status/intent when available (do not recolor components ad hoc).
+- **MUST** pair fill colors with the appropriate `text-onFill` tokens; do not place general text tokens on top of fills.
+
+## Related foundations
+- **Theming**: For support on how to update the core primitive colors to theme your components based on your brand, see Theming.
+- **Design tokens**: To learn more about what design tokens are, how our design tokens are structured, and why design tokens are important, see Design tokens.
+
+## Primitive colors
+
+The primitive colors consist of various tints and shades that provide a wide tonal range to suit all aspects of digital offerings. The Walmart brand palette helps define the Living Design primitive colors used.
+
+The primitive colors consist of 10 color hues with 19 steps, labelled from 5 to 180. It is recommended to adhere as much as possible to the available hues. All primitive color tokens are labelled with the word `primitive`.
+
+The primitive colors also include transparent tokens with 9 steps, labelled from 0-90.
+
+## Semantic colors
+
+Semantic colors refer to the color used to describe specific meaning. Semantic colors always alias a primitive color. If a theme modifies the primitive colors to align with a brand, the semantic colors will be updated as well.
+
+To view the entire list of semantic tokens, please visit the Design Tokens page.
+
+### Element structure
+
+The most fundamental UI elements in a given screen are assigned a background, surface or fill token. As a general rule, backgrounds and surfaces should be lighter tints in light mode, making up 80-90% of the UI.
+
+#### Background
+
+Background is the baseline of all UI. This is typically the main color of the page and text tokens can generally sit on top of any background token.
+
+#### Surface
+
+Surface is the color for elements with a higher level of prominence on a screen that hold multiple content slots, like a card (e.g. Card or Nudge).
+
+Surface colors are typically in lighter tints in light mode and text tokens can generally sit on top of any surface tokens.
+
+#### Fill
+
+Fill is the color for an element usually with a smaller surface area (e.g. Alert or Badge) that provides the UI with more semantic meaning. Fills can sit on top of the background, surface, as well as another fill.
+
+General text tokens (e.g. `ld-semantic-color-text`) should not be placed on top of a fill. Fill tokens are always paired with explicit `text-onFill` tokens. These explicit text color tokens are applied to both icons and text layers, as they are typically the same color when paired.
+
+### Color roles
+
+Color roles refer to the intention or meaning assigned to a color.
+
+For example, color roles are applied to Alert to differentiate between the positive, warning, negative and info variants.
+
+| Color role | Usage |
+| --- | --- |
+| brand | Use for UI that reinforces your primary brand color. |
+| magic | Use for UI that reinforces the brand of the AI agent. |
+| activated | Use for UI that indicates an activated or selected state. |
+| positive | Use for UI that indicates something positive, such as success, confirmation, or savings. |
+| warning | Use for UI that emphasizes caution. |
+| negative | Use for UI that indicates something negative, dangerous, or critical, such as deletion or error states. |
+| info | Use for UI that communicates general information. |
+| edited | Use for UI that indicates an edited state. |
+| inverse | Use for UI that is intended to stand out from the background or surface. |
+| accent | Use for UI that does not have semantic meaning associated with it. |
+
+For the full list of design tokens and their values, see the lists of primitive and semantic design tokens. Every token comes with a description to help you ensure you’re using the correct one.
+
+### Data visualization
+
+Colors within data visualization and charts are used to visually help understand the data presented, but should also never be used alone. Because color may have different meanings and affect how we perceive it, it is important to understand how to use color to make data visualization successful.
+
+#### Categorical
+
+Categorical palette is used when distinguishing discrete categories from one another. Even when filtering the data visualization, the categorical color should remain fixed to that category.
+
+Use for:
+- Bar charts
+- Pie/donut charts
+- Line charts
+
+The palette has a maximum of 8 colors and should be used for data visualization only and in numbered sequence for the highest contrast ratio.
+
+| Token | Value |
+| --- | --- |
+| `colorChartCategorical1` | `primitiveColorBlue130` |
+| `colorChartCategorical2` | `primitiveColorPink70` |
+| `colorChartCategorical3` | `primitiveColorSpark120` |
+| `colorChartCategorical4` | `primitiveColorCyan80` |
+| `colorChartCategorical5` | `primitiveColorOrange130` |
+| `colorChartCategorical6` | `primitiveColorPurple60` |
+| `colorChartCategorical7` | `primitiveColorGreen90` |
+| `colorChartCategorical8` | `primitiveColorPink120` |
+
+## Accent colors
+
+Accent colors are used when there is no semantic meaning associated (unlike brand, positive, warning or other color roles). These colors should be interchangeable without changing the experience or meaning behind it and defined based on your product needs.
+
+There are 11 accent colors available: `blue`, `spark`, `green`, `red`, `purple`, `cyan`, `gray`, `teal`, `orange`, `pink` and `yellow`.
+
+Accent colors will always visually represent the hue in the token name. If you want to theme a component to your brand, consider using a color role associated with semantic meaning.
+
+To view the entire list of accent tokens, please visit the semantic design tokens page.
+
+## Emphasis levels
+
+Emphasis levels determine the amount of contrast a color has against the background or surface color. A bold emphasis level has a higher contrast ratio against a light background or surface color, increasing visual prominence.
+
+For example, some emphasis levels include: `subtlest`, `subtle`, `default`, and `bold`.
+
+## Interaction
+
+Interaction tokens communicate the status of an interactive element. Use `enabled`, `hovered`, `focused`, `pressed` and `disabled` tokens to represent changes in states.
+
+## Do / Don’t
+### Do
+- Use semantic tokens:
+  - `background: var(--ld-semantic-color-background)`
+  - `text-color: var(--ld-semantic-color-text-brand)`
+  - `border-color: var(--ld-semantic-color-border-subtle)`
+  - `fill: var(--ld-semantic-color-action-primary-fill)` (for fills)
+  - `color: var(--ld-semantic-color-text-onfill-brand)` (for text on fills)
+
+### Don’t
+- Hardcode:
+  - `background: #ffffff`
+  - `color: rgba(0,0,0,.84)`
+
+## Common pitfalls (agents MUST avoid)
+- Using “brand” colors for body text without contrast verification.
+- Using the same token for border + text + icon without checking intended roles.
+- Styling focus states with color-only changes (focus needs a visible ring/outline per `accessibility.md`).

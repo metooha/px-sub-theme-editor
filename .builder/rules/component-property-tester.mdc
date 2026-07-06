@@ -1,0 +1,91 @@
+---
+description: Require all LD components in the Component Sandbox
+alwaysApply: false
+---
+# RULE: Component Sandbox Coverage
+
+## Overview
+
+**ALL Living Design 3.5 components MUST be included in the Component Sandbox** on the Component Library page. This ensures every component can be interactively tested with all its variants, sizes, and properties.
+
+## Hard Rule
+
+### REQUIRED
+
+When you create or update ANY LD 3.5 component:
+
+1. **Add to Component Sandbox** in `client/pages/ComponentLibrary.tsx`
+2. **Configure all properties** (variants, sizes, special props)
+3. **Add code generation** for the component
+4. **Add live preview** rendering
+5. **Test all combinations** work correctly
+
+### Component Configuration
+
+Every component MUST have an entry in `componentConfigs`:
+
+
+const componentConfigs: Record<ComponentType, ComponentConfig> = {
+  YourComponent: {
+    variants: ['variant1', 'variant2'],
+    sizes: ['small', 'medium', 'large'],
+    supportsFullWidth: boolean,
+    supportsIcons: boolean,
+    supportsValue: boolean,
+    // ... all support flags
+  },
+};
+```
+
+### Integration Steps
+
+#### Step 1: Add to ComponentType Union
+```typescript
+type ComponentType = 
+  | 'Button' 
+  | 'Badge'
+  | 'YourNewComponent'
+  | ...;
+```
+
+#### Step 2: Add Configuration Object
+
+#### Step 3: Add to generateCode()
+```typescript
+case 'YourNewComponent':
+  return `<YourNewComponent ...>`;
+```
+
+#### Step 4: Add to renderPreview()
+```typescript
+case 'YourNewComponent':
+  return <YourNewComponent ...>;
+```
+
+#### Step 5: Test
+- [ ] Component appears in dropdown
+- [ ] All variants selectable
+- [ ] All sizes selectable
+- [ ] Generated code is correct
+- [ ] Live preview renders correctly
+
+---
+
+## Enforcement
+
+### During Code Review
+
+**REJECT** any component PR that doesn't include Component Sandbox updates.
+
+### Component Checklist
+
+Every component implementation MUST include:
+- [ ] Component code (`.tsx`)
+- [ ] Component styles (`.module.css`)
+- [ ] Component guideline (`guidelines/components/ComponentName.md`)
+- [ ] Component example (`client/components/examples/ComponentNameExample.tsx`)
+- [ ] **Property Tester configuration** — MANDATORY
+
+---
+
+**IMPORTANT**: This rule applies to ALL future components without exception.

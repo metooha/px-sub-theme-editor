@@ -1,0 +1,132 @@
+/* ContentMessage – LD 3.5 compliant */
+
+/* ── Container ── */
+.contentMessage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, sans-serif);
+  border-radius: var(--ld-primitive-scale-border-radius-100, 0.5rem);
+}
+
+/* ── Size: small ── */
+.contentMessage--size-small {
+  gap: var(--ld-primitive-scale-space-200, 1rem);
+}
+
+/* ── Size: large ── */
+.contentMessage--size-large {
+  padding: var(--ld-primitive-scale-space-500, 2.5rem) var(--ld-primitive-scale-space-400, 2rem);
+  gap: var(--ld-primitive-scale-space-250, 1.25rem);
+}
+
+/* ── Media slot (icon / illustration) ── */
+.contentMessage__media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}
+
+.contentMessage--size-small .contentMessage__media {
+  width: 160px;
+  height: 160px;
+}
+
+.contentMessage--size-large .contentMessage__media {
+  width: 240px;
+  height: 240px;
+}
+
+/* Media placeholder (dashed box) styling – used only in examples */
+.contentMessage__mediaPlaceholder {
+  width: 100%;
+  height: 100%;
+  border: 2px dashed var(--ld-semantic-color-border, #BABBBE);
+  border-radius: var(--ld-primitive-scale-border-radius-50, 0.25rem);
+  background-color: var(--ld-semantic-color-fill-negative-subtle, #fde9e8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  line-height: 1.3;
+  color: var(--ld-semantic-color-text-accent-red, #ea1100);
+  padding: var(--ld-primitive-scale-space-100, 0.5rem);
+}
+
+/* ── Content wrapper ── */
+.contentMessage__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100, 0.5rem);
+  max-width: 440px;
+}
+
+/* ── Title ── */
+.contentMessage__title {
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.contentMessage--size-small .contentMessage__title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+}
+
+.contentMessage--size-large .contentMessage__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* ── Description ── */
+.contentMessage__description {
+  color: var(--ld-semantic-color-text-subtle, #515357);
+  line-height: 1.5;
+}
+
+.contentMessage--size-small .contentMessage__description {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.contentMessage--size-large .contentMessage__description {
+  font-size: var(--ld-semantic-font-body-default-size, 1rem);
+}
+
+/* ── Actions ── */
+.contentMessage__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ld-primitive-scale-space-150, 0.75rem);
+  margin-top: var(--ld-primitive-scale-space-100, 0.5rem);
+}
+
+/* ── Variant: error ── */
+.contentMessage--variant-error .contentMessage__media {
+  color: var(--ld-semantic-color-text-negative, #ea1100);
+}
+
+/* ── Variant: success ── */
+.contentMessage--variant-success .contentMessage__media {
+  color: var(--ld-semantic-color-text-positive, #2a8703);
+}
+
+/* ── Variant: info ── */
+.contentMessage--variant-info .contentMessage__media {
+  color: var(--ld-semantic-color-text-info, #0053e2);
+}
+
+/* ── Variant: warning ── */
+.contentMessage--variant-warning .contentMessage__media {
+  color: var(--ld-semantic-color-text-warning, #995213);
+}
+
+/* ── Variant: neutral (default / no variant) ── */
+.contentMessage--variant-neutral .contentMessage__media {
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+}

@@ -1,0 +1,314 @@
+---
+description: Guidelines and rules for design system terminology
+alwaysApply: false
+---
+# Design System Terminology — Official Translation Standard
+
+This document defines the official translations for Living Design 3.5 terminology. It draws a clear line between **code-level terms** (always English) and **user-facing UI text** (translated).
+
+## Core Principle
+
+**If it's in the code, it stays in English — in code AND in documentation.**
+
+Component names, variant names, prop values, state names, token names, and any term that maps directly to a code identifier must remain in English everywhere: code, docs, Figma annotations, Slack discussions, and design specs. This eliminates ambiguity between what a designer writes in a spec and what a developer writes in code.
+
+Only text that an **end user reads in the running application** gets translated.
+
+---
+
+## What Stays in English (Everywhere)
+
+These terms appear in code as identifiers. They must stay in English in all documentation, specs, and communication — regardless of the audience's language.
+
+### Component Names
+
+Always use the English name when referring to a component, even in Spanish or French documentation.
+
+| Term | Example in code | Why English |
+|------|----------------|-------------|
+| Button | `<Button>` | Component import |
+| Icon Button | `<IconButton>` | Component import |
+| Badge | `<Badge>` | Component import |
+| Tag | `<Tag>` | Component import |
+| Chip | `<Chip>` | Component import |
+| Filter Chip | `<FilterChip>` | Component import |
+| Checkbox | `<Checkbox>` | Component import |
+| Switch | `<Switch>` | Component import |
+| Text Field | `<TextField>` | Component import |
+| Text Area | `<TextArea>` | Component import |
+| Select | `<Select>` | Component import |
+| Date Field | `<DateField>` | Component import |
+| Divider | `<Divider>` | Component import |
+| Breadcrumb | `<Breadcrumb>` | Component import |
+| Modal | `<Modal>` | Component import |
+| Dialog | `<Dialog>` | Component import |
+| Popover | `<Popover>` | Component import |
+| Callout | `<Callout>` | Component import |
+| Menu | `<Menu>` | Component import |
+| Dropdown Menu | `<DropdownMenu>` | Component import |
+| Panel | `<Panel>` | Component import |
+| Bottom Sheet | `<BottomSheet>` | Component import |
+| Snackbar | — | Component pattern name |
+| Spinner | — | Component pattern name |
+| Spot Icon | `<SpotIcon>` | Component import |
+| Progress Indicator | `<ProgressIndicator>` | Component import |
+| Progress Tracker | `<ProgressTracker>` | Component import |
+| Tabs | `<Tabs>` | Component import |
+| Carousel | — | Component pattern name |
+| Accordion | — | Component pattern name |
+| Skeleton | `<Skeleton>` | Component import |
+| Tooltip | — | Component pattern name |
+| Avatar | — | Component pattern name |
+| Rating | `<Rating>` | Component import |
+| Metric | — | Component pattern name |
+| Nudge | — | Component pattern name |
+| Alert | — | Component pattern name |
+| Card | — | Component pattern name |
+| List | — | Component pattern name |
+| Link | `<Link>` | Component import |
+| Link Button | `<LinkButton>` | Component import |
+| Radio Button | — | Component pattern name |
+| Slider | — | Component pattern name |
+| Toast | — | Component pattern name |
+| Toggle | — | Component pattern name |
+| Magic Box | — | Component pattern name |
+| Form Group | — | Component pattern name |
+| Content Message | — | Component pattern name |
+
+### Variant Names
+
+These are prop values in code. Always use English.
+
+| Term | Code usage | Context |
+|------|-----------|---------|
+| Primary | `variant="primary"` | Button, Tag, IconButton |
+| Secondary | `variant="secondary"` | Button, Tag, IconButton |
+| Tertiary | `variant="tertiary"` | Button, Tag |
+| Destructive | `variant="destructive"` | Button, IconButton |
+| Ghost | `variant="ghost"` | IconButton |
+
+### Size Names
+
+These are prop values in code. Always use English.
+
+| Term | Code usage |
+|------|-----------|
+| Small | `size="small"` |
+| Medium | `size="medium"` |
+| Large | `size="large"` |
+
+### State Names
+
+These map to CSS states, ARIA attributes, or component props. Always use English.
+
+| Term | Code mapping |
+|------|-------------|
+| Disabled | `disabled` prop, `:disabled` pseudo-class |
+| Loading | `loading` prop |
+| Active | `:active` pseudo-class, `aria-selected` |
+| Hover | `:hover` pseudo-class |
+| Focused | `:focus-visible` pseudo-class |
+| Pressed | `:active` pseudo-class |
+| Selected | `selected` prop, `aria-selected` |
+| Indeterminate | `indeterminate` prop |
+| Read-only | `readOnly` prop |
+| Error | `error` prop |
+
+### Semantic Color / Sentiment Names
+
+These are prop values. Always use English.
+
+| Term | Code usage | Context |
+|------|-----------|---------|
+| Brand | `color="brand"` | Tag, SpotIcon |
+| Positive | `color="positive"` | Tag |
+| Negative | `color="negative"` | Tag |
+| Warning | `color="warning"` | Tag |
+| Info | `color="info"` | Tag, Badge |
+| Neutral | `variant="neutral"` | Badge |
+| Success | `variant="success"` | Badge |
+| Error | `variant="error"` | Badge |
+
+### Design Token Terms
+
+Token names are CSS custom properties. Always use English.
+
+| Term | Example |
+|------|---------|
+| Design Tokens | `--ld-semantic-color-*` |
+| Color Tokens | `--ld-semantic-color-text` |
+| Spacing Tokens | `--ld-semantic-spacing-*` |
+| Typography Tokens | `--ld-semantic-font-*` |
+| Border Radius Tokens | `--ld-primitive-scale-borderradius-*` |
+| Elevation | `--ld-semantic-elevation-*` |
+
+### Other Technical Terms (Always English)
+
+| Term | Reason |
+|------|--------|
+| Props | React API concept |
+| Variants | Component API concept |
+| Slot | Component composition pattern |
+| Callback | JavaScript pattern |
+| `aria-label`, `aria-selected`, `role` | W3C ARIA specification |
+| WCAG, ARIA, WAI | Universal accessibility acronyms |
+| Figma, Storybook | Product names |
+
+### Orientation & Layout Props
+
+These are prop values. Always use English.
+
+| Term | Code usage |
+|------|-----------|
+| Horizontal | `orientation="horizontal"` |
+| Vertical | `orientation="vertical"` |
+
+---
+
+## What Gets Translated (User-Facing UI Text Only)
+
+These terms appear as visible text in the running application. They must be translated using the `t()` function and stored in the locale JSON files.
+
+### Action Labels (Button / Link Text)
+
+| English | Español | Français |
+|---------|---------|----------|
+| Save | Guardar | Enregistrer |
+| Cancel | Cancelar | Annuler |
+| Edit | Editar | Modifier |
+| Delete | Eliminar | Supprimer |
+| Submit | Enviar | Soumettre |
+| Close | Cerrar | Fermer |
+| Back | Volver | Retour |
+| Next | Siguiente | Suivant |
+| Apply | Aplicar | Appliquer |
+| Confirm | Confirmar | Confirmer |
+| Copy | Copiar | Copier |
+| Copied | Copiado | Copié |
+| Download | Descargar | Télécharger |
+| Upload | Subir | Téléverser |
+| Search | Buscar | Rechercher |
+| Clear | Limpiar | Effacer |
+| Expand | Expandir | Développer |
+| Collapse | Contraer | Réduire |
+| View/Edit | Ver/editar | Voir/modifier |
+
+### Status Text (Visible in Tags, Tables, Badges)
+
+| English | Español | Français |
+|---------|---------|----------|
+| Live | Activa | Active |
+| Scheduled | Programada | Programmée |
+| Paused | Pausada | En pause |
+| Completed | Completada | Terminée |
+| Draft | Borrador | Brouillon |
+| Archived | Archivado | Archivé |
+
+### Navigation Labels (Sidebar, Masthead, Breadcrumbs)
+
+| English | Español | Français |
+|---------|---------|----------|
+| Home | Inicio | Accueil |
+| Notifications | Notificaciones | Notifications |
+| Help | Ayuda | Aide |
+| Account | Cuenta | Compte |
+| Component Library | Biblioteca de componentes | Bibliothèque de composants |
+| Getting Started | Primeros pasos | Mise en route |
+| Component Sandbox | Sandbox de componentes | Bac à sable de composants |
+| Themes & Design Tokens | Temas y Design Tokens | Thèmes et Design Tokens |
+
+### Guideline Section Headings (UI Navigation)
+
+These headings appear as visible tab labels and section titles in the component library UI.
+
+| English | Español | Français |
+|---------|---------|----------|
+| Overview | Descripción general | Vue d'ensemble |
+| Guidelines | Directrices | Directives |
+| Usage Guidelines | Directrices de uso | Directives d'utilisation |
+| When to use | Cuándo usar | Quand utiliser |
+| When not to use | Cuándo no usar | Quand ne pas utiliser |
+| Accessibility | Accesibilidad | Accessibilité |
+| Best Practices | Mejores prácticas | Meilleures pratiques |
+| Related Components | Componentes relacionados | Composants associés |
+| Code Example | Ejemplo de código | Exemple de code |
+| Preview | Vista previa | Aperçu |
+| Properties | Propiedades | Propriétés |
+| Design Principles | Principios de diseño | Principes de design |
+| Component Usage | Uso de componentes | Utilisation des composants |
+| Code Standards | Estándares de código | Standards de code |
+
+### Form Labels (Visible to End Users)
+
+| English | Español | Français |
+|---------|---------|----------|
+| Label | Etiqueta | Libellé |
+| Placeholder | Texto provisional | Texte indicatif |
+| Helper text | Texto de ayuda | Texte d'aide |
+| Error message | Mensaje de error | Message d'erreur |
+| Required | Obligatorio | Obligatoire |
+| Optional | Opcional | Optionnel |
+
+### Feedback Text
+
+| English | Español | Français |
+|---------|---------|----------|
+| Loading... | Cargando... | Chargement... |
+| No results found | Sin resultados | Aucun résultat |
+| Changes saved | Cambios guardados | Modifications enregistrées |
+
+---
+
+## Decision Flowchart
+
+When deciding whether to translate a term:
+
+```
+Is this term a code identifier (component name, prop value, token name, CSS class)?
+  → YES → Keep English everywhere (code, docs, Figma, Slack)
+  → NO  → Does the end user see this text in the running app?
+            → YES → Translate using t() and add to locale JSON files
+            → NO  → Keep English (internal docs, comments, commit messages)
+```
+
+---
+
+## Examples
+
+### In documentation (any language)
+
+> "Use the **Button** component with `variant="primary"` for the main call to action."
+>
+> "Utilice el componente **Button** con `variant="primary"` para la acción principal."
+>
+> "Utilisez le composant **Button** avec `variant="primary"` pour l'action principale."
+
+Notice: "Button", "variant", and "primary" stay in English. Only the surrounding sentence is translated.
+
+### In the running UI
+
+```tsx
+// The label "Guardar" is what a Spanish-speaking user sees
+<Button variant="primary">{t('actions.save')}</Button>
+
+// The prop values stay English. The visible text is translated.
+```
+
+### In Figma annotations
+
+> "Button / Primary / Medium / Disabled"
+
+These labels stay in English because they map directly to code props: `variant="primary"`, `size="medium"`, `disabled`.
+
+---
+
+## How to Use This Document
+
+1. **Designers**: Use English for all component names, variants, sizes, and states in Figma — these match code exactly. Only translate the text content inside components (button labels, headings, etc.).
+2. **Developers**: Use these translations in locale JSON files for user-facing text. Never translate component names, prop values, or token names.
+3. **New terms**: When introducing a new component or design concept, it gets an English name that matches the code. Add it to this document. Only add translated equivalents for user-facing labels.
+4. **Disagreements**: If a translation feels wrong, raise it with the team and update this document. Do not override locally.
+
+---
+
+Last updated: 2025-02-20

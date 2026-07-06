@@ -1,0 +1,80 @@
+/* FormGroup Base Styles - LD 3.5 */
+
+/* Fieldset reset + vertical stack */
+.formGroup {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  min-inline-size: auto; /* Reset default min-width on fieldset */
+}
+
+/* Legend / Group label */
+.legend {
+  padding: 0;
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-semantic-font-family-sans));
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 20px);
+  font-weight: 700;
+  color: var(--ld-semantic-color-text);
+}
+
+/* Required asterisk */
+.requiredIndicator {
+  color: var(--ld-semantic-color-feedback-fill-destructive, #ea1100);
+  margin-left: var(--ld-primitive-scale-space-25, 2px);
+}
+
+/* Meta area: error or helper text below legend */
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+/* Helper text */
+.helperText {
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-semantic-font-family-sans));
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 20px);
+  font-weight: 400;
+  color: var(--ld-semantic-color-text-subtle);
+  margin: 0;
+}
+
+/* Error text row */
+.errorText {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  font-family: var(--ld-semantic-font-body-small-family, var(--ld-semantic-font-family-sans));
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 20px);
+  font-weight: 400;
+  color: var(--ld-semantic-color-feedback-fill-destructive, #ea1100);
+  margin: 0;
+}
+
+/* Error icon */
+.errorIcon {
+  flex-shrink: 0;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-feedback-fill-destructive, #ea1100);
+}
+
+/* Children container: vertical stack of form controls */
+.children {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+}
+
+/* Disabled state */
+.formGroup--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}

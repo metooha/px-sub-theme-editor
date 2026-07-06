@@ -1,0 +1,131 @@
+---
+description: Guidelines and rules for link button 1
+alwaysApply: false
+---
+# LinkButton – Living Design 3.5
+
+## Overview
+
+LinkButton is a polymorphic interactive element that provides link-styled text with button-like features (icons, sizes) but **no** pill shape or background. It renders as `<a>` when `href` is provided, `<button>` otherwise.
+
+## When to Use
+
+| Use Case | Component |
+|----------|-----------|
+| Inline text navigation | `Link` |
+| Link-styled action with icons/sizes | **`LinkButton`** |
+| Pill-shaped action with fill | `Button` |
+
+## Import
+
+```tsx
+import { LinkButton } from '@/components/ui/LinkButton';
+```
+
+## API
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | — | Content label |
+| `color` | `'default' \| 'subtle' \| 'white'` | `'default'` | Color variant |
+| `size` | `'small' \| 'medium' \| 'large'` | `'small'` | Font size tier |
+| `isFullWidth` | `boolean` | `false` | Stretch to container width |
+| `leading` | `ReactNode` | — | Leading icon slot |
+| `trailing` | `ReactNode` | — | Trailing icon slot |
+| `href` | `string` | — | When provided, renders `<a>` |
+| `disabled` | `boolean` | `false` | Disabled state (button only) |
+| `type` | `'button' \| 'submit' \| 'reset'` | `'button'` | Button type (button only) |
+| `UNSAFE_className` | `string` | — | Escape-hatch class |
+| `UNSAFE_style` | `CSSProperties` | — | Escape-hatch style |
+
+## Colors
+
+| Variant | Token | Use on |
+|---------|-------|--------|
+| `default` | `--ld-semantic-color-link-text` | Light backgrounds |
+| `subtle` | `--ld-semantic-color-link-text-subtle` | Secondary actions |
+| `white` | `--ld-semantic-color-link-text-accent-white` | Dark backgrounds |
+
+## Sizes
+
+| Size | Font size | Icon size |
+|------|-----------|-----------|
+| `small` | 14px | 16×16 |
+| `medium` | 16px | 20×20 |
+| `large` | 18px | 24×24 |
+
+## States
+
+- **Enabled** – underlined text
+- **Hovered** – underline removed
+- **Focused** – focus outline via `--ld-semantic-color-action-focus-outline`
+- **Pressed** – darker text color (`*-pressed` token)
+- **Disabled** – `--ld-semantic-color-link-text-disabled`, no underline, `cursor: not-allowed`
+
+## Examples
+
+### Anchor variant
+
+```tsx
+<LinkButton href="/dashboard" size="medium">
+  Go to Dashboard
+</LinkButton>
+```
+
+### Button variant
+
+```tsx
+<LinkButton onClick={() => save()} size="medium">
+  Save changes
+</LinkButton>
+```
+
+### With icons
+
+```tsx
+import { Home, ChevronRight } from '@/components/icons';
+
+<LinkButton
+  href="/home"
+  size="medium"
+  leading={<Home />}
+  trailing={<ChevronRight />}
+>
+  Navigate home
+</LinkButton>
+```
+
+### White on dark background
+
+```tsx
+<div style={{ background: 'var(--ld-semantic-color-surface-inverse)', padding: 16 }}>
+  <LinkButton color="white" href="/help">
+    Help Center
+  </LinkButton>
+</div>
+```
+
+### Full width
+
+```tsx
+<LinkButton isFullWidth href="/action" size="medium">
+  Full Width Link
+</LinkButton>
+```
+
+## Accessibility
+
+- Renders semantic `<a>` or `<button>` based on `href`.
+- Disabled state uses native `disabled` attribute on `<button>`.
+- Focus-visible outline meets WCAG 2.1 contrast requirements.
+- Always provide visible text content; icons supplement but don't replace the label.
+
+## File Locations
+
+| File | Purpose |
+|------|---------|
+| `client/components/ui/LinkButton.tsx` | Component source |
+| `client/components/ui/LinkButton.module.css` | Token-based styles |
+| `client/components/examples/LinkButtonExample.tsx` | Usage examples |

@@ -1,0 +1,129 @@
+---
+description: Enforce Living Design 3.5 tokens, icons, and component patterns
+alwaysApply: false
+---
+# Design System Enforcement Rule
+
+## Overview
+This rule ensures that ALL code in the project follows Living Design 3.5 (LD 3.5) design system principles, using only approved design tokens and icon library components.
+
+## Critical Requirements
+
+### 1. Design Token Usage
+
+**ALWAYS use semantic design tokens. NEVER use hard-coded values.**
+
+#### WRONG - Hard-coded values:
+
+// Never do this
+<button style={{
+  backgroundColor: '#0071DC',
+  color: '#FFFFFF',
+  borderRadius: '4px',
+  padding: '8px 16px'
+}}>
+  Click me
+</button>
+```
+
+#### CORRECT - Semantic tokens:
+```tsx
+import { Button } from '@/components/ui/Button';
+
+<Button variant="primary">
+  Click me
+</Button>
+```
+
+### 2. Icon Usage
+
+**ALWAYS use icons from the centralized icon library (`client/components/icons/`). NEVER create inline SVGs or use external icon libraries.**
+
+#### WRONG - Inline SVG:
+```tsx
+<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+  <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+</svg>
+
+import { FaHome } from 'react-icons/fa';
+import { HomeIcon } from '@heroicons/react';
+```
+
+#### CORRECT - Icon library:
+```tsx
+import { Home, Search, Settings } from '@/components/icons';
+
+<Home style={{ width: 20, height: 20 }} />
+```
+
+**Available icons:** 303 icons in the centralized library
+**Location:** `client/components/icons/`
+
+### 3. Component Usage
+
+**ALWAYS use LD 3.5 components. NEVER create custom components for existing patterns.**
+
+### 4. When Creating New Icons
+
+If you MUST create a new icon (only if it doesn't exist in the 304-icon library):
+
+**Requirements:**
+- **Stroke linecap:** ALWAYS use `strokeLinecap="square"` (never "round")
+- **Stroke width:** ALWAYS use `strokeWidth="1.5"`
+- **ViewBox:** ALWAYS use `viewBox="0 0 20 20"`
+- **Current color:** ALWAYS use `stroke="currentColor"` for semantic theming
+- **File location:** `client/components/icons-custom/`
+
+### 5. Design Token Categories
+
+**624 semantic tokens available across 10 categories:**
+
+1. **Action Colors** (60 tokens) - Buttons, links, interactive elements
+2. **Text Colors** (80 tokens) - All text elements
+3. **Fill/Background** (80 tokens) - Background colors, fills
+4. **Border & Separator** (40 tokens) - Borders, dividers
+5. **Surface & Elevation** (20 tokens) - Cards, modals, overlays
+6. **Spacing Scale** (30 tokens) - Margins, padding, gaps
+7. **Typography** (60 tokens) - Font families, sizes, line heights
+8. **Border Radius** (13 tokens) - Corner rounding
+9. **Elevation/Shadow** (3 tokens) - Box shadows
+10. **Animation Duration** (20 tokens) - Transition timing
+
+### 6. Common Token Reference
+
+```css
+/* Colors */
+--ld-semantic-color-action-fill-primary (Walmart blue #0071DC)
+--ld-semantic-color-text
+--ld-semantic-color-text-subtle
+--ld-semantic-color-surface
+--ld-semantic-color-background
+
+/* Spacing */
+--ld-semantic-spacing-100 (8px)
+--ld-semantic-spacing-200 (16px)
+--ld-semantic-spacing-300 (24px)
+--ld-semantic-spacing-400 (32px)
+```
+
+## Enforcement Checklist
+
+Before committing code, verify:
+
+- No hard-coded hex colors (#0071DC, #FFFFFF, etc.)
+- No hard-coded px values for spacing, sizing
+- No inline SVG icons
+- No external icon libraries (react-icons, heroicons, etc.)
+- All buttons use `<Button>` component
+- All icons imported from `@/components/icons`
+- All colors use `var(--ld-semantic-color-*)`
+- All spacing uses `var(--ld-semantic-spacing-*)`
+
+## Summary
+
+**Golden Rules:**
+1. **Design Tokens:** Always use semantic tokens, never hard-code values
+2. **Icons:** Always use icon library, never create inline SVGs
+3. **Components:** Always use LD components, never create custom variants
+4. **New Icons:** Square linecap, 1.5px stroke, 20x20 viewBox
+5. **Enforcement:** Run checks before committing code

@@ -1,0 +1,101 @@
+/**
+ * Living Design 3.5 Breadcrumb Component Styles
+ * Uses semantic design tokens for consistent theming
+ */
+
+/* Breadcrumb container */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--ld-semantic-spacing-100);
+
+  /* Typography tokens */
+  font-family: var(--ld-semantic-font-family-sans);
+  font-size: var(--ld-semantic-font-body-small-size);
+  line-height: var(--ld-semantic-font-body-small-line-height);
+  font-weight: var(--ld-semantic-font-body-small-weight-default);
+}
+
+/* Breadcrumb link (clickable items) */
+.breadcrumbLink {
+  /* Color tokens - subtle for non-current pages */
+  color: var(--ld-semantic-color-link-text-subtle);
+  
+  /* Typography */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  
+  /* Interaction */
+  text-decoration: underline;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  
+  /* Smooth transitions */
+  transition: text-decoration 0.2s ease;
+}
+
+/* Hover state - remove underline */
+.breadcrumbLink:hover {
+  color: var(--ld-semantic-color-link-text-subtle-hovered);
+  text-decoration: none;
+}
+
+/* Focus state - accessible outline */
+.breadcrumbLink:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+  border-radius: 2px;
+  color: var(--ld-semantic-color-link-text-subtle-focused);
+  text-decoration: none;
+}
+
+/* Active/pressed state */
+.breadcrumbLink:active {
+  color: var(--ld-semantic-color-link-text-subtle-pressed);
+}
+
+/* Current page (non-clickable) */
+.breadcrumbCurrent {
+  /* Color tokens - primary text for current page */
+  color: var(--ld-semantic-color-text);
+  
+  /* Typography */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+  
+  /* No interaction styling */
+  text-decoration: none;
+  cursor: default;
+}
+
+/* Separator between items */
+.breadcrumbSeparator {
+  /* Color tokens - subtle color for separators */
+  color: var(--ld-semantic-color-text-subtlest);
+  
+  /* Typography */
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  
+  /* Non-interactive */
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Responsive behavior for small screens */
+@media (max-width: 640px) {
+  .breadcrumb {
+    font-size: var(--ld-semantic-font-caption-size);
+    line-height: var(--ld-semantic-font-caption-line-height);
+    gap: var(--ld-semantic-spacing-50);
+  }
+}

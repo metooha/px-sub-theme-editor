@@ -1,0 +1,216 @@
+---
+description: Guidelines and rules for readme card header
+alwaysApply: false
+---
+# CardHeader Component - Living Design 3.5
+
+## Overview
+
+CardHeader is a header section component for Card that provides a consistent layout for titles, leading icons, and trailing content. It's part of the Living Design 3.5 component system.
+
+## Files Created
+
+- **`Card.tsx`** - Root container with size context provider
+- **`CardHeader.tsx`** - Header component with icon, title, and trailing content
+- **`CardContent.tsx`** - Content area component
+- **`Heading.tsx`** - Typography component for headings
+- **CSS Modules:**
+  - `Card.module.css`
+  - `CardHeader.module.css`
+  - `CardContent.module.css`
+  - `Heading.module.css`
+
+## Basic Usage
+
+```tsx
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+
+function MyCard() {
+  return (
+    <Card size="small">
+      <CardHeader title="Card Title" />
+      <CardContent>
+        Your content goes here
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## API Reference
+
+### CardHeader Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `title` | `React.ReactNode` | Yes | - | The title for the card header |
+| `leadingIcon` | `React.ReactNode` | No | - | Icon displayed before the title |
+| `trailing` | `React.ReactNode` | No | - | Content displayed after the title (buttons, links) |
+| `UNSAFE_className` | `string` | No | - | Additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | No | - | Custom inline styles |
+
+### Card Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `React.ReactNode` | Yes | - | Card content (typically CardHeader, CardContent) |
+| `size` | `'small' \| 'large'` | No | `'small'` | Card size - propagates to all sub-components |
+| `UNSAFE_className` | `string` | No | - | Additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | No | - | Custom inline styles |
+
+## Examples
+
+### With Leading Icon
+
+```tsx
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Home } from '@/components/icons/Home';
+
+function IconCard() {
+  return (
+    <Card size="small">
+      <CardHeader
+        leadingIcon={<Home />}
+        title="Dashboard"
+      />
+      <CardContent>
+        Welcome to your dashboard
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+### With Trailing Button
+
+```tsx
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { Button } from '@/components/ui/button';
+
+function ActionCard() {
+  return (
+    <Card size="small">
+      <CardHeader
+        title="Complete Your Profile"
+        trailing={<Button variant="primary">Update</Button>}
+      />
+      <CardContent>
+        Add more information to get personalized recommendations
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+### Large Card with All Features
+
+```tsx
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+import { CheckCircle } from '@/components/icons/CheckCircle';
+import { Button } from '@/components/ui/button';
+
+function FullFeaturedCard() {
+  return (
+    <Card size="large">
+      <CardHeader
+        leadingIcon={<CheckCircle />}
+        title="Welcome Onboard"
+        trailing={<Button variant="tertiary">Start Here</Button>}
+      />
+      <CardContent>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+        Sed dignissim magna id tortor pharetra laoreet.
+      </CardContent>
+    </Card>
+  );
+}
+```
+
+## Design Tokens
+
+The CardHeader uses Living Design 3.5 design tokens defined in `styles/semantic.css`:
+
+- **Font Family**: `--ld-semantic-font-family-sans`
+- **Text Colors**: `--ld-semantic-color-text`, `--ld-semantic-color-text-brand`, etc.
+- **Background**: `--ld-semantic-color-background`
+- **Borders**: `--ld-semantic-color-border-default`, `--ld-semantic-color-border-subtle`
+
+## Size Variants
+
+### Small Card (default)
+- Header padding: `16px`
+- Content padding: `16px`
+- Title size: `small` (16px)
+
+### Large Card
+- Header padding: `24px`
+- Content padding: `24px`
+- Title size: `medium` (20px)
+
+## Accessibility
+
+- Card headers use semantic `<h3>` elements via the Heading component
+- Maintain proper heading hierarchy in your page structure
+- Interactive elements (buttons, links) in trailing content should have clear labels
+- Leading icons should be decorative or have appropriate alt text
+
+## Context Sharing
+
+CardHeader consumes `CardSizeContext` from its parent Card component. This ensures consistent sizing and spacing across all card sub-components without prop drilling.
+
+```tsx
+// Card provides size context
+<Card size="large">
+  {/* CardHeader automatically receives size="large" via context */}
+  <CardHeader title="Title" />
+</Card>
+```
+
+## Best Practices
+
+✅ **DO:**
+- Always provide meaningful titles
+- Use leading icons sparingly for visual reinforcement
+- Limit trailing content to 1-2 actions
+- Use appropriate card size for your content density
+
+❌ **DON'T:**
+- Overload the header with too many elements
+- Use very long titles without testing layout
+- Mix different size variants within the same card
+- Place CardHeader outside of a Card component (it will use default small size)
+
+## Integration with Existing Code
+
+To use the new Living Design CardHeader in your existing pages:
+
+```tsx
+// Old shadcn/ui approach
+import { Card, CardHeader, CardTitle } from '@/components/ui/card';
+
+<Card>
+  <CardHeader>
+    <CardTitle>Title</CardTitle>
+  </CardHeader>
+</Card>
+
+// New Living Design approach
+import { Card, CardHeader, CardContent } from '@/components/ui/Card';
+
+<Card>
+  <CardHeader title="Title" />
+  <CardContent>Content here</CardContent>
+</Card>
+```
+
+## Related Components
+
+- **Card** - Root container and context provider
+- **CardContent** - Main content area
+- **Heading** - Typography component used for titles
+- **Button** - Often used in trailing content
+- **IconButton** - Compact icon-only buttons for actions
+
+## Demo
+
+See `client/components/CardHeaderExample.tsx` for complete working examples.

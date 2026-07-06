@@ -1,0 +1,1 @@
+After making code changes, you MUST run `pnpm run build` to verify the build succeeds. If the build fails, you MUST fix all errors before considering the task complete.

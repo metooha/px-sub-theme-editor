@@ -1,0 +1,10 @@
+{
+  "codeConnect": {
+    "include": ["client/components/**/*.figma.ts"],
+    "react": {
+      "importPaths": {
+        "@/components/*": "client/components/*"
+      }
+    }
+  }
+}

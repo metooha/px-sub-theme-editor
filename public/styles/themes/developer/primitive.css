@@ -1,0 +1,15 @@
+/**
+ * Do not edit directly — Developer Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ * 
+ * INHERITANCE: Inherits LD Base
+ * OVERRIDES: Magic gradient colors (green middle)
+ */
+
+:root {
+  /* Developer-specific magic gradient (green middle for AI features) */
+  --ld-primitive-color-magic-1: #0053e2;
+  --ld-primitive-color-magic-2: #a4fb6c;
+  --ld-primitive-color-magic-3: #79cdf6;
+  --ld-primitive-color-magic-4: #e9f1fe;
+}

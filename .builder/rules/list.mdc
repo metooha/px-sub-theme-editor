@@ -1,0 +1,199 @@
+---
+description: Guidelines and rules for list
+alwaysApply: false
+---
+# List Component — Living Design 3.5
+
+## Overview
+
+Lists are a continuous, vertical group of related information. They are composed of items containing text, icons, Spot Icons or images, and they should contain at least one action.
+
+**This is a presentational component** — it does not handle interactive states like hover, selection, or click. For interactive/navigation lists, use `NavList` instead.
+
+## Import
+
+```tsx
+import { List, ListItem } from '@/components/ui/List';
+```
+
+## When to Use
+
+| Scenario | Component |
+|----------|-----------|
+| Display a static list of information | **List** |
+| Navigable / selectable list items | **NavList** |
+| Dropdown menu options | **NavList** (inside a Popover) |
+
+## Variants
+
+The component supports **16 variants** from combinations of:
+
+- **Leading** (4): `empty` | `icon` | `spot-icon` | `custom`
+- **Trailing** (4): `empty` | `icon` | `link` | `custom`
+
+## Props
+
+### `<List>`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | — | `<ListItem>` elements |
+| `className` | `string` | — | Additional CSS class |
+| `aria-label` | `string` | — | Accessible label for the list |
+
+### `<ListItem>`
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `title` | `string` | — | **Required.** Title text |
+| `text` | `string` | — | Secondary descriptive text |
+| `showTitle` | `boolean` | `true` | Whether the title is visible |
+| `leading` | `'empty' \| 'icon' \| 'spot-icon' \| 'custom'` | `'empty'` | Leading content type |
+| `leadingIcon` | `ReactNode` | — | Icon for `leading="icon"` (16 px) |
+| `spotIcon` | `ReactNode` | — | Icon for `leading="spot-icon"` (24 px inside 48 px circle) |
+| `leadingContent` | `ReactNode` | — | Arbitrary content for `leading="custom"` |
+| `trailing` | `'empty' \| 'icon' \| 'link' \| 'custom'` | `'empty'` | Trailing content type |
+| `trailingIcon` | `ReactNode` | — | Custom icon for `trailing="icon"`. Defaults to ChevronRight. |
+| `trailingLink` | `{ text: string; href?: string; onClick?: () => void }` | — | Link config for `trailing="link"` |
+| `trailingContent` | `ReactNode` | — | Arbitrary content for `trailing="custom"` |
+| `className` | `string` | — | Additional CSS class on the `<li>` |
+
+## Usage Examples
+
+### Basic (Leading: Empty, Trailing: Empty)
+
+```tsx
+<List aria-label="Settings">
+  <ListItem title="Account" text="Manage your account settings" />
+  <ListItem title="Privacy" text="Control your privacy preferences" />
+</List>
+```
+
+### With Leading Icon and Trailing Chevron
+
+```tsx
+import { Settings, Lock } from '@/components/icons';
+
+<List aria-label="Settings">
+  <ListItem
+    title="Account"
+    text="Manage your account settings"
+    leading="icon"
+    leadingIcon={<Settings style={{ width: 16, height: 16 }} />}
+    trailing="icon"
+  />
+  <ListItem
+    title="Privacy"
+    text="Control your privacy preferences"
+    leading="icon"
+    leadingIcon={<Lock style={{ width: 16, height: 16 }} />}
+    trailing="icon"
+  />
+</List>
+```
+
+### With Spot Icon
+
+```tsx
+<ListItem
+  title="Notifications"
+  text="Configure alert preferences"
+  leading="spot-icon"
+  spotIcon={<Bell style={{ width: 24, height: 24 }} />}
+/>
+```
+
+### With Trailing Link
+
+```tsx
+<ListItem
+  title="Account"
+  text="Manage your account settings"
+  trailing="link"
+  trailingLink={{ text: 'View details', href: '/account' }}
+/>
+```
+
+### With Custom Leading & Trailing
+
+```tsx
+<ListItem
+  title="Product"
+  text="Premium widget"
+  leading="custom"
+  leadingContent={<img src="/product.jpg" alt="" width={48} height={48} />}
+  trailing="custom"
+  trailingContent={<Tag variant="success">Active</Tag>}
+/>
+```
+
+### Hidden Title
+
+```tsx
+<ListItem
+  title="Hidden title"
+  text="Only this text is visible"
+  showTitle={false}
+/>
+```
+
+## Design Tokens
+
+### Typography
+
+| Element | Token | Fallback |
+|---------|-------|----------|
+| Title font family | `--ld-semantic-font-body-large-family` | Everyday Sans UI |
+| Title font size | `--ld-semantic-font-body-large-size` | 18px |
+| Title font weight | `--ld-semantic-font-body-large-weight-alt` | 700 |
+| Title line height | `--ld-semantic-font-body-large-lineheight` | 1.333 |
+| Text font family | `--ld-semantic-font-body-medium-family` | Everyday Sans UI |
+| Text font size | `--ld-semantic-font-body-medium-size` | 16px |
+| Text font weight | `--ld-semantic-font-body-medium-weight-default` | 400 |
+| Text line height | `--ld-semantic-font-body-medium-lineheight` | 1.5 |
+| Link font family | `--ld-semantic-font-body-small-family` | Everyday Sans UI |
+| Link font size | `--ld-semantic-font-body-small-size` | 14px |
+
+### Colors
+
+| Element | Token |
+|---------|-------|
+| Text color | `--ld-semantic-color-text` |
+| Link color | `--ld-semantic-color-link-text` |
+| Spot icon background | `--ld-semantic-color-fill-brand-subtle` |
+| Spot icon foreground | `--ld-semantic-color-text-onfill-brand-subtle` |
+
+### Sizing
+
+| Element | Token | Fallback |
+|---------|-------|----------|
+| Leading icon | `--ld-semantic-scale-icon-small` | 16px |
+| Spot icon container | `--ld-primitive-scale-space-600` | 48px |
+| Spot icon inner | `--ld-semantic-scale-icon-medium` | 24px |
+| Trailing chevron | `--ld-semantic-scale-icon-small` | 16px |
+
+### Spacing
+
+| Element | Token | Fallback |
+|---------|-------|----------|
+| Item gap | `--ld-semantic-spacing-3` | 12px |
+| Leading icon top padding | `--ld-primitive-scale-space-50` | 4px |
+| Spot icon padding | `--ld-primitive-scale-space-150` | 12px |
+| Spot icon border radius | `--ld-primitive-scale-borderradius-round` | 9999px |
+
+## Accessibility
+
+- `<List>` renders a `<ul>` with `role="list"`
+- `<ListItem>` renders a `<li>` with `role="listitem"`
+- Trailing links use semantic `<a>` tags with proper href
+- Support `aria-label` on the `<List>` container
+- Icons include `aria-hidden="true"` to avoid screen reader noise
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `client/components/ui/List.tsx` | Component implementation |
+| `client/components/ui/List.module.css` | Styles with LD 3.5 tokens |
+| `client/components/examples/ListExample.tsx` | Example showcase |
+| `guidelines/List.md` | This documentation |

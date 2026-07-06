@@ -1,0 +1,112 @@
+.root {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 6px 3px 4px;
+  border-radius: 9999px;
+  border: 1px solid var(--ld-semantic-color-border-disabled, #BABBBE);
+  background: var(--ld-semantic-color-action-fill-secondary, #FFFFFF);
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  transition: background-color 150ms ease, border-color 150ms ease;
+  height: 28px;
+}
+
+.triggerOpen {
+  border: 2px solid var(--ld-semantic-color-input-border-activated, #2E2F32);
+  padding: 2px 5px 2px 3px;
+}
+
+.trigger:hover {
+  background: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+  border-color: var(--ld-semantic-color-border-strong, #74767C);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: 2px;
+}
+
+.flagIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.flagIcon svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  border-radius: 9999px;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  min-width: 160px;
+  background: var(--ld-semantic-color-surface-overlay, #FFFFFF);
+  border-radius: 8px;
+  padding: 4px;
+  z-index: 1000;
+  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.15)) drop-shadow(0 -1px 3px rgba(0, 0, 0, 0.1));
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: var(--ld-semantic-color-text, #2E2F32);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', sans-serif);
+  font-size: 14px;
+  text-align: left;
+  transition: background-color 120ms ease;
+}
+
+.option:hover {
+  background: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+}
+
+.optionSelected {
+  background: var(--ld-semantic-color-surface-hovered, #f1f1f2);
+  font-weight: 600;
+}
+
+.flagIconLarge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 9999px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.flagIconLarge svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  border-radius: 9999px;
+}
+
+.langLabel {
+  white-space: nowrap;
+}

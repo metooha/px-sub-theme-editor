@@ -1,0 +1,204 @@
+---
+description: Guidelines and rules for progress tracker
+alwaysApply: false
+---
+## Purpose
+Progress Tracker is a visual representation of a user's progress through a set of steps. It informs users of the number of steps required to complete a specified process and highlights which steps are completed, current, and future.
+
+## Rules
+- **MUST** use the Living Design ProgressTracker component.
+- **MUST** provide at least 2 steps (minimum requirement).
+- **MUST** use appropriate status variant based on process state.
+- **MUST** provide clear, concise labels for each step.
+- **MUST NOT** exceed 7 steps (optimal range: 3-7 steps).
+- **MUST NOT** make the component interactive (it's visual-only).
+- **MUST NOT** use for continuous progress (use ProgressIndicator instead).
+
+## When to Use
+Use Progress Tracker for:
+- Multi-step forms and wizards
+- Checkout processes
+- Onboarding flows
+- Order fulfillment tracking
+- Application review processes
+- Account setup workflows
+- Any process with discrete, sequential steps
+
+## When NOT to Use
+Use **ProgressIndicator** instead for:
+- File uploads
+- Loading states
+- Percentage-based completion
+- Continuous progress (0-100%)
+- Buffer/streaming progress
+
+## Variants
+
+### Status Types
+- **Info** (default) - Standard process tracking (blue)
+- **Success** - Completed or successful processes (green)
+- **Warning** - Processes requiring attention (orange)
+- **Error** - Failed or problematic processes (red)
+
+### Step Counts
+Supports 3-7 steps:
+- **3 steps**: Minimal process (e.g., Basic → Advanced → Review)
+- **4-5 steps**: Standard workflows (e.g., Cart → Shipping → Payment → Review → Confirm)
+- **6-7 steps**: Complex processes (use sparingly for mobile)
+
+## States
+
+Each step can be in one of three states:
+- **Completed**: Steps before the active step (filled circle in status color)
+- **Active**: Current step (double-circle indicator in status color)
+- **Future**: Steps after the active step (filled circle in gray)
+
+## Accessibility
+- Component is visual-only (non-interactive)
+- Ensure parent context provides accessible announcements for step changes
+- Consider using `aria-live` region in parent component for dynamic updates
+- Labels should be clear and concise for screen readers
+
+## Token Usage
+
+The component uses Living Design 3.5 semantic tokens exclusively:
+
+### Progress Fill Tokens
+- Track background: `--ld-semantic-color-progress-fill`
+- Info indicator: `--ld-semantic-color-progress-fill-info`
+- Warning indicator: `--ld-semantic-color-progress-fill-warning`
+- Success indicator: `--ld-semantic-color-progress-fill-positive`
+- Error indicator: `--ld-semantic-color-progress-fill-negative`
+
+### Typography Tokens
+- Font family: `--ld-semantic-font-caption-family` (Everyday Sans UI)
+- Font size: `--ld-semantic-font-caption-size` (12px)
+- Font weight: `--ld-semantic-font-caption-weight-default` (400)
+- Line height: `--ld-semantic-font-caption-lineheight`
+
+### Text Color Tokens
+- Active label: `--ld-semantic-color-text` (#2E2F32)
+- Inactive labels: `--ld-semantic-color-text-subtlest` (#74767C)
+
+### Spacing Tokens
+- Gap between elements: `--ld-primitive-scale-space-50` (4px)
+- Track height: `--ld-primitive-scale-space-25` (2px)
+
+## React Usage
+
+```tsx
+import { ProgressTracker } from '@/components/ui/ProgressTracker';
+
+export function Example() {
+  return (
+    <>
+      {/* Basic usage */}
+      <ProgressTracker
+        steps={['Step 1', 'Step 2', 'Step 3']}
+        activeStep={1}
+        status="info"
+      />
+
+      {/* E-commerce checkout */}
+      <ProgressTracker
+        steps={['Cart', 'Shipping', 'Payment', 'Review', 'Confirmation']}
+        activeStep={2}
+        status="info"
+      />
+
+      {/* Order tracking */}
+      <ProgressTracker
+        steps={['Order Placed', 'Processing', 'Shipped', 'Out for Delivery', 'Delivered']}
+        activeStep={3}
+        status="success"
+      />
+
+      {/* Process with warning */}
+      <ProgressTracker
+        steps={['Submit', 'Review', 'Additional Info Needed', 'Approved']}
+        activeStep={2}
+        status="warning"
+      />
+
+      {/* Failed process */}
+      <ProgressTracker
+        steps={['Initialize', 'Processing', 'Validation', 'Complete']}
+        activeStep={2}
+        status="error"
+      />
+    </>
+  );
+}
+```
+
+## API Reference
+
+### Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `steps` | `string[]` | Yes | - | Array of step labels (minimum 2, maximum 7) |
+| `activeStep` | `number` | Yes | - | Index of current step (0-indexed) |
+| `status` | `'info' \| 'warning' \| 'success' \| 'error'` | No | `'info'` | Visual status variant |
+| `className` | `string` | No | - | Optional custom className |
+
+### Exports
+
+```tsx
+import { ProgressTracker } from '@/components/ui/ProgressTracker';
+import type { ProgressTrackerProps, ProgressTrackerStatus } from '@/components/ui/ProgressTracker';
+```
+
+## Best Practices
+
+### Do
+- ✅ Keep labels short and clear (1-3 words)
+- ✅ Use 3-5 steps for optimal UX
+- ✅ Choose status based on process state
+- ✅ Ensure steps are sequential and logical
+- ✅ Consider mobile layout with 6+ steps
+
+### Don't
+- ❌ Don't use for continuous progress (use ProgressIndicator)
+- ❌ Don't exceed 7 steps
+- ❌ Don't use long labels that wrap
+- ❌ Don't make steps clickable (component is visual-only)
+- ❌ Don't change status mid-process without reason
+
+## Design Specifications
+
+### Visual Structure
+- **Track**: 2px height horizontal line
+- **Indicators**: 8px diameter circles (4px radius)
+- **Active indicator**: 16px outer circle (7px radius) + 8px inner circle
+- **Label spacing**: 4px gap below indicator
+- **Font size**: 12px (caption)
+
+### Layout
+- First stop: Left-aligned label
+- Middle stops: Center-aligned labels
+- Last stop: Right-aligned label
+- Stops evenly distributed across container width
+
+### Responsive Behavior
+- Component is horizontally scrollable on small screens
+- Minimum width maintained to prevent label overlap
+- Consider reducing step count for mobile experiences
+
+## Related Components
+- **ProgressIndicator**: For continuous progress (0-100%)
+- **ButtonGroup**: Often used with Progress Tracker for navigation
+- **Tag**: Can complement status indication
+
+## Documentation Links
+- [Living Design Documentation](https://digitaltoolkit.livingdesign.walmart.com/components/progress-tracker/)
+- [Component Library Example](/component-library/progress-tracker)
+
+## Examples
+
+See `client/components/examples/ProgressTrackerExample.tsx` for comprehensive usage examples including:
+- All status variants (info, warning, success, error)
+- Different step counts (3-7)
+- Different active positions
+- Interactive demo
+- Real-world use cases

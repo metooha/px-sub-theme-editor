@@ -1,0 +1,95 @@
+---
+description: Guidelines and rules for link button
+alwaysApply: false
+---
+## Purpose
+Link Button lets users take an **action** (button behavior) while using an **underlined/link-like appearance** (link styling). It is not for navigation.
+
+## Rules
+- **MUST** use the Living Design Link Button component.
+- **MUST** use Link Button for **actions**, not navigation.
+- **MUST** use a documented color variant only (do not restyle with custom CSS).
+- **MUST** use a documented size only.
+- **MUST** support focus-visible and disabled states (if the component supports disabled).
+- **MUST NOT** use Link Button to navigate to another page/screen; use [Link](/components/link/) instead.
+- **MUST NOT** underline inline body text using Link Button; use [Link](/components/link/) instead.
+- **MUST NOT** jump to another element on the same screen using Link Button; use [Link](/components/link/) or an in-page anchor pattern instead.
+- **MUST NOT** change the weight (typography) of a Link Button.
+- **MUST NOT** change the color of any elements of a Link Button.
+
+## Usage
+Link Button is similar to a [Button](/components/button/) in that it allows users to take an action and make choices, but it has the appearance of a [Link](/components/link/).
+
+- Link Button and [Button](/components/button/) are announced similarly by screen readers (button semantics).
+- A [Link](/components/link/) is announced differently as a link and is expected to navigate.
+
+## Variants
+### Color
+Use the default Link Button colors from the component API. If multiple Link Button color variants exist, choose from documented variants only.
+
+### Size
+Use documented Link Button sizes only. Prefer matching the size to surrounding UI (e.g., within toolbars, forms, or card actions) rather than inventing custom sizing.
+
+## States
+- Default
+- Hover/active (web)
+- Focus-visible
+- Disabled (if supported)
+
+## Accessibility
+- Link Button **MUST** use `button` semantics (not `link` semantics).
+- Ensure the accessible name matches the visible label.
+- If using icon-only Link Buttons (if supported), **MUST** provide an accessible name (e.g., `aria-label`).
+- Keyboard users **MUST** be able to reach Link Button and see a visible focus indicator.
+
+## Token usage
+- Prefer component defaults (Link Button should be token-wired for color, typography, spacing, and interaction states).
+- Only use tokens for layout around the Link Button (spacing/gaps), not for restyling the Link Button itself.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import { LinkButton } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function Example() {
+  return (
+    <>
+      <LinkButton onClick={() => {}}>View details</LinkButton>
+      <LinkButton onClick={() => {}}>Reset filters</LinkButton>
+    </>
+  );
+}
+```
+
+## Best practices
+### Use when
+- Use when adding interaction to key behaviors and features.
+- Use when confirming or submitting information entered in a form.
+- Use when canceling an action.
+- Use when resetting a form or dataset.
+- Use when closing a container or section.
+- Use when opening a Popover.
+- Use when moving forward or backward through a stepper workflow.
+- Use when creating an object within a group.
+- Use when applying a non-critical action to a dataset.
+
+### Don’t use when
+- Don’t use when you want to navigate to another page or screen. Consider using [Link](/components/link/) instead.
+- Don’t use when underlining inline text. Consider using [Link](/components/link/) instead.
+- Don’t use when jumping to another element on the same screen.
+
+### Caution (native apps)
+Consider using the secondary or tertiary [Button](/components/button/) in native mobile apps instead of Link Button. In web design, underlined appearances indicate a hyperlink that leads to another page and this is not a common practice for native apps.
+
+## Content strategy
+The text label should tell the user what action they're about to take.
+
+- Don't use "Learn more" or "More details" which are vague.
+- People mostly look at the first 2 words of a button, so it's important to start the copy with the most important words.
+
+## Anatomy
+1. Container
+2. Leading icon (optional)
+3. Text label
+4. Trailing icon (optional)

@@ -1,0 +1,103 @@
+---
+description: Guidelines and rules for popover
+alwaysApply: false
+---
+import { PopoverGuidelinesSandbox } from "./PopoverGuidelines";
+
+<PopoverGuidelinesSandbox />
+
+## Purpose
+A Popover is a **non-modal dialog** that displays supporting content anchored to a trigger. It can contain instructions, a short list of options, and lightweight actions without taking the user away from the current context.
+
+## Rules
+- **MUST** use the Living Design `Popover` component.
+- **MUST** pair Popover with a **clickable / keyboard-focusable trigger** element.
+- **MUST** open Popover only in response to **user demand** (e.g., click, Enter, Space) — never on page load.
+- **MUST** include at least **one focusable element** inside the Popover (e.g., link, button, input) and provide a clear close path.
+- **MUST** support dismissal via **Escape** and by interacting **outside** the Popover (per the component API).
+- **MUST NOT** use Popover to display complex information or multi-step flows; use a dedicated screen or a [Modal](/components/modal/) instead.
+- **MUST NOT** use Popover for “choose one” selection controls; use [Select](/components/select/) or a radio group instead.
+
+## Usage
+A Popover is a non-modal dialog that can display a variety of content, instructions, options, and actions. The component should be paired with a clickable trigger element and contain at least one focusable element.
+
+## Best practices
+### Use when
+- Use when providing relevant supporting information or actions.
+- Use when presenting a short list of options to be taken on the current view.
+
+### Don’t use when
+- Don’t use when displaying complex information.
+- Don’t use when the resulting interaction flow requires multiple steps.
+- Don’t use when a user is making a selection or picking an option. Use [Select](/components/select/) or a radio group instead.
+- Don’t use when the Popover is displayed without user demand (e.g., on page load).
+
+## Anatomy
+- **Layout container**
+- **Container**
+- **Content**
+- **Nubbin (optional)**
+
+## Accessibility
+- The trigger **MUST** be keyboard-focusable and have an accessible name (visible label, or `aria-label` for icon-only triggers).
+- If the Popover content is dialog-like, it **MUST** have an accessible name (e.g., via a visible title wired to `aria-labelledby`, or `aria-label`).
+- Focus management **MUST** be handled by the component:
+  - On open, focus moves into the Popover (typically to the first focusable element).
+  - On close, focus returns to the trigger.
+- Keyboard interaction **MUST** be supported:
+  - Enter/Space opens from the trigger.
+  - Escape closes.
+  - Tab/Shift+Tab navigates through focusable content.
+
+## Token usage
+- Prefer component defaults (Popover should be token-wired for surface, elevation, radius, spacing, typography, and interaction states).
+- Only use tokens for layout around the trigger/Popover, not for restyling Popover internals.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { Button, Popover } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function PopoverExample() {
+  const [open, setOpen] = React.useState(false);
+
+  return (
+    <Popover
+      // Adapt prop names to your actual API:
+      // trigger={<Button variant="secondary">More options</Button>}
+      // open={open}
+      // onOpenChange={setOpen}
+      // placement="bottom-start"
+      trigger={
+        <Button variant="secondary" aria-haspopup="dialog">
+          More options
+        </Button>
+      }
+      open={open}
+      onOpenChange={setOpen}
+      aria-label="More options"
+    >
+      <div>
+        <p>Choose an action for this item.</p>
+        <Button variant="secondary" onClick={() => setOpen(false)}>
+          Cancel
+        </Button>
+        <Button onClick={() => setOpen(false)}>Confirm</Button>
+      </div>
+    </Popover>
+  );
+}
+```
+
+## Do / Don’t
+### Do
+- Use Popover for **supporting** information and lightweight actions.
+- Keep content **short and scannable**, and include at least one focusable element.
+- Ensure the user can **dismiss** it quickly (Escape and outside click).
+
+### Don’t
+- Don’t open Popover automatically on page load.
+- Don’t use Popover for complex content or multi-step flows.
+- Don’t use Popover as a selection control (use [Select](/components/select/) or a radio group).

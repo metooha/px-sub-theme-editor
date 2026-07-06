@@ -1,0 +1,227 @@
+/**
+ * Date Picker Calendar Component Styles
+ * Living Design 3.5 - Token-based styling
+ */
+
+.calendar {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-200, 16px);
+  padding: var(--ld-primitive-scale-space-200, 16px);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  border-radius: var(--ld-primitive-scale-border-radius-100, 8px);
+  box-shadow: var(--ld-semantic-elevation-100);
+  background: var(--ld-semantic-color-surface, #ffffff);
+  width: fit-content;
+}
+
+/* Embedded variant - no elevation or background, used within other components */
+.calendar--embedded {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Header with month/year and navigation */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--ld-primitive-scale-space-150, 12px);
+  position: relative;
+}
+
+.monthYear {
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  flex: 1;
+  text-align: center;
+}
+
+.navButton {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--ld-primitive-scale-border-radius-50, 4px);
+  color: var(--ld-semantic-color-text, #2e2f32);
+  transition: background-color 0.15s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-fill-subtle, #f5f5f6);
+}
+
+.navButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.navButton--prev {
+  left: 0;
+}
+
+.navButton--next {
+  right: 0;
+}
+
+.navButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Calendar grid */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+/* Day headers row */
+.dayHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  margin-bottom: var(--ld-primitive-scale-space-100, 8px);
+}
+
+/* Week numbers variant - 8 columns */
+.dayHeaders--withWeeks {
+  grid-template-columns: 40px repeat(7, 40px);
+}
+
+.dayHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: var(--ld-semantic-color-text, #2e2f32);
+}
+
+/* Special styling for week number header */
+.dayHeader--weekNumber {
+  font-size: 10px;
+  text-align: center;
+}
+
+/* Weeks container */
+.weeks {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+/* Week row */
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 40px);
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.week--withWeeks {
+  grid-template-columns: 40px repeat(7, 40px);
+}
+
+/* Week number cell */
+.weekNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--ld-semantic-color-text-subtle, #515357);
+}
+
+/* Day cell */
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI');
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: transparent;
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.day:hover:not(.day--disabled):not(.day--selected) {
+  background-color: var(--ld-semantic-color-fill-subtle, #f5f5f6);
+}
+
+.day--disabled {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.day--outside {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+  opacity: 0.5;
+}
+
+.day--selected {
+  border-color: var(--ld-semantic-color-action-fill-primary, #0071dc);
+  background-color: transparent;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  font-weight: 400;
+}
+
+.day--today {
+  font-weight: 700;
+}
+
+/* Range selection styles */
+.day--rangeStart {
+  border-color: var(--ld-semantic-color-action-fill-primary, #0071dc);
+  background-color: transparent;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  font-weight: 400;
+}
+
+.day--rangeEnd {
+  background-color: var(--ld-semantic-color-action-fill-primary, #0071dc);
+  color: var(--ld-primitive-color-white, #ffffff);
+  border-color: var(--ld-semantic-color-action-fill-primary, #0071dc);
+}
+
+.day--rangeEnd:hover:not(.day--disabled) {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered, #0060b8);
+}
+
+.day--inRange {
+  background-color: var(--ld-semantic-color-action-fill-subtle, #e5f0ff);
+  border-radius: 50%;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  border-color: transparent;
+}
+
+.day--inRange:hover:not(.day--disabled) {
+  background-color: var(--ld-semantic-color-action-fill-subtle-hovered, #cce0ff);
+}

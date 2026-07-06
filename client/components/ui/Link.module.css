@@ -1,0 +1,116 @@
+/* Link Component - Living Design 3.5 */
+
+.link {
+  font-family: var(--ld-semantic-font-family-sans);
+  font-weight: 400;
+  cursor: pointer;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  transition: color var(--ld-primitive-duration-200) ease, text-decoration-color var(--ld-primitive-duration-200) ease;
+  display: inline;
+}
+
+/* Variant: Default */
+.link--variant-default {
+  color: var(--ld-semantic-color-link-text);
+}
+
+.link--variant-default:hover {
+  color: var(--ld-semantic-color-link-text-hovered);
+}
+
+.link--variant-default:active {
+  color: var(--ld-semantic-color-link-text-pressed);
+}
+
+.link--variant-default:visited {
+  color: var(--ld-semantic-color-link-text);
+}
+
+.link--variant-default:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50);
+  border-radius: var(--ld-primitive-scale-border-radius-25);
+  color: var(--ld-semantic-color-link-text-focused);
+}
+
+/* Variant: Subtle */
+.link--variant-subtle {
+  color: var(--ld-semantic-color-link-text-subtle);
+}
+
+.link--variant-subtle:hover {
+  color: var(--ld-semantic-color-link-text-subtle-hovered);
+}
+
+.link--variant-subtle:active {
+  color: var(--ld-semantic-color-link-text-subtle-pressed);
+}
+
+.link--variant-subtle:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50);
+  border-radius: var(--ld-primitive-scale-border-radius-25);
+  color: var(--ld-semantic-color-link-text-subtle-focused);
+}
+
+/* Variant: White (for dark backgrounds) */
+.link--variant-white {
+  color: var(--ld-semantic-color-link-text-accent-white);
+}
+
+.link--variant-white:hover {
+  color: var(--ld-semantic-color-link-text-accent-white-hovered);
+}
+
+.link--variant-white:active {
+  color: var(--ld-semantic-color-link-text-accent-white-pressed);
+}
+
+.link--variant-white:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-link-text-accent-white);
+  outline-offset: var(--ld-primitive-scale-space-50);
+  border-radius: var(--ld-primitive-scale-border-radius-25);
+  color: var(--ld-semantic-color-link-text-accent-white-focused);
+}
+
+.link--variant-white[aria-disabled="true"] {
+  color: var(--ld-semantic-color-link-text-accent-white-disabled);
+}
+
+/* Underline states */
+.link--underlined {
+  text-decoration: underline;
+  text-decoration-thickness: var(--ld-semantic-scale-border-width-interactive);
+  text-underline-offset: var(--ld-primitive-scale-space-50);
+}
+
+.link--underlined:hover {
+  text-decoration: none;
+}
+
+.link--no-underline {
+  text-decoration: none;
+}
+
+.link--no-underline:hover {
+  text-decoration: underline;
+  text-decoration-thickness: var(--ld-semantic-scale-border-width-interactive);
+  text-underline-offset: var(--ld-primitive-scale-space-50);
+}
+
+/* Disabled state (aria-disabled) */
+.link[aria-disabled="true"] {
+  color: var(--ld-semantic-color-link-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+  text-decoration: none;
+}
+
+/* Ensure links inline with text don't disrupt line height */
+.link {
+  line-height: inherit;
+  vertical-align: baseline;
+}

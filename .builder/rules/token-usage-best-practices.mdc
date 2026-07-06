@@ -1,0 +1,488 @@
+---
+description: Guidelines and rules for token usage best practices
+alwaysApply: false
+---
+# Living Design 3.5 Token Usage Best Practices
+
+This document outlines best practices for using Living Design 3.5 semantic tokens throughout the application.
+
+## 🎯 Core Principles
+
+### 1. Always Use Semantic Tokens, Never Primitives
+
+**✅ CORRECT:**
+```tsx
+// Use semantic tokens
+<div className="bg-ld-main text-ld-primary">
+```
+
+**❌ WRONG:**
+```tsx
+// Don't use primitive tokens directly
+<div style={{ color: 'var(--ld-primitive-color-gray-160)' }}>
+
+// Don't use hard-coded values
+<div className="bg-[#ffffff] text-[#2e2f32]">
+```
+
+**Why?** Semantic tokens provide meaning and context. They automatically adapt to theme changes and ensure consistent design system compliance.
+
+---
+
+### 2. Use Separator Token for Default Borders and Dividers
+
+**CRITICAL RULE**: All default/structural borders — card dividers, list separators, table row borders, panel dividers, tab underlines — MUST use the `--ld-semantic-color-separator` token. Do NOT use `--ld-semantic-color-border-subtle` or any other border token for these purposes.
+
+`--ld-semantic-color-separator` maps to `var(--ld-primitive-color-gray-20)` — a light, unobtrusive divider color consistent with the LD Card system (see `CardHeader.module.css` and `CardActions` which use this token internally).
+
+**When to use `--ld-semantic-color-separator`:**
+- Card internal dividers (between header/content/actions)
+- List item separators
+- Table row borders
+- Tab underlines
+- Panel/drawer dividers
+- Metric dividers
+- Any structural/decorative line separating content sections
+
+**When NOT to use it (use specific border tokens instead):**
+- Interactive element borders (inputs, selects) → `--ld-semantic-color-border-strong`
+- Semantic borders (info, error, warning) → `--ld-semantic-color-border-info`, `--ld-semantic-color-border-negative`, etc.
+- Active/selected state borders → `--ld-semantic-color-border-activated`
+- Focus outlines → `--ld-semantic-color-action-focus-outline`
+
+**✅ CORRECT:**
+```css
+/* Card divider */
+border-bottom: 1px solid var(--ld-semantic-color-separator);
+
+/* List separator */
+border-bottom: 1px solid var(--ld-semantic-color-separator);
+
+/* Vertical divider */
+background: var(--ld-semantic-color-separator);
+```
+
+```tsx
+// Inline style separator
+<hr style={{ borderTop: '1px solid var(--ld-semantic-color-separator)' }} />
+
+// Vertical divider
+<div style={{ width: '1px', height: '32px', background: 'var(--ld-semantic-color-separator)' }} />
+```
+
+**❌ WRONG:**
+```css
+/* Too dark for a default separator */
+border-bottom: 1px solid var(--ld-semantic-color-border-subtle);
+border-bottom: 1px solid var(--ld-semantic-color-border);
+
+/* Hard-coded values */
+border-bottom: 1px solid #E2E2E3;
+border-bottom: 1px solid #BABBBE;
+```
+
+**Reference**: The LD Card system already uses `--ld-semantic-color-separator` in `CardHeader.module.css` and `CardActions` — all custom separators should match this pattern.
+
+---
+
+## 🛠️ Utility Classes
+
+Use the predefined utility classes in `client/global.css`:
+
+### Background Classes
+```tsx
+<div className="bg-ld-main">        {/* Main background (#ffffff) */}
+<div className="bg-ld-subtle">      {/* Subtle background (#f8f8f8) */}
+<div className="bg-ld-inverse">     {/* Inverse/dark background (#2e2f32) */}
+<div className="bg-ld-fill-subtle"> {/* Card/surface fill (#f1f1f2) */}
+```
+
+### Text Classes
+```tsx
+<p className="text-ld-primary">   {/* Primary text (#2e2f32) */}
+<p className="text-ld-subtle">    {/* Subtle text (#515357) */}
+<p className="text-ld-subtlest">  {/* Subtlest text (#74767c) */}
+<p className="text-ld-inverse">   {/* White text on dark (#ffffff) */}
+<p className="text-ld-brand">     {/* Brand/link text (#0053e2) */}
+```
+
+### Border & Separator Classes
+```tsx
+{/* SEPARATORS — use for all structural dividers, card borders, table rows, list separators */}
+<div className="border border-ld-separator"> {/* Separator (#E3E4E5 — light gray) */}
+<hr style={{ borderTop: '1px solid var(--ld-semantic-color-separator)' }} />
+
+{/* STRONG BORDERS — only for interactive elements (inputs, selects) or emphasis */}
+<div className="border border-ld">          {/* Primary border (#2e2f32) */}
+<div className="border border-ld-subtle">   {/* Subtle border (#515357) */}
+<div className="border border-ld-subtlest"> {/* Subtlest border (#74767c) */}
+```
+
+### Interactive Classes
+```tsx
+<button className="hover-ld-gray">   {/* Hover state with gray fill */}
+<button className="hover-ld-subtle">  {/* Hover state with transparent fill */}
+```
+
+---
+
+## 📦 Component Usage
+
+### Buttons - ALWAYS Use the Component
+
+**✅ CORRECT:**
+```tsx
+import { Button } from '@/components/ui/Button';
+
+<Button variant="primary" size="medium">
+  Click Me
+</Button>
+```
+
+**❌ WRONG:**
+```tsx
+// Never create custom buttons
+<button className="px-6 h-10 rounded-full bg-[#0071DC] text-white">
+  Click Me
+</button>
+
+// Never override Button component tokens
+<Button className="bg-[#0071DC]">  {/* Breaks theming! */}
+  Click Me
+</Button>
+```
+
+### Dropdowns - Use Select or DropdownMenu
+
+**RULE**: For dropdown interactions, use the appropriate LD component. The dropdown panel should render as a clean list with labels, items, and separators (matching the DropdownMenu visual style).
+
+**When to use Select** (`@/components/ui/Select`):
+- Choosing a value from a list (form fields, filters)
+- The selected value is displayed in the trigger
+- Single-selection use cases
+
+**When to use DropdownMenu** (`@/components/ui/dropdown-menu`):
+- Action menus (edit, delete, etc.)
+- Grouped menu items with labels and separators
+- No "selected value" needs to be shown — just actions
+
+**When Popover is acceptable:**
+- Complex custom content (e.g., grids, cards, rich layouts inside a dropdown)
+- The MastHead navigation uses Popover because it contains a solution card grid — this is fine
+
+**✅ CORRECT:**
+```tsx
+// For value selection (filters, forms)
+import { Select, SelectItem } from '@/components/ui/Select';
+
+<Select label="Days window" value={value} onValueChange={setValue} size="large">
+  <SelectItem value="7">7 days</SelectItem>
+  <SelectItem value="14">14 days</SelectItem>
+</Select>
+
+// For action/navigation menus
+import {
+  DropdownMenu, DropdownMenuTrigger, DropdownMenuContent,
+  DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
+
+<DropdownMenu>
+  <DropdownMenuTrigger asChild>
+    <Button variant="tertiary" size="small">Open Menu</Button>
+  </DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Settings</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu>
+```
+
+**❌ WRONG:**
+```tsx
+// Never build custom dropdown with useState + absolute positioning
+const [open, setOpen] = useState(false);
+{open && <div style={{ position: 'absolute' }}>...</div>}
+```
+
+### Other Components
+
+Use existing components when available:
+- **Tags/Badges**: `<Tag variant="success">` or `<OLQTag percentage={85} />`
+- **Button Groups**: `<ButtonGroup>` for multiple buttons
+- **Popovers**: `<Popover>` with `<PopoverArrow />` — for tooltips, informational overlays, or complex custom dropdown content
+
+---
+
+## 📐 8px Spacing Hierarchy Rule
+
+**HARD RULE**: All vertical spacing between content sections must use multiples of 8px. This creates consistent visual hierarchy across the application.
+
+| Spacing | Value | Use Case |
+|---------|-------|----------|
+| 1× (8px) | `8px` | Tightest grouping — related inline elements, icon-to-label gaps |
+| 2× (16px) | `16px` | Between closely related items — list items, form fields, divider to content |
+| 3× (24px) | `24px` | Between section title and its content below (e.g., heading → tabs, heading → card) |
+| 4× (32px) | `32px` | Between major page sections (e.g., metrics card → data table section) |
+| 6× (48px) | `48px` | Between top-level page regions (rare, used for major visual breaks) |
+
+**Section header pattern:**
+```tsx
+{/* 32px above section title (gap from previous section) */}
+{/* 24px below section title (gap to content/tabs below) */}
+<div style={{ marginTop: 32, marginBottom: 24 }}>
+  <h3 style={{
+    fontFamily: "var(--ld-semantic-font-heading-small-family)",
+    fontSize: "var(--ld-semantic-font-heading-small-size, 20px)",
+    fontWeight: "var(--ld-semantic-font-heading-small-weight-default, 700)",
+    lineHeight: "var(--ld-semantic-font-heading-small-lineheight, 1.4)",
+    color: "var(--ld-semantic-color-text, #2E2F32)",
+    margin: 0,
+  }}>
+    Section Title
+  </h3>
+</div>
+```
+
+**Why 8px?** The 8px grid ensures visual rhythm and consistency. Designers and developers can communicate spacing using multipliers (1×, 2×, 3×, 4×) instead of arbitrary pixel values.
+
+---
+
+## 🎨 Common Patterns
+
+### Page Layout
+```tsx
+export default function MyPage() {
+  return (
+    <div className="min-h-screen bg-ld-subtle flex flex-col">
+      {/* Header — structural border uses separator token */}
+      <header style={{ height: 54, borderBottom: '1px solid var(--ld-semantic-color-separator)', backgroundColor: 'var(--ld-semantic-color-fill-surface-primary)', padding: '0 24px' }}>
+        <h1 className="text-ld-primary">Page Title</h1>
+      </header>
+
+      {/* Content */}
+      <main className="flex-1 p-6">
+        <div style={{ border: '1px solid var(--ld-semantic-color-separator)', borderRadius: 8, padding: 24, backgroundColor: 'var(--ld-semantic-color-fill-surface-primary)' }}>
+          <p className="text-ld-primary">Content here</p>
+        </div>
+      </main>
+    </div>
+  );
+}
+```
+
+### Card/Panel
+```tsx
+{/* Use the Card component, or if custom, use separator token for borders */}
+<div style={{ border: '1px solid var(--ld-semantic-color-separator)', borderRadius: 8, padding: 24, backgroundColor: 'var(--ld-semantic-color-fill-surface-primary)' }}>
+  <h2 className="text-lg font-bold text-ld-primary mb-4">Card Title</h2>
+  <p className="text-sm text-ld-subtle">Card content</p>
+</div>
+```
+
+### Table
+```tsx
+<div className="overflow-x-auto bg-ld-main">
+  <table className="w-full">
+    <thead className="bg-ld-fill-subtlest sticky top-0">
+      <tr>
+        <th className="text-ld-primary">Header</th>
+      </tr>
+    </thead>
+    <tbody>
+      {/* Table row borders use separator token */}
+      <tr style={{ borderBottom: '1px solid var(--ld-semantic-color-separator)' }} className="hover-ld-gray">
+        <td className="text-ld-primary">Cell</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+### Form Elements
+```tsx
+<input
+  type="text"
+  className="h-10 px-4 bg-ld-main border border-ld-disabled rounded text-ld-primary"
+  placeholder="Enter text..."
+/>
+```
+
+---
+
+## 🚨 Common Mistakes to Avoid
+
+### 1. Mixing Token Systems
+**❌ WRONG:**
+```tsx
+<div className="bg-white text-ld-primary border-gray-300">
+```
+
+**✅ CORRECT:**
+```tsx
+<div className="bg-ld-main text-ld-primary border-ld-subtlest">
+```
+
+### 2. Using Primitive Tokens
+**❌ WRONG:**
+```tsx
+<div style={{ color: 'var(--ld-primitive-color-gray-160)' }}>
+```
+
+**✅ CORRECT:**
+```tsx
+<div className="text-ld-primary">
+```
+
+### 3. Hard-coding Interactive States
+**❌ WRONG:**
+```tsx
+<button className="hover:bg-[#f1f1f2]">
+```
+
+**✅ CORRECT:**
+```tsx
+<button className="hover-ld-gray">
+```
+
+### 4. Creating Custom Buttons
+**❌ WRONG:**
+```tsx
+<button className="px-6 py-2 bg-blue-600 text-white rounded-full">
+```
+
+**✅ CORRECT:**
+```tsx
+<Button variant="primary" size="medium">
+```
+
+---
+
+## 🔍 Token Reference Quick Guide
+
+### When to Use Each Token
+
+| Use Case | Token Class | Example |
+|----------|-------------|---------|
+| Main page background | `bg-ld-main` | Full-page wrapper |
+| Subtle page background | `bg-ld-subtle` | Content area background |
+| Card/panel background | `bg-ld-main` | Individual cards |
+| Card fill (alternate) | `bg-ld-fill-subtle` | Zebra striping |
+| Table header | `bg-ld-fill-subtlest` | Thead background |
+| Primary heading text | `text-ld-primary` | H1, H2, main text |
+| Secondary/body text | `text-ld-subtle` | Descriptions, labels |
+| Placeholder text | `text-ld-subtlest` | Input placeholders |
+| Link text | `text-ld-brand` | Hyperlinks |
+| Separators & dividers | `var(--ld-semantic-color-separator)` | Card borders, table rows, list separators, panel dividers |
+| Input borders | `border-ld-disabled` | Form field borders |
+| Strong borders | `border-ld` | Emphasis borders, interactive element outlines |
+| Hover state | `hover-ld-gray` | Button/row hover |
+
+---
+
+## 📚 Advanced Patterns
+
+### Conditional Styling with Tokens
+```tsx
+const statusColors = {
+  success: 'text-[var(--ld-semantic-color-text-positive)]',
+  error: 'text-[var(--ld-semantic-color-text-negative)]',
+  warning: 'text-[var(--ld-semantic-color-text-warning)]',
+};
+
+<span className={statusColors[status]}>
+  {message}
+</span>
+```
+
+### Inline Styles with Tokens (When Necessary)
+```tsx
+// Use for dynamic values or when className isn't available
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-background)',
+  color: 'var(--ld-semantic-color-text-primary)',
+  borderColor: 'var(--ld-semantic-color-border-subtlest)',
+}}>
+```
+
+### Theme-Aware Components
+```tsx
+// Component automatically adapts to all themes
+function StatusBadge({ status }: { status: 'live' | 'paused' }) {
+  return (
+    <span className={`
+      px-2 py-1 rounded text-xs
+      ${status === 'live' 
+        ? 'bg-[var(--ld-semantic-color-fill-positive-subtle)] text-[var(--ld-semantic-color-text-positive)]'
+        : 'bg-ld-fill-subtle text-ld-subtle'
+      }
+    `}>
+      {status}
+    </span>
+  );
+}
+```
+
+---
+
+## ✅ Checklist for New Components
+
+When creating a new component, ensure:
+
+- [ ] No hard-coded hex colors (`#ffffff`, `#2e2f32`, etc.)
+- [ ] No Tailwind color utilities (`bg-white`, `text-gray-600`, etc.)
+- [ ] Uses semantic tokens or utility classes
+- [ ] For buttons, uses `Button` component
+- [ ] Interactive states use token-based hover classes
+- [ ] Tested across multiple themes (Walmart, Sam's Club, etc.)
+- [ ] No primitive tokens used directly
+- [ ] Follows Living Design 3.5 specifications
+
+---
+
+## 🧪 Testing Token Usage
+
+### Manual Testing
+1. **Switch themes** using the theme switcher
+2. **Verify colors update** correctly on theme change
+3. **Check all interactive states** (hover, focus, active)
+4. **Test in different brand themes**:
+   - Walmart (blue)
+   - Sam's Club (blue)
+   - Walmart B2B (navy)
+   - Data Ventures (purple)
+
+### Automated Checks
+```bash
+# Find hard-coded hex colors
+grep -r "bg-\[#\|text-\[#\|border-\[#" client/pages
+
+# Find Tailwind color utilities
+grep -r "bg-white\|bg-gray-\|text-gray-" client/pages
+```
+
+---
+
+## 📖 Additional Resources
+
+- **Token Migration Guide**: See `guidelines/TOKEN_MIGRATION_GUIDE.md`
+- **Available Tokens**: See `client/styles/themes/base/semantic.css`
+- **Component Guidelines**: See `guidelines/Button.md`, etc.
+- **Design System Docs**: See `design-system-docs/` folder
+
+---
+
+## 🎓 Learning Path
+
+1. **Start with utility classes** - Easiest to use
+2. **Use existing components** - Button, Tag, etc.
+3. **Reference the migration guide** - For common patterns
+4. **Check semantic.css** - For all available tokens
+5. **Test with theme switching** - Ensure it works across brands
+
+---
+
+*Last updated: 2026-02-18*
+*Living Design 3.5 Token System*

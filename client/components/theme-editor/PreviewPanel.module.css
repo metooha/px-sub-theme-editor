@@ -1,0 +1,352 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+  border: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.cardClickable {
+  cursor: pointer;
+}
+
+.cardClickable:hover {
+  border-color: color-mix(in srgb, var(--ld-semantic-color-action-fill-primary, #0053e2) 40%, transparent);
+}
+
+.cardActive {
+  border-color: var(--ld-semantic-color-action-fill-primary, #0053e2);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--ld-semantic-color-action-fill-primary, #0053e2) 15%, transparent);
+}
+
+.cardHeader {
+  padding: 8px 16px;
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  font-family: var(--ld-semantic-font-family-sans);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.cardHeaderCollapsible {
+  cursor: pointer;
+  user-select: none;
+}
+
+.cardHeaderCollapsible:hover {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+}
+
+.cardLink {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  white-space: nowrap;
+  transition: background 150ms ease, color 150ms ease;
+}
+
+.cardLinkActive {
+  background: color-mix(in srgb, var(--ld-semantic-color-action-fill-primary, #0053e2) 12%, transparent);
+  color: var(--ld-semantic-color-text-brand, #0053e2);
+}
+
+.cardBody {
+  padding: 16px;
+}
+
+
+/* Buttons preview */
+.buttonsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+/* Top nav preview */
+.topNav {
+  background: var(--ld-semantic-color-top-nav-fill, #fff);
+  border-bottom: 1px solid var(--ld-semantic-color-top-nav-separator, transparent);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 6px;
+}
+
+.topNavLogo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topNavLogoIcon {
+  width: 16px;
+  height: 16px;
+  background: var(--ld-semantic-color-top-nav-text-on-fill, #2e2f32);
+  border-radius: 2px;
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+
+.topNavTitle {
+  font-size: 15px;
+  font-weight: 700;
+  /* Uses the dedicated app name token with fallback to general top-nav text */
+  color: var(--ld-semantic-color-top-nav-app-name, var(--ld-semantic-color-top-nav-text-on-fill, #2e2f32));
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+.topNavItems {
+  display: flex;
+  gap: 4px;
+}
+
+.topNavItem {
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 13px;
+  color: var(--ld-semantic-color-top-nav-text-on-fill, #2e2f32);
+  font-family: var(--ld-semantic-font-family-sans);
+  cursor: pointer;
+  transition: background 80ms ease;
+}
+
+.topNavItem:hover {
+  background: var(--ld-semantic-color-top-nav-fill-hovered, rgba(0,0,0,0.05));
+}
+
+/* Desktop footer */
+.desktopFooter {
+  background: var(--ld-semantic-color-fill-surface-secondary, #f1f1f2);
+  padding: 16px;
+  border-radius: 6px;
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+.desktopFooterLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  margin-bottom: 12px;
+}
+
+.desktopFooterLink {
+  font-size: 12px;
+  color: var(--ld-semantic-color-text-secondary, #515357);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.desktopFooterCopy {
+  font-size: 11px;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  border-top: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  padding-top: 10px;
+}
+
+/* Text field */
+.textField {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid var(--ld-semantic-color-field-border, #74767c);
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  font-size: 14px;
+  font-family: var(--ld-semantic-font-family-sans);
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* ── Browser frame ─────────────────────────────────────────── */
+.browserOuter {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--ld-semantic-color-separator, #d0d0d0);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+}
+
+.browserChrome {
+  background: #e8e8e8;
+  padding: 9px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #d0d0d0;
+}
+
+.browserDots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.browserDot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: block;
+}
+
+.browserDotRed    { background: #ff5f57; }
+.browserDotYellow { background: #ffbd2e; }
+.browserDotGreen  { background: #28c940; }
+
+.browserUrlBar {
+  flex: 1;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #d0d0d0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-family: var(--ld-semantic-font-family-sans);
+  overflow: hidden;
+}
+
+.browserLock { font-size: 9px; flex-shrink: 0; }
+
+.browserUrl {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #444;
+}
+
+.browserViewport {
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Phone frame ───────────────────────────────────────────── */
+.phoneOuter {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  background: #1c1c1e;
+  border-radius: 48px;
+  padding: 16px 10px;
+  box-shadow:
+    0 0 0 1px #3a3a3a,
+    0 8px 40px rgba(0,0,0,0.4),
+    inset 0 0 0 1px #444;
+}
+
+.phoneSideLeft {
+  position: absolute;
+  left: -3px;
+  top: 90px;
+  width: 3px;
+  height: 28px;
+  background: #2c2c2e;
+  border-radius: 2px 0 0 2px;
+  box-shadow: 0 40px 0 #2c2c2e, 0 80px 0 #2c2c2e;
+}
+
+.phoneSideRight {
+  position: absolute;
+  right: -3px;
+  top: 118px;
+  width: 3px;
+  height: 56px;
+  background: #2c2c2e;
+  border-radius: 0 2px 2px 0;
+}
+
+.phoneScreen {
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+  border-radius: 36px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.phoneStatusBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px 4px;
+  background: var(--ld-semantic-color-fill-surface-primary, #fff);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.phoneTime {
+  font-size: 12px;
+  font-weight: 700;
+  font-family: var(--ld-semantic-font-family-sans);
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  z-index: 1;
+}
+
+.phoneDynamicIsland {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  width: 86px;
+  height: 24px;
+  background: #1c1c1e;
+  border-radius: 20px;
+}
+
+.phoneStatusIcons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  font-size: 8px;
+  color: var(--ld-semantic-color-text-primary, #2e2f32);
+  z-index: 1;
+}
+
+.phoneContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: var(--ld-semantic-color-fill-subtle, #f8f8f8);
+}
+
+.phoneHomeBar {
+  width: 100px;
+  height: 4px;
+  background: var(--ld-semantic-color-text-primary, #2e2f32);
+  border-radius: 2px;
+  margin: 8px auto;
+  opacity: 0.25;
+  flex-shrink: 0;
+  background: #1c1c1e;
+}
+
+/* Destructive preview */
+.destructiveRow {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}

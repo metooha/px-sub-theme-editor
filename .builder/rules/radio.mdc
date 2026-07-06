@@ -1,0 +1,140 @@
+---
+description: Guidelines and rules for radio
+alwaysApply: false
+---
+# Radio & RadioGroup — LD 3.5
+
+## Overview
+
+Radio buttons represent a group of mutually exclusive choices. Use the Radio component inside a RadioGroup when only one selection from a group is allowed (as opposed to Checkboxes which allow multiple selections).
+
+## Files
+
+| File | Purpose |
+|------|---------|
+| `client/components/ui/Radio.tsx` | LD 3.5 Radio item component |
+| `client/components/ui/Radio.module.css` | Token-based styles for all 10 states |
+| `client/components/ui/radio-group.tsx` | RadioGroup container (Radix wrapper) |
+| `client/components/examples/RadioExample.tsx` | Usage examples |
+
+## Import
+
+```tsx
+import { Radio } from '@/components/ui/Radio';
+import { RadioGroup } from '@/components/ui/radio-group';
+```
+
+## Radio Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — (required) | Radio value for group coordination |
+| `label` | `ReactNode` | — | Visible label text |
+| `showLabel` | `boolean` | `true` | Show/hide the label |
+| `disabled` | `boolean` | `false` | Disabled state |
+| `id` | `string` | — | HTML id for label association |
+| `aria-label` | `string` | — | Accessible label when no visible label |
+| `UNSAFE_className` | `string` | — | Escape hatch for CSS class |
+| `UNSAFE_style` | `CSSProperties` | — | Escape hatch for inline styles |
+
+## RadioGroup Props
+
+Inherits all props from Radix `RadioGroupPrimitive.Root`:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `string` | — | Controlled selected value |
+| `defaultValue` | `string` | — | Default value (uncontrolled) |
+| `onValueChange` | `(value: string) => void` | — | Change callback |
+| `disabled` | `boolean` | `false` | Disable all radios in group |
+| `orientation` | `'horizontal' \| 'vertical'` | `'vertical'` | Layout direction |
+| `className` | `string` | — | Additional CSS class |
+
+## Usage
+
+### Basic Vertical Group
+
+```tsx
+const [selected, setSelected] = React.useState('apple');
+
+<RadioGroup value={selected} onValueChange={setSelected}>
+  <Radio value="apple" label="Apple" />
+  <Radio value="orange" label="Orange" />
+  <Radio value="banana" label="Banana" />
+</RadioGroup>
+```
+
+### Horizontal Layout
+
+```tsx
+<RadioGroup
+  value={plan}
+  onValueChange={setPlan}
+  style={{ display: 'flex', flexDirection: 'row', gap: '24px' }}
+>
+  <Radio value="free" label="Free" />
+  <Radio value="pro" label="Pro" />
+  <Radio value="enterprise" label="Enterprise" />
+</RadioGroup>
+```
+
+### Disabled
+
+```tsx
+<RadioGroup value="b" disabled>
+  <Radio value="a" label="Option A" disabled />
+  <Radio value="b" label="Option B" disabled />
+</RadioGroup>
+```
+
+### Without Labels
+
+```tsx
+<RadioGroup value="b">
+  <Radio value="a" aria-label="Option A" />
+  <Radio value="b" aria-label="Option B" />
+</RadioGroup>
+```
+
+## Figma Variant Map (10 States)
+
+### Unselected
+
+| State | Border | Fill | Label Color |
+|-------|--------|------|-------------|
+| Enabled | `--input-border` | white | `--text` |
+| Hovered | `--input-border-hovered` | `--input-fill-hovered` | `--text` |
+| Focused | `--input-border-focused` | `--input-fill-focused` | `--text` |
+| Pressed | `--input-border-pressed` | `--input-fill-pressed` | `--text` |
+| Disabled | `--input-border-disabled` | white | `--text-disabled` |
+
+### Selected
+
+| State | Border | Fill | Indicator | Label Weight |
+|-------|--------|------|-----------|-------------|
+| Enabled | `--input-border-activated` | `--input-fill-activated` | `--input-indicator-activated` | 700 |
+| Hovered | `--input-border-activated-hovered` | `--input-fill-activated-hovered` | `--input-indicator-activated` | 700 |
+| Focused | `--input-border-activated-focused` | `--input-fill-activated-focused` | `--input-indicator-activated` | 700 |
+| Pressed | `--input-border-activated-pressed` | `--input-fill-activated-pressed` | `--input-indicator-activated` | 700 |
+| Disabled | `--input-border-activated-disabled` | `--input-fill-activated-disabled` | `--input-indicator-activated` | 700 |
+
+All tokens prefixed with `var(--ld-semantic-color-)`.
+
+## Visual Specs
+
+- **Radio circle**: 24×24px, fully round, 2px border
+- **Inner dot**: 8×8px, centered, white (`--input-indicator-activated`)
+- **Label gap**: 12px (`--ld-primitive-scale-space-150`)
+- **Label font**: 14px, `--ld-semantic-font-body-small-family`
+- **Label weight**: 400 unselected, 700 selected
+- **Focus outline**: 2px solid `--ld-semantic-color-action-focus-outline`
+
+## Accessibility
+
+- Built on Radix RadioGroup which provides:
+  - Arrow key navigation between radios
+  - Roving tabindex focus management
+  - `role="radiogroup"` on container, `role="radio"` on items
+  - `aria-checked` state management
+- Always provide either a visible `label` or an `aria-label`
+- Focus ring uses the LD focus outline token

@@ -1,0 +1,56 @@
+---
+description: Guidelines and rules for tokens
+alwaysApply: false
+---
+# Typography Token System
+
+All Living Design typography components use CSS variables (design tokens) under the hood. This ensures:
+- Consistent typography across the application
+- Automatic theme support
+- Centralized control of type styles
+
+## Rules
+
+**DO NOT bypass the component system** by directly using the CSS variables or custom CSS classes.
+
+- ❌ Never reference tokens directly in component code (e.g., `var(--ld-semantic-font-body-medium-size)`)
+- ❌ Never create custom CSS classes that override typography tokens
+- ✅ Always use the provided typography components with their props
+
+## Token Naming Convention
+
+Typography tokens follow this pattern:
+```
+--ld-semantic-font-{component}-{size}-{property}-{breakpoint}
+```
+
+Examples:
+- `--ld-semantic-font-body-medium-size-b-s` (Body medium size, small breakpoint)
+- `--ld-semantic-font-heading-large-line-height-b-l` (Heading large line-height, large breakpoint)
+- `--ld-semantic-font-display-small-weight-default` (Display small default weight)
+
+## Breakpoint Tokens
+
+- `b-s`: Small/mobile breakpoint (default)
+- `b-l`: Large/desktop breakpoint
+
+Components automatically switch between these based on the viewport size using media queries.
+
+## Why Use Components Instead of Tokens?
+
+1. **Type Safety**: Props provide autocomplete and type checking
+2. **Consistency**: Prevents accidental misuse of token combinations
+3. **Maintainability**: Changes to the design system propagate automatically
+4. **Accessibility**: Components ensure proper semantic HTML structure
+5. **Responsive**: Breakpoint behavior is handled automatically
+
+## For Component Authors Only
+
+If you are creating a new Living Design component (not application code), you may use tokens directly in CSS modules. Follow these guidelines:
+
+1. Always use semantic tokens, never primitive tokens
+2. Include responsive breakpoints using media queries
+3. Document the component's API clearly
+4. Export a typed React component interface
+
+See existing components like `Body.tsx`, `Heading.tsx`, etc. for examples.

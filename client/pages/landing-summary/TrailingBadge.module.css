@@ -1,0 +1,18 @@
+.badge {
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  font-weight: var(--ld-semantic-font-caption-weight-alt, 700);
+  line-height: var(--ld-semantic-font-caption-lineheight, 1.333);
+  color: var(--ld-semantic-color-text-accent-purple, #63327e);
+  padding: 0 var(--ld-primitive-scale-space-50, 4px);
+  min-width: 56px;
+  min-height: var(--ld-primitive-scale-space-300, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  border: 1px dashed var(--ld-semantic-color-border-accent-purple, #63327e);
+  background: var(--ld-semantic-color-fill-accent-purple-subtle, #efebf2);
+  white-space: nowrap;
+  text-align: center;
+}

@@ -1,0 +1,25 @@
+/**
+ * ButtonGroup - Living Design 3.5
+ *
+ * Layout container for multiple related buttons.
+ * Provides consistent spacing and accessibility structure.
+ */
+
+.buttonGroup {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-semantic-spacing-150); /* 12px - LD 3.5 spacing token */
+  flex-wrap: wrap;
+}
+
+/* Ensure buttons within the group maintain proper spacing */
+.buttonGroup > * {
+  flex-shrink: 0;
+}
+
+/* Responsive behavior for smaller screens */
+@media (max-width: 640px) {
+  .buttonGroup {
+    gap: var(--ld-semantic-spacing-100); /* 8px */
+  }
+}

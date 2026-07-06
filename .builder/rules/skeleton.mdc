@@ -1,0 +1,247 @@
+---
+description: Guidelines and rules for skeleton
+alwaysApply: false
+---
+# Skeleton Component
+
+## Overview
+
+The Skeleton component is a low-fidelity shape that approximates a user interface element and indicates loading of content. A group of Skeletons roughly matching a loaded screen can improve perceived responsiveness when loading data is slow.
+
+This component is part of the **Living Design 3.5** design system and uses semantic design tokens for consistent theming and accessibility.
+
+## Components
+
+### Skeleton
+
+The base Skeleton component for single loading indicators.
+
+**Location**: `client/components/ui/Skeleton.tsx`
+
+**Import**:
+```tsx
+import { Skeleton } from '@/components/ui/Skeleton';
+```
+
+**Basic Usage**:
+```tsx
+<Skeleton width={200} height={20} variant="rectangle" />
+<Skeleton width={48} height={48} variant="rounded" />
+```
+
+### SkeletonText
+
+A convenience component for multi-line text loading states.
+
+**Location**: `client/components/ui/SkeletonText.tsx`
+
+**Import**:
+```tsx
+import { SkeletonText } from '@/components/ui/SkeletonText';
+```
+
+**Basic Usage**:
+```tsx
+<SkeletonText lines={3} variant="rectangle" />
+<SkeletonText lines={5} variant="rounded" />
+```
+
+## Props
+
+### Skeleton Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `width` | `number \| string` | - | Width of the skeleton. Numbers convert to px, strings used as-is. |
+| `height` | `number \| string` | - | Height of the skeleton. Numbers convert to px, strings used as-is. |
+| `variant` | `'rectangle' \| 'rounded'` | `'rectangle'` | Shape variant: rectangle (4px radius) or rounded (pill shape). |
+| `isMagic` | `boolean` | `false` | Enables special shimmer animation for AI-generated content. |
+| `aria-label` | `string` | `'Loading...'` | Accessible label for screen readers. |
+| `UNSAFE_className` | `string` | - | Additional CSS classes for custom styling. |
+| `UNSAFE_style` | `React.CSSProperties` | - | Inline styles for custom positioning. |
+
+### SkeletonText Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `lines` | `number` | `3` | Number of skeleton lines to render. |
+| `variant` | `'rectangle' \| 'rounded'` | `'rectangle'` | Shape variant applied to all lines. |
+| `isMagic` | `boolean` | `false` | Enables special shimmer animation with staggered delays. |
+| `aria-label` | `string` | `'Loading text...'` | Accessible label for screen readers. |
+| `UNSAFE_className` | `string` | - | Additional CSS classes for custom styling. |
+| `UNSAFE_style` | `React.CSSProperties` | - | Inline styles for custom positioning. |
+
+## Variants
+
+### Shape Variants
+
+#### Rectangle
+- **Border radius**: `var(--ld-primitive-scale-borderradius-50)` (4px)
+- **Use case**: General content blocks, cards, images
+- **Example**: `<Skeleton variant="rectangle" width={300} height={200} />`
+
+#### Rounded
+- **Border radius**: `var(--ld-primitive-scale-borderradius-round)` (9999px/pill)
+- **Use case**: Avatars, badges, pills, circular elements
+- **Example**: `<Skeleton variant="rounded" width={48} height={48} />`
+
+### Magic Mode
+
+The `isMagic` prop indicates AI-generated content with a special shimmer animation.
+
+**When to use**:
+- Loading AI-powered features
+- Content generation in progress
+- Smart recommendations being calculated
+- Any AI/ML-driven functionality
+
+**Visual treatment**:
+- Background: `var(--ld-semantic-color-loading-magic-subtle)` (#E9F1FE)
+- Shimmer: `var(--ld-semantic-color-loading-magic)` (#3D90EC)
+- Animation: Gradient slide with shimmer effect
+
+**Example**:
+```tsx
+<Skeleton width={400} height={24} variant="rectangle" isMagic />
+<SkeletonText lines={4} variant="rectangle" isMagic />
+```
+
+## Usage Patterns
+
+### Loading Avatar + Text
+```tsx
+<div style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+  <Skeleton width={48} height={48} variant="rounded" />
+  <div style={{ flex: 1 }}>
+    <SkeletonText lines={2} variant="rectangle" />
+  </div>
+</div>
+```
+
+### Loading Card
+```tsx
+<div style={{ padding: '24px' }}>
+  <Skeleton width="100%" height={200} variant="rectangle" />
+  <div style={{ marginTop: '16px' }}>
+    <SkeletonText lines={3} variant="rectangle" />
+  </div>
+</div>
+```
+
+### AI Content Loading
+```tsx
+<div style={{ padding: '24px' }}>
+  <Skeleton width="100%" height={200} variant="rectangle" isMagic />
+  <div style={{ marginTop: '16px' }}>
+    <SkeletonText lines={4} variant="rectangle" isMagic />
+  </div>
+</div>
+```
+
+## Design Tokens
+
+### Colors
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ld-semantic-color-loading-subtle` | #e3e4e5 | Default skeleton background |
+| `--ld-semantic-color-loading-magic-subtle` | #E9F1FE | Magic mode background |
+| `--ld-semantic-color-loading-magic` | #3D90EC | Magic mode shimmer accent |
+
+### Border Radius
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ld-primitive-scale-borderradius-50` | 4px | Rectangle variant |
+| `--ld-primitive-scale-borderradius-round` | 9999px | Rounded/pill variant |
+
+### Spacing
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| `--ld-semantic-spacing-2` | 8px | Gap between SkeletonText lines |
+
+## Accessibility
+
+- All Skeleton components include `aria-label` for screen reader announcements
+- Components use `aria-busy="true"` to indicate loading state
+- Components have `role="status"` for live region updates
+- Default labels provided but should be customized for specific contexts
+
+**Example with custom label**:
+```tsx
+<Skeleton 
+  width={200} 
+  height={20} 
+  variant="rectangle" 
+  aria-label="Loading product title"
+/>
+```
+
+## Animation
+
+### Default Animation
+- Subtle pulse animation (opacity: 1 → 0.6 → 1)
+- Duration: 2s
+- Easing: ease-in-out
+- Infinite loop
+
+### Magic Animation
+- Background shimmer (opacity: 1 → 0.8 → 1)
+- Gradient slide effect (left: -100% → 100%)
+- Duration: 2s per cycle
+- For SkeletonText: 200ms stagger delay per line
+
+## Best Practices
+
+### Do's ✅
+
+- Use Skeleton components to improve perceived performance during data loading
+- Match skeleton shapes to the actual content layout
+- Use `isMagic` variant consistently for AI-powered features
+- Provide meaningful `aria-label` attributes for accessibility
+- Use SkeletonText for multi-line text loading states
+
+### Don'ts ❌
+
+- Don't use arbitrary hard-coded colors (always use design tokens)
+- Don't mix magic and non-magic skeletons for the same content type
+- Don't use skeletons for very fast loading operations (<200ms)
+- Don't create wildly different skeleton layouts from actual content
+- Don't forget to remove skeletons when content loads
+
+## Examples
+
+See comprehensive examples in:
+- **Component Library**: `/component-library/skeleton`
+- **Example File**: `client/components/examples/SkeletonExample.tsx`
+
+## Migration from Old Component
+
+The old shadcn-style `skeleton.tsx` component has been replaced. If you're updating code:
+
+**Old Pattern** (deprecated):
+```tsx
+import { Skeleton } from '@/components/ui/skeleton';
+<Skeleton className="h-12 w-12 rounded-full" />
+```
+
+**New Pattern** (recommended):
+```tsx
+import { Skeleton } from '@/components/ui/Skeleton';
+<Skeleton width={48} height={48} variant="rounded" />
+// Or for backward compatibility with className:
+<Skeleton UNSAFE_className="h-12 w-12 rounded-full" />
+```
+
+## Related Components
+
+- **Button** - Often paired with skeletons in loading states
+- **Card** - Common container for skeleton layouts
+- **Avatar** - Use rounded Skeleton for avatar loading states
+
+## References
+
+- [Living Design 3.5 Component Spec](../design-system-docs/)
+- [Figma Design File](figma-design.html)
+- [Accessibility Guidelines](https://www.w3.org/WAI/ARIA/apg/patterns/alert/)

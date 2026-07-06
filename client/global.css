@@ -1,0 +1,409 @@
+/** @import must precede all other statements */
+@import url("/fonts/fonts.css"); /* Custom brand fonts (Gibson, Bogle) */
+/* Base theme loaded statically - ensures tokens available immediately */
+@import "./styles/themes/base/primitive.css";
+@import "./styles/themes/base/semantic.css";
+/* Theme overrides loaded dynamically via ThemeProvider - see client/contexts/ThemeContext.tsx */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    /* LD 3.5 aligned Tailwind variables
+     * These map Tailwind CSS theme tokens to Living Design 3.5 color values.
+     * HSL format: H S% L% (space-separated, no commas) */
+
+    /* Surface / Background — LD: --ld-semantic-color-surface (#FFFFFF) */
+    --background: 0 0% 100%;
+    /* Text — LD: --ld-semantic-color-text (#2E2F32) */
+    --foreground: 225 4% 19%;
+
+    /* Card — LD: --ld-semantic-color-surface (#FFFFFF) */
+    --card: 0 0% 100%;
+    --card-foreground: 225 4% 19%;
+
+    /* Popover — LD: --ld-semantic-color-surface-overlay (#FFFFFF) */
+    --popover: 0 0% 100%;
+    --popover-foreground: 225 4% 19%;
+
+    /* Primary action — LD: --ld-semantic-color-action-fill-primary (#0071DC) */
+    --primary: 209 100% 43%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary — LD: --ld-semantic-color-fill-subtle (#F5F5F6) */
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 225 4% 19%;
+
+    /* Muted — LD: --ld-semantic-color-fill-subtle / text-subtle */
+    --muted: 240 5% 96%;
+    /* LD: --ld-semantic-color-text-subtle (#74767C) */
+    --muted-foreground: 225 4% 47%;
+
+    /* Accent / Hover — LD: --ld-semantic-color-fill-hovered */
+    --accent: 240 5% 96%;
+    --accent-foreground: 225 4% 19%;
+
+    /* Destructive — LD: --ld-semantic-color-action-fill-destructive (#EA1100) */
+    --destructive: 4 100% 46%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Border — LD: --ld-semantic-color-separator (#E3E4E5) */
+    --border: 210 5% 89%;
+    /* Input border — LD: --ld-semantic-color-border (#BABBBE) */
+    --input: 230 4% 74%;
+    /* Focus ring — LD: --ld-semantic-color-action-focus-outline (#0071DC) */
+    --ring: 209 100% 43%;
+
+    --radius: 0.5rem;
+
+    /* Sidebar — aligned to LD surface tokens */
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 225 4% 19%;
+    --sidebar-primary: 209 100% 43%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 225 4% 19%;
+    --sidebar-border: 210 5% 89%;
+    --sidebar-ring: 209 100% 43%;
+
+    /* Walmart Design Tokens (legacy — prefer LD tokens) */
+    --walmart-blue: 209 100% 43%;
+    --walmart-text: 225 4% 19%;
+    --walmart-text-subtle: 225 4% 47%;
+    --walmart-text-subtlest: 225 4% 47%;
+    --walmart-separator: 210 5% 89%;
+    --walmart-surface-subtle: 240 5% 96%;
+    --walmart-green: 103 94% 19%;
+    --walmart-green-bg: 102 39% 92%;
+    --walmart-blue-tag: 215 100% 30%;
+    --walmart-blue-bg: 215 88% 95%;
+    --walmart-purple: 286 43% 26%;
+    --walmart-purple-bg: 280 12% 93%;
+    --walmart-gray: 225 4% 33%;
+    --walmart-gray-bg: 210 5% 89%;
+    --walmart-yellow: 46 100% 56%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  }
+
+  /* Reset default link styles to allow component styles to take precedence */
+  a {
+    color: inherit;
+    text-decoration: inherit;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
+
+@layer components {
+  /* Text link using Living Design 3.5 primitive token */
+  .text-link {
+    color: var(--ld-primitive-color-gray-160, #2e2f32);
+  }
+
+  .text-link:hover {
+    color: var(--ld-primitive-color-gray-160, #2e2f32);
+  }
+
+  /* ========================================
+     LIVING DESIGN 3.5 UTILITY CLASSES
+     Use these instead of hard-coded colors
+     ======================================== */
+
+  /* Background utilities */
+  .bg-ld-main {
+    background-color: var(--ld-semantic-color-background, #ffffff);
+  }
+
+  .bg-ld-subtle {
+    background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+  }
+
+  .bg-ld-inverse {
+    background-color: var(--ld-semantic-color-background-inverse, #2e2f32);
+  }
+
+  /* Fill utilities (for cards, surfaces) */
+  .bg-ld-fill-subtle {
+    background-color: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  }
+
+  .bg-ld-fill-subtlest {
+    background-color: var(--ld-semantic-color-fill-subtlest, #f8f8f8);
+  }
+
+  /* Text color utilities */
+  .text-ld-primary {
+    color: var(--ld-semantic-color-text-primary, #2e2f32);
+  }
+
+  .text-ld-subtle {
+    color: var(--ld-semantic-color-text-subtle, #515357);
+  }
+
+  .text-ld-subtlest {
+    color: var(--ld-semantic-color-text-subtlest, #74767c);
+  }
+
+  .text-ld-inverse {
+    color: var(--ld-semantic-color-text-inverse, #ffffff);
+  }
+
+  .text-ld-disabled {
+    color: var(--ld-semantic-color-text-disabled, #babbbe);
+  }
+
+  .text-ld-brand {
+    color: var(--ld-semantic-color-text-brand, #0053e2);
+  }
+
+  /* Border utilities */
+  .border-ld {
+    border-color: var(--ld-semantic-color-border, #2e2f32);
+  }
+
+  .border-ld-subtle {
+    border-color: var(--ld-semantic-color-border-subtle, #515357);
+  }
+
+  .border-ld-subtlest {
+    border-color: var(--ld-semantic-color-border-subtlest, #74767c);
+  }
+
+  .border-ld-disabled {
+    border-color: var(--ld-semantic-color-border-disabled, #babbbe);
+  }
+
+  .border-ld-separator {
+    border-color: var(--ld-semantic-color-separator, #e3e4e5);
+  }
+
+  /* Interactive/hover utilities */
+  .hover-ld-subtle:hover {
+    background-color: var(--ld-semantic-color-action-fill-transparent-hovered, #0000001a);
+  }
+
+  .hover-ld-gray:hover {
+    background-color: var(--ld-semantic-color-fill-subtle, #f1f1f2);
+  }
+
+  /* Divider utility */
+  .divide-ld-subtlest > * + * {
+    border-color: var(--ld-semantic-color-border-subtlest, #74767c);
+  }
+}
+
+/* Everyday Sans UI Font */
+@font-face {
+  font-family: 'Everyday Sans UI';
+  src: url('https://cdn.builder.io/o/assets%2F02297b1ff48d4a2f8e4d9ed415c47ecf%2F43c5a8e1e3d345ca97f388b1cc881aac?alt=media&token=c5b000cb-35e4-4fdd-8604-da74b13c9828&apiKey=02297b1ff48d4a2f8e4d9ed415c47ecf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Animations */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Walmart Connect Snackbar Styling for Sonner */
+[data-sonner-toaster] {
+  --normal-bg: #2E2F32 !important;
+  --normal-text: #ffffff !important;
+  --normal-border: transparent !important;
+}
+
+[data-sonner-toast] {
+  background: #2E2F32 !important;
+  border: none !important;
+  color: white !important;
+  box-shadow: 0 -1px 4px 0 rgba(0, 0, 0, 0.10), 0 5px 10px 3px rgba(0, 0, 0, 0.15) !important;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  min-height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  font-size: 14px !important;
+  font-family: 'Everyday Sans UI', -apple-system, Roboto, sans-serif !important;
+  max-width: 317px !important;
+  width: auto !important;
+  gap: 0 !important;
+}
+
+[data-sonner-toast] [data-content] {
+  color: white !important;
+  flex: 1 !important;
+  padding: 16px !important;
+  padding-right: 8px !important;
+  order: 1 !important;
+}
+
+[data-sonner-toast] [data-title] {
+  color: white !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 1.43 !important;
+}
+
+[data-sonner-toast] [data-button] {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+}
+
+[data-sonner-toast] [data-close-button] {
+  background: transparent !important;
+  border: none !important;
+  color: white !important;
+  width: 48px !important;
+  min-width: 48px !important;
+  height: 100% !important;
+  min-height: 52px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  transition: background-color 0.2s !important;
+  flex-shrink: 0 !important;
+  order: 2 !important;
+}
+
+[data-sonner-toast] [data-close-button]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+[data-sonner-toast] [data-close-button] svg {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+/* Hide the success checkmark icon */
+[data-sonner-toast] [data-icon] {
+  display: none !important;
+}
+
+/* Ensure close button X icon is visible and on the right */
+[data-sonner-toast] {
+  justify-content: space-between !important;
+}
+
+/* ══════════════════════════════════════════════════
+   GLOBAL SCROLLBAR RULE — Hide all scrollbars
+   This is a hard project rule: no visible scrollbars
+   anywhere in the application. Scroll functionality
+   is preserved, only the visual bar is hidden.
+   ══════════════════════════════════════════════════ */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE / Edge */
+}
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* Legacy utility class — kept for backwards compatibility */
+.scrollbar-none {
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+/* Marty drag-and-dock zone highlight */
+[data-marty-dock-zone][data-marty-dock-active="true"] {
+  outline: 2px dashed var(--ld-semantic-color-border-magic-start, #993ef4);
+  outline-offset: 4px;
+  border-radius: 8px;
+  background: linear-gradient(
+    134deg,
+    color-mix(in srgb, var(--ld-semantic-color-border-magic-start, #993ef4) 8%, transparent),
+    color-mix(in srgb, var(--ld-semantic-color-border-magic-stop, #00d0cd) 8%, transparent)
+  );
+  transition: outline 150ms ease, background 150ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-marty-dock-zone] {
+    transition: none;
+  }
+}

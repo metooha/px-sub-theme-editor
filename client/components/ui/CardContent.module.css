@@ -1,0 +1,15 @@
+.cardContent {
+  flex: 1;
+  color: var(--ld-semantic-color-text-subtle);
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  line-height: var(--ld-semantic-font-body-medium-line-height);
+}
+
+.cardContent--size-small {
+  padding: var(--ld-semantic-spacing-200);
+}
+
+.cardContent--size-large {
+  padding: var(--ld-semantic-spacing-300);
+}

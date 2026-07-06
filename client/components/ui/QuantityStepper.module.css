@@ -1,0 +1,323 @@
+/* QuantityStepper.module.css — Smooth slot-based transitions */
+
+.quantityStepper {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, Roboto, Helvetica, sans-serif);
+}
+
+/* ═══════════════════════════════════════════════
+   PILL — single persistent wrapper for all modes
+   ═══════════════════════════════════════════════ */
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  /* Smooth transitions for background and transform */
+  transition: background-color 0.25s ease, transform 0.15s ease;
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.pill[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+/* ── Sizes ── */
+
+.pill--small {
+  height: 32px;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.pill--medium {
+  height: 40px;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.pill--large {
+  height: 52px;
+  font-size: 18px;
+  line-height: 1.33;
+}
+
+/* ── Primary variant ── */
+
+.pill--primary {
+  background: var(--ld-semantic-color-action-fill-primary, #0071dc);
+  color: var(--ld-semantic-color-action-text-onfill-primary, #ffffff);
+}
+
+.pill--primary:hover:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-primary-hovered, #0060b8);
+}
+
+.pill--primary:active:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-primary-pressed, #004c94);
+}
+
+.pill--primary[aria-disabled="true"] {
+  background: var(--ld-semantic-color-action-fill-primary-disabled, #c2dcf7);
+  color: var(--ld-semantic-color-action-text-onfill-primary-disabled, #ffffff);
+}
+
+/* ── Secondary variant ── */
+
+.pill--secondary {
+  background: var(--ld-semantic-color-action-fill-secondary, #ffffff);
+  color: var(--ld-semantic-color-action-text-onfill-secondary, #2e2f32);
+  border: 1.5px solid var(--ld-semantic-color-action-border-secondary, #2e2f32);
+}
+
+.pill--secondary:hover:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-secondary-hovered, #f0f0f1);
+}
+
+.pill--secondary:active:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-secondary-pressed, #e0e0e2);
+}
+
+.pill--secondary[aria-disabled="true"] {
+  color: var(--ld-semantic-color-action-text-onfill-secondary-disabled, #babbbe);
+  border-color: var(--ld-semantic-color-action-border-secondary-disabled, #babbbe);
+}
+
+/* ── Tertiary variant ── */
+
+.pill--tertiary {
+  background: var(--ld-semantic-color-action-fill-tertiary, transparent);
+  color: var(--ld-semantic-color-action-text-onfill-tertiary, #2e2f32);
+  border: 1.5px solid var(--ld-semantic-color-action-border-tertiary, #74767c);
+}
+
+.pill--tertiary:hover:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-tertiary-hovered, #f0f0f1);
+}
+
+.pill--tertiary:active:not([aria-disabled="true"]) {
+  background: var(--ld-semantic-color-action-fill-tertiary-pressed, #e0e0e2);
+}
+
+.pill--tertiary[aria-disabled="true"] {
+  color: var(--ld-semantic-color-action-text-onfill-tertiary-disabled, #babbbe);
+  border-color: var(--ld-semantic-color-action-border-tertiary-disabled, #e6e6e8);
+}
+
+/* ═══════════════════════════════════════
+   MODE CLASSES — control pill behavior
+   ═══════════════════════════════════════ */
+
+/* Initial & Collapsed: pill is clickable */
+.modeInitial,
+.modeCollapsed {
+  cursor: pointer;
+}
+
+.modeInitial:hover:not([aria-disabled="true"]),
+.modeCollapsed:hover:not([aria-disabled="true"]) {
+  transform: scale(1.03);
+}
+
+.modeInitial:active:not([aria-disabled="true"]),
+.modeCollapsed:active:not([aria-disabled="true"]) {
+  transform: scale(0.97);
+}
+
+/* Initial mode: padding for label content */
+.modeInitial {
+  padding: 0 16px;
+  gap: 4px;
+}
+
+.pill--small.modeInitial { padding: 0 12px; }
+.pill--medium.modeInitial { padding: 0 16px; }
+.pill--large.modeInitial { padding: 0 20px; }
+
+/* Icon-only initial mode: force circle shape (same as collapsed) */
+.modeInitialIconOnly {
+  padding: 0;
+  cursor: pointer;
+}
+
+.modeInitialIconOnly:hover:not([aria-disabled="true"]) {
+  transform: scale(1.03);
+}
+
+.modeInitialIconOnly:active:not([aria-disabled="true"]) {
+  transform: scale(0.97);
+}
+
+.pill--small.modeInitialIconOnly { width: 32px; }
+.pill--medium.modeInitialIconOnly { width: 40px; }
+.pill--large.modeInitialIconOnly { width: 52px; }
+
+/* Collapsed mode: force circle shape */
+.modeCollapsed {
+  padding: 0;
+}
+
+.pill--small.modeCollapsed { width: 32px; }
+.pill--medium.modeCollapsed { width: 40px; }
+.pill--large.modeCollapsed { width: 52px; }
+
+/* Expanded mode: stepper layout */
+.modeExpanded {
+  cursor: default;
+  padding: 2px;
+  gap: 2px;
+}
+
+.pill--small.modeExpanded { min-width: 112px; }
+.pill--medium.modeExpanded { min-width: 136px; }
+.pill--large.modeExpanded { min-width: 168px; }
+
+.modeExpanded:hover {
+  transform: none;
+}
+
+/* ═══════════════════════════════════════
+   SLOT SIDE — left/right icon button slots
+   Smoothly expand/collapse with transitions
+   ═══════════════════════════════════════ */
+
+.slotSide {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  /* Smooth transition for expand/collapse */
+  transition: max-width 0.3s ease, opacity 0.3s ease;
+}
+
+.slotVisible {
+  opacity: 1;
+}
+
+/* Size-specific max-widths when visible */
+.pill--small .slotVisible { max-width: 28px; }
+.pill--medium .slotVisible { max-width: 36px; }
+.pill--large .slotVisible { max-width: 48px; }
+
+.slotHidden {
+  max-width: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════
+   ICON BUTTONS — inside expanded stepper
+   ═══════════════════════════════════════ */
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: transparent;
+  color: inherit;
+  padding: 0;
+  transition: background-color 0.15s ease;
+}
+
+.iconBtn:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 2px;
+}
+
+.iconBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.iconBtn--small  { width: 28px; height: 28px; }
+.iconBtn--medium { width: 36px; height: 36px; }
+.iconBtn--large  { width: 48px; height: 48px; }
+
+/* Icon button hover — per variant */
+.pill--primary .iconBtn:hover:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-primary-hovered, #0060b8);
+}
+.pill--primary .iconBtn:active:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-primary-pressed, #004c94);
+}
+
+.pill--secondary .iconBtn:hover:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-secondary-hovered, #f0f0f1);
+}
+.pill--secondary .iconBtn:active:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-secondary-pressed, #e0e0e2);
+}
+
+.pill--tertiary .iconBtn:hover:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-tertiary-hovered, #f0f0f1);
+}
+.pill--tertiary .iconBtn:active:not(:disabled) {
+  background: var(--ld-semantic-color-action-fill-tertiary-pressed, #e0e0e2);
+}
+
+/* ═══════════════════════════════════
+   CENTER SLOT — count + label
+   ═══════════════════════════════════ */
+
+.slotCenter {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+}
+
+.pillContent {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.labelText {
+  white-space: nowrap;
+}
+
+.countValue {
+  display: inline-block;
+}
+
+/* ═══════════════════════════════════════
+   REDUCED MOTION
+   ═══════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .pill {
+    transition: none !important;
+  }
+
+  .slotSide {
+    transition: none !important;
+  }
+
+  .modeInitial:hover:not([aria-disabled="true"]),
+  .modeCollapsed:hover:not([aria-disabled="true"]),
+  .modeInitialIconOnly:hover:not([aria-disabled="true"]),
+  .modeInitial:active:not([aria-disabled="true"]),
+  .modeCollapsed:active:not([aria-disabled="true"]),
+  .modeInitialIconOnly:active:not([aria-disabled="true"]) {
+    transform: none !important;
+  }
+}

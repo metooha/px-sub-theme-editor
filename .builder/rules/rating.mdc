@@ -1,0 +1,247 @@
+---
+description: Guidelines and rules for rating
+alwaysApply: false
+---
+# Rating Component
+
+The Rating component displays star ratings with support for whole and half-star values, following Living Design 3.5 specifications.
+
+## Overview
+
+Ratings provide insight into how well a product or service has been received by those who have bought or used it previously. Use ratings to display user feedback on products or services.
+
+## Component Location
+
+- **Component**: `client/components/ui/Rating.tsx`
+- **Styles**: `client/components/ui/Rating.module.css`
+- **Example**: `client/components/examples/RatingExample.tsx`
+
+## Import
+
+```tsx
+import { Rating } from '@/components/ui/Rating';
+import type { RatingProps } from '@/components/ui/Rating';
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `number` | required | Rating value between 0 and 5, supports 0.5 increments |
+| `size` | `'small' \| 'large'` | `'small'` | Size variant of the rating stars |
+| `className` | `string` | `''` | Additional CSS classes |
+| `aria-label` | `string` | auto-generated | Custom accessible label for screen readers |
+
+## Usage
+
+### Basic Usage
+
+```tsx
+<Rating value={4.5} />
+```
+
+### Size Variants
+
+**Small (Default)**
+- Star size: 12×12px
+- Default use of the rating component
+- Best for compact layouts and tables
+
+```tsx
+<Rating value={3.5} size="small" />
+```
+
+**Large**
+- Star size: 20×20px
+- Use when rating requires increased prominence and visibility
+- Best for featured content or hero sections
+
+```tsx
+<Rating value={4.5} size="large" />
+```
+
+### Rating Values
+
+The component supports all rating values from 0 to 5 with 0.5 increments:
+- `0`, `0.5`, `1`, `1.5`, `2`, `2.5`, `3`, `3.5`, `4`, `4.5`, `5`
+
+Values are automatically clamped between 0 and 5.
+
+```tsx
+<Rating value={4.5} />  // 4 full stars, 1 half star
+<Rating value={3} />    // 3 full stars, 2 empty stars
+<Rating value={2.7} />  // 2 full stars, 1 half star, 2 empty (rounds to 3)
+```
+
+### With Custom Accessibility Label
+
+```tsx
+<Rating 
+  value={4.5} 
+  aria-label="Average customer rating: 4.5 out of 5 stars"
+/>
+```
+
+### With Additional Styling
+
+```tsx
+<Rating 
+  value={3.5} 
+  className="my-4"
+/>
+```
+
+## Real-World Examples
+
+### Product Card
+
+```tsx
+<div className="product-card">
+  <img src="product.jpg" alt="Product" />
+  <h3>Product Name</h3>
+  <div className="flex items-center gap-2">
+    <Rating value={4.5} size="small" />
+    <span className="text-sm text-gray-600">(1,234 reviews)</span>
+  </div>
+  <p className="price">$29.99</p>
+</div>
+```
+
+### Featured Review Section
+
+```tsx
+<div className="featured-review">
+  <div className="flex items-center gap-3 mb-2">
+    <Rating value={5} size="large" />
+    <span className="text-lg font-semibold">5.0</span>
+  </div>
+  <p>"Excellent product, highly recommend!"</p>
+  <p className="text-sm text-gray-500">- John D., Verified Buyer</p>
+</div>
+```
+
+### Review Summary
+
+```tsx
+<div className="review-summary">
+  <h3>Customer Reviews</h3>
+  <div className="flex items-center gap-2 mb-4">
+    <Rating value={4.3} size="large" />
+    <span className="text-xl font-bold">4.3 out of 5</span>
+  </div>
+  <p className="text-sm text-gray-600">Based on 5,678 reviews</p>
+</div>
+```
+
+## Design Tokens
+
+The Rating component uses Living Design 3.5 semantic tokens for colors:
+
+### Color Tokens
+
+```css
+/* Star fill color (yellow) */
+--ld-semantic-color-rating-fill: var(--ld-primitive-color-spark-100, #ffc220);
+
+/* Star border color (darker yellow/gold) */
+--ld-semantic-color-rating-border: var(--ld-primitive-color-spark-120, #cc851a);
+```
+
+### Star States
+
+1. **Full Star**: Filled with `rating-fill` color, outlined with `rating-border`
+2. **Half Star**: Left half filled with `rating-fill`, vertical center line with `rating-border`, right half outlined
+3. **Empty Star**: Only outlined with `rating-border` color
+
+## Accessibility
+
+### ARIA Support
+
+The component automatically generates accessible labels:
+- Default: `"Rating: {value} out of 5 stars"`
+- Can be customized with `aria-label` prop
+- Container uses `role="img"` for proper semantic structure
+- Individual stars are marked `aria-hidden="true"` to avoid redundancy
+
+### Screen Reader Behavior
+
+```tsx
+<Rating value={4.5} />
+// Announces: "Rating: 4.5 out of 5 stars"
+
+<Rating value={4.5} aria-label="Customer satisfaction: 4.5 stars" />
+// Announces: "Customer satisfaction: 4.5 stars"
+```
+
+## Best Practices
+
+### Do's ✅
+
+- Use small size for product listings, tables, and compact layouts
+- Use large size for featured content, hero sections, or prominent displays
+- Provide review count or context alongside the rating when available
+- Use semantic tokens for consistent theming
+- Let the component auto-generate aria-labels for standard use cases
+
+### Don'ts ❌
+
+- Don't use non-standard rating scales (e.g., 0-10) - stick to 0-5
+- Don't override the color tokens with custom colors
+- Don't use for input/selection - this is display-only (future enhancement)
+- Don't place ratings without context (always show what is being rated)
+- Don't use pixel values for sizing - use the size prop instead
+
+## Implementation Details
+
+### Star Calculation Logic
+
+```typescript
+const fullStars = Math.floor(value);           // Number of full stars
+const hasHalfStar = value % 1 >= 0.5;          // Whether to show half star
+const emptyStars = 5 - Math.ceil(value);       // Number of empty stars
+```
+
+### Star Rendering Order
+
+Stars are rendered in this sequence:
+1. Full stars (left to right)
+2. Half star (if applicable)
+3. Empty stars (remaining)
+
+This ensures consistent visual layout and proper accessibility tree structure.
+
+## Browser Support
+
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- Uses inline SVG for maximum compatibility
+- No external dependencies required
+
+## Future Enhancements
+
+The following features are planned but not yet implemented:
+
+- Interactive rating (user can click to select rating)
+- Hover states for interactive mode
+- Read-only vs editable variants
+- Custom star counts (e.g., 3-star or 10-star scales)
+- Animated transitions
+- Review count integration
+
+## Related Components
+
+- **Tag**: For status labels and badges
+- **OLQTag**: For OLQ score display
+- **Badge**: For notification counts
+
+## Resources
+
+- [Living Design 3.5 Rating Documentation](https://digitaltoolkit.livingdesign.walmart.com/components/rating/)
+- [Component Example](../client/components/examples/RatingExample.tsx)
+- [Component Source](../client/components/ui/Rating.tsx)
+
+## Support
+
+For questions or issues with the Rating component:
+- Check the Component Library page: `/component-library#ratings`
+- Review the RatingExample for usage patterns
+- Consult Living Design 3.5 documentation for design specifications

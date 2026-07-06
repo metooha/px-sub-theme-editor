@@ -1,0 +1,51 @@
+/**
+ * Bodega Theme (Walmart Mexico)
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base → WCP → Bodega
+ * Inherits WCP commerce tokens and Customer persona
+ *
+ * Bodega brand color: #2c981d (green)
+ * Market: Mexico
+ */
+
+:root {
+  /* Bodega brand colors - GREEN */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-green-100, #2c981d);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-green-110, #248f17);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-green-110, #248f17);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-green-130, #16750e);
+  
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-green-100, #2c981d);
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-green-100, #2c981d);
+  --ld-semantic-color-border-activated: var(--ld-primitive-color-green-100, #2c981d);
+  
+  --ld-semantic-color-top-nav-fill: var(--ld-primitive-color-green-100, #2c981d);
+  --ld-semantic-color-top-nav-fill-hovered: var(--ld-primitive-color-green-110, #248f17);
+  --ld-semantic-color-top-nav-fill-pressed: var(--ld-primitive-color-green-130, #16750e);
+  --ld-semantic-color-top-nav-separator: var(--ld-primitive-color-green-110, #248f17);
+  --ld-semantic-color-top-nav-text-on-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-pressed: var(--ld-primitive-color-white, #ffffff);
+
+  /* Font Family - Bogle (override primitive) */
+  --ld-primitive-font-family-sans: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+
+  /* Semantic font overrides */
+  --ld-semantic-font-body-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-medium-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-caption-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-medium-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-mono-large-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-body-mono-medium-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-body-mono-small-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-caption-mono-family: 'Bogle Mono', 'Courier New', monospace;
+
+  /* Inherits WCP commerce tokens and all LD Base tokens */
+}

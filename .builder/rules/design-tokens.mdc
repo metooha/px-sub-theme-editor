@@ -1,0 +1,779 @@
+---
+description: Guidelines and rules for design tokens
+alwaysApply: false
+---
+# Design Token Usage Guidelines
+
+**Living Design 3.5 Design Token System**
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Token Architecture](#token-architecture)
+3. [Mandatory Rules](#mandatory-rules)
+4. [Token Categories](#token-categories)
+5. [Usage Examples](#usage-examples)
+6. [Common Patterns](#common-patterns)
+7. [Anti-Patterns (What NOT to Do)](#anti-patterns-what-not-to-do)
+8. [Builder.io Plugin Integration](#builderio-plugin-integration)
+
+---
+
+## Overview
+
+This document defines the **mandatory** design token usage policy for all new features, components, and designs imported via Builder.io plugin or AI-generated designs.
+
+**Core Principle**: **NEVER create new color tokens. ALWAYS use existing design tokens from `styles/primitive.css` and `styles/semantic.css`.**
+
+---
+
+## Token Architecture
+
+Our design system uses a **two-tier token architecture**:
+
+### 1. Primitive Tokens (`styles/primitive.css`)
+**Foundation-level tokens** that define raw values.
+
+- **Purpose**: Define the base color palette, spacing, typography scales
+- **Format**: `--ld-primitive-{category}-{name}-{variant}`
+- **Examples**: 
+  - `--ld-primitive-color-blue-100` → `#0053e2`
+  - `--ld-primitive-font-size-100` → `1rem`
+  - `--ld-primitive-scale-space-200` → `1rem`
+
+**❌ DO NOT reference primitive tokens directly in component code**
+**✅ DO reference semantic tokens instead**
+
+### 2. Semantic Tokens (`styles/semantic.css`)
+**Context-aware tokens** that reference primitive tokens and define usage intent.
+
+- **Purpose**: Define how and when to use colors, spacing, typography
+- **Format**: `--ld-semantic-{category}-{purpose}-{variant}-{state}`
+- **Examples**:
+  - `--ld-semantic-color-action-fill-primary` → `var(--ld-primitive-color-blue-100)`
+  - `--ld-semantic-color-text-on-fill-negative` → `var(--ld-primitive-color-white)`
+  - `--ld-semantic-font-body-medium-size` → `var(--ld-primitive-font-size-100)`
+
+**✅ ALWAYS use semantic tokens in your components and styles**
+
+---
+
+## Mandatory Rules
+
+### Rule #1: NO Hard-Coded Values
+**NEVER** use hard-coded color values, spacing, or typography in your code.
+
+```css
+/* ❌ WRONG - Hard-coded colors */
+.button {
+  background-color: #0053e2;
+  color: #ffffff;
+  padding: 16px;
+  font-size: 16px;
+}
+
+/* ✅ CORRECT - Using semantic tokens */
+.button {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+  padding: var(--ld-primitive-scale-space-200);
+  font-size: var(--ld-semantic-font-body-medium-size);
+}
+```
+
+### Rule #2: NO New Token Creation
+**DO NOT** create new custom CSS variables or design tokens.
+
+```css
+/* ❌ WRONG - Creating new tokens */
+:root {
+  --my-custom-blue: #1a73e8;
+  --my-button-color: #0071DC;
+}
+
+/* ✅ CORRECT - Use existing tokens */
+/* All necessary tokens already exist in primitive.css and semantic.css */
+```
+
+### Rule #3: Use Semantic Tokens (Not Primitive)
+**ALWAYS** use semantic tokens in component styles. Primitive tokens should only be referenced by semantic tokens.
+
+```css
+/* ❌ WRONG - Using primitive tokens directly */
+.card {
+  background-color: var(--ld-primitive-color-white);
+  border: 1px solid var(--ld-primitive-color-gray-20);
+}
+
+/* ✅ CORRECT - Using semantic tokens */
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  border: var(--ld-semantic-scale-border-width-interactive) solid var(--ld-semantic-color-separator);
+}
+```
+
+### Rule #4: Use State-Specific Tokens
+For interactive elements (buttons, links, inputs), **ALWAYS** use state-specific tokens.
+
+```css
+/* ✅ CORRECT - Using state tokens for buttons */
+.button-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+}
+
+.button-primary:hover {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered);
+}
+
+.button-primary:focus {
+  background-color: var(--ld-semantic-color-action-fill-primary-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+}
+
+.button-primary:active {
+  background-color: var(--ld-semantic-color-action-fill-primary-pressed);
+}
+
+.button-primary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-primary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-disabled);
+}
+```
+
+### Rule #5: Semantic Naming Over Visual Naming
+Choose tokens based on **purpose/context**, not visual appearance.
+
+```css
+/* ❌ WRONG - Choosing token by color name */
+.error-message {
+  color: var(--ld-primitive-color-red-100); /* Too specific, not semantic */
+}
+
+/* ✅ CORRECT - Choosing token by purpose */
+.error-message {
+  color: var(--ld-semantic-color-text-negative); /* Semantic, purpose-driven */
+  background-color: var(--ld-semantic-color-fill-negative-subtle);
+  border-color: var(--ld-semantic-color-border-negative);
+}
+```
+
+---
+
+## Token Categories
+
+### Color Tokens
+
+#### Background/Fill Colors
+```css
+/* Backgrounds */
+--ld-semantic-color-background              /* Main page background */
+--ld-semantic-color-background-subtle       /* Subtle background accent */
+--ld-semantic-color-background-inverse      /* Dark/inverse background */
+
+/* Generic fills */
+--ld-semantic-color-fill                    /* Default fill */
+--ld-semantic-color-fill-subtle             /* Subtle fill */
+--ld-semantic-color-fill-hovered            /* Hovered state */
+--ld-semantic-color-fill-focused            /* Focused state */
+--ld-semantic-color-fill-pressed            /* Pressed state */
+
+/* Accent fills */
+--ld-semantic-color-fill-accent-blue        /* Blue accent background */
+--ld-semantic-color-fill-accent-blue-subtle /* Subtle blue accent */
+--ld-semantic-color-fill-accent-green       /* Green accent background */
+--ld-semantic-color-fill-accent-green-subtle /* Subtle green accent */
+--ld-semantic-color-fill-accent-red         /* Red accent background */
+--ld-semantic-color-fill-accent-red-subtle  /* Subtle red accent */
+/* ... (all color variants available) */
+
+/* Semantic state fills */
+--ld-semantic-color-fill-info               /* Info state (blue) */
+--ld-semantic-color-fill-info-subtle        /* Subtle info background */
+--ld-semantic-color-fill-positive           /* Success state (green) */
+--ld-semantic-color-fill-positive-subtle    /* Subtle success background */
+--ld-semantic-color-fill-negative           /* Error state (red) */
+--ld-semantic-color-fill-negative-subtle    /* Subtle error background */
+--ld-semantic-color-fill-warning            /* Warning state (spark/yellow) */
+--ld-semantic-color-fill-warning-subtle     /* Subtle warning background */
+```
+
+#### Action/Button Colors
+```css
+/* Primary button */
+--ld-semantic-color-action-fill-primary
+--ld-semantic-color-action-fill-primary-hovered
+--ld-semantic-color-action-fill-primary-focused
+--ld-semantic-color-action-fill-primary-pressed
+--ld-semantic-color-action-fill-primary-disabled
+
+/* Secondary button */
+--ld-semantic-color-action-fill-secondary
+--ld-semantic-color-action-fill-secondary-hovered
+--ld-semantic-color-action-fill-secondary-focused
+--ld-semantic-color-action-fill-secondary-pressed
+--ld-semantic-color-action-fill-secondary-disabled
+
+/* Tertiary button */
+--ld-semantic-color-action-fill-tertiary
+--ld-semantic-color-action-fill-tertiary-hovered
+--ld-semantic-color-action-fill-tertiary-focused
+--ld-semantic-color-action-fill-tertiary-pressed
+--ld-semantic-color-action-fill-tertiary-disabled
+
+/* Destructive/Negative button */
+--ld-semantic-color-action-fill-negative
+--ld-semantic-color-action-fill-negative-hovered
+--ld-semantic-color-action-fill-negative-focused
+--ld-semantic-color-action-fill-negative-pressed
+--ld-semantic-color-action-fill-negative-disabled
+```
+
+#### Text Colors
+```css
+/* Generic text */
+--ld-semantic-color-text                    /* Primary text */
+--ld-semantic-color-text-subtle             /* Secondary text */
+--ld-semantic-color-text-subtlest           /* Tertiary text */
+--ld-semantic-color-text-inverse            /* Light text on dark bg */
+--ld-semantic-color-text-disabled           /* Disabled text */
+
+/* Semantic text */
+--ld-semantic-color-text-brand              /* Brand color text */
+--ld-semantic-color-text-info               /* Info text */
+--ld-semantic-color-text-positive           /* Success text */
+--ld-semantic-color-text-negative           /* Error text */
+--ld-semantic-color-text-warning            /* Warning text */
+
+/* Text on fills (for buttons, badges, etc.) */
+--ld-semantic-color-text-on-fill                    /* Text on white fill */
+--ld-semantic-color-text-on-fill-inverse            /* Text on dark fill */
+--ld-semantic-color-action-text-on-fill-primary     /* Text on primary button */
+--ld-semantic-color-action-text-on-fill-secondary   /* Text on secondary button */
+--ld-semantic-color-text-on-fill-negative           /* Text on error background */
+--ld-semantic-color-text-on-fill-negative-subtle    /* Text on subtle error bg */
+```
+
+#### Border Colors
+```css
+/* Generic borders */
+--ld-semantic-color-border                  /* Default border */
+--ld-semantic-color-border-subtle           /* Subtle border */
+--ld-semantic-color-border-subtlest         /* Subtlest border */
+--ld-semantic-color-separator               /* Divider lines */
+
+/* Semantic borders */
+--ld-semantic-color-border-brand            /* Brand border */
+--ld-semantic-color-border-info             /* Info border */
+--ld-semantic-color-border-positive         /* Success border */
+--ld-semantic-color-border-negative         /* Error border */
+--ld-semantic-color-border-warning          /* Warning border */
+
+/* Accent borders */
+--ld-semantic-color-border-accent-blue      /* Blue accent border */
+--ld-semantic-color-border-accent-green     /* Green accent border */
+--ld-semantic-color-border-accent-red       /* Red accent border */
+/* ... (all color variants) */
+```
+
+### Typography Tokens
+
+```css
+/* Font families */
+--ld-semantic-font-family-sans              /* EverydaySans + fallbacks */
+--ld-semantic-font-family-mono              /* EverydaySansMono + fallbacks */
+
+/* Display text (largest) */
+--ld-semantic-font-display-large-size-b-s   /* Small breakpoint */
+--ld-semantic-font-display-large-size-b-l   /* Large breakpoint */
+--ld-semantic-font-display-large-line-height-b-s
+--ld-semantic-font-display-large-line-height-b-l
+--ld-semantic-font-display-large-weight-default
+--ld-semantic-font-display-large-weight-alt
+
+/* Headings */
+--ld-semantic-font-heading-large-size-b-s
+--ld-semantic-font-heading-large-line-height-b-s
+--ld-semantic-font-heading-medium-size-b-s
+--ld-semantic-font-heading-small-size-b-s
+
+/* Body text */
+--ld-semantic-font-body-large-size          /* 18px / 1.125rem */
+--ld-semantic-font-body-large-line-height   /* 24px / 1.5rem */
+--ld-semantic-font-body-medium-size         /* 16px / 1rem */
+--ld-semantic-font-body-medium-line-height  /* 24px / 1.5rem */
+--ld-semantic-font-body-small-size          /* 14px / 0.875rem */
+--ld-semantic-font-body-small-line-height   /* 20px / 1.25rem */
+
+/* Caption text (smallest) */
+--ld-semantic-font-caption-size             /* 12px / 0.75rem */
+--ld-semantic-font-caption-line-height      /* 16px / 1rem */
+```
+
+### Spacing Tokens
+
+```css
+/* Use primitive spacing scale */
+--ld-primitive-scale-space-25               /* 2px / 0.125rem */
+--ld-primitive-scale-space-50               /* 4px / 0.25rem */
+--ld-primitive-scale-space-100              /* 8px / 0.5rem */
+--ld-primitive-scale-space-150              /* 12px / 0.75rem */
+--ld-primitive-scale-space-200              /* 16px / 1rem */
+--ld-primitive-scale-space-250              /* 20px / 1.25rem */
+--ld-primitive-scale-space-300              /* 24px / 1.5rem */
+--ld-primitive-scale-space-400              /* 32px / 2rem */
+--ld-primitive-scale-space-500              /* 40px / 2.5rem */
+--ld-primitive-scale-space-600              /* 48px / 3rem */
+/* ... up to space-1000 (80px) */
+```
+
+### Border Radius Tokens
+
+```css
+--ld-primitive-scale-border-radius-25       /* 2px - Subtle rounding */
+--ld-primitive-scale-border-radius-50       /* 4px - Small rounding */
+--ld-primitive-scale-border-radius-100      /* 8px - Medium rounding */
+--ld-primitive-scale-border-radius-200      /* 16px - Large rounding */
+--ld-primitive-scale-border-radius-300      /* 24px - XL rounding */
+--ld-primitive-scale-border-radius-400      /* 32px - XXL rounding */
+--ld-primitive-scale-border-radius-round    /* 1000rem - Pill shape */
+```
+
+---
+
+## Usage Examples
+
+### Example 1: Alert/Notice Component
+
+```tsx
+// ✅ CORRECT - Using semantic tokens
+import styles from './Alert.module.css';
+
+export function Alert({ variant = 'info', children }) {
+  return (
+    <div className={`${styles.alert} ${styles[variant]}`}>
+      {children}
+    </div>
+  );
+}
+```
+
+```css
+/* Alert.module.css */
+.alert {
+  padding: var(--ld-primitive-scale-space-200);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  border-width: var(--ld-semantic-scale-border-width-interactive);
+  border-style: solid;
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  line-height: var(--ld-semantic-font-body-medium-line-height);
+}
+
+.info {
+  background-color: var(--ld-semantic-color-fill-info-subtle);
+  border-color: var(--ld-semantic-color-border-info);
+  color: var(--ld-semantic-color-text-on-fill-info-subtle);
+}
+
+.positive {
+  background-color: var(--ld-semantic-color-fill-positive-subtle);
+  border-color: var(--ld-semantic-color-border-positive);
+  color: var(--ld-semantic-color-text-on-fill-positive-subtle);
+}
+
+.negative {
+  background-color: var(--ld-semantic-color-fill-negative-subtle);
+  border-color: var(--ld-semantic-color-border-negative);
+  color: var(--ld-semantic-color-text-on-fill-negative-subtle);
+}
+
+.warning {
+  background-color: var(--ld-semantic-color-fill-warning-subtle);
+  border-color: var(--ld-semantic-color-border-warning);
+  color: var(--ld-semantic-color-text-on-fill-warning-subtle);
+}
+```
+
+### Example 2: Card Component
+
+```tsx
+// ✅ CORRECT - Using semantic tokens
+import styles from './Card.module.css';
+
+export function Card({ children, isHoverable = false }) {
+  return (
+    <div className={`${styles.card} ${isHoverable ? styles.hoverable : ''}`}>
+      {children}
+    </div>
+  );
+}
+```
+
+```css
+/* Card.module.css */
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  border: var(--ld-semantic-scale-border-width-interactive) solid var(--ld-semantic-color-separator);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  padding: var(--ld-primitive-scale-space-300);
+  box-shadow: var(--ld-semantic-elevation-100);
+}
+
+.hoverable {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  background-color: var(--ld-semantic-color-surface-hovered);
+  box-shadow: var(--ld-semantic-elevation-200);
+}
+
+.hoverable:active {
+  background-color: var(--ld-semantic-color-surface-pressed);
+}
+```
+
+### Example 3: Input Field
+
+```css
+/* Input.module.css */
+.input {
+  font-family: var(--ld-semantic-font-body-medium-family);
+  font-size: var(--ld-semantic-font-body-medium-size);
+  line-height: var(--ld-semantic-font-body-medium-line-height);
+  padding: var(--ld-primitive-scale-space-150) var(--ld-primitive-scale-space-200);
+  border-radius: var(--ld-primitive-scale-border-radius-50);
+  
+  /* Default state */
+  background-color: var(--ld-semantic-color-field-fill);
+  border: var(--ld-semantic-scale-border-width-interactive) solid var(--ld-semantic-color-field-border);
+  color: var(--ld-semantic-color-field-text-on-fill);
+}
+
+.input:hover {
+  border-color: var(--ld-semantic-color-field-border-hovered);
+}
+
+.input:focus {
+  border-color: var(--ld-semantic-color-field-border-focused);
+  border-width: var(--ld-semantic-scale-border-width-interactive-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 1px;
+}
+
+.input:disabled {
+  background-color: var(--ld-semantic-color-field-fill-disabled);
+  border-color: var(--ld-semantic-color-field-border-disabled);
+  color: var(--ld-semantic-color-field-text-on-fill-disabled);
+  cursor: not-allowed;
+}
+
+.input.error {
+  border-color: var(--ld-semantic-color-field-border-negative);
+}
+
+.input.error:focus {
+  border-color: var(--ld-semantic-color-field-border-negative-focused);
+}
+```
+
+---
+
+## Common Patterns
+
+### Pattern 1: Stat Cards with Color Accents
+
+```tsx
+<div className={styles.statCard}>
+  <div className={styles.statValue}>1,234</div>
+  <div className={styles.statLabel}>Total Sales</div>
+  <div className={styles.statChange positive}>+12.5%</div>
+</div>
+```
+
+```css
+.statCard {
+  background-color: var(--ld-semantic-color-surface);
+  border: 1px solid var(--ld-semantic-color-separator);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  padding: var(--ld-primitive-scale-space-300);
+}
+
+.statValue {
+  font-size: var(--ld-semantic-font-heading-large-size-b-s);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default);
+  color: var(--ld-semantic-color-text);
+}
+
+.statLabel {
+  font-size: var(--ld-semantic-font-body-small-size);
+  color: var(--ld-semantic-color-text-subtle);
+  margin-top: var(--ld-primitive-scale-space-50);
+}
+
+.statChange {
+  font-size: var(--ld-semantic-font-body-small-size);
+  font-weight: var(--ld-semantic-font-body-small-weight-alt);
+  margin-top: var(--ld-primitive-scale-space-100);
+}
+
+.statChange.positive {
+  color: var(--ld-semantic-color-text-positive);
+}
+
+.statChange.negative {
+  color: var(--ld-semantic-color-text-negative);
+}
+```
+
+### Pattern 2: Navigation Items
+
+```css
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: var(--ld-primitive-scale-space-150) var(--ld-primitive-scale-space-200);
+  border-radius: var(--ld-primitive-scale-border-radius-50);
+  color: var(--ld-semantic-color-page-nav-text-on-fill);
+  background-color: var(--ld-semantic-color-page-nav-fill);
+  transition: all 0.2s ease;
+}
+
+.navItem:hover {
+  background-color: var(--ld-semantic-color-page-nav-fill-hovered);
+}
+
+.navItem:active {
+  background-color: var(--ld-semantic-color-page-nav-fill-pressed);
+}
+
+.navItem.active {
+  background-color: var(--ld-semantic-color-page-nav-fill-activated);
+  color: var(--ld-semantic-color-page-nav-text-on-fill-activated);
+  border-left: 4px solid var(--ld-semantic-color-page-nav-indicator-activated);
+}
+```
+
+---
+
+## Anti-Patterns (What NOT to Do)
+
+### ❌ Anti-Pattern 1: Hard-Coded Colors
+```css
+/* WRONG */
+.button {
+  background: #0053e2;
+  color: white;
+}
+
+/* CORRECT */
+.button {
+  background: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+}
+```
+
+### ❌ Anti-Pattern 2: Creating Custom Tokens
+```css
+/* WRONG */
+:root {
+  --my-primary-color: #0071DC;
+  --custom-spacing: 24px;
+}
+
+/* CORRECT - Use existing tokens */
+/* No need to create new tokens, use --ld-semantic-color-action-fill-primary */
+/* and --ld-primitive-scale-space-300 */
+```
+
+### ❌ Anti-Pattern 3: Using Primitive Tokens Directly
+```css
+/* WRONG */
+.card {
+  background-color: var(--ld-primitive-color-white);
+  border-color: var(--ld-primitive-color-gray-20);
+}
+
+/* CORRECT */
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  border-color: var(--ld-semantic-color-separator);
+}
+```
+
+### ❌ Anti-Pattern 4: Mixing Token Systems
+```css
+/* WRONG */
+.element {
+  background: var(--ld-semantic-color-surface);
+  padding: 16px; /* Hard-coded */
+  color: #2e2f32; /* Hard-coded */
+}
+
+/* CORRECT */
+.element {
+  background: var(--ld-semantic-color-surface);
+  padding: var(--ld-primitive-scale-space-200);
+  color: var(--ld-semantic-color-text);
+}
+```
+
+### ❌ Anti-Pattern 5: Ignoring State Variants
+```css
+/* WRONG - Missing hover/focus states */
+.button-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+}
+.button-primary:hover {
+  background-color: #0046bd; /* Hard-coded hover color */
+}
+
+/* CORRECT - Using state tokens */
+.button-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+}
+.button-primary:hover {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered);
+}
+.button-primary:focus {
+  background-color: var(--ld-semantic-color-action-fill-primary-focused);
+}
+.button-primary:active {
+  background-color: var(--ld-semantic-color-action-fill-primary-pressed);
+}
+```
+
+---
+
+## Builder.io Plugin Integration
+
+### When Importing Designs from Builder.io Plugin
+
+When users import designs using the Builder.io Figma plugin, **ALL generated code MUST use design tokens**.
+
+#### Automated Token Mapping
+
+The system should automatically map Figma design values to tokens:
+
+| Figma Property | Token Category | Example Token |
+|----------------|----------------|---------------|
+| Fill color (blue) | Semantic color | `var(--ld-semantic-color-fill-accent-blue)` |
+| Text color | Semantic text | `var(--ld-semantic-color-text)` |
+| Spacing (16px) | Primitive spacing | `var(--ld-primitive-scale-space-200)` |
+| Border radius (8px) | Primitive radius | `var(--ld-primitive-scale-border-radius-100)` |
+| Font size (16px) | Semantic typography | `var(--ld-semantic-font-body-medium-size)` |
+
+#### Post-Import Validation
+
+After importing a design, the generated code **MUST**:
+
+1. ✅ Use ONLY tokens from `styles/primitive.css` and `styles/semantic.css`
+2. ✅ Use semantic tokens (not primitive) for colors and text
+3. ✅ Include all interactive states (hover, focus, active, disabled)
+4. ✅ Follow the naming conventions in this guide
+5. ❌ NEVER include hard-coded values
+6. ❌ NEVER create new CSS custom properties
+
+#### Example: Builder.io Generated Code
+
+```tsx
+// ✅ CORRECT - Builder.io should generate this:
+export function HeroSection() {
+  return (
+    <section className={styles.hero}>
+      <h1 className={styles.title}>Welcome to Our Platform</h1>
+      <p className={styles.description}>
+        Build amazing experiences with our design system
+      </p>
+      <button className={styles.ctaButton}>Get Started</button>
+    </section>
+  );
+}
+```
+
+```css
+/* ✅ CORRECT - Generated styles using tokens */
+.hero {
+  background-color: var(--ld-semantic-color-background-subtle);
+  padding: var(--ld-primitive-scale-space-800) var(--ld-primitive-scale-space-400);
+  text-align: center;
+}
+
+.title {
+  font-family: var(--ld-semantic-font-heading-large-family);
+  font-size: var(--ld-semantic-font-heading-large-size-b-l);
+  font-weight: var(--ld-semantic-font-heading-large-weight-default);
+  line-height: var(--ld-semantic-font-heading-large-line-height-b-l);
+  color: var(--ld-semantic-color-text);
+  margin-bottom: var(--ld-primitive-scale-space-300);
+}
+
+.description {
+  font-family: var(--ld-semantic-font-body-large-family);
+  font-size: var(--ld-semantic-font-body-large-size);
+  line-height: var(--ld-semantic-font-body-large-line-height);
+  color: var(--ld-semantic-color-text-subtle);
+  margin-bottom: var(--ld-primitive-scale-space-500);
+}
+
+.ctaButton {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+  padding: var(--ld-primitive-scale-space-200) var(--ld-primitive-scale-space-400);
+  border-radius: var(--ld-primitive-scale-border-radius-round);
+  font-weight: var(--ld-semantic-font-action-weight);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.ctaButton:hover {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered);
+}
+
+.ctaButton:focus {
+  background-color: var(--ld-semantic-color-action-fill-primary-focused);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+}
+
+.ctaButton:active {
+  background-color: var(--ld-semantic-color-action-fill-primary-pressed);
+}
+```
+
+---
+
+## Token Reference Quick Links
+
+- **Primitive tokens**: `styles/primitive.css`
+- **Semantic tokens**: `styles/semantic.css`
+- **Component examples**: `client/components/ui/`
+- **Component documentation**: `guidelines/` folder
+
+---
+
+## Enforcement
+
+This policy is **mandatory** for:
+
+- ✅ All new component development
+- ✅ All AI-generated designs
+- ✅ All Builder.io plugin imports
+- ✅ All design system updates
+- ✅ All refactoring work
+
+**Code reviews MUST verify** that no hard-coded values or new tokens are introduced.
+
+---
+
+## Questions?
+
+If you need a token that doesn't exist, **DO NOT create it**. Instead:
+
+1. Check if a similar semantic token can be repurposed
+2. Consult the design system team
+3. Request a token addition through proper channels
+
+**Remember**: The design system is comprehensive. The token you need likely already exists.

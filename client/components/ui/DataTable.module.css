@@ -1,0 +1,51 @@
+/* DataTable Root Container */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.43);
+  color: var(--ld-semantic-color-text, #2E2F32);
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  overflow: auto;
+}
+
+.rounded {
+  border-radius: var(--ld-primitive-scale-border-radius-200, 12px);
+  border: var(--ld-semantic-scale-border-width-default, 1px) solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.elevated {
+  box-shadow: var(--ld-semantic-elevation-200, 0 2px 8px 0 rgba(0, 0, 0, 0.08), 0 1px 4px 0 rgba(0, 0, 0, 0.06));
+}
+
+/* Body-medium override — cells opt in via inherited custom property */
+.textMedium {
+  --dt-font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  --dt-font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  --dt-font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  --dt-line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+}
+
+/* DataTableHead */
+.head {
+  /* thead styling */
+}
+
+.head tr {
+  border-bottom: var(--ld-semantic-scale-border-width-default, 1px) solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+/* DataTableBody */
+.body tr {
+  border-bottom: var(--ld-semantic-scale-border-width-default, 1px) solid var(--ld-semantic-color-separator, #E3E4E5);
+}
+
+.body tr:last-child {
+  border-bottom: none;
+}

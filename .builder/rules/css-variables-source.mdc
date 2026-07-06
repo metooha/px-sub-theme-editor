@@ -1,0 +1,56 @@
+---
+description: Guidelines and rules for css variables source
+alwaysApply: false
+---
+## Rules
+- **MUST** treat the token CSS file(s) listed here as the **source of truth**.
+- **MUST** reference tokens using `var(--token-name)` and not copy/paste computed values.
+- **MUST NOT** invent new token names in product code.
+
+## Fill this in after copying into the real repo
+Set these values and keep them up to date:
+
+- **Token CSS file path(s)**:
+  - `styles/semantic.css` (Semantic tokens; this is what agents should use. Example: `src/styles/tokens/semantic-colors.css`)
+  - `styles/semantic.css` (Primitive tokens; semantic tokens may reference these. Example: `src/styles/tokens/primitive-colors.css`)
+
+- **Token prefix** (if you have one):
+  - `REPLACE_ME` (example: `--ld-`)
+
+- **Theme/mode strategy**:
+  - **Single theme**: one set of variables
+  - **Multiple modes**: document how modes are applied (e.g. `data-theme="dark"` or `.theme-dark`)
+
+## Where to put primitive vs semantic color files (recommended)
+Keep them adjacent so humans and agents can find them quickly:
+- `src/styles/tokens/primitive-colors.css`
+- `src/styles/tokens/semantic-colors.css`
+
+If your build supports CSS imports, prefer semantic importing primitive (or being loaded after it) so semantic tokens can reference primitive tokens consistently.
+
+## Minimum required token groups
+Your token CSS should expose, at minimum:
+- Colors (text/surface/border/interactive/status)
+- Typography (font family/size/line-height/weight/letter-spacing where needed)
+- Spacing scale
+- Radius scale
+- Shadow elevation scale
+- Motion (duration/easing) if you animate
+
+## Recommended naming conventions (adapt to your system)
+Use consistent, predictable patterns so agents can learn them:
+- Color: `--ld-color-{category}-{role}[-{state}]`
+  - Examples (illustrative): `--ld-color-surface-default`, `--ld-color-text-secondary`, `--ld-color-border-subtle`, `--ld-color-action-primary-hover`
+- Spacing: `--ld-space-{step}` or `--ld-space-{size}`
+  - Examples: `--ld-space-2`, `--ld-space-sm`
+- Radius: `--ld-radius-{step}`
+  - Examples: `--ld-radius-sm`, `--ld-radius-md`
+- Shadow: `--ld-shadow-{elevation}`
+  - Examples: `--ld-shadow-1`, `--ld-shadow-2`
+- Motion: `--ld-motion-duration-{speed}`, `--ld-motion-ease-{name}`
+
+## Validation workflow (agent-friendly)
+Before using a token in output:
+1. Locate the canonical token CSS file.
+2. Confirm the exact `--token-name` exists.
+3. If missing, request the token name or propose adding it.

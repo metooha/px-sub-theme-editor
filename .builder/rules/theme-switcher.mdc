@@ -1,0 +1,92 @@
+---
+description: Theme switcher architecture and dynamic CSS property swapping
+alwaysApply: false
+---
+# Theme Switcher System
+
+## Overview
+
+The theme switcher allows dynamic swapping of design token sets across the entire application. Themes modify CSS custom properties at the `:root` level, enabling visual customization without code changes to components.
+
+**Key Features:**
+- Dynamic Theme Switching without page reload
+- Persistent Preference via localStorage
+- No Component Changes needed — components reference semantic tokens that update automatically
+- Extensible — easy to add new themes
+
+---
+
+## Architecture
+
+### File Structure
+
+
+styles/themes/
+├── base/                      # Default theme (LD 3.5 + WCP)
+│   ├── primitive.css         # ALL primitive tokens (complete set)
+│   └── semantic.css          # ALL semantic tokens (complete set)
+├── walmart-b2b/              # B2B theme
+│   ├── primitive.css         # OVERRIDES ONLY
+│   └── semantic.css          # OVERRIDES ONLY
+└── [future-theme]/           # Add new themes here
+
+client/contexts/
+├── theme-registry.ts         # Theme metadata and configuration
+└── ThemeContext.tsx          # React context for theme management
+```
+
+### Inheritance Model
+
+**Key Principle: Base theme contains ALL tokens. Other themes only override what they change.**
+
+1. **Base Theme** — Complete set of tokens, always loaded first
+2. **Override Themes** — Only tokens that differ from base
+3. **CSS Loading Order** — Base loaded first, overrides loaded on top
+
+### Benefits
+
+- Smaller theme files (B2B: 96 lines vs 324 lines — 70% reduction)
+- Clear intentions — easy to see what each theme changes
+- Easier maintenance — update base tokens, all themes inherit
+- No duplication — spacing, typography defined once
+
+---
+
+## Adding a New Theme
+
+See `.builder/rules/RULE_ThemeAddition.mdc` for the complete checklist.
+
+### Common Tokens to Override
+
+**Primary Branding:**
+- `--ld-semantic-color-action-fill-primary`
+- `--ld-semantic-color-text-brand`
+- `--ld-semantic-color-border-brand`
+- `--ld-semantic-color-action-focus-outline`
+
+### Rarely Override
+
+- Spacing tokens, Typography tokens, Border radius tokens, Animation duration, Structural tokens
+
+### Never Override
+
+- Focus outline visibility tokens (must be visible)
+- Disabled state tokens
+- Negative/error tokens (red should stay red)
+- Positive/success tokens (green should stay green)
+
+---
+
+## Best Practices
+
+### DO:
+- Test with all components before shipping
+- Use semantic tokens in component code, never primitives
+- Document your theme
+- Check accessibility with contrast checkers
+
+### DON'T:
+- Override accessibility tokens
+- Use hard-coded colors in components
+- Change structural tokens (spacing, elevation)
+- Break existing themes when adding new ones

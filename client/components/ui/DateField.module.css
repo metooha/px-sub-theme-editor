@@ -1,0 +1,164 @@
+/* DateField – LD 3.5 compliant */
+
+/* ── Wrapper ── */
+.dateField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-050, 0.25rem);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, sans-serif);
+}
+
+/* ── Label ── */
+.dateField__label {
+  font-size: var(--ld-semantic-font-body-small-size, 0.75rem);
+  font-weight: 700;
+  line-height: 1rem;
+  color: var(--ld-semantic-color-text, #2e2f32);
+}
+
+/* ── Input wrapper (holds input + icon) ── */
+.dateField__inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 2.5rem; /* 40px */
+  padding: 0.625rem 0.75rem; /* 10px vertical, 12px horizontal */
+  gap: 0.5rem;
+  border: 1px solid var(--ld-semantic-color-border-strong, #909196);
+  border-radius: var(--ld-primitive-scale-border-radius-50, 0.25rem);
+  background-color: var(--ld-semantic-color-surface, #fff);
+  transition: border-color 0.2s ease-in-out;
+  box-sizing: border-box;
+}
+
+.dateField__inputWrapper:focus-within {
+  border-color: var(--ld-semantic-color-border-brand, #0053e2);
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0053e2);
+  outline-offset: 1px;
+}
+
+/* ── The text input ── */
+.dateField__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: var(--ld-semantic-font-body-default-size, 0.875rem);
+  line-height: 1.25rem;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  padding: 0;
+  min-width: 0;
+  height: auto;
+}
+
+.dateField__input::placeholder {
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+/* ── Input wrapper with end adornment (e.g. icon button) ── */
+.dateField__inputWrapper--withEndAdornment {
+  padding-right: var(--ld-primitive-scale-space-050, 4px);
+}
+
+/* ── Calendar icon (decorative) ── */
+.dateField__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  color: var(--ld-semantic-color-text, #2e2f32);
+  pointer-events: none;
+  line-height: 0;
+}
+
+.dateField__icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+/* ── Error icon (inline, before error text) ── */
+.dateField__errorIcon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text-negative, #a20c00);
+}
+
+.dateField__errorIcon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ── Error message ── */
+.dateField__errorMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  font-size: var(--ld-semantic-font-body-small-size, 0.75rem);
+  font-weight: 400;
+  line-height: 1rem;
+  color: var(--ld-semantic-color-text-negative, #a20c00);
+  margin-top: 0.125rem;
+}
+
+/* ── Helper text ── */
+.dateField__helperText {
+  font-size: var(--ld-semantic-font-body-small-size, 0.75rem);
+  font-weight: 400;
+  line-height: 1rem;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+  margin-top: 0.125rem;
+}
+
+/* ── Error state ── */
+.dateField--error .dateField__inputWrapper {
+  border-color: var(--ld-semantic-color-border-negative, #ea1100);
+}
+
+.dateField--error .dateField__inputWrapper:focus-within {
+  border-color: var(--ld-semantic-color-border-negative, #ea1100);
+  outline-color: var(--ld-semantic-color-border-negative, #ea1100);
+}
+
+/* ── Disabled state ── */
+.dateField--disabled .dateField__label {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+}
+
+.dateField--disabled .dateField__inputWrapper {
+  border-color: var(--ld-semantic-color-border-disabled, #babbbe);
+  background-color: var(--ld-semantic-color-fill-disabled, #f5f5f6);
+  cursor: not-allowed;
+}
+
+.dateField--disabled .dateField__input {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+  cursor: not-allowed;
+}
+
+.dateField--disabled .dateField__input::placeholder {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+}
+
+.dateField--disabled .dateField__icon {
+  color: var(--ld-semantic-color-text-disabled, #babbbe);
+}
+
+/* ── Read-only state ── */
+.dateField__inputWrapper:has(input[readonly]) {
+  border-color: var(--ld-semantic-color-border, #babbbe);
+  background-color: var(--ld-semantic-color-surface, #fff);
+}
+
+.dateField__inputWrapper:has(input[readonly]):focus-within {
+  border-color: var(--ld-semantic-color-border, #babbbe);
+  outline: none;
+}
+
+.dateField__input[readonly] {
+  cursor: default;
+}

@@ -1,0 +1,128 @@
+---
+description: Guidelines and rules for bottom sheet
+alwaysApply: false
+---
+## Purpose
+A Bottom Sheet is a modal surface that slides up from the bottom of the viewport to present additional content, longer descriptions, and simple sub-tasks. It appears as a result of user interaction and **blocks access to the main screen content** until dismissed.
+
+## Rules
+- **MUST** use the Living Design Bottom Sheet component.
+- **MUST** be user-dismissible (never trap users in the Bottom Sheet).
+- **MUST** provide at least one explicit dismissal control (e.g., a close button) when the sheet is dismissible.
+- **MUST** block interaction with background content while open (modal behavior).
+- **MUST** return focus to the element that triggered the Bottom Sheet when it closes.
+- **MUST NOT** layer Bottom Sheets on top of other Bottom Sheets, modals, or panels.
+- **MUST NOT** use Bottom Sheets for complex, multi-step flows; use a dedicated page/screen instead.
+- **SHOULD** keep tasks short and focused (one “sub-task”).
+- **SHOULD** support `Escape` to dismiss on desktop/web (when applicable).
+
+## Usage
+Use Bottom Sheets for intentional, temporary interruptions that are logically connected to what the user just did, such as:
+- Entering a date
+- Choosing from a short list of options
+- Reviewing additional details without navigating away
+- Completing a single, contained sub-task
+
+Don’t use Bottom Sheets for:
+- Complex tasks or multi-step processes that require many interactions
+- System errors as the primary display pattern (use an [Alert](/components/alert) or [Error Message](/components/error-message/) instead)
+
+Note: If a system error occurs while Bottom Sheet content is loading, it is appropriate to render the error state inside the Bottom Sheet.
+
+## Best practices
+### Use when
+- Use when intentionally interrupting the user’s journey for a simple task, and the transition into this interruption is logical and obvious.
+
+### Don’t use when
+- Don’t use for complex tasks, such as a multi-step process or a flow that requires many interactions. Consider using a separate page instead.
+- Don’t use when displaying system errors as the primary pattern. Prefer an [Alert](/components/alert) or [Error Message](/components/error-message/) instead (exception: load-time errors inside the sheet).
+
+### Don’t
+- Don’t stack or nest modal surfaces (Bottom Sheets, modals, panels). Use one modal layer at a time.
+
+## Placement
+- The Bottom Sheet sticks to the bottom of the viewport.
+- When a keyboard is visible on a mobile device, the Bottom Sheet sticks to the top of the keyboard (the keyboard does not cover the Bottom Sheet).
+
+## Content strategy
+- **MUST** use sentence case for the Bottom Sheet title (e.g., “Choose a date”).
+- **MUST NOT** use Title Case for the Bottom Sheet title (e.g., avoid “Choose A Date”).
+- Keep the title short and specific to the task.
+
+## Anatomy
+1. Layout container
+2. Scrim (overlay/backdrop)
+3. Sheet container
+4. Header
+5. Title
+6. Close icon button
+7. Content
+8. Action area (optional; e.g., primary/secondary CTA)
+
+## Behavior
+### Dismissing
+Bottom Sheets can be dismissed by (when supported by your platform/API):
+1. Tapping/clicking the scrim (outside the Bottom Sheet)
+2. Tapping/clicking the close button
+3. Activating a CTA in the optional action area (only if that CTA is intended to close the sheet)
+4. Pressing the `Escape` key (desktop/web)
+
+If the Bottom Sheet contains unsaved user input, dismissal behavior **SHOULD** be guarded (e.g., confirm before discarding).
+
+### Responsiveness
+#### Width
+- On smaller screens, the Bottom Sheet width is 100% of the viewport width.
+- On larger screens, it has a max-width of 768px and is centered horizontally within the viewport.
+
+#### Height
+- By default, the height of the Bottom Sheet is determined by its content.
+- The height of the Bottom Sheet can also be set to a fixed value when needed (e.g., for scrollable content).
+- The maximum height is constrained so the sheet never fully covers the viewport:
+  - Small widths (0–599px): max height = 100% of screen height minus 16px
+  - 600px and above: max height = 100% of screen height minus 64px
+
+## Accessibility
+- When the Bottom Sheet opens, focus **SHOULD** move into the sheet (typically to the title or first focusable control) and remain within the modal while open.
+- When the Bottom Sheet closes, focus **MUST** return to the element that triggered it.
+- Avoid launching a snackbar at the same moment the Bottom Sheet closes; focus will not be on the snackbar so it may not be announced by screen readers.
+  - If you must show a snackbar after closing, consider adding a short delay (commonly ~1 second) before triggering it. See the [Snackbar React FAQs](/develop/react/components/snackbar/#faq) for a web-specific workaround.
+
+## Token usage
+- Prefer component defaults (Bottom Sheet should be token-wired for color, typography, spacing, radius, elevation, and motion).
+- Only use tokens for layout around the Bottom Sheet, not for restyling internal Bottom Sheet surfaces.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { BottomSheet } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+import { Button } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function BottomSheetExample() {
+  const [open, setOpen] = React.useState(false);
+  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
+
+  return (
+    <>
+      <Button
+        ref={triggerRef}
+        variant="primary"
+        onClick={() => setOpen(true)}
+      >
+        Open bottom sheet
+      </Button>
+
+      <BottomSheet
+        open={open}
+        title="Choose a date"
+        onClose={() => setOpen(false)}
+        // Prefer APIs that automatically restore focus to the trigger;
+        // if your API requires it, restore focus in onClose.
+      >
+        {/* Keep the task short and focused; content may scroll at max height. */}
+      </BottomSheet>
+    </>
+  );
+}
+```

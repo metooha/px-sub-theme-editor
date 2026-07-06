@@ -1,0 +1,143 @@
+/* Badge Component - Living Design 3.5 */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--ld-primitive-scale-border-radius-round);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  
+  /* Non-interactive - no pointer events */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Size variants */
+.badge--size-small {
+  min-width: var(--ld-semantic-scale-icon-small);
+  height: var(--ld-semantic-scale-icon-small);
+  padding: 0 var(--ld-primitive-scale-space-50);
+  font-size: var(--ld-semantic-font-caption-size);
+}
+
+.badge--size-medium {
+  min-width: 20px; /* LD 3.5 spec */
+  height: 20px; /* LD 3.5 spec */
+  padding: 0 var(--ld-primitive-scale-space-100);
+  font-size: 12px; /* Between caption and body-small */
+}
+
+.badge--size-large {
+  min-width: var(--ld-semantic-scale-icon-medium);
+  height: var(--ld-semantic-scale-icon-medium);
+  padding: 0 var(--ld-primitive-scale-space-100);
+  font-size: var(--ld-semantic-font-body-small-size);
+}
+
+/* Semantic color variants using LD 3.5 semantic tokens */
+
+/* Info variant - Blue (semantic) */
+.badge--variant-info {
+  background-color: var(--ld-semantic-color-fill-info);
+  color: var(--ld-semantic-color-text-on-fill-info);
+}
+
+/* Success variant - Green (semantic) */
+.badge--variant-success {
+  background-color: var(--ld-semantic-color-fill-positive);
+  color: var(--ld-semantic-color-text-on-fill-positive);
+}
+
+/* Warning variant - Spark (semantic) */
+.badge--variant-warning {
+  background-color: var(--ld-semantic-color-fill-warning);
+  color: var(--ld-semantic-color-text-on-fill-warning);
+}
+
+/* Error variant - Red (semantic) */
+.badge--variant-error {
+  background-color: var(--ld-semantic-color-fill-negative);
+  color: var(--ld-semantic-color-text-on-fill-negative);
+}
+
+/* Neutral variant - Gray (semantic accent) */
+.badge--variant-neutral {
+  background-color: var(--ld-semantic-color-fill-accent-gray);
+  color: var(--ld-semantic-color-text-on-fill-accent-gray);
+}
+
+/* Additional color variants using semantic accent tokens */
+
+/* Blue */
+.badge--variant-blue {
+  background-color: var(--ld-semantic-color-fill-accent-blue);
+  color: var(--ld-semantic-color-text-on-fill-accent-blue);
+}
+
+/* Green */
+.badge--variant-green {
+  background-color: var(--ld-semantic-color-fill-accent-green);
+  color: var(--ld-semantic-color-text-on-fill-accent-green);
+}
+
+/* Yellow */
+.badge--variant-yellow {
+  background-color: var(--ld-semantic-color-fill-accent-yellow);
+  color: var(--ld-semantic-color-text-on-fill-accent-yellow);
+}
+
+/* Red */
+.badge--variant-red {
+  background-color: var(--ld-semantic-color-fill-accent-red);
+  color: var(--ld-semantic-color-text-on-fill-accent-red);
+}
+
+/* Purple */
+.badge--variant-purple {
+  background-color: var(--ld-semantic-color-fill-accent-purple);
+  color: var(--ld-semantic-color-text-on-fill-accent-purple);
+}
+
+/* Orange */
+.badge--variant-orange {
+  background-color: var(--ld-semantic-color-fill-accent-orange);
+  color: var(--ld-semantic-color-text-on-fill-accent-orange);
+}
+
+/* Pink */
+.badge--variant-pink {
+  background-color: var(--ld-semantic-color-fill-accent-pink);
+  color: var(--ld-semantic-color-text-on-fill-accent-pink);
+}
+
+/* Teal */
+.badge--variant-teal {
+  background-color: var(--ld-semantic-color-fill-accent-teal);
+  color: var(--ld-semantic-color-text-on-fill-accent-teal);
+}
+
+/* Dot badge - when no value is provided */
+.badge:empty {
+  min-width: 0;
+  padding: 0;
+}
+
+.badge--size-small:empty {
+  width: var(--ld-primitive-scale-space-100);
+  height: var(--ld-primitive-scale-space-100);
+}
+
+.badge--size-medium:empty {
+  width: 10px; /* Dot spec */
+  height: 10px; /* Dot spec */
+}
+
+.badge--size-large:empty {
+  width: var(--ld-primitive-scale-space-150);
+  height: var(--ld-primitive-scale-space-150);
+}

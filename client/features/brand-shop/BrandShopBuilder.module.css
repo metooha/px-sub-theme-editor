@@ -1,0 +1,88 @@
+/* ─── Shell layout (MastHead + Sidebar + Main) ─── */
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.appRow {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main {
+  flex: 1;
+  overflow-y: auto;
+  background-color: var(--ld-semantic-color-background-subtle, #f8f8f8);
+}
+
+/* ─── Page content inside main ─── */
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--ld-semantic-color-surface, #fff);
+}
+
+/* Top bar */
+.topBar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-300, 24px);
+  border-bottom: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+}
+
+.pageTitle {
+  margin: 0;
+  font-family: var(--ld-semantic-font-heading-medium-family);
+  font-size: var(--ld-semantic-font-heading-medium-size, 24px);
+  font-weight: var(--ld-semantic-font-heading-medium-weight, 700);
+  line-height: var(--ld-semantic-font-heading-medium-lineheight);
+  color: var(--ld-semantic-color-text);
+}
+
+/* 3-panel builder */
+.builderLayout {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-300, 24px);
+  border-top: 1px solid var(--ld-semantic-color-separator, #e3e4e5);
+  background: var(--ld-semantic-color-surface, #fff);
+}
+
+.footerActions {
+  display: flex;
+  gap: var(--ld-primitive-scale-space-150, 12px);
+}
+
+@media (max-width: 1024px) {
+  .topBar {
+    padding: var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-200, 16px);
+  }
+
+  .footer {
+    padding: var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-200, 16px);
+  }
+}
+
+@media (max-width: 768px) {
+  .builderLayout {
+    flex-direction: column;
+  }
+
+  .footerActions {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,33 @@
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-semantic-spacing-150);
+  border-bottom: 1px solid var(--ld-semantic-color-separator);
+}
+
+.cardHeader--size-small {
+  padding: var(--ld-semantic-spacing-200);
+}
+
+.cardHeader--size-large {
+  padding: var(--ld-semantic-spacing-300);
+}
+
+.cardHeader__leadingIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.cardHeader__title {
+  flex: 1;
+  min-width: 0; /* Enable text truncation if needed */
+}
+
+.cardHeader__trailing {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;
+}

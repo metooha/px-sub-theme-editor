@@ -1,0 +1,32 @@
+/* LD 3.5 DT Cell: Actions */
+
+/* ── Cell container ───────────────────────────────────────────────────── */
+/* Figma: padding space-150 (12px) space-200 (16px), right-aligned */
+.cell {
+  padding: var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-200, 16px);
+  vertical-align: middle;
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Frozen (sticky) cell */
+.frozen {
+  position: sticky;
+  z-index: 1;
+  background: var(--ld-semantic-color-surface-primary, #fff);
+  box-shadow: -4px 0 8px -4px rgba(0, 0, 0, 0.08);
+}
+
+/* Raise z-index when actions menu is open so dropdown isn't covered by other rows */
+.frozen:has([data-menu-open]) {
+  z-index: 10;
+}
+
+/* ── Actions row — icon buttons grouped with tight gap ───────────────── */
+/* Figma: gap space-50 (4px) between icon buttons */
+.actions {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  justify-content: flex-end;
+}

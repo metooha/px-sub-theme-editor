@@ -1,0 +1,127 @@
+---
+description: Guidelines and rules for metric
+alwaysApply: false
+---
+## Purpose
+Metric emphasizes a single, specific value that informs users of a critical data point. It helps users identify meaningful changes and act on them.
+
+Use Metric to show point-in-time data, trends over time, key performance indicators, or progress against a goal.
+
+## Rules
+- **MUST** use the Living Design Metric component.
+- **MUST** use Metric to emphasize a small number of high-signal values (not dense datasets).
+- **MUST** ensure the value is the most prominent element; surrounding UI **MUST NOT** compete with the Metric.
+- **MUST** keep Metric **non-interactive**. If interaction is required, place interactive controls adjacent to the Metric (not inside it) unless the component explicitly supports it.
+- **MUST** use clear labels that describe the value and context (time scope, comparison baseline, goal).
+- **MUST** ensure any “trend/intent” is conveyed by **text**, not by color alone.
+- **MUST** use documented variants/options only (e.g., timescope, unit, trend indicator, secondary label).
+
+## Usage
+Use Metric when showing a few key data points that provide a high-level understanding of performance, such as:
+- Current value compared to a previous value (trend)
+- Current value compared to a goal (progress)
+- Key performance indicator that needs prominence
+
+## Variants (common options)
+Use only what your Metric API supports:
+- **With timescope**: show the time span represented (e.g., Today, Yesterday, WTD, MTD, Last month).
+- **With unit**: clarify how the value is measured (e.g., %, K/M, temperature, weight).
+- **With trend indicator**: visual indication of up/down/neutral trend (optional).
+- **With secondary label**: supporting text for comparison, goal, or explanation (optional).
+
+## Best practices
+### Use when
+- Use when showing a few key data points that provide a high-level understanding of performance.
+- Use when comparing the current value against a previous value to show trend.
+- Use when comparing the current value against a goal to evaluate progress.
+
+### Don’t use when
+- Don’t use when displaying supportive data, key-value pairs, text, or labels; use plain text or a simpler presentational pattern instead.
+- Don’t use when showing a lot of data; use a denser pattern such as a [List](/components/list/) or another data display pattern supported by your product.
+
+## Do / Don’t
+### Do
+- Do group related Metrics together to tell a larger story.
+- Do place supporting interactive controls nearby if interaction is needed; the Metric itself should remain non-interactive.
+- Do give the Metric enough whitespace so its value remains visually dominant.
+
+### Don’t
+- Don’t surround a Metric with many competing elements; this diminishes prominence and makes it harder to discover and understand.
+- Don’t rely on color alone to communicate whether a trend is “good” or “bad”.
+
+## Placement
+Metric may be:
+- Contained inside a Card
+- Used by itself
+- Grouped with other Metrics in a single region
+
+When grouping, align titles/values consistently and keep the number of Metrics small enough to preserve scanability.
+
+## Content strategy
+### Abbreviations
+Many domains use abbreviations for common terms (e.g., WTD, MTD). Consider:
+- Use abbreviations for applications primarily used by repeat/power users (improves scanability).
+- Avoid abbreviations for infrequent users; spell out terms to reduce cognitive load.
+
+### Label (intent and context)
+The secondary label is used to communicate trend, intent, or additional context for the Metric.
+
+Intent is commonly communicated through:
+- **Text** (required for accessibility): an adjective that describes the change (e.g., “more”, “less”, “faster”, “slower”, “increased”, “decreased”).
+- **Color** (optional/secondary): may reinforce the message but **must not** be the only signal.
+
+Guidance:
+- Use factual words such as “more/less” and “faster/slower”.
+- Avoid words that interpret intent as “better/worse” unless your product explicitly defines that semantics and it’s appropriate for the domain.
+
+## Anatomy
+1. Title
+2. Timescope (optional)
+3. Value
+4. Unit (optional)
+5. Trend indicator (optional)
+6. Secondary label (optional)
+
+### Timescope
+The timescope defines the span of time represented by the Metric (e.g., Today, Yesterday, WTD, MTD, Last month). Some use cases may show the same Metric with different timescopes to compare short-term vs long-term trends.
+
+### Unit
+The unit clarifies how the value is measured. Examples include (but are not limited to) abbreviations like K/M, percentage, weight, and temperature.
+
+### Secondary label
+The secondary label provides supporting information that clarifies the value. It is most commonly used to show trend by comparing to a previous time period, but it can also be used to show a goal or other supporting info.
+
+## Behavior
+### Responsiveness
+When space allows, the Title and secondary label should appear on a single line for optimal readability. When the component occupies a smaller space, the Title and/or secondary label may wrap to additional lines as needed.
+
+## Accessibility
+- **MUST** ensure “trend/intent” is understandable without color (include an adjective or clear comparison in text).
+- **MUST** ensure the Metric content is announced clearly by assistive technologies; title + value + context should form a meaningful reading order.
+- **MUST NOT** use the trend indicator and color alone to convey meaning; include text that describes the trend (see [Content strategy](#content-strategy)).
+
+## Token usage
+- Prefer component defaults (Metric should be token-wired for typography, spacing, colors, and any trend/intent styling).
+- Only use tokens for layout around the Metric, not to restyle Metric internals.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import { Metric } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function Example() {
+  return (
+    <>
+      <Metric
+        title="Items shipped"
+        timescope="MTD"
+        value="12,430"
+        unit=""
+        label="1.2% more than last month"
+        trend="up"
+      />
+    </>
+  );
+}
+```

@@ -1,0 +1,95 @@
+/**
+ * Walmart B2B (Business) Theme - Semantic Token Overrides
+ * Generated for Walmart Business platform
+ * 
+ * INHERITANCE MODEL:
+ * This theme inherits ALL tokens from the base theme (styles/themes/base/semantic.css)
+ * Only tokens listed below are overridden for the B2B experience
+ * All other tokens use the base theme values automatically
+ * 
+ * Key Changes:
+ * - Darker, more professional color palette
+ * - Navy blue (#002e99) instead of Walmart blue (#0053e2)
+ * - Cyan alternative buttons instead of spark yellow
+ */
+
+:root {
+  /* ========================================
+     PRIMARY BRAND COLORS - B2B OVERRIDES
+     ======================================== */
+  
+  /* Primary Action/Button Colors - DARKER NAVY */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-blue-140, #002185);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-blue-140, #002185);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-blue-150, #001270);
+  
+  /* Focus States - Match primary color */
+  --ld-semantic-color-action-focus-outline: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* Brand Text Colors - DARKER */
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-text-activated: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-text-link: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* Brand Border Colors */
+  --ld-semantic-color-border-activated: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-border-brand-bold: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-border-accent-blue: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-border-accent-blue-bold: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-border-info: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-border-info-bold: var(--ld-primitive-color-blue-160, #001e60);
+  
+  /* Brand Fill Colors */
+  --ld-semantic-color-fill-activated: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-fill-brand: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-fill-brand-bold: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-fill-info-bold: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* Icon Colors - Brand */
+  --ld-semantic-color-icon-activated: var(--ld-primitive-color-blue-160, #001e60);
+  --ld-semantic-color-icon-brand: var(--ld-primitive-color-blue-130, #002e99);
+  --ld-semantic-color-icon-info: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* ========================================
+     WCP EXTENDED TOKENS - B2B OVERRIDES
+     ======================================== */
+  
+  /* WCP Alternative Action Button - CYAN instead of Spark Yellow */
+  --wcp-semantic-color-action-fill-primary-alt: var(--ld-primitive-color-cyan-50, #4dbdf5);
+  --wcp-semantic-color-action-fill-primary-alt-hovered: var(--ld-primitive-color-cyan-60, #2eacea);
+  --wcp-semantic-color-action-fill-primary-alt-pressed: var(--ld-primitive-color-cyan-70, #189ee2);
+  --wcp-semantic-color-action-text-primary-alt: var(--ld-primitive-color-white, #ffffff);
+  --wcp-semantic-color-action-border-primary-alt: var(--ld-primitive-color-cyan-80, #0092db);
+  
+  /* WCP Input Focus - Match B2B primary */
+  --wcp-semantic-color-input-border-focused: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* WCP Notice Info - Match B2B primary */
+  --wcp-semantic-color-notice-info-border: var(--ld-primitive-color-blue-130, #002e99);
+  
+  /* WCP Link Colors - Match B2B primary */
+  --wcp-semantic-color-text-link: var(--ld-primitive-color-blue-130, #002e99);
+  --wcp-semantic-color-text-link-hovered: var(--ld-primitive-color-blue-140, #002185);
+  
+  /* WCP Confidence Fill - Darker blue */
+  --wcp-semantic-color-fill-confidence: var(--ld-primitive-color-blue-130, #002e99);
+}
+
+/* 
+ * NOTE: All other semantic tokens are inherited from base theme
+ * Including but not limited to:
+ * - Spacing tokens
+ * - Typography tokens
+ * - Border radius tokens
+ * - Elevation/shadow tokens
+ * - Fill-subtle and surface colors
+ * - Negative/positive/warning colors (red, green, orange stay the same)
+ * - Opacity tokens
+ * - Z-index tokens
+ * - Duration/timing tokens
+ * - Breakpoint tokens
+ * 
+ * This inheritance model keeps the B2B theme focused on brand color differences
+ * while maintaining consistency with the base design system for everything else.
+ */

@@ -1,0 +1,148 @@
+---
+description: Mandate semantic tokens for spacing, radius, typography — prohibit hard-coded values
+alwaysApply: false
+---
+# Design Token Enforcement Rule
+
+## Purpose
+
+**MANDATORY**: All components, pages, and designs in this project MUST use Living Design 3.5 semantic tokens exclusively. Hard-coded colors, spacing, and typography values are **strictly prohibited**.
+
+This rule ensures:
+- Theme switching works correctly across all components
+- Visual consistency across the application
+- Easy maintenance and updates (change once, update everywhere)
+- Accessibility compliance (proper contrast ratios maintained)
+- Brand consistency across Walmart, Walmart Business, and future themes
+
+---
+
+## Golden Rule
+
+**NEVER hard-code visual properties. ALWAYS use semantic tokens.**
+
+
+// WRONG - Hard-coded values
+<div style={{ 
+  color: '#0053e2',
+  backgroundColor: '#ffffff',
+  padding: '16px',
+  borderRadius: '8px',
+  fontSize: '14px'
+}}>
+
+// CORRECT - Semantic tokens
+<div style={{ 
+  color: 'var(--ld-semantic-color-text-brand)',
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  padding: 'var(--ld-semantic-spacing-200)',
+  borderRadius: 'var(--ld-semantic-border-radius-large)',
+  fontSize: 'var(--ld-semantic-font-body-medium-size-b-s)'
+}}>
+```
+
+---
+
+## Token Usage by Category
+
+### 1. Colors
+
+**ALWAYS use semantic color tokens. NEVER use:**
+- Hex codes (`#0053e2`, `#ffffff`)
+- RGB values (`rgb(0, 83, 226)`)
+- Color names (`blue`, `white`, `red`)
+- Primitive tokens directly (use semantic instead)
+
+### 2. Spacing
+
+**ALWAYS use semantic spacing tokens. NEVER hard-code px/rem values.**
+
+| Token | Value | Use Case |
+|-------|-------|----------|
+| `--ld-semantic-spacing-50` | 4px | Tight spacing |
+| `--ld-semantic-spacing-100` | 8px | Small spacing |
+| `--ld-semantic-spacing-150` | 12px | Default gap |
+| `--ld-semantic-spacing-200` | 16px | Standard padding |
+| `--ld-semantic-spacing-300` | 24px | Section spacing |
+| `--ld-semantic-spacing-400` | 32px | Large section spacing |
+| `--ld-semantic-spacing-600` | 48px | Page section spacing |
+
+### 3. Typography
+
+**ALWAYS use semantic font tokens.**
+
+```tsx
+// CORRECT
+fontFamily: 'var(--ld-semantic-font-family-sans)'
+fontSize: 'var(--ld-semantic-font-body-medium-size-b-s)'
+lineHeight: 'var(--ld-semantic-font-body-medium-line-height-b-s)'
+
+// WRONG
+fontFamily: 'Arial, sans-serif'
+fontSize: '14px'
+```
+
+### 4. Border Radius
+
+```tsx
+// CORRECT
+borderRadius: 'var(--ld-semantic-border-radius-small)'    // 2px
+borderRadius: 'var(--ld-semantic-border-radius-medium)'   // 4px
+borderRadius: 'var(--ld-semantic-border-radius-large)'    // 8px
+borderRadius: 'var(--ld-semantic-border-radius-button)'   // Full round (pill)
+
+// WRONG
+borderRadius: '4px'
+borderRadius: '8px'
+```
+
+### 5. Shadows & Elevation
+
+```tsx
+// CORRECT
+boxShadow: 'var(--ld-semantic-elevation-100)'
+boxShadow: 'var(--ld-semantic-elevation-200)'
+boxShadow: 'var(--ld-semantic-elevation-300)'
+
+// WRONG
+boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+```
+
+---
+
+## Code Review Checklist
+
+### DO:
+- [ ] All colors use `var(--ld-semantic-color-*)`
+- [ ] All spacing uses `var(--ld-semantic-spacing-*)`
+- [ ] All typography uses `var(--ld-semantic-font-*)`
+- [ ] All border radius uses `var(--ld-semantic-border-radius-*)`
+- [ ] Existing LD 3.5 components used where possible
+- [ ] Theme switching tested and works correctly
+- [ ] No hard-coded hex codes, RGB values, or color names
+
+### DON'T:
+- [ ] No hard-coded colors (`#0053e2`, `rgb(...)`, `blue`)
+- [ ] No hard-coded spacing (`16px`, `1rem`)
+- [ ] No hard-coded font sizes (`14px`, `1rem`)
+- [ ] No primitive tokens used directly (`--ld-primitive-color-blue-100`)
+
+---
+
+## Why This Matters
+
+### Theme Switching
+
+When users switch from "Walmart" to "Walmart Business" theme:
+- **Tokenized code**: All colors update automatically
+- **Hard-coded colors**: Buttons stay blue, breaking the theme
+
+---
+
+**Three Rules to Remember:**
+
+1. **NEVER hard-code colors** - Always use `var(--ld-semantic-color-*)`
+2. **ALWAYS use existing components** - Button, Tag, ButtonGroup, etc.
+3. **TEST theme switching** - Verify your code works in all themes
+
+**Remember: If you're typing a hex code, you're doing it wrong!**

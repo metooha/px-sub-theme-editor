@@ -1,0 +1,32 @@
+---
+description: Guidelines and rules for component visibility
+alwaysApply: false
+---
+# Component Visibility and Access
+
+## Private Components
+
+**NEVER use components marked as `@private`** in their JSDoc/docblock comments. These are internal implementation details and should not be used directly in application code.
+
+### Rules
+
+- Components marked `@private` are for internal use only
+- Only use components that are documented and publicly exported
+- If you need functionality from a private component, find the public API that exposes it
+
+### Examples of Private Components
+
+Components like `OverlayScrim`, `Overlay.service`, and similar implementation details should never be imported or used directly. Always use the public-facing components that provide the intended functionality.
+
+### How to Check
+
+Look for JSDoc comments at the top of component files:
+
+```tsx
+/**
+ * @private
+ * Internal component - do not use directly
+ */
+```
+
+If you see `@private` in the docblock, do not use that component.

@@ -1,0 +1,707 @@
+---
+description: Guidelines and rules for ui component replacement plan
+alwaysApply: false
+---
+# UI Component Replacement Plan: shadcn/ui → Living Design
+
+## Executive Summary
+
+This document outlines the comprehensive plan to migrate from shadcn/ui components to Living Design components. The migration involves **33 duplicate components** that need careful replacement to avoid breaking existing functionality.
+
+---
+
+## Current State Analysis
+
+### Components Currently in Use
+
+Based on codebase analysis, the following pages and components are actively using UI components:
+
+#### **Pages:**
+- `client/pages/ItemHealth.tsx` → Button
+- `client/pages/Campaign.tsx` → Button
+
+#### **Components:**
+- `client/components/RecommendationsPanel.tsx` → Button, Checkbox, RadioGroup, RadioGroupItem
+- `client/components/DisplayDashboard.tsx` → Button, Dialog, DialogContent, DialogHeader, DialogTitle
+- `client/components/AttributionFilterDropdown.tsx` → Popover, PopoverContent, PopoverTrigger
+- `client/components/DateRangeFilterDropdown.tsx` → Popover, PopoverContent, PopoverTrigger, Calendar
+
+#### **App-level:**
+- `client/App.tsx` → Toaster, Sonner, TooltipProvider
+
+---
+
+## Component Comparison Matrix
+
+### Architecture Differences
+
+| Aspect | Current (shadcn/ui) | New (Living Design) |
+|--------|---------------------|---------------------|
+| **Styling** | Tailwind CSS classes | CSS Modules + Design Tokens |
+| **Variants** | CVA (class-variance-authority) | CSS Modules with variant classes |
+| **Design Tokens** | Tailwind theme variables | Living Design CSS variables (`--ld-*`) |
+| **Base Library** | Radix UI primitives | Radix UI primitives |
+| **Import Patterns** | Named exports | Named exports |
+
+### Critical API Differences
+
+#### 1. **Button Component**
+
+**Current (shadcn/ui):**
+```tsx
+<Button variant="default" size="lg">Click me</Button>
+// Variants: default, destructive, outline, secondary, ghost, link
+// Sizes: default, sm, lg, icon
+```
+
+**New (Living Design):**
+```tsx
+<Button variant="primary" size="large">Click me</Button>
+// Uses CSS modules instead of Tailwind
+// Design tokens from styles/ folder
+```
+
+**Breaking Changes:**
+- Variant names may differ (need to verify in actual component)
+- Size names may differ
+- CSS class-based overrides won't work (need CSS module approach)
+
+---
+
+#### 2. **Checkbox Component**
+
+**Current (shadcn/ui):**
+```tsx
+<Checkbox checked={value} onCheckedChange={setValue} />
+```
+
+**New (Living Design):**
+```tsx
+<Checkbox checked={value} onCheckedChange={setValue} />
+// API should be similar (both use Radix)
+// Styling via CSS modules instead of Tailwind
+```
+
+**Breaking Changes:**
+- Custom className overrides need to be updated
+- Check icon rendering may differ
+
+---
+
+#### 3. **Popover Component**
+
+**Current (shadcn/ui):**
+```tsx
+<Popover>
+  <PopoverTrigger>Open</PopoverTrigger>
+  <PopoverContent>Content</PopoverContent>
+</Popover>
+```
+
+**New (Living Design):**
+```tsx
+// API should be similar (both use Radix)
+// Styling via CSS modules
+```
+
+**Breaking Changes:**
+- Portal behavior may differ
+- Animation classes will change
+
+---
+
+#### 4. **Dialog/Modal Component**
+
+**Current (shadcn/ui):**
+```tsx
+<Dialog>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>Title</DialogTitle>
+    </DialogHeader>
+  </DialogContent>
+</Dialog>
+```
+
+**New (Living Design):**
+```tsx
+// May have different sub-component structure
+// Check modal.tsx for exact API
+```
+
+**Breaking Changes:**
+- Sub-component structure may differ
+- Scrim/overlay styling will change
+
+---
+
+## Duplicate Components Identified
+
+### High Priority (Currently Used)
+1. ✅ **button.tsx** - Used in 4 files
+2. ✅ **checkbox.tsx** - Used in 1 file  
+3. ✅ **radio-group.tsx** - Used in 1 file
+4. ✅ **popover.tsx** - Used in 2 files
+5. ✅ **dialog.tsx** - Used in 1 file (DisplayDashboard uses it as modal)
+6. ✅ **calendar.tsx** - Used in 1 file
+
+### Medium Priority (Used in UI internals)
+7. alert.tsx
+8. alert-dialog.tsx
+9. form.tsx
+10. label.tsx
+11. toast.tsx / toaster.tsx
+12. sonner.tsx
+13. tooltip.tsx
+
+### Lower Priority (Unused or internal)
+14-33. accordion, aspect-ratio, avatar, badge, breadcrumb, card, carousel, chart, collapsible, command, context-menu, drawer, dropdown-menu, hover-card, input, input-otp, menubar, navigation-menu, pagination, progress, resizable, scroll-area, select, separator, sheet, sidebar, skeleton, slider, switch, table, tabs, textarea, toggle, toggle-group
+
+---
+
+## Migration Strategy
+
+### Phase 1: Pre-Migration Preparation ⚠️ **DO NOT START YET**
+
+**Goal:** Set up Living Design infrastructure without breaking existing code
+
+1. **Add CSS Module files to project** (already partially done in `styles/`)
+   - ✅ Verify `styles/` folder has all required token files
+   - ✅ Import design tokens in main CSS
+
+2. **Create temporary namespace for new components**
+   - Move new Living Design components to `client/components/ui-ld/` temporarily
+   - This prevents conflicts during migration
+
+3. **Verify dependencies**
+   - Check if all required npm packages are installed
+   - Verify Radix UI versions match
+
+---
+
+### Phase 2: Component-by-Component Migration
+
+#### **Step 1: Button Component**
+
+**Files to update:**
+- `client/pages/ItemHealth.tsx`
+- `client/pages/Campaign.tsx`
+- `client/components/RecommendationsPanel.tsx`
+- `client/components/DisplayDashboard.tsx`
+
+**Migration checklist:**
+- [ ] Backup current button.tsx
+- [ ] Replace with Living Design Button
+- [ ] Update variant names if different
+- [ ] Test all button instances
+- [ ] Verify hover/focus states work
+- [ ] Check responsive behavior
+
+**Risk Level:** 🟡 Medium
+**Affected Pages:** 4 files
+**Rollback Plan:** Revert button.tsx via Git history
+
+---
+
+#### **Step 2: Checkbox & RadioGroup**
+
+**Files to update:**
+- `client/components/RecommendationsPanel.tsx`
+
+**Migration checklist:**
+- [ ] Replace checkbox.tsx
+- [ ] Replace radio-group.tsx
+- [ ] Verify checked/unchecked states
+- [ ] Test onCheckedChange callbacks
+- [ ] Verify visual styling matches design
+- [ ] Test keyboard navigation
+
+**Risk Level:** 🟡 Medium
+**Affected Pages:** 1 file
+**Rollback Plan:** Revert via Git history
+
+---
+
+#### **Step 3: Popover Component**
+
+**Files to update:**
+- `client/components/AttributionFilterDropdown.tsx`
+- `client/components/DateRangeFilterDropdown.tsx`
+
+**Migration checklist:**
+- [ ] Replace popover.tsx
+- [ ] Test open/close behavior
+- [ ] Verify positioning (align, sideOffset)
+- [ ] Test click-outside to close
+- [ ] Verify Portal rendering
+- [ ] Check z-index stacking
+
+**Risk Level:** 🟡 Medium
+**Affected Pages:** 2 files
+**Rollback Plan:** Revert via Git history
+
+---
+
+#### **Step 4: Dialog/Modal Component**
+
+**Files to update:**
+- `client/components/DisplayDashboard.tsx`
+
+**Migration checklist:**
+- [ ] Replace dialog.tsx and sub-components
+- [ ] Verify modal.tsx API matches Dialog API
+- [ ] Test open/close behavior
+- [ ] Verify scrim/overlay rendering
+- [ ] Test focus trap
+- [ ] Check keyboard escape handling
+- [ ] Verify DialogHeader, DialogTitle, DialogContent structure
+
+**Risk Level:** 🔴 High (Modal vs Dialog naming/API differences)
+**Affected Pages:** 1 file
+**Rollback Plan:** Revert via Git history
+
+---
+
+#### **Step 5: Calendar Component**
+
+**Files to update:**
+- `client/components/DateRangeFilterDropdown.tsx`
+
+**Migration checklist:**
+- [ ] Replace calendar.tsx
+- [ ] Verify range selection mode
+- [ ] Test date callbacks (onSelect)
+- [ ] Verify numberOfMonths prop
+- [ ] Check date formatting
+- [ ] Test disabled dates if used
+
+**Risk Level:** 🟡 Medium
+**Affected Pages:** 1 file
+**Rollback Plan:** Revert via Git history
+
+---
+
+#### **Step 6: Toast System**
+
+**Files to update:**
+- `client/App.tsx`
+- `client/components/RecommendationsPanel.tsx` (uses sonner)
+
+**Migration checklist:**
+- [ ] Replace toast.tsx, toaster.tsx
+- [ ] Verify sonner.tsx compatibility
+- [ ] Test toast notifications
+- [ ] Verify positioning
+- [ ] Check animation behavior
+
+**Risk Level:** 🟢 Low
+**Affected Pages:** 2 files
+**Rollback Plan:** Revert via Git history
+
+---
+
+#### **Step 7: Tooltip Provider**
+
+**Files to update:**
+- `client/App.tsx`
+
+**Migration checklist:**
+- [ ] Replace tooltip.tsx
+- [ ] Verify TooltipProvider context
+- [ ] Check if any tooltips are used in the app
+
+**Risk Level:** 🟢 Low
+**Affected Pages:** 1 file
+**Rollback Plan:** Revert via Git history
+
+---
+
+### Phase 3: Remaining Components (Low Priority)
+
+These components are not currently in use but should be replaced for consistency:
+
+**Batch 1 - Form Components:**
+- form.tsx, label.tsx, input.tsx, textarea.tsx, select.tsx
+
+**Batch 2 - Layout Components:**
+- card.tsx, table.tsx, tabs.tsx, separator.tsx
+
+**Batch 3 - Feedback Components:**
+- alert.tsx, alert-dialog.tsx, badge.tsx
+
+**Batch 4 - Navigation:**
+- breadcrumb.tsx, dropdown-menu.tsx
+
+**Batch 5 - Advanced:**
+- accordion, carousel, chart, command, drawer, sheet, sidebar, etc.
+
+---
+
+## New Living Design Components
+
+These components are being **added** (not replacing anything):
+
+### Typography Components (NEW)
+- **Display.tsx** - Large hero text
+- **Heading.tsx** - Section headings
+- **body.tsx** - Body text (conflicts with existing naming)
+- **Caption.tsx** - Small text/captions
+
+### Living Design Specific (NEW)
+- **IconButton.tsx** - Icon-only buttons
+- **banner.tsx** - Page-level notifications
+- **AlertActionButton.tsx** - Alert action button
+- **FocusTrap.tsx** - Focus management
+- **Overlay.tsx** - Base overlay component
+- **OverlayScrim.tsx** - Overlay backdrop
+- **BottomSheet.tsx** - Mobile modal pattern
+- **BottomSheetPortal.tsx** - BottomSheet portal
+
+### Supporting Files (NEW)
+- **utils.ts** - May conflict with existing utils
+- **use-mobile.ts** - May conflict with existing hook
+- **Overlay.service.tsx** - Service for overlay management
+- **Tag.module.scss.d.ts**, **Tag.module.scss.tsx**, **Tag.stories.tsx**, **Tag.test.tsx** - Tag component extras
+
+### CSS Module Files
+- Alert.module.css
+- AlertActionButton.module.css
+- badge.module.css
+- banner.module.css
+- bannerCloseButton.module.css
+- body.module.css
+- Caption.module.css
+- Display.module.css
+- Heading.module.css
+- IconButton.module.css
+- Overlay.module.css
+- OverlayScrim.module.css
+- tag.module.css
+
+---
+
+## Potential Conflicts & Resolutions
+
+### File Name Conflicts
+
+| File | Current | New | Resolution |
+|------|---------|-----|------------|
+| **body.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **Caption.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **Display.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **Heading.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **IconButton.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **banner.tsx** | ❌ Doesn't exist | ✅ New Living Design | ✅ Safe to add |
+| **utils.ts** | ✅ Exists | ✅ New version | ⚠️ **CONFLICT** - Compare and merge |
+| **use-mobile.ts** | ✅ Exists in hooks/ | ✅ New in ui/ | ⚠️ **CONFLICT** - Different locations |
+
+---
+
+## Testing Checklist
+
+### Visual Regression Testing
+
+For each replaced component, verify:
+
+- [ ] **ItemHealth.tsx**
+  - [ ] "Export to CSV" button renders correctly
+  - [ ] Button hover states work
+  - [ ] Button focus states visible
+  
+- [ ] **RecommendationsPanel.tsx**
+  - [ ] All buttons render correctly
+  - [ ] Checkboxes display and toggle properly
+  - [ ] Radio buttons in multi-option recommendations work
+  - [ ] "Apply selected" button works
+  - [ ] Toast notifications appear on apply
+  
+- [ ] **DisplayDashboard.tsx**
+  - [ ] "View recommendations" buttons work
+  - [ ] Modal opens and closes properly
+  - [ ] Modal tabs switch correctly
+  - [ ] Modal scrim/overlay renders
+  
+- [ ] **AttributionFilterDropdown.tsx**
+  - [ ] Popover opens/closes
+  - [ ] Options are selectable
+  - [ ] Apply button works
+  - [ ] Popover positioning correct
+  
+- [ ] **DateRangeFilterDropdown.tsx**
+  - [ ] Popover opens/closes
+  - [ ] Calendar displays correctly
+  - [ ] Date range selection works
+  - [ ] "Jump to today" button works
+  - [ ] Apply button works
+
+### Functional Testing
+
+- [ ] All click handlers still work
+- [ ] All state management intact
+- [ ] No console errors
+- [ ] No React warnings
+- [ ] Keyboard navigation works
+- [ ] Focus management correct
+- [ ] ARIA attributes present
+
+### Visual Design Testing
+
+- [ ] Colors match design tokens (from `styles/` folder)
+- [ ] Typography uses Living Design tokens
+- [ ] Spacing/padding matches design
+- [ ] Border radius matches design
+- [ ] Hover states match design
+- [ ] Focus rings visible and styled correctly
+
+---
+
+## Risk Assessment
+
+### 🔴 High Risk Components
+
+**Dialog/Modal** - Highest risk due to:
+- Potential API differences between Dialog and Modal
+- Complex sub-component structure
+- Focus trap behavior
+- Scrim/overlay rendering
+- **Mitigation:** Test thoroughly, consider keeping Dialog wrapper that uses Modal internally
+
+### 🟡 Medium Risk Components
+
+**Button** - Medium risk due to:
+- Heavy usage across codebase (4+ files)
+- Variant name changes
+- Size name changes
+- **Mitigation:** Update all usages simultaneously, test all pages
+
+**Checkbox, RadioGroup** - Medium risk due to:
+- State management complexity in RecommendationsPanel
+- Custom styling applied
+- **Mitigation:** Test interaction flows thoroughly
+
+**Popover** - Medium risk due to:
+- Complex positioning logic
+- Portal rendering differences
+- **Mitigation:** Test all dropdown interactions
+
+**Calendar** - Medium risk due to:
+- Date range selection complexity
+- Multiple calendar display
+- **Mitigation:** Test date selection flows
+
+### 🟢 Low Risk Components
+
+**Toast, Toaster, Sonner** - Low risk due to:
+- Simple API
+- Limited usage
+- Self-contained functionality
+
+**Tooltip** - Low risk due to:
+- Possibly not actively used
+- Simple API
+
+---
+
+## Step-by-Step Migration Plan
+
+### ⚠️ BEFORE YOU START
+
+1. **Commit all current changes** to Git
+2. **Create a backup branch** (user should do this)
+3. **Document current visual state** (take screenshots if needed)
+4. **Ensure dev server is running**
+
+---
+
+### Migration Order (Recommended)
+
+#### **OPTION A: Safe Incremental Approach** (Recommended)
+
+Migrate one component at a time, test thoroughly, commit:
+
+```
+1. Typography Components (NEW - No conflicts)
+   ├─ Add Display.tsx
+   ├─ Add Heading.tsx  
+   ├─ Add body.tsx
+   ├─ Add Caption.tsx
+   └─ Test: No impact on existing code
+   
+2. Helper Components (NEW - No conflicts)
+   ├─ Add IconButton.tsx
+   ├─ Add banner.tsx
+   ├─ Add FocusTrap.tsx
+   ├─ Add Overlay components
+   └─ Test: No impact on existing code
+
+3. Toast System
+   ├─ Replace toast.tsx, toaster.tsx
+   ├─ Replace sonner.tsx
+   ├─ Test: RecommendationsPanel toast
+   └─ Commit if working
+
+4. Tooltip
+   ├─ Replace tooltip.tsx
+   ├─ Test: Check if any tooltips exist
+   └─ Commit if working
+
+5. Button Component ⚠️
+   ├─ Replace button.tsx
+   ├─ Update ItemHealth.tsx
+   ├─ Update Campaign.tsx
+   ├─ Update RecommendationsPanel.tsx
+   ├─ Update DisplayDashboard.tsx
+   ├─ Test: All button interactions
+   └─ Commit if working
+
+6. Checkbox & RadioGroup ⚠️
+   ├─ Replace checkbox.tsx
+   ├─ Replace radio-group.tsx
+   ├─ Update RecommendationsPanel.tsx
+   ├─ Test: Selection logic
+   └─ Commit if working
+
+7. Popover ⚠️
+   ├─ Replace popover.tsx
+   ├─ Test: AttributionFilterDropdown
+   ├─ Test: DateRangeFilterDropdown
+   └─ Commit if working
+
+8. Calendar
+   ├─ Replace calendar.tsx
+   ├─ Test: DateRangeFilterDropdown
+   └─ Commit if working
+
+9. Dialog/Modal ⚠️ HIGH RISK
+   ├─ Analyze modal.tsx API
+   ├─ Create Dialog → Modal adapter if needed
+   ├─ Replace dialog.tsx
+   ├─ Update DisplayDashboard.tsx
+   ├─ Test: Modal open/close/tabs
+   └─ Commit if working
+
+10. Remaining Components (Batch)
+    ├─ Replace all unused components
+    └─ Commit
+```
+
+---
+
+#### **OPTION B: Big Bang Approach** (Risky)
+
+Replace all components at once, test everything:
+
+**Pros:**
+- Faster if nothing breaks
+- All components consistent
+
+**Cons:**
+- High risk of breaking multiple pages
+- Difficult to debug which component caused issues
+- Harder to rollback partially
+
+**Recommendation:** ❌ **DO NOT USE** unless you're very confident
+
+---
+
+## Critical Decisions Needed
+
+### 1. Naming Conflicts
+
+**utils.ts:**
+- Current: `client/lib/utils.ts`
+- New: Component utils in ui folder
+- **Decision needed:** Keep both? Merge? Rename?
+
+**use-mobile.ts:**
+- Current: `client/hooks/use-mobile.tsx`
+- New: Living Design hook
+- **Decision needed:** Keep both? Merge? Rename?
+
+### 2. Modal vs Dialog
+
+Living Design uses "Modal" while current code uses "Dialog"
+- **Option A:** Keep Dialog as wrapper around Modal
+- **Option B:** Update all Dialog usage to Modal
+- **Recommendation:** Option A (safer)
+
+### 3. Button Variants
+
+Need to verify Living Design button variant names match:
+- Current: `default, destructive, outline, secondary, ghost, link`
+- Living Design: Unknown (need to check actual component)
+- **Action needed:** Read new button.tsx to confirm
+
+---
+
+## Pre-Migration Action Items
+
+### For You (User)
+
+1. **Review this plan** and confirm approach
+2. **Choose migration strategy** (Option A or B)
+3. **Prepare for testing** - Identify critical flows to test
+4. **Consider creating a backup branch** before starting
+
+### For Me (Assistant)
+
+1. **Fetch and analyze all new component files** to understand exact APIs
+2. **Create detailed API comparison** for each component
+3. **Write migration scripts/helpers** if needed
+4. **Prepare rollback documentation**
+
+---
+
+## Success Criteria
+
+Migration is considered successful when:
+
+- ✅ All existing pages render without errors
+- ✅ All buttons, checkboxes, popovers, modals function correctly
+- ✅ Visual design matches Living Design tokens
+- ✅ No console errors or React warnings
+- ✅ Keyboard navigation works
+- ✅ Focus management works
+- ✅ Toast notifications work
+- ✅ All dropdowns/popovers open and close correctly
+
+---
+
+## Next Steps
+
+### Recommended Path Forward:
+
+1. **STOP HERE** - Do not replace any components yet
+2. **Review this plan** with stakeholders
+3. **I need to fetch and analyze** the new Living Design component files to understand their exact APIs
+4. **Create detailed migration guide** for each component with exact code changes needed
+5. **User decision:** Choose Option A (incremental) or Option B (big bang)
+6. **Begin Phase 1** only after approval
+
+---
+
+## Questions for User
+
+Before proceeding, I need clarification on:
+
+1. **Do you want me to proceed with Option A (incremental, safer)** or wait for your review?
+2. **Should I analyze all new component files first** to create more detailed API comparisons?
+3. **Are there any critical user flows** I should prioritize testing?
+4. **Do you want to keep both old and new components temporarily** (in different folders) while migrating?
+
+---
+
+## Appendix: Full Component List
+
+### Components Being Replaced (33 duplicates):
+accordion, alert-dialog, alert, aspect-ratio, avatar, badge, breadcrumb, button, calendar, card, carousel, chart, checkbox, collapsible, command, context-menu, dialog, drawer, dropdown-menu, form, hover-card, input, input-otp, label, menubar, navigation-menu, pagination, popover, progress, radio-group, resizable, scroll-area, select, separator, sheet, sidebar, skeleton, slider, sonner, switch, table, tabs, textarea, toast, toaster, toggle-group, toggle, tooltip
+
+### Components Being Added (NEW):
+AlertActionButton, banner, bannerCloseButton, body, BottomSheet, BottomSheetPortal, Caption, Display, FocusTrap, Heading, IconButton, modal, Overlay, Overlay.service, OverlayScrim, Tag (+ Tag.module.scss.d.ts, Tag.module.scss.tsx, Tag.stories.tsx, Tag.test.tsx)
+
+### CSS Modules Being Added:
+Alert.module.css, AlertActionButton.module.css, badge.module.css, banner.module.css, bannerCloseButton.module.css, body.module.css, Caption.module.css, Display.module.css, Heading.module.css, IconButton.module.css, Overlay.module.css, OverlayScrim.module.css, tag.module.css
+
+---
+
+**Status:** 📋 Plan complete, awaiting approval to proceed

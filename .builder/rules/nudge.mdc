@@ -1,0 +1,104 @@
+---
+description: Guidelines and rules for nudge
+alwaysApply: false
+---
+## Purpose
+Nudges provide **non-critical, supportive** information such as reminders, instructions for a next step, or gentle upsell/cross-sell prompts. The information a Nudge provides **must not** be required for a user to complete their current task.
+
+## Rules
+- **MUST** use the Living Design Nudge component.
+- **MUST** keep Nudge content **non-critical** and supportive; users must be able to complete the task without it.
+- **MUST NOT** use Nudge for onboarding/coaching content anchored to a UI element; use a [Callout](/components/callout/) instead.
+- **MUST NOT** use Nudge to relay errors, reinforce success, or warn about a potential issue; use an [Alert](/components/alert/) instead.
+- **MUST** keep copy short and scannable.
+- **MUST** ensure the most important information appears first (users often scan the first 1–2 words).
+- **MUST** respect the parent container’s padding; Nudges should appear **inset** (not edge-to-edge) whether on a page or within a Card.
+
+## Usage
+Use a Nudge to:
+- Clarify the usage of a feature
+- Gently remind the user of something they may otherwise overlook
+- Prompt a reasonable next step in a process
+- Offer optional upsell/cross-sell messaging that does not block the user
+
+## Variants
+Use documented variants/options only (names may differ in your API):
+- **Leading (optional)**: icon / spot icon / pictogram / illustration
+- **Close button (optional)**: dismissible vs non-dismissible
+- **Action content (optional)**: a single, clear action related to the message (if supported)
+
+## States
+If your Nudge implementation supports states, use documented states only:
+- Default
+- Dismissible (close shown) / Non-dismissible
+- With leading / Without leading
+
+## Best practices
+### Use when
+- Use when clarifying the usage of a feature or gently reminding the user of something they may otherwise overlook.
+
+### Don’t use when
+- Don’t use when the message contains information required for the user to complete their current task.
+- Don’t use when displaying onboarding or coaching content. Use a [Callout](/components/callout/) instead.
+- Don’t use when surfacing information to relay errors, reinforce success, or warn about a potential issue. Use an [Alert](/components/alert/) instead.
+
+## Placement
+Nudges should be inset within their container.
+
+- Place Nudges so they **respect the parent container’s padding** (page padding, Card padding, panel padding, etc.).
+- Avoid edge-to-edge placement inside padded containers; it reduces visual quality and breaks layout rhythm.
+
+## Do / Don’t
+### Do
+- Do respect the padding of the parent component. Nudges should appear inset whether placed directly on the page or within a Card.
+
+### Don’t
+- Don’t allow a Nudge to span past the parent container’s padding and appear edge-to-edge within a page or Card.
+
+## Anatomy
+1. Container
+2. Leading (optional)
+3. Title
+4. Close button (optional)
+5. Content
+6. Action content (optional)
+
+### Leading
+The leading area can be used to provide a visual cue supporting the message. Use it sparingly and only when it adds clarity.
+
+Supported leading content (depending on your component API):
+- Icon
+- Spot icon
+- Pictogram
+- Illustration
+
+## Accessibility
+- **MUST** ensure the message is understandable without relying on the leading visual.
+- If dismissible, the Close button **MUST** be keyboard reachable, have a visible focus indicator, and have an accessible name (e.g., “Dismiss”).
+- If an action is present, it **MUST** be a real interactive control (button/link semantics as appropriate) and be reachable by keyboard.
+- Nudge **MUST NOT** steal focus when it appears; it should be discoverable without interrupting the user’s current task.
+
+## Token usage
+- Prefer component defaults (Nudge should be token-wired for surface, spacing, typography, radius, and any elevation).
+- Only use tokens for layout around the Nudge, not for restyling Nudge internals.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import { Button, Nudge } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function Example() {
+  return (
+    <Nudge
+      // Adapt prop names to your actual API:
+      // title="Tip"
+      // leading={<Icon name="info" />}
+      // onClose={() => {}}
+      // action={<Button variant="secondary">Learn how</Button>}
+    >
+      You can save this view to access it faster next time.
+    </Nudge>
+  );
+}
+```

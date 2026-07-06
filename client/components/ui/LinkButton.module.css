@@ -1,0 +1,164 @@
+/* LinkButton Component - Living Design 3.5 */
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100);
+  font-family: var(--ld-semantic-font-family-sans);
+  font-weight: 400;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  padding: 0;
+  text-decoration: underline;
+  text-decoration-thickness: var(--ld-semantic-scale-border-width-interactive);
+  text-underline-offset: var(--ld-primitive-scale-space-50);
+  transition: color var(--ld-primitive-duration-200) ease,
+    text-decoration-color var(--ld-primitive-duration-200) ease;
+  box-sizing: border-box;
+}
+
+.linkButton:hover {
+  text-decoration: none;
+}
+
+.linkButton:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50);
+  border-radius: var(--ld-primitive-scale-border-radius-25);
+}
+
+/* ── Color: Default ── */
+
+.linkButton--color-default {
+  color: var(--ld-semantic-color-link-text);
+}
+
+.linkButton--color-default:hover {
+  color: var(--ld-semantic-color-link-text-hovered);
+}
+
+.linkButton--color-default:active {
+  color: var(--ld-semantic-color-link-text-pressed);
+}
+
+.linkButton--color-default:focus-visible {
+  color: var(--ld-semantic-color-link-text-focused);
+}
+
+/* ── Color: Subtle ── */
+
+.linkButton--color-subtle {
+  color: var(--ld-semantic-color-link-text-subtle);
+}
+
+.linkButton--color-subtle:hover {
+  color: var(--ld-semantic-color-link-text-subtle-hovered);
+}
+
+.linkButton--color-subtle:active {
+  color: var(--ld-semantic-color-link-text-subtle-pressed);
+}
+
+.linkButton--color-subtle:focus-visible {
+  color: var(--ld-semantic-color-link-text-subtle-focused);
+}
+
+/* ── Color: White (dark backgrounds) ── */
+
+.linkButton--color-white {
+  color: var(--ld-semantic-color-link-text-accent-white);
+}
+
+.linkButton--color-white:hover {
+  color: var(--ld-semantic-color-link-text-accent-white-hovered);
+}
+
+.linkButton--color-white:active {
+  color: var(--ld-semantic-color-link-text-accent-white-pressed);
+}
+
+.linkButton--color-white:focus-visible {
+  outline-color: var(--ld-semantic-color-link-text-accent-white);
+  color: var(--ld-semantic-color-link-text-accent-white-focused);
+}
+
+.linkButton--color-white.linkButton--disabled {
+  color: var(--ld-semantic-color-link-text-accent-white-disabled);
+}
+
+/* ── Size: Small (default) ── */
+
+.linkButton--size-small {
+  font-size: var(--ld-semantic-font-body-small-size);
+  line-height: var(--ld-semantic-font-body-small-lineheight);
+}
+
+/* ── Size: Medium ── */
+
+.linkButton--size-medium {
+  font-size: var(--ld-semantic-font-body-medium-size);
+  line-height: var(--ld-semantic-font-body-medium-lineheight);
+}
+
+/* ── Size: Large ── */
+
+.linkButton--size-large {
+  font-size: var(--ld-semantic-font-body-large-size);
+  line-height: var(--ld-semantic-font-body-large-lineheight);
+}
+
+/* ── Disabled ── */
+
+.linkButton--disabled {
+  color: var(--ld-semantic-color-link-text-disabled);
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.linkButton--disabled:hover {
+  text-decoration: none;
+}
+
+/* ── Full Width ── */
+
+.linkButton--fullWidth {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ── Icon Containers ── */
+
+.linkButton__leading,
+.linkButton__trailing {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Icon sizing based on LinkButton size */
+.linkButton--size-small .linkButton__leading svg,
+.linkButton--size-small .linkButton__trailing svg {
+  width: 16px;
+  height: 16px;
+}
+
+.linkButton--size-medium .linkButton__leading svg,
+.linkButton--size-medium .linkButton__trailing svg {
+  width: 20px;
+  height: 20px;
+}
+
+.linkButton--size-large .linkButton__leading svg,
+.linkButton--size-large .linkButton__trailing svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ── Content ── */
+
+.linkButton__content {
+  display: inline-flex;
+  align-items: center;
+}

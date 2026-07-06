@@ -1,0 +1,242 @@
+/* LD 3.5 DT Cell: Inline Edit Text Area */
+
+/* ── Cell container ───────────────────────────────────────────────────── */
+.cell {
+  padding: 0;
+  vertical-align: top;
+  position: relative;
+}
+
+/* ── Trigger wrapper — wraps button + optional error helper text ──────── */
+.triggerWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ── Trigger button — the clickable "view" state of the cell ─────────── */
+.trigger {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 48px;
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-100, 8px)
+    var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-200, 16px);
+  border: 1px solid transparent;
+  border-radius: 0;
+  background: none;
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+  color: var(--ld-semantic-color-text, #2E2F32);
+  cursor: pointer;
+  text-align: left;
+  -webkit-appearance: none;
+  appearance: none;
+  box-sizing: border-box;
+  gap: var(--ld-primitive-scale-space-400, 32px);
+}
+
+/* Numeric variant — icons on left, value right-aligned */
+.triggerNumeric {
+  text-align: right;
+  font-family: var(--ld-semantic-font-body-mono-medium-family, 'Everyday Sans Mono TT', monospace);
+  padding-left: var(--ld-primitive-scale-space-100, 8px);
+  padding-right: var(--ld-primitive-scale-space-200, 16px);
+}
+
+/* Error state on trigger */
+.triggerError {
+  background: var(--ld-semantic-color-fill-accent-red-subtle, #FFF0EE);
+  border-color: var(--ld-semantic-color-border-accent-red, #EA1100);
+}
+
+.trigger:hover {
+  border-color: var(--ld-semantic-color-field-border, #74767C);
+}
+
+.triggerError:hover {
+  border-color: var(--ld-semantic-color-border-accent-red, #EA1100);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: -2px;
+}
+
+/* ── Trigger value text ──────────────────────────────────────────────── */
+.triggerValue {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Icons container (pencil + optional saved check) ────────────────── */
+/* Hidden by default; shown on hover/focus via parent .trigger selector */
+.icons {
+  display: none;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  align-self: stretch;
+  flex-shrink: 0;
+  padding-top: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.trigger:hover .icons,
+.trigger:focus-visible .icons {
+  display: flex;
+}
+
+.editIconWrapper {
+  display: inline-flex;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-text-subtle, #74767C);
+  flex-shrink: 0;
+}
+
+.editIconWrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+.savedIconWrapper {
+  display: inline-flex;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-text-positive, #1D6B1A);
+  flex-shrink: 0;
+}
+
+.savedIconWrapper svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Error helper text below trigger (closed state) ─────────────────── */
+.triggerHelperText {
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+  padding: var(--ld-primitive-scale-space-50, 4px) var(--ld-primitive-scale-space-50, 4px)
+    var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-100, 8px);
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  line-height: var(--ld-semantic-font-caption-lineheight, 1.33);
+  color: var(--ld-semantic-color-text-onfill-negative-subtle, #A20C00);
+}
+
+.triggerHelperIcon {
+  display: inline-flex;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text-onfill-negative-subtle, #A20C00);
+}
+
+.triggerHelperIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Dialog overlay (click-away backdrop) ────────────────────────────── */
+.dialogOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+}
+
+/* ── Dialog container ────────────────────────────────────────────────── */
+/* Matches Figma: surface-overlay bg, border-radius-50, elevation shadow */
+.dialog {
+  position: absolute;
+  z-index: 51;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--ld-semantic-color-surface-overlay, #FFFFFF);
+  border-radius: var(--ld-primitive-scale-borderradius-50, 4px);
+  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.10), 0 3px 5px 2px rgba(0, 0, 0, 0.15);
+  padding: var(--ld-primitive-scale-space-50, 4px);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+/* ── Textarea inside dialog ───────────────────────────────────────────── */
+.textarea {
+  width: 100%;
+  min-height: 40px;
+  padding: var(--ld-primitive-scale-space-150, 12px) 52px
+    var(--ld-primitive-scale-space-150, 12px) var(--ld-primitive-scale-space-150, 12px);
+  border: 1px solid var(--ld-semantic-color-field-border, #74767C);
+  border-radius: 4px;
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+  color: var(--ld-semantic-color-field-text-onfill, #2E2F32);
+  background: var(--ld-semantic-color-field-fill, #FFFFFF);
+  resize: none;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Numeric textarea — right-aligned monospace */
+.textareaNumeric {
+  text-align: right;
+  font-family: var(--ld-semantic-font-body-mono-medium-family, 'Everyday Sans Mono TT', monospace);
+  padding-left: 52px;
+  padding-right: var(--ld-primitive-scale-space-150, 12px);
+}
+
+.textarea:focus {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: -2px;
+  border-color: transparent;
+}
+
+/* Error state textarea */
+.textareaError {
+  border-color: var(--ld-semantic-color-field-border-negative, #EA1100);
+  background: var(--ld-semantic-color-field-fill-negative, #FFF0EE);
+}
+
+/* ── Error text inside dialog ─────────────────────────────────────────── */
+.dialogError {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  padding: var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-50, 4px)
+    var(--ld-primitive-scale-space-50, 4px) var(--ld-primitive-scale-space-100, 8px);
+  font-family: var(--ld-semantic-font-caption-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-caption-size, 12px);
+  line-height: var(--ld-semantic-font-caption-lineheight, 1.33);
+  color: var(--ld-semantic-color-text-negative, #EA1100);
+}
+
+.dialogErrorIcon {
+  display: inline-flex;
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  flex-shrink: 0;
+  color: var(--ld-semantic-color-text-negative, #EA1100);
+}
+
+.dialogErrorIcon svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Dialog actions row (Cancel + Save) ──────────────────────────────── */
+.dialogActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ld-primitive-scale-space-300, 24px);
+  padding: var(--ld-primitive-scale-space-50, 4px) var(--ld-primitive-scale-space-50, 4px)
+    var(--ld-primitive-scale-space-100, 8px) var(--ld-primitive-scale-space-50, 4px);
+}

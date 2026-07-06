@@ -1,0 +1,151 @@
+/* List Container */
+.list {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* ListItem */
+.listItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--ld-semantic-spacing-3, 12px);
+}
+
+/* Leading container - icon variant */
+.listItemLeading {
+  display: flex;
+  padding-top: var(--ld-primitive-scale-space-50, 4px);
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+/* Leading icon (small 16px) */
+.listItemLeadingIcon {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spot Icon container */
+.listItemSpotIcon {
+  display: flex;
+  width: var(--ld-primitive-scale-space-600, 48px);
+  height: var(--ld-primitive-scale-space-600, 48px);
+  padding: var(--ld-primitive-scale-space-150, 12px);
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--ld-primitive-scale-borderradius-round, 9999px);
+  background: var(--ld-semantic-color-fill-brand-subtle);
+}
+
+/* Spot Icon inner icon (medium 24px) */
+.listItemSpotIconInner {
+  width: var(--ld-semantic-scale-icon-medium, 24px);
+  height: var(--ld-semantic-scale-icon-medium, 24px);
+  color: var(--ld-semantic-color-text-onfill-brand-subtle, #2E2F32);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* Leading custom slot */
+.listItemLeadingCustom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* Content area - Title + Text */
+.listItemContent {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 0 0;
+  min-width: 0;
+}
+
+/* Title */
+.listItemTitle {
+  align-self: stretch;
+  color: var(--ld-semantic-color-text);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-body-large-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-large-size, 18px);
+  font-style: normal;
+  font-weight: var(--ld-semantic-font-body-large-weight-alt, 700);
+  line-height: var(--ld-semantic-font-body-large-lineheight, 1.333);
+  margin: 0;
+}
+
+/* Text */
+.listItemText {
+  align-self: stretch;
+  color: var(--ld-semantic-color-text);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-body-medium-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-medium-size, 16px);
+  font-style: normal;
+  font-weight: var(--ld-semantic-font-body-medium-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+  margin: 0;
+}
+
+/* Trailing Icon container */
+.listItemTrailingIcon {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+/* Trailing Icon inner (small chevron) */
+.listItemTrailingIconInner {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+  color: var(--ld-semantic-color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Trailing Link */
+.listItemTrailingLink {
+  color: var(--ld-semantic-color-link-text, #2E2F32);
+  font-kerning: none;
+  font-feature-settings: 'liga' off;
+  font-family: var(--ld-semantic-font-body-small-family, 'Everyday Sans UI', -apple-system, Roboto, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 14px);
+  font-style: normal;
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.4286);
+  text-decoration: underline;
+  text-decoration-style: solid;
+  text-decoration-skip-ink: none;
+  display: flex;
+  align-items: flex-start;
+  align-self: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Trailing custom slot */
+.listItemTrailingCustom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: stretch;
+  flex-shrink: 0;
+}

@@ -1,0 +1,374 @@
+---
+description: Guidelines and rules for readme button
+alwaysApply: false
+---
+# Button Component Library - Living Design 3.5
+
+## Overview
+
+A versatile clickable button component that can render as either an HTML button or anchor element, featuring multiple variants (primary, secondary, tertiary, destructive), sizes, and support for leading/trailing content.
+
+## Files Created
+
+- **`Button.tsx`** - Main button component with polymorphic rendering
+- **`ButtonGroup.tsx`** - Container for grouping related buttons
+- **CSS Modules:**
+  - `Button.module.css`
+  - `ButtonGroup.module.css`
+
+## Basic Usage
+
+```tsx
+import { Button, ButtonGroup } from '@/components/ui/Button';
+
+function MyComponent() {
+  return (
+    <ButtonGroup>
+      <Button variant="tertiary">Cancel</Button>
+      <Button variant="primary">Save</Button>
+    </ButtonGroup>
+  );
+}
+```
+
+## API Reference
+
+### Button Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `React.ReactNode` | Yes | - | The content for the button |
+| `variant` | `'primary' \| 'secondary' \| 'tertiary' \| 'destructive'` | No | `'secondary'` | The visual style variant |
+| `size` | `'small' \| 'medium' \| 'large'` | No | `'small'` | The size of the button |
+| `leading` | `React.ReactNode` | No | - | Leading content (typically an icon) |
+| `trailing` | `React.ReactNode` | No | - | Trailing content (typically an icon) |
+| `isFullWidth` | `boolean` | No | `false` | If the button spans full width |
+| `disabled` | `boolean` | No | `false` | If the button is disabled (button only) |
+| `type` | `'button' \| 'submit' \| 'reset'` | No | `'button'` | Button type (button only) |
+| `href` | `string` | No | - | URL for link behavior (renders as anchor) |
+| `aria-label` | `string` | No | - | Accessible label (required for icon-only) |
+| `UNSAFE_className` | `string` | No | - | Additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | No | - | Custom inline styles |
+
+### ButtonGroup Props
+
+| Prop | Type | Required | Default | Description |
+|------|------|----------|---------|-------------|
+| `children` | `React.ReactNode` | Yes | - | Buttons to display in group |
+| `aria-label` | `string` | No | - | Accessible label for the group |
+| `UNSAFE_className` | `string` | No | - | Additional CSS classes |
+| `UNSAFE_style` | `React.CSSProperties` | No | - | Custom inline styles |
+
+## Variants
+
+### Primary
+- **Use for**: Main call-to-action on a page or section
+- **Color**: Walmart blue (#0071ce)
+- **Rule**: Only one primary button per section
+
+```tsx
+<Button variant="primary">Submit</Button>
+```
+
+### Secondary
+- **Use for**: Supporting actions
+- **Color**: White background with blue border
+- **Rule**: Use alongside primary for alternative actions
+
+```tsx
+<Button variant="secondary">Cancel</Button>
+```
+
+### Tertiary
+- **Use for**: Subtle, low-emphasis actions
+- **Color**: Transparent background with blue text
+- **Rule**: Use for less important actions
+
+```tsx
+<Button variant="tertiary">Learn More</Button>
+```
+
+### Destructive
+- **Use for**: Dangerous actions (delete, remove, etc.)
+- **Color**: Red (#ea1100)
+- **Rules**: 
+  - Never use two destructive buttons together
+  - Never use for positive actions
+
+```tsx
+<Button variant="destructive">Delete</Button>
+```
+
+## Sizes
+
+### Small (default)
+- Padding: `6px 16px`
+- Font size: `14px`
+- Min height: `32px`
+- Icon size: `16px`
+
+### Medium
+- Padding: `10px 20px`
+- Font size: `16px`
+- Min height: `44px`
+- Icon size: `20px`
+
+### Large
+- Padding: `14px 24px`
+- Font size: `18px`
+- Min height: `56px`
+- Icon size: `24px`
+
+## Examples
+
+### Basic Button
+
+```tsx
+<Button variant="primary" onClick={() => console.log('clicked')}>
+  Click Me
+</Button>
+```
+
+### Button with Leading Icon
+
+```tsx
+<Button
+  variant="primary"
+  leading={<PlusIcon />}
+  onClick={handleAdd}
+>
+  Add Item
+</Button>
+```
+
+### Button with Trailing Icon
+
+```tsx
+<Button
+  variant="secondary"
+  trailing={<ArrowRightIcon />}
+>
+  Next
+</Button>
+```
+
+### Button as Link
+
+```tsx
+<Button href="https://www.walmart.com" variant="primary" target="_blank">
+  Visit Walmart
+</Button>
+```
+
+### Full Width Button
+
+```tsx
+<Button variant="primary" isFullWidth>
+  Continue
+</Button>
+```
+
+### Disabled Button
+
+```tsx
+<Button variant="primary" disabled>
+  Processing...
+</Button>
+```
+
+### Icon-Only Button
+
+```tsx
+<Button variant="tertiary" aria-label="Close">
+  <CloseIcon />
+</Button>
+```
+
+### Form Submission
+
+```tsx
+<form onSubmit={handleSubmit}>
+  <ButtonGroup>
+    <Button variant="tertiary" type="button">Cancel</Button>
+    <Button variant="primary" type="submit">Submit</Button>
+  </ButtonGroup>
+</form>
+```
+
+### Destructive Action
+
+```tsx
+<ButtonGroup>
+  <Button variant="secondary">Keep Item</Button>
+  <Button variant="destructive" onClick={handleDelete}>
+    Delete Permanently
+  </Button>
+</ButtonGroup>
+```
+
+## ButtonGroup
+
+Use ButtonGroup to display multiple related buttons with proper spacing and accessibility.
+
+```tsx
+<ButtonGroup>
+  <Button variant="tertiary">Cancel</Button>
+  <Button variant="secondary">Save Draft</Button>
+  <Button variant="primary">Publish</Button>
+</ButtonGroup>
+```
+
+## Design Tokens
+
+The Button uses Living Design 3.5 design tokens:
+
+### Colors
+- **Primary**: `#0071ce` (Walmart blue)
+- **Primary Hover**: `#004f9a`
+- **Primary Active**: `#003d7a`
+- **Destructive**: `#ea1100`
+- **Destructive Hover**: `#c30e00`
+- **Destructive Active**: `#a20c00`
+- **Text**: `#ffffff` (white on solid backgrounds)
+- **Border**: `#0071ce` (for secondary variant)
+
+### Typography
+- **Font Family**: `var(--ld-semantic-font-family-sans)`
+- **Font Weight**: `700` (bold)
+
+### Spacing
+- **Gap** (icon to text): `8px`
+- **Border Radius**: `4px`
+- **Border Width**: `2px`
+
+## States
+
+### Default
+- Normal appearance based on variant
+
+### Hover
+- Darker background color
+- Visual feedback on interactive elements
+
+### Active/Pressed
+- Even darker background color
+- Indicates button is being pressed
+
+### Focus
+- 2px blue outline (`#0071ce`)
+- 2px offset from button edge
+- Visible for keyboard navigation
+
+### Disabled
+- 40% opacity
+- Cursor changes to `not-allowed`
+- No hover or active states
+
+## Accessibility
+
+✅ **Semantic HTML**: Uses proper `<button>` or `<a>` elements
+
+✅ **Keyboard Navigation**: Fully accessible via Tab and Enter/Space keys
+
+✅ **Focus Indicators**: Clear focus ring for keyboard users
+
+✅ **Screen Readers**: 
+- Button text is announced
+- Use `aria-label` for icon-only buttons
+- Disabled state is announced
+
+✅ **ButtonGroup**: Uses `role="group"` for related actions
+
+### Icon-Only Buttons
+
+Always provide an `aria-label` for icon-only buttons:
+
+```tsx
+<Button variant="tertiary" aria-label="Close dialog">
+  <CloseIcon />
+</Button>
+```
+
+## Best Practices
+
+### ✅ DO
+
+- Use only one primary button per section
+- Use descriptive button text ("Save Changes" not "Submit")
+- Place primary buttons to the right in button groups
+- Use the same button size for adjacent buttons
+- Provide `aria-label` for icon-only buttons
+- Use destructive variant only for dangerous actions
+
+### ❌ DON'T
+
+- Don't use multiple primary buttons in the same section
+- Don't use vague text like "Learn more" or "Click here"
+- Don't use two destructive buttons together
+- Don't use destructive variant for positive actions
+- Don't apply custom shadows or effects
+- Don't create new button styles via custom CSS
+
+## Content Strategy
+
+Button text should clearly indicate the action:
+
+✅ **Good Examples:**
+- "Save Changes"
+- "Add to Cart"
+- "Delete Account"
+- "Download PDF"
+
+❌ **Bad Examples:**
+- "Submit" (too vague)
+- "Click here" (non-descriptive)
+- "Learn more" (unclear outcome)
+- "OK" (ambiguous)
+
+**Tip**: People mostly look at the first 2 words, so start with the most important words.
+
+## Migration from shadcn/ui
+
+```tsx
+// Old shadcn/ui
+import { Button } from '@/components/ui/button';
+
+<Button variant="default">Submit</Button>
+<Button variant="outline">Cancel</Button>
+<Button variant="ghost">Tertiary</Button>
+
+// New Living Design 3.5
+import { Button } from '@/components/ui/Button';
+
+<Button variant="primary">Submit</Button>
+<Button variant="secondary">Cancel</Button>
+<Button variant="tertiary">Tertiary</Button>
+```
+
+### Key Differences
+
+| shadcn/ui | Living Design 3.5 |
+|-----------|-------------------|
+| `variant="default"` | `variant="primary"` |
+| `variant="outline"` | `variant="secondary"` |
+| `variant="ghost"` | `variant="tertiary"` |
+| Uses Tailwind CSS | Uses CSS Modules |
+| `className` prop | `UNSAFE_className` prop |
+| No leading/trailing props | `leading` and `trailing` props |
+
+## Demo
+
+See `client/components/ButtonExample.tsx` for complete working examples.
+
+## Related Components
+
+- **ButtonGroup** - Container for multiple buttons
+- **IconButton** - Icon-only button variant (separate component)
+- **LinkButton** - Link styled as button (can use Button with href)
+
+## Notes
+
+- Button automatically determines whether to render as `<button>` or `<a>` based on the presence of `href` prop
+- All native button and anchor props are supported (except `className` and `style`)
+- Use `UNSAFE_className` and `UNSAFE_style` only when absolutely necessary
+- Icons should be SVG elements for proper sizing and coloring

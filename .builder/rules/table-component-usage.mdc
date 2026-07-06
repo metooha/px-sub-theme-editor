@@ -1,0 +1,277 @@
+---
+description: Guidelines and rules for table component usage
+alwaysApply: false
+---
+# Table Component Usage Rule
+
+## CRITICAL RULE: Always Use Existing Table Components
+
+When creating ANY table in the application, you MUST use the existing shadcn/radix Table components from `@/components/ui/table`.
+
+## Required Imports
+
+```tsx
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+  TableCaption
+} from '@/components/ui/table';
+```
+
+## ✅ CORRECT - Use Table Components
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Column 1</TableHead>
+      <TableHead>Column 2</TableHead>
+      <TableHead>Column 3</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    <TableRow>
+      <TableCell>Data 1</TableCell>
+      <TableCell>Data 2</TableCell>
+      <TableCell>Data 3</TableCell>
+    </TableRow>
+  </TableBody>
+</Table>
+```
+
+## ❌ WRONG - Don't Create Raw Tables
+
+```tsx
+/* NEVER DO THIS */
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <thead>
+    <tr>
+      <th>Column 1</th>
+      <th>Column 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Data 1</td>
+      <td>Data 2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+## Component Reference
+
+### Table Components
+
+| Component | Element | Purpose |
+|-----------|---------|---------|
+| `Table` | `<table>` | Root table wrapper with overflow handling |
+| `TableHeader` | `<thead>` | Table header section |
+| `TableBody` | `<tbody>` | Table body section |
+| `TableFooter` | `<tfoot>` | Table footer section (optional) |
+| `TableRow` | `<tr>` | Table row with hover states |
+| `TableHead` | `<th>` | Header cell with proper styling |
+| `TableCell` | `<td>` | Data cell with consistent padding |
+| `TableCaption` | `<caption>` | Table caption (optional) |
+
+### Built-in Features
+
+The Table components provide:
+- ✅ Responsive overflow scrolling
+- ✅ Consistent padding and spacing
+- ✅ Hover states on rows
+- ✅ Border styling
+- ✅ Proper text alignment
+- ✅ Accessibility attributes
+- ✅ Theme-aware colors
+
+## Advanced Usage
+
+### Scrollable Tables
+
+For tables with many rows, wrap in a container:
+
+```tsx
+<div style={{ 
+  maxHeight: '800px', 
+  overflowY: 'auto',
+  border: '1px solid var(--ld-semantic-color-border-subtle)',
+  borderRadius: '8px'
+}}>
+  <Table>
+    <TableHeader>
+      {/* Sticky header */}
+      <TableRow>
+        <TableHead className="sticky top-0 bg-background z-10">
+          Column
+        </TableHead>
+      </TableRow>
+    </TableHeader>
+    <TableBody>
+      {/* Many rows */}
+    </TableBody>
+  </Table>
+</div>
+```
+
+### Custom Cell Styling
+
+Use className prop for custom styling:
+
+```tsx
+<TableCell className="font-mono text-xs">
+  Code content
+</TableCell>
+
+<TableHead className="w-[200px]">
+  Fixed Width Column
+</TableHead>
+```
+
+### Inline Styles (when necessary)
+
+```tsx
+<TableCell style={{ 
+  fontFamily: 'var(--ld-semantic-font-family-mono)',
+  fontSize: '12px',
+  color: 'var(--ld-semantic-color-text-subtle)'
+}}>
+  Styled cell
+</TableCell>
+```
+
+## Common Patterns
+
+### Data Table with Actions
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Name</TableHead>
+      <TableHead>Status</TableHead>
+      <TableHead className="text-right">Actions</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {data.map((item) => (
+      <TableRow key={item.id}>
+        <TableCell>{item.name}</TableCell>
+        <TableCell>{item.status}</TableCell>
+        <TableCell className="text-right">
+          <Button size="small">Edit</Button>
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+```
+
+### Token Reference Table
+
+```tsx
+<Table>
+  <TableCaption>Design Tokens Reference</TableCaption>
+  <TableHeader>
+    <TableRow>
+      <TableHead>Token Name</TableHead>
+      <TableHead>Value</TableHead>
+      <TableHead>Usage</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {tokens.map((token) => (
+      <TableRow key={token.name}>
+        <TableCell className="font-mono text-xs">
+          {token.name}
+        </TableCell>
+        <TableCell className="font-mono text-xs text-muted-foreground">
+          {token.value}
+        </TableCell>
+        <TableCell>{token.description}</TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+```
+
+### Table with Color Swatches
+
+```tsx
+<Table>
+  <TableHeader>
+    <TableRow>
+      <TableHead className="w-[100px]">Color</TableHead>
+      <TableHead>Token</TableHead>
+      <TableHead>Hex Value</TableHead>
+    </TableRow>
+  </TableHeader>
+  <TableBody>
+    {colors.map((color) => (
+      <TableRow key={color.token}>
+        <TableCell>
+          <div style={{
+            width: '48px',
+            height: '48px',
+            backgroundColor: `var(${color.token})`,
+            borderRadius: '4px',
+            border: '1px solid var(--ld-semantic-color-border-subtle)'
+          }} />
+        </TableCell>
+        <TableCell className="font-mono text-xs">
+          {color.token}
+        </TableCell>
+        <TableCell className="font-mono text-xs text-muted-foreground">
+          {color.value}
+        </TableCell>
+      </TableRow>
+    ))}
+  </TableBody>
+</Table>
+```
+
+## Why Use Table Components?
+
+1. **Consistency** - All tables look and behave the same
+2. **Accessibility** - Built-in ARIA attributes and semantic HTML
+3. **Maintainability** - Update styles in one place
+4. **Responsive** - Automatic overflow handling
+5. **Theme Support** - Uses design tokens
+6. **Best Practices** - Follows shadcn/radix patterns
+
+## Enforcement
+
+Before creating a table:
+
+1. ✅ Import Table components from `@/components/ui/table`
+2. ✅ Use TableHeader, TableBody, TableRow, TableHead, TableCell
+3. ✅ Never use raw `<table>`, `<thead>`, `<tbody>`, `<tr>`, `<th>`, `<td>`
+4. ✅ Apply custom styles via className or style props
+5. ✅ Use semantic tokens for colors and spacing
+
+## Exceptions
+
+Raw tables are ONLY allowed when:
+
+1. **External library requires it** - Some chart libraries generate tables
+2. **Complex custom behavior** - Very specialized table logic not supported by components
+3. **Performance critical** - Thousands of rows where component overhead matters
+
+In ALL other cases, use the Table components.
+
+## Related Components
+
+- Table: `client/components/ui/table.tsx`
+- DataTable patterns: Check existing pages for examples
+- Sortable tables: Can extend Table components with sorting logic
+
+---
+
+**Status**: ACTIVE - Enforce on all new tables  
+**Last Updated**: February 15, 2026  
+**Scope**: All table creation across the application

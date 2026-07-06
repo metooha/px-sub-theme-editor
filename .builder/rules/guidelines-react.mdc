@@ -1,0 +1,64 @@
+---
+description: Guidelines and rules for guidelines react
+alwaysApply: false
+---
+# React Component Guidelines
+
+> **Note**: This file serves as a delegator to organized React guidelines in `/guidelines/react/`.
+
+## Quick Navigation
+
+For detailed React-specific guidelines, see:
+
+- **[Component Visibility & Access](./react/component-visibility.md)** - Rules about `@private` components
+- **[Typography Components](./react/typography.md)** ⭐ **REQUIRED** - Display, Heading, Body, Caption usage
+- **[Icon Button](./react/icon-button.md)** - IconButton with lucide-react icons and size mapping
+- **[Token System](./react/tokens.md)** - Why and how to use design tokens
+
+## At-a-Glance Rules
+
+### 🚫 NEVER
+
+- ❌ Use components marked `@private` in JSDoc
+- ❌ Use plain HTML text elements (`<p>`, `<span>`, `<h1>`) without Living Design typography components
+- ❌ Use Tailwind typography classes (`text-lg`, `font-bold`, etc.)
+- ❌ Hardcode font-size, font-weight, or line-height styles
+- ❌ Reference CSS tokens directly in application code
+
+### ✅ ALWAYS
+
+- ✅ Check for `@private` in component docblocks before using
+- ✅ Use Living Design typography components (Display, Heading, Body, Caption)
+- ✅ Configure typography through component props (`size`, `weight`, `as`)
+- ✅ Use semantic HTML via the `as` prop
+- ✅ Let components handle responsive typography automatically
+
+## Quick Examples
+
+```tsx
+// ✅ Correct: Typography component with props
+<Body as="p" size="medium" weight="default">
+  This is body text.
+</Body>
+
+// ✅ Correct: Heading with semantic HTML
+<Heading as="h2" size="large" weight="default">
+  Section Title
+</Heading>
+
+// ❌ Wrong: Plain HTML
+<p className="text-base">Text</p>
+
+// ❌ Wrong: Hardcoded styles
+<span style={{ fontSize: '16px' }}>Text</span>
+```
+
+## Need More Details?
+
+See the complete guidelines in `/guidelines/react/`:
+
+- [Component Visibility](./react/component-visibility.md)
+- [Typography](./react/typography.md)
+- [Icon Button](./react/icon-button.md)
+- [Tokens](./react/tokens.md)
+- [Index/Overview](./react/index.md)

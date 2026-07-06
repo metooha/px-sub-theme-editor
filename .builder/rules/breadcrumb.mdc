@@ -1,0 +1,212 @@
+---
+description: Guidelines and rules for breadcrumb
+alwaysApply: false
+---
+## Purpose
+Breadcrumbs are **secondary navigation** links that show a user's current location within a hierarchical information architecture. They provide context and allow users to move up to parent levels (or back through a hierarchy) without replacing primary navigation.
+
+## Rules
+- **MUST** use the Living Design Breadcrumb component.
+- **MUST** treat Breadcrumbs as secondary navigation (do not replace primary nav with Breadcrumbs).
+- **MUST** represent a hierarchy (not a flat set of unrelated links).
+- **SHOULD** use Breadcrumbs only when the hierarchy is **more than 2 levels** and **fewer than 5 levels**.
+- **SHOULD** keep labels short and scannable.
+- **MUST NOT** place other content in the same horizontal row/space competing with the Breadcrumb on desktop; give it its own row.
+- **SHOULD** handle long paths responsibly on small screens (see Mobile guidance).
+
+## Usage
+Use Breadcrumbs when:
+- A product/experience has a large amount of content organized in a hierarchy
+- Users benefit from understanding "where they are" relative to the information architecture
+- Users need quick access to parent levels
+
+Don't use Breadcrumbs when:
+- The product only calls for a single level of navigation
+- The "path" isn't truly hierarchical (choose another navigation pattern)
+
+## Best practices
+### Use when
+- Use when content is organized into a hierarchy of more than two levels and fewer than five levels.
+
+### Don't use when
+- Don't use when a product only calls for a single level of navigation. Breadcrumbs are always secondary and should never entirely replace the primary navigation.
+
+## Placement
+### Desktop
+- Place Breadcrumbs horizontally across the top of a page.
+- Breadcrumbs **SHOULD** have their own row across the full width of the page/container.
+- Don't place other elements in the same horizontal space as the Breadcrumb row (avoid crowding and truncation).
+
+### Mobile
+- Breadcrumbs may wrap to multiple lines on narrow screens; this is supported but can consume significant vertical space.
+- **SHOULD** consider using page header navigation instead of Breadcrumbs when the path is long and likely to wrap.
+- If wrapping occurs:
+  - **MUST** start the wrapped line with a **link** (not a separator).
+  - **MUST NOT** place a separator (e.g., "/") as the first character on a new line.
+
+## Anatomy
+1. Link
+2. Separator
+
+## Behavior
+### Responsiveness
+- Breadcrumbs should occupy the full available width of the container.
+- Long Breadcrumb trails may wrap; wrapping behavior **MUST** remain readable:
+  - Start wrapped lines with a link label.
+  - Avoid visual clutter by keeping the Breadcrumb on its own row.
+
+## Accessibility
+- Use semantic navigation patterns (e.g., a `nav` landmark where applicable) and provide an accessible label (e.g., "Breadcrumb" / "Breadcrumb navigation") if your API requires it.
+- Ensure each crumb link has an accessible name that matches its visible label.
+- The current page/location **SHOULD** be indicated appropriately (e.g., rendered as text rather than a link, or using the component's "current" state).
+
+## Token usage
+- Prefer component defaults (Breadcrumb should be token-wired for color, typography, spacing).
+- Only use tokens for layout around the Breadcrumb (page spacing), not for restyling the Breadcrumb.
+
+## React usage
+
+### Import
+```tsx
+import { Breadcrumb, BreadcrumbItem } from '@/components/ui/Breadcrumb';
+```
+
+### Basic Example (with onClick handlers)
+```tsx
+import * as React from 'react';
+import { Breadcrumb, BreadcrumbItem } from '@/components/ui/Breadcrumb';
+
+export function BreadcrumbExample() {
+  const handleBackToList = () => {
+    // Navigate back to list
+  };
+
+  return (
+    <Breadcrumb aria-label="Breadcrumb navigation">
+      <BreadcrumbItem onClick={handleBackToList}>
+        Recommendations
+      </BreadcrumbItem>
+      <BreadcrumbItem isCurrent>
+        Recommendation details
+      </BreadcrumbItem>
+    </Breadcrumb>
+  );
+}
+```
+
+### With href Links
+```tsx
+<Breadcrumb aria-label="Product navigation">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/products">Products</BreadcrumbItem>
+  <BreadcrumbItem href="/products/electronics">Electronics</BreadcrumbItem>
+  <BreadcrumbItem isCurrent>Smartphones</BreadcrumbItem>
+</Breadcrumb>
+```
+
+### Custom Separator
+```tsx
+<Breadcrumb separator="›" aria-label="Navigation">
+  <BreadcrumbItem href="/">Home</BreadcrumbItem>
+  <BreadcrumbItem href="/products">Products</BreadcrumbItem>
+  <BreadcrumbItem isCurrent>Details</BreadcrumbItem>
+</Breadcrumb>
+```
+
+## API Reference
+
+### Breadcrumb Props
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `React.ReactNode` | required | BreadcrumbItem components |
+| `separator` | `React.ReactNode` | `"/"` | Separator between items |
+| `aria-label` | `string` | `"Breadcrumb"` | Accessible label for navigation |
+| `UNSAFE_className` | `string` | - | Escape hatch for custom styling |
+
+### BreadcrumbItem Props
+
+#### As Link (with href)
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | Link text |
+| `href` | `string` | URL for the link |
+| `UNSAFE_className` | `string` | Escape hatch for custom styling |
+
+#### As Button (with onClick)
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | Button text |
+| `onClick` | `(e: React.MouseEvent) => void` | Click handler |
+| `UNSAFE_className` | `string` | Escape hatch for custom styling |
+
+#### As Current Page
+| Prop | Type | Description |
+|------|------|-------------|
+| `children` | `React.ReactNode` | Current page text |
+| `isCurrent` | `true` | Marks as current page |
+| `UNSAFE_className` | `string` | Escape hatch for custom styling |
+
+## Migration from Manual Implementation
+
+### Before (Manual)
+```tsx
+<div className="flex items-center gap-2 mb-5">
+  <button onClick={backToList} className="text-sm underline hover:no-underline">
+    Recommendations
+  </button>
+  <span className="text-sm text-[#515357]">/</span>
+  <span className="text-sm text-[#2E2F32]">Recommendation details</span>
+</div>
+```
+
+### After (LD 3.5 Breadcrumb)
+```tsx
+<Breadcrumb aria-label="Breadcrumb navigation">
+  <BreadcrumbItem onClick={backToList}>
+    Recommendations
+  </BreadcrumbItem>
+  <BreadcrumbItem isCurrent>
+    Recommendation details
+  </BreadcrumbItem>
+</Breadcrumb>
+```
+
+## Design Tokens Used
+
+The Breadcrumb component uses the following LD 3.5 semantic design tokens:
+
+**Typography:**
+- `--ld-semantic-font-family-sans`: Font family (Everyday Sans UI)
+- `--ld-semantic-font-body-small-size`: 14px
+- `--ld-semantic-font-body-small-lineheight`: Line height
+- `--ld-semantic-font-body-small-weight-default`: 400 (normal)
+
+**Colors:**
+- `--ld-semantic-color-text`: #2e2f32 (link and current page text)
+- `--ld-semantic-color-text-subtle`: #74767c (separator color)
+- `--ld-semantic-color-action-focus-outline`: #0071DC (focus indicator)
+
+**Interaction States:**
+- Default: Underlined links
+- Hover: Underline removed
+- Focus: 2px outline with 2px offset
+- Current page: No underline, same text color
+
+## Accessibility Features
+
+The LD 3.5 Breadcrumb component includes:
+- Semantic `<nav>` element with configurable `aria-label`
+- Current page marked with `aria-current="page"`
+- Keyboard navigation support (Tab key)
+- Clear focus indicators (2px outline)
+- Separators hidden from screen readers (`aria-hidden="true"`)
+- Proper link vs span semantics for clickable vs current items
+
+## Examples
+
+See `client/components/BreadcrumbExample.tsx` for comprehensive usage examples including:
+- 2-5 level breadcrumbs
+- onClick vs href patterns
+- Custom separators
+- Responsive behavior
+- Interactive demos

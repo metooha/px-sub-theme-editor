@@ -1,0 +1,450 @@
+---
+description: Guidelines and rules for responsive design
+alwaysApply: false
+---
+# Responsive Design Rule
+
+## CRITICAL RULE: All Designs Must Be Responsive
+
+Every page, component, and layout MUST be responsive and adapt gracefully to different screen sizes. Content should wrap and reflow as the window size shrinks.
+
+## Core Principles
+
+### ✅ DO - Use Responsive Patterns
+
+**1. Use CSS Grid with auto-fit/auto-fill**
+```css
+/* Responsive grid that wraps */
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 24px;
+```
+
+**2. Use flexbox with wrap**
+```css
+display: flex;
+flex-wrap: wrap;
+gap: 16px;
+```
+
+**3. Use min() for responsive constraints**
+```css
+/* Column that can't exceed 400px but wraps on mobile */
+grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+```
+
+**4. Use max-width with auto margins**
+```css
+max-width: 1200px;
+margin: 0 auto;
+padding: 0 16px; /* Prevents edge-to-edge on mobile */
+```
+
+### ❌ DON'T - Avoid Fixed Layouts
+
+**Never use fixed widths without flexibility:**
+```css
+/* ❌ WRONG - Will break on small screens */
+display: grid;
+grid-template-columns: 400px 600px; /* Fixed columns */
+
+/* ❌ WRONG - No wrapping */
+display: flex;
+/* Missing flex-wrap: wrap */
+
+/* ❌ WRONG - Fixed width without max-width */
+width: 1200px; /* Will overflow on mobile */
+```
+
+## Responsive Patterns
+
+### Two-Column Layouts
+
+**Desktop: Side-by-side | Mobile: Stacked**
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
+  gap: '32px'
+}}>
+  <div>Left column</div>
+  <div>Right column</div>
+</div>
+```
+
+**Result:**
+- Desktop (>800px): Two columns side-by-side
+- Mobile (<800px): Stacked vertically
+
+### Card Grids
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+  gap: '24px'
+}}>
+  {items.map(item => (
+    <Card key={item.id}>{item.content}</Card>
+  ))}
+</div>
+```
+
+**Result:**
+- Large screens: 3-4 cards per row
+- Medium screens: 2 cards per row
+- Mobile: 1 card per row (stacked)
+
+### Button Groups
+
+```tsx
+<div style={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '12px'
+}}>
+  <Button>Action 1</Button>
+  <Button>Action 2</Button>
+  <Button>Action 3</Button>
+</div>
+```
+
+**Result:**
+- Buttons wrap to multiple rows if needed
+- No horizontal overflow
+
+### Navigation Buttons
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))',
+  gap: '12px'
+}}>
+  <Button>Option 1</Button>
+  <Button>Option 2</Button>
+  <Button>Option 3</Button>
+</div>
+```
+
+**Result:**
+- Equal-width buttons that wrap gracefully
+- Maintains consistent sizing
+
+### Content with Sidebar
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(350px, 100%), 1fr))',
+  gap: '24px'
+}}>
+  <main>Main content</main>
+  <aside>Sidebar content</aside>
+</div>
+```
+
+**Result:**
+- Desktop: Sidebar next to content
+- Mobile: Sidebar stacks below content
+
+## Breakpoint Guidelines
+
+Use Living Design 3.5 semantic breakpoints:
+
+```css
+--ld-semantic-breakpoint-small: 0        /* Mobile */
+--ld-semantic-breakpoint-medium: 600px   /* Tablet */
+--ld-semantic-breakpoint-large: 900px    /* Desktop */
+--ld-semantic-breakpoint-xlarge: 1200px  /* Large Desktop */
+--ld-semantic-breakpoint-xxlarge: 1920px /* Extra Large */
+```
+
+### Media Queries (Use Sparingly)
+
+Prefer CSS Grid auto-fit/auto-fill over media queries when possible. Use media queries only for significant layout changes:
+
+```css
+@media (max-width: 600px) {
+  .sidebar {
+    display: none; /* Hide on mobile */
+  }
+}
+```
+
+## Responsive Typography
+
+Use relative units and clamp() for fluid typography:
+
+```css
+/* Fluid font size that scales between 16px and 32px */
+font-size: clamp(16px, 4vw, 32px);
+
+/* Or use semantic tokens which are already responsive */
+font-size: var(--ld-semantic-font-heading-large-size-b-s); /* Small screen */
+font-size: var(--ld-semantic-font-heading-large-size-b-l); /* Large screen */
+```
+
+## Responsive Spacing
+
+Use semantic spacing tokens that adapt:
+
+```css
+/* Use semantic tokens for consistent spacing */
+padding: var(--ld-semantic-spacing-200); /* 16px */
+gap: var(--ld-semantic-spacing-150); /* 12px */
+
+/* For responsive padding, use min() */
+padding: clamp(16px, 4vw, 48px);
+```
+
+## Common Responsive Patterns
+
+### 1. Form Layouts
+
+```tsx
+<form style={{
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '16px', /* LD 3.5 spec for form fields */
+  maxWidth: '600px',
+  width: '100%'
+}}>
+  <TextField label="Name" />
+  <TextField label="Email" />
+  <ButtonGroup>
+    <Button variant="secondary">Cancel</Button>
+    <Button variant="primary">Submit</Button>
+  </ButtonGroup>
+</form>
+```
+
+### 2. Dashboard Grids
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: '24px'
+}}>
+  <MetricCard />
+  <MetricCard />
+  <MetricCard />
+  <MetricCard />
+</div>
+```
+
+### 3. Header with Actions
+
+```tsx
+<div style={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  gap: '16px'
+}}>
+  <h1>Page Title</h1>
+  <ButtonGroup>
+    <Button>Action 1</Button>
+    <Button>Action 2</Button>
+  </ButtonGroup>
+</div>
+```
+
+### 4. Image + Text Layouts
+
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))',
+  gap: '32px',
+  alignItems: 'center'
+}}>
+  <img src="..." alt="..." style={{ width: '100%', height: 'auto' }} />
+  <div>
+    <h2>Heading</h2>
+    <p>Description text...</p>
+  </div>
+</div>
+```
+
+## Mobile-First Considerations
+
+### Minimum Touch Targets
+
+Interactive elements must be at least 44×44px for touch:
+
+```tsx
+<button style={{
+  minWidth: '44px',
+  minHeight: '44px',
+  padding: '12px 16px'
+}}>
+  Tap me
+</button>
+```
+
+### Readable Text Width
+
+Limit text line length for readability:
+
+```tsx
+<p style={{
+  maxWidth: '65ch', /* Optimal reading width */
+  lineHeight: '1.6'
+}}>
+  Long paragraph text...
+</p>
+```
+
+### Mobile Padding
+
+Ensure adequate padding on small screens:
+
+```tsx
+<div style={{
+  padding: 'clamp(16px, 4vw, 48px)'
+}}>
+  Content
+</div>
+```
+
+## Testing Responsive Designs
+
+Always test at these widths:
+
+- **320px** - Small mobile (iPhone SE)
+- **375px** - Standard mobile (iPhone)
+- **768px** - Tablet (iPad)
+- **1024px** - Small desktop
+- **1440px** - Standard desktop
+- **1920px** - Large desktop
+
+Use browser DevTools responsive mode or resize window to verify.
+
+## Component Library Pages
+
+All component library example pages should follow this pattern:
+
+```tsx
+export default function ComponentPage() {
+  return (
+    <div style={{
+      padding: 'clamp(24px, 4vw, 48px)', // Responsive padding
+      maxWidth: '1400px',
+      margin: '0 auto',
+      width: '100%'
+    }}>
+      {/* Header */}
+      <div style={{ marginBottom: '32px', maxWidth: '800px' }}>
+        <h1>Component Name</h1>
+        <p>Description</p>
+      </div>
+
+      {/* Example Container - Responsive */}
+      <div style={{
+        backgroundColor: 'var(--ld-semantic-color-surface)',
+        padding: 'clamp(16px, 3vw, 32px)',
+        borderRadius: '8px',
+        boxShadow: 'var(--ld-semantic-elevation-100)'
+      }}>
+        <ComponentExample />
+      </div>
+    </div>
+  );
+}
+```
+
+## Grid Auto-Fit Reference
+
+### When to use each:
+
+**auto-fit** - Columns expand to fill space
+```css
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* Fewer columns = wider columns */
+```
+
+**auto-fill** - Columns maintain size, creates empty tracks
+```css
+grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+/* More columns = consistent width */
+```
+
+**General rule**: Use `auto-fit` for most layouts.
+
+## Enforcement Checklist
+
+Before committing any UI code, verify:
+
+- [ ] Layout uses responsive CSS Grid or Flexbox
+- [ ] No fixed pixel widths for containers (use max-width instead)
+- [ ] Grid uses auto-fit/auto-fill with minmax()
+- [ ] Flexbox uses flex-wrap: wrap for multi-item layouts
+- [ ] Text has max-width for readability
+- [ ] Touch targets are 44×44px minimum
+- [ ] Tested at mobile, tablet, and desktop sizes
+- [ ] Content doesn't overflow horizontally
+- [ ] Buttons and navigation wrap gracefully
+- [ ] Images have width: 100% and height: auto
+
+## Common Mistakes
+
+### ❌ Fixed Two-Column Layout
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: '400px 1fr' // Breaks on mobile!
+}}>
+```
+
+### ✅ Responsive Two-Column Layout
+```tsx
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(min(400px, 100%), 1fr))'
+}}>
+```
+
+### ❌ No Wrapping Buttons
+```tsx
+<div style={{ display: 'flex' }}>
+  <Button>1</Button>
+  <Button>2</Button>
+  <Button>3</Button>
+</div>
+```
+
+### ✅ Wrapping Buttons
+```tsx
+<div style={{
+  display: 'flex',
+  flexWrap: 'wrap',
+  gap: '12px'
+}}>
+  <Button>1</Button>
+  <Button>2</Button>
+  <Button>3</Button>
+</div>
+```
+
+## Summary
+
+**Golden Rules:**
+1. Always use `display: grid` with `auto-fit` or `auto-fill`
+2. Always add `flex-wrap: wrap` to flexbox layouts
+3. Use `minmax(min(XXpx, 100%), 1fr)` for grid columns
+4. Use `max-width` instead of fixed `width`
+5. Test at 320px, 768px, 1024px, 1440px
+6. Use `clamp()` for fluid sizing
+7. Never allow horizontal overflow
+
+**Quick Test**: Resize browser to 320px width. If content overflows or breaks, it's not responsive.
+
+---
+
+**Status**: ACTIVE - Enforce on all new designs and layouts  
+**Last Updated**: February 15, 2026  
+**Scope**: All pages, components, and layouts across the application

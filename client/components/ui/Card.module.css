@@ -1,0 +1,16 @@
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  box-shadow: var(--ld-semantic-elevation-100);
+  border-radius: var(--ld-semantic-border-radius-large);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.card--size-small {
+  /* Small card padding and spacing handled by sub-components */
+}
+
+.card--size-large {
+  /* Large card padding and spacing handled by sub-components */
+}

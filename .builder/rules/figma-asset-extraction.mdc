@@ -1,0 +1,54 @@
+---
+description: Extract and use Figma assets correctly — no placeholders
+alwaysApply: false
+---
+# RULE: Figma Exportable Asset Extraction
+
+## Purpose
+This rule ensures that only explicitly marked exportable assets from Figma are extracted and used in the codebase, preventing confusion and maintaining design system integrity.
+
+## Rule Statement
+
+**When extracting assets from Figma designs:**
+- ALWAYS extract and use every image visible in the Figma design — if it exists in Figma, it must exist in the implementation
+- Extract assets using the exact names provided by the designer
+- Preserve the file format specified (SVG, PNG, WebP, etc.)
+- **DO NOT** replace Figma images with gray boxes, icon placeholders, or random placeholder services
+- DO NOT use placeholder services (via.placeholder, picsum.photos, unsplash)
+- DO NOT rename assets without designer approval
+- DO NOT skip an image because it isn't explicitly marked "exportable" — all content images are required assets
+
+## Asset Organization
+
+
+public/
+  illustrations/  # Illustration SVGs
+  icons/          # Standalone icon assets
+  images/         # Photos and raster images
+```
+
+## Implementation Guidelines
+
+### Use Provided URLs
+```typescript
+// CORRECT - Use the provided asset URL
+<img src="/illustrations/associate-waving.svg" alt="Associate waving" />
+
+// WRONG - Random placeholder
+<img src="/temp/auto-generated-image-123.png" />
+```
+
+## Communication with Designers
+
+When an image exists in Figma but no export has been provided:
+1. Ask the designer to export the image and share the file
+2. Do NOT substitute with a gray box — surface the missing asset instead
+3. If the designer confirms an image slot is intentionally empty, document it with a code comment
+
+## Validation Checklist
+
+- [ ] Every image visible in the Figma design is present in the implementation
+- [ ] No placeholder services used
+- [ ] Asset has a semantic, descriptive filename
+- [ ] Asset is placed in the correct directory structure
+- [ ] Asset is referenced in code with proper paths

@@ -1,0 +1,198 @@
+/* IconButton Base Styles */
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ld-semantic-font-family-sans);
+  border: var(--ld-semantic-scale-border-width-interactive) solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--ld-primitive-duration-200) ease-in-out;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.iconButton:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused) solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: var(--ld-primitive-scale-space-50);
+}
+
+.iconButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+/* Icon Container */
+.iconButton__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Size Variants */
+.iconButton--size-small {
+  width: var(--ld-primitive-scale-space-300);
+  height: var(--ld-primitive-scale-space-300);
+  padding: var(--ld-primitive-scale-space-50);
+}
+
+.iconButton--size-small .iconButton__icon svg {
+  width: var(--ld-semantic-scale-icon-small);
+  height: var(--ld-semantic-scale-icon-small);
+}
+
+.iconButton--size-medium {
+  width: 32px; /* LD 3.5 spec */
+  height: 32px; /* LD 3.5 spec */
+  padding: var(--ld-primitive-scale-space-100);
+}
+
+.iconButton--size-medium .iconButton__icon svg {
+  width: var(--ld-semantic-scale-icon-medium);
+  height: var(--ld-semantic-scale-icon-medium);
+}
+
+.iconButton--size-large {
+  width: 40px; /* LD 3.5 spec */
+  height: 40px; /* LD 3.5 spec */
+  padding: var(--ld-primitive-scale-space-100);
+}
+
+.iconButton--size-large .iconButton__icon svg {
+  width: var(--ld-primitive-scale-space-300);
+  height: var(--ld-primitive-scale-space-300);
+}
+
+/* Ghost Variant (transparent background) */
+.iconButton--variant-ghost {
+  background-color: var(--ld-semantic-color-action-fill-transparent);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent);
+  border-color: transparent;
+}
+
+.iconButton--variant-ghost:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-transparent-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-hovered);
+}
+
+.iconButton--variant-ghost:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-transparent-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-pressed);
+}
+
+.iconButton--variant-ghost:disabled {
+  background-color: var(--ld-semantic-color-action-fill-transparent-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-transparent-disabled);
+}
+
+/* Primary Variant */
+.iconButton--variant-primary {
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  color: var(--ld-semantic-color-action-text-on-fill-primary);
+  border-color: var(--ld-semantic-color-action-fill-primary);
+}
+
+.iconButton--variant-primary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-primary-hovered);
+  border-color: var(--ld-semantic-color-action-fill-primary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-hovered);
+}
+
+.iconButton--variant-primary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-primary-pressed);
+  border-color: var(--ld-semantic-color-action-fill-primary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-pressed);
+}
+
+.iconButton--variant-primary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-primary-disabled);
+  border-color: var(--ld-semantic-color-action-fill-primary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-primary-disabled);
+}
+
+/* Secondary Variant */
+.iconButton--variant-secondary {
+  background-color: var(--ld-semantic-color-action-fill-secondary);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary);
+  border-color: var(--ld-semantic-color-action-border-secondary);
+}
+
+.iconButton--variant-secondary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-secondary-hovered);
+  border-color: var(--ld-semantic-color-action-border-secondary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-hovered);
+}
+
+.iconButton--variant-secondary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-secondary-pressed);
+  border-color: var(--ld-semantic-color-action-border-secondary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-pressed);
+}
+
+.iconButton--variant-secondary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-secondary-disabled);
+  border-color: var(--ld-semantic-color-action-border-secondary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-secondary-disabled);
+}
+
+/* Tertiary Variant */
+.iconButton--variant-tertiary {
+  background-color: var(--ld-semantic-color-action-fill-tertiary);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary);
+  border-color: var(--ld-semantic-color-action-border-tertiary);
+}
+
+.iconButton--variant-tertiary:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-hovered);
+  border-color: var(--ld-semantic-color-action-border-tertiary-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-hovered);
+}
+
+.iconButton--variant-tertiary:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-pressed);
+  border-color: var(--ld-semantic-color-action-border-tertiary-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-pressed);
+}
+
+.iconButton--variant-tertiary:disabled {
+  background-color: var(--ld-semantic-color-action-fill-tertiary-disabled);
+  border-color: var(--ld-semantic-color-action-border-tertiary-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-tertiary-disabled);
+}
+
+/* Destructive Variant */
+.iconButton--variant-destructive {
+  background-color: var(--ld-semantic-color-action-fill-negative);
+  color: var(--ld-semantic-color-action-text-on-fill-negative);
+  border-color: var(--ld-semantic-color-action-fill-negative);
+}
+
+.iconButton--variant-destructive:hover:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-negative-hovered);
+  border-color: var(--ld-semantic-color-action-fill-negative-hovered);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-hovered);
+}
+
+.iconButton--variant-destructive:active:not(:disabled) {
+  background-color: var(--ld-semantic-color-action-fill-negative-pressed);
+  border-color: var(--ld-semantic-color-action-fill-negative-pressed);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-pressed);
+}
+
+.iconButton--variant-destructive:disabled {
+  background-color: var(--ld-semantic-color-action-fill-negative-disabled);
+  border-color: var(--ld-semantic-color-action-fill-negative-disabled);
+  color: var(--ld-semantic-color-action-text-on-fill-negative-disabled);
+}
+
+/* Shape Variants */
+.iconButton--shape-square {
+  border-radius: var(--ld-primitive-scale-border-radius-50);
+}
+
+.iconButton--shape-rounded {
+  border-radius: 9999px; /* Fully rounded/circular */
+}

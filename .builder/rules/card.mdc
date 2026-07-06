@@ -1,0 +1,215 @@
+---
+description: Guidelines and rules for card
+alwaysApply: false
+---
+# Card Component Guidelines
+
+## Overview
+Cards are elevated surfaces used to group related content and actions. They use elevation (shadows) for depth instead of borders, following Living Design 3.5 principles.
+
+## Design Rule: Elevation Over Borders
+
+**CRITICAL RULE**: All cards MUST use elevation (box-shadow) for visual separation, NOT borders.
+
+### ✅ CORRECT - Use Elevation
+```css
+.card {
+  background-color: var(--ld-semantic-color-surface);
+  border-radius: var(--ld-semantic-border-radius-large);
+  box-shadow: var(--ld-semantic-elevation-100);
+}
+```
+
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: '8px',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  padding: '32px'
+}}>
+  Content
+</div>
+```
+
+### ❌ WRONG - Don't Use Borders
+```css
+/* NEVER DO THIS */
+.card {
+  border: 1px solid var(--ld-semantic-color-border-moderate);
+}
+```
+
+```tsx
+/* NEVER DO THIS */
+<div style={{
+  border: '1px solid var(--ld-semantic-color-border-moderate)',
+  borderRadius: '8px'
+}}>
+  Content
+</div>
+```
+
+## Exceptions
+
+Borders on cards are ONLY allowed when:
+
+1. **Explicitly shown in Figma design** - If the design file shows a border, implement it
+2. **User explicitly requests it** - "Add a red border to this card"
+3. **Interactive states** - Hover, focus, or selected states may use borders for emphasis
+4. **Nested cards** - Inner cards within cards may use subtle borders for hierarchy
+
+## Elevation Levels
+
+Use these semantic elevation tokens:
+
+| Token | Use Case | Shadow Depth |
+|-------|----------|--------------|
+| `--ld-semantic-elevation-100` | Default cards, dropdowns | Low elevation |
+| `--ld-semantic-elevation-200` | Hovered cards, raised panels | Medium elevation |
+| `--ld-semantic-elevation-300` | Modals, important overlays | High elevation |
+
+## Component Usage
+
+### Card Component (LD 3.5)
+
+```tsx
+import { Card, CardHeader, CardContent, CardActions } from '@/components/ui/Card';
+
+<Card size="small">
+  <CardHeader title="Card Title" />
+  <CardContent>
+    Card content goes here
+  </CardContent>
+  <CardActions>
+    <Button>Action</Button>
+  </CardActions>
+</Card>
+```
+
+**The Card component automatically applies elevation-100** - no additional styling needed.
+
+### Inline Card Styling
+
+When creating card-like containers inline:
+
+```tsx
+// ✅ CORRECT
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: '8px',
+  boxShadow: 'var(--ld-semantic-elevation-100)', // ← Use elevation
+  padding: '32px'
+}}>
+  Content
+</div>
+
+// ❌ WRONG
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: '8px',
+  border: '1px solid var(--ld-semantic-color-border-moderate)', // ← Don't use border
+  padding: '32px'
+}}>
+  Content
+</div>
+```
+
+## Common Patterns
+
+### Component Library Example Cards
+
+All component example containers should use elevation:
+
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)',
+  padding: '32px',
+  borderRadius: '8px',
+  boxShadow: 'var(--ld-semantic-elevation-100)' // ← Required
+}}>
+  <ComponentExample />
+</div>
+```
+
+### Data Display Cards
+
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  borderRadius: 'var(--ld-semantic-border-radius-large)',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  padding: 'var(--ld-semantic-spacing-300)'
+}}>
+  <h3>Metric Title</h3>
+  <p>$1,234.56</p>
+</div>
+```
+
+### Interactive Cards
+
+Cards with interactive states:
+
+```tsx
+<div 
+  style={{
+    backgroundColor: 'var(--ld-semantic-color-surface)',
+    borderRadius: '8px',
+    boxShadow: 'var(--ld-semantic-elevation-100)',
+    padding: '24px',
+    cursor: 'pointer',
+    transition: 'box-shadow 0.2s'
+  }}
+  onMouseEnter={(e) => {
+    e.currentTarget.style.boxShadow = 'var(--ld-semantic-elevation-200)';
+  }}
+  onMouseLeave={(e) => {
+    e.currentTarget.style.boxShadow = 'var(--ld-semantic-elevation-100)';
+  }}
+>
+  Hover me
+</div>
+```
+
+## Migration Guide
+
+### Before (with border)
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  border: '1px solid var(--ld-semantic-color-border-moderate)',
+  borderRadius: '8px',
+  padding: '32px'
+}}>
+```
+
+### After (with elevation)
+```tsx
+<div style={{
+  backgroundColor: 'var(--ld-semantic-color-surface)',
+  boxShadow: 'var(--ld-semantic-elevation-100)',
+  borderRadius: '8px',
+  padding: '32px'
+}}>
+```
+
+## Why Elevation Over Borders?
+
+1. **Material Design Principle** - Cards float above the surface
+2. **Visual Hierarchy** - Shadows create depth without adding visual noise
+3. **Cleaner Aesthetic** - Modern, minimalist appearance
+4. **Better Focus States** - Borders reserved for interactive elements
+5. **Brand Consistency** - Matches Living Design 3.5 spec
+
+## Summary
+
+**Golden Rule**: Cards = Elevation, not borders
+
+- ✅ Default: `boxShadow: 'var(--ld-semantic-elevation-100)'`
+- ✅ Hover: `boxShadow: 'var(--ld-semantic-elevation-200)'`
+- ✅ Modal/Overlay: `boxShadow: 'var(--ld-semantic-elevation-300)'`
+- ❌ Never: `border: '1px solid ...'` (unless Figma shows it)
+
+---
+
+**Last Updated**: February 15, 2026  
+**Applies To**: All Card components, card-like containers, elevated surfaces

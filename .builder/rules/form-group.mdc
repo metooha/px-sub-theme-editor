@@ -1,0 +1,132 @@
+---
+description: Guidelines and rules for form group
+alwaysApply: false
+---
+## Purpose
+Form Group groups a related set of form controls under a single label/legend, with shared helper text and error messaging. Use it when multiple inputs belong to one question or field (e.g., a set of radios or checkboxes).
+
+## Rules
+- **MUST** use the Living Design Form Group component.
+- **MUST** use Form Group to group **related** controls that answer a single prompt (commonly [Checkbox](/components/checkbox/) or [Radio](/components/radio/) sets).
+- **MUST** provide a group label/legend that describes what the set of controls is for.
+- **MUST** place group error messaging directly **below the label**.
+- **MUST** replace helper text with the error message when the group is in an error state.
+- **MUST NOT** use Form Group when there is only a single form control (use the control’s own label/help/error instead).
+
+## Usage
+Use Form Group when you need to group together a related list of form elements (for example: filters, settings, or a “choose one/many” question inside a form).
+
+### Content
+- The group label should describe the question or category (e.g., “Notification preferences”).
+- The grouped controls should be the only elements that answer that label.
+
+### Error
+When a Form Group returns an error, the message should appear below the label. If helper text is present, the error message replaces it.
+
+### Helper text
+Use helper text to explain how to answer the group (e.g., “Select up to 3.”).
+
+## Anatomy
+1. Legend (group label)
+2. Text label
+3. Helper text (optional)
+4. Content (grouped form elements)
+
+## Variants
+Use documented variants only (names differ by implementation). Common patterns:
+- **With helper text**
+- **With error message**
+
+## States
+- Default
+- Focus-visible (within grouped controls)
+- Disabled (if supported; otherwise disable controls within the group)
+- Error
+
+## Behavior
+### Responsiveness
+Long labels should wrap onto additional lines. This applies to:
+- Group label/legend
+- Helper text
+- Error text
+- Labels within grouped controls (e.g., Checkbox/Radio labels)
+
+## Accessibility
+- **MUST** use `fieldset` + `legend` semantics (or equivalent) so assistive technology understands the controls are a related set.
+- Helper text and error text **MUST** be associated to the group/control set (typically via `aria-describedby` or documented equivalent).
+- If the group is required/invalid, reflect that state using documented APIs (`required`, `aria-required`, `aria-invalid`, etc. as applicable).
+
+## Token usage
+- Prefer component defaults (Form Group should be token-wired for typography, spacing, and color).
+- Only use tokens for layout around the Form Group (spacing/gaps), not for restyling its internals.
+
+## React usage (example)
+Update import path after wiring in `guidelines/components/overview-components.md`.
+
+```tsx
+import * as React from "react";
+import { FormGroup, Checkbox } from "REPLACE_ME_COMPONENT_IMPORT_PATH";
+
+export function FormGroupExample() {
+  const [values, setValues] = React.useState<string[]>([]);
+  const [showError, setShowError] = React.useState(false);
+
+  const errorMessage =
+    showError && values.length === 0 ? "Select at least one option." : undefined;
+
+  function toggleValue(value: string) {
+    setValues((prev) =>
+      prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value],
+    );
+  }
+
+  return (
+    <FormGroup
+      // Adapt prop names to your actual API:
+      // legend="Notification preferences"
+      // helperText="Select all that apply."
+      // errorMessage={errorMessage}
+      legend="Notification preferences"
+      helperText={errorMessage ? undefined : "Select all that apply."}
+      errorMessage={errorMessage}
+    >
+      <Checkbox
+        checked={values.includes("email")}
+        onCheckedChange={() => toggleValue("email")}
+      >
+        Email
+      </Checkbox>
+      <Checkbox
+        checked={values.includes("sms")}
+        onCheckedChange={() => toggleValue("sms")}
+      >
+        SMS
+      </Checkbox>
+      <Checkbox
+        checked={values.includes("push")}
+        onCheckedChange={() => toggleValue("push")}
+      >
+        Push notifications
+      </Checkbox>
+    </FormGroup>
+  );
+}
+```
+
+## Best practices
+### Use when
+- Use when you need to build a form with multiple related elements that submit data together.
+- Use when you need a single label, helper text, and error message for a set of controls (e.g., filters).
+
+### Don’t use when
+- Don’t use when there is only one form element.
+
+## Do / Don’t
+### Do
+- Do keep all controls in the group directly related to the group’s label.
+- Do keep the group label concise and scannable; put details in helper text.
+- Do show the error below the label and replace helper text with the error.
+
+### Don’t
+- Don’t group unrelated inputs just to save space.
+- Don’t hide the error message below the fold or require scrolling within a container to find it.

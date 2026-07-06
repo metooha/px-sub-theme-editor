@@ -1,0 +1,8 @@
+:root {
+  --ld-semantic-color-top-nav-fill: var(--ld-primitive-color-white);
+  --ld-semantic-color-top-nav-text-on-fill: var(--ld-primitive-color-gray-180);
+  --ld-semantic-color-top-nav-text-on-fill-hovered: var(--ld-primitive-color-gray-140);
+  --ld-semantic-color-top-nav-separator: var(--ld-primitive-color-gray-20);
+  --ld-semantic-color-top-nav-fill-hovered: var(--ld-primitive-color-gray-20);
+  --ld-semantic-color-top-nav-fill-pressed: var(--ld-primitive-color-gray-30);
+}

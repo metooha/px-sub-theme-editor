@@ -1,0 +1,84 @@
+# ============================================
+# Figma Make Ignore File
+# ============================================
+# Files and folders listed here should be excluded
+# when importing this project into Figma Make or
+# similar code-to-design tools to avoid parsing
+# errors and reduce upload size.
+# ============================================
+
+# --- Build output & generated files ---
+dist/
+build/
+out/
+.next/
+coverage/
+
+# --- Dependencies ---
+node_modules/
+.pnpm-store/
+.yarn/
+.cache/
+
+# --- Binary font files ---
+public/fonts/*.ttf
+public/fonts/*.otf
+public/fonts/*.woff
+public/fonts/*.woff2
+public/fonts/*.eot
+**/*.ttf
+**/*.otf
+**/*.woff
+**/*.woff2
+**/*.eot
+
+# --- Images & media ---
+public/**/*.png
+public/**/*.jpg
+public/**/*.jpeg
+public/**/*.gif
+public/**/*.ico
+public/**/*.mp4
+public/**/*.mov
+**/*.psd
+**/*.ai
+**/*.sketch
+**/*.xd
+
+# --- Lockfiles & package manager metadata ---
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+.npmrc
+
+# --- VCS & OS artifacts ---
+.git/
+.gitignore
+.DS_Store
+Thumbs.db
+
+# --- Logs & temp files ---
+*.log
+tmp/
+temp/
+
+# --- Archives ---
+*.zip
+*.tgz
+*.tar.gz
+
+# --- Server-side code (not relevant to design) ---
+server/
+dist/server/
+*.mjs
+
+# --- Config files (not relevant to design) ---
+vite.config.ts
+vite.config.server.ts
+tsconfig.json
+tsconfig.node.json
+netlify.toml
+tailwind.config.ts
+postcss.config.js
+components.json
+.fusion/

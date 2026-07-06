@@ -1,0 +1,25 @@
+/* Scrim - Semi-transparent backdrop for overlays */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  background-color: var(--ld-semantic-color-scrim, rgba(0, 0, 0, 0.4));
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
+
+/* Variant: Inverse (lighter scrim for dark backgrounds) */
+.scrim--inverse {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* State: Open */
+.scrim--open {
+  opacity: 1;
+}
+
+/* State: Closing */
+.scrim--closing {
+  opacity: 0;
+}

@@ -1,0 +1,101 @@
+---
+description: Guidelines and rules for typography
+alwaysApply: false
+---
+# Typography Components (REQUIRED)
+
+**MUST use Living Design typography components** for all text rendering. Never use plain HTML text elements (`<p>`, `<span>`, `<h1>`, etc.) directly without wrapping them in Living Design typography components.
+
+## Available Components
+
+- **Display**: Large, prominent text for hero sections
+- **Heading**: Section and subsection headings
+- **Body**: Main paragraph and content text
+- **Caption**: Small text for annotations, eyebrows, and legal information
+
+## Component Usage Rules
+
+### 1. ALWAYS configure typography through component props
+
+- Use the `size` prop to control text size (values vary by component)
+- Use the `weight` prop to control font weight:
+  - `"default"` = regular font-weight (400)
+  - `"alt"` = bold font-weight (700)
+  - **EXCEPTION**: For `Heading` component only, these are reversed:
+    - `"default"` = bold font-weight (700)
+    - `"alt"` = regular font-weight (400)
+
+### 2. Use the `as` prop for semantic HTML
+
+- Set `as="p"` for paragraphs
+- Set `as="h1"`, `as="h2"`, etc. for headings
+- Set `as="span"` for inline text
+- Example: `<Body as="p" size="medium">Content</Body>`
+
+### 3. DO NOT hardcode typography styles
+
+- ❌ Never use inline font-size, font-weight, or line-height
+- ❌ Never use Tailwind typography classes (text-sm, text-lg, font-bold, etc.)
+- ✅ Always use Living Design typography components with their props
+
+## Implementation Examples
+
+```tsx
+// Correct: Using Body component for paragraph text
+<Body as="p" size="medium" weight="default">
+  This is body text content.
+</Body>
+
+// Correct: Using Caption for subtitle
+<Caption as="p" weight="alt">
+  This is a subtitle or annotation
+</Caption>
+
+// Correct: Using Heading for section title
+<Heading as="h2" size="large" weight="default">
+  Section Title
+</Heading>
+
+// WRONG: Plain HTML elements
+<p className="text-base font-normal">Text</p>
+
+// WRONG: Hardcoded styles
+<span style={{ fontSize: '16px', fontWeight: 400 }}>Text</span>
+```
+
+## Common Patterns
+
+### Paragraph with emphasis
+
+```tsx
+<Body as="p" size="medium">
+  Regular text with <Body as="span" weight="alt">bold emphasis</Body>
+</Body>
+```
+
+### Section with heading and description
+
+```tsx
+<div>
+  <Heading as="h3" size="medium">Section Title</Heading>
+  <Body as="p" size="small">Description text</Body>
+</div>
+```
+
+### Annotated content
+
+```tsx
+<div>
+  <Caption as="p" weight="alt">Eyebrow Label</Caption>
+  <Heading as="h2" size="large">Main Heading</Heading>
+</div>
+```
+
+## Responsive Behavior
+
+All typography components automatically adjust their size based on viewport breakpoints:
+
+- Default: Uses `b-s` (small/mobile) tokens
+- Large screens: Switches to `b-l` (large/desktop) tokens at the defined breakpoint
+
+This responsive behavior is built-in and requires no additional configuration.

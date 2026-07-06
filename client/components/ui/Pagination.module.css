@@ -1,0 +1,65 @@
+/* ============================================
+   PAGINATION – LD 3.5 Tokens
+   Layout classes only — page buttons delegate to
+   Button component which already uses LD tokens.
+   ============================================ */
+
+/* --- Nav container --- */
+.nav {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin: 0 auto;
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+/* --- Content list --- */
+.content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Ellipsis --- */
+.ellipsis {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  color: var(--ld-semantic-color-text-subtle, #74767c);
+}
+
+.ellipsis svg {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+}
+
+/* --- Previous / Next wrappers --- */
+.prevNext {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-50, 4px);
+}
+
+.prevNext svg {
+  width: var(--ld-semantic-scale-icon-small, 16px);
+  height: var(--ld-semantic-scale-icon-small, 16px);
+}
+
+/* --- Screen reader only text --- */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

@@ -1,0 +1,130 @@
+/* Callout Component - LD 3.5 compliant */
+
+/* Base container */
+.callout {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+  padding: var(--ld-primitive-scale-space-200, 16px) var(--ld-primitive-scale-space-250, 20px);
+  background-color: var(--ld-semantic-color-surface-inverse, #2E2F32);
+  color: var(--ld-semantic-color-text-inverse, #FFFFFF);
+  border-radius: var(--ld-primitive-scale-border-radius-50, 0.25rem); /* 4px corner radius */
+  box-shadow: var(--ld-semantic-elevation-200, 0 4px 12px rgba(0, 0, 0, 0.15));
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.25rem);
+  font-weight: var(--ld-semantic-font-body-small-weight-default, 400);
+  box-sizing: border-box;
+  min-width: 200px; /* Min 200px per LD 3.5 spec */
+  max-width: var(--ld-primitive-scale-space-1000, 320px); /* Max 320px */
+}
+
+/* Content area */
+.callout__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-100, 8px);
+}
+
+/* Text content */
+.callout__text {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Close button */
+.callout__close {
+  display: inline;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: var(--ld-semantic-color-text-inverse, #FFFFFF);
+  font-family: var(--ld-semantic-font-family-sans, 'Everyday Sans UI', -apple-system, sans-serif);
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  line-height: var(--ld-semantic-font-body-small-line-height, 1.25rem);
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: var(--ld-primitive-scale-space-50, 2px);
+  transition: opacity var(--ld-primitive-duration-200, 0.15s) ease;
+}
+
+.callout__close:hover {
+  opacity: 0.8;
+}
+
+.callout__close:focus-visible {
+  outline: var(--ld-semantic-scale-border-width-interactive-focused, 2px) solid var(--ld-semantic-color-action-focus-outline, #0071DC);
+  outline-offset: var(--ld-primitive-scale-space-50, 2px);
+  border-radius: var(--ld-primitive-scale-border-radius-25, 2px);
+}
+
+.callout__close:active {
+  opacity: 0.6;
+}
+
+/* ======================
+   Nubbin (Arrow/Pointer)
+   ====================== */
+
+.callout__nubbin {
+  position: absolute;
+  width: var(--ld-semantic-scale-icon-small, 1rem); /* 16px */
+  height: var(--ld-semantic-scale-icon-small, 1rem); /* 16px */
+  background-color: var(--ld-semantic-color-surface-inverse, #2E2F32);
+  transform: rotate(45deg);
+}
+
+/* --- Bottom positions (nubbin points DOWN) --- */
+
+.callout--bottomCenter .callout__nubbin {
+  bottom: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  left: 50%;
+  margin-left: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+}
+
+.callout--bottomLeft .callout__nubbin {
+  bottom: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  left: var(--ld-primitive-scale-space-250, 20px);
+}
+
+.callout--bottomRight .callout__nubbin {
+  bottom: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  right: var(--ld-primitive-scale-space-250, 20px);
+}
+
+/* --- Top positions (nubbin points UP) --- */
+
+.callout--topCenter .callout__nubbin {
+  top: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  left: 50%;
+  margin-left: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+}
+
+.callout--topLeft .callout__nubbin {
+  top: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  left: var(--ld-primitive-scale-space-250, 20px);
+}
+
+.callout--topRight .callout__nubbin {
+  top: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  right: var(--ld-primitive-scale-space-250, 20px);
+}
+
+/* --- Left position (nubbin points LEFT) --- */
+
+.callout--left .callout__nubbin {
+  left: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  top: 50%;
+  margin-top: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+}
+
+/* --- Right position (nubbin points RIGHT) --- */
+
+.callout--right .callout__nubbin {
+  right: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+  top: 50%;
+  margin-top: calc(var(--ld-primitive-scale-space-100, 8px) * -1);
+}

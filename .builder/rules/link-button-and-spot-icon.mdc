@@ -1,0 +1,92 @@
+---
+description: Enforce LD LinkButton component and Spot Icon pattern
+alwaysApply: false
+---
+# RULE: Always Use LD 3.5 LinkButton and Spot Icon
+
+## Overview
+This rule enforces the use of the Living Design 3.5 `LinkButton` component and the standardized Spot Icon pattern. Custom inline link-styled buttons and square icon placeholders are prohibited.
+
+---
+
+## Rule 1: Always Use LD 3.5 LinkButton
+
+**NEVER create custom link-styled buttons with inline styles. ALWAYS use the `LinkButton` component from `@/components/ui/LinkButton`.**
+
+### WRONG — Custom inline link button:
+
+<button
+  style={{
+    background: "none",
+    border: "none",
+    color: "#0053E2",
+    fontSize: "14px",
+    fontWeight: 700,
+    textDecoration: "underline",
+  }}
+>
+  Button label
+</button>
+```
+
+### CORRECT — LD 3.5 LinkButton:
+```tsx
+import { LinkButton } from '@/components/ui/LinkButton';
+
+<LinkButton>Button label</LinkButton>
+<LinkButton size="medium">View details</LinkButton>
+<LinkButton color="white">Button label</LinkButton>
+
+import { ChevronRight } from '@/components/icons';
+<LinkButton trailing={<ChevronRight />}>Next step</LinkButton>
+```
+
+### Key Rules
+- **MUST NOT** override the color of a LinkButton with custom CSS or inline styles.
+- **MUST NOT** change the font-weight of a LinkButton.
+- **MUST** use `color="white"` for LinkButtons on dark backgrounds.
+
+---
+
+## Rule 2: Always Use Spot Icon Pattern
+
+**NEVER use square placeholder containers for action/todo item icons. ALWAYS use the round Spot Icon pattern with brand-subtle tokens.**
+
+### CORRECT — LD 3.5 Spot Icon:
+```tsx
+import { ListBox } from '@/components/icons';
+
+<div
+  style={{
+    display: 'flex',
+    width: 48,
+    height: 48,
+    padding: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+    background: 'var(--ld-semantic-color-fill-brand-subtle, #E9F1FE)',
+    flexShrink: 0,
+  }}
+>
+  <ListBox
+    width={24}
+    height={24}
+    style={{ color: 'var(--ld-semantic-color-text-onfill-brand-subtle, #002E99)' }}
+  />
+</div>
+```
+
+### Spot Icon Spec
+
+| Property | Value | Token |
+|----------|-------|-------|
+| Shape | Circle | `borderRadius: '50%'` |
+| Size | 48x48px | `width: 48, height: 48` |
+| Background | Brand subtle blue | `var(--ld-semantic-color-fill-brand-subtle, #E9F1FE)` |
+| Icon size | 24x24px | `width: 24, height: 24` |
+| Icon color | Brand text on subtle | `var(--ld-semantic-color-text-onfill-brand-subtle, #002E99)` |
+
+---
+
+## Enforcement Level: CRITICAL — NO EXCEPTIONS

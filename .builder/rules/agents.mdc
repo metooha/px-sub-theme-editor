@@ -1,0 +1,645 @@
+---
+description: Guidelines and rules for agents
+alwaysApply: false
+---
+# Fusion Starter
+
+A production-ready full-stack React application template with integrated Express server, featuring React Router 6 SPA mode, TypeScript, Vitest, Zod and modern tooling.
+
+While the starter comes with a express server, only create endpoint when strictly neccesary, for example to encapsulate logic that must leave in the server, such as private keys handling, or certain DB operations, db...
+
+## Tech Stack
+
+- **PNPM**: Prefer pnpm
+- **Frontend**: React 18 + React Router 6 (spa) + TypeScript + Vite + TailwindCSS 3
+- **Backend**: Express server integrated with Vite dev server
+- **Testing**: Vitest
+- **UI**: Living Design 3.5 + CSS Modules
+
+## Project Structure
+
+```
+client/                   # React SPA frontend
+├── pages/                # Route components (Index.tsx = home)
+├── components/ui/        # Pre-built UI component library
+├── App.tsx                # App entry point and with SPA routing setup
+└── global.css            # TailwindCSS 3 theming and global styles
+
+server/                   # Express API backend
+├── index.ts              # Main server setup (express config + routes)
+└── routes/               # API handlers
+
+shared/                   # Types used by both client & server
+└── api.ts                # Example of how to share api interfaces
+```
+
+## Key Features
+
+## SPA Routing System
+
+The routing system is powered by React Router 6:
+
+- `client/pages/Index.tsx` represents the home page.
+- Routes are defined in `client/App.tsx` using the `react-router-dom` import
+- Route files are located in the `client/pages/` directory
+
+For example, routes can be defined with:
+
+```typescript
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+<Routes>
+  <Route path="/" element={<Index />} />
+  {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+  <Route path="*" element={<NotFound />} />
+</Routes>;
+```
+
+### Styling System
+
+- **Primary**: TailwindCSS 3 utility classes
+- **Theme and design tokens**: Configure in `client/global.css` 
+- **UI components**: Pre-built library in `client/components/ui/`
+- **Utility**: `cn()` function combines `clsx` + `tailwind-merge` for conditional classes
+
+```typescript
+// cn utility usage
+className={cn(
+  "base-classes",
+  { "conditional-class": condition },
+  props.className  // User overrides
+)}
+```
+
+### Express Server Integration
+
+- **Development**: Single port (8080) for both frontend/backend
+- **Hot reload**: Both client and server code
+- **API endpoints**: Prefixed with `/api/`
+
+#### Example API Routes
+- `GET /api/ping` - Simple ping api
+- `GET /api/demo` - Demo endpoint  
+
+### Shared Types
+Import consistent types in both client and server:
+```typescript
+import { DemoResponse } from '@shared/api';
+```
+
+Path aliases:
+- `@shared/*` - Shared folder
+- `@/*` - Client folder
+
+## Development Commands
+
+```bash
+pnpm dev        # Start dev server (client + server)
+pnpm build      # Production build
+pnpm start      # Start production server
+pnpm typecheck  # TypeScript validation
+pnpm test          # Run Vitest tests
+```
+
+## Adding Features
+
+### Add new colors to the theme
+
+Open `client/global.css` and `tailwind.config.ts` and add new tailwind colors.
+
+### New API Route
+1. **Optional**: Create a shared interface in `shared/api.ts`:
+```typescript
+export interface MyRouteResponse {
+  message: string;
+  // Add other response properties here
+}
+```
+
+2. Create a new route handler in `server/routes/my-route.ts`:
+```typescript
+import { RequestHandler } from "express";
+import { MyRouteResponse } from "@shared/api"; // Optional: for type safety
+
+export const handleMyRoute: RequestHandler = (req, res) => {
+  const response: MyRouteResponse = {
+    message: 'Hello from my endpoint!'
+  };
+  res.json(response);
+};
+```
+
+3. Register the route in `server/index.ts`:
+```typescript
+import { handleMyRoute } from "./routes/my-route";
+
+// Add to the createServer function:
+app.get("/api/my-endpoint", handleMyRoute);
+```
+
+4. Use in React components with type safety:
+```typescript
+import { MyRouteResponse } from '@shared/api'; // Optional: for type safety
+
+const response = await fetch('/api/my-endpoint');
+const data: MyRouteResponse = await response.json();
+```
+
+### New Page Route
+1. Create component in `client/pages/MyPage.tsx`
+2. Add route in `client/App.tsx`:
+```typescript
+<Route path="/my-page" element={<MyPage />} />
+```
+
+## Production Deployment
+
+- **Standard**: `pnpm build`
+- **Binary**: Self-contained executables (Linux, macOS, Windows)
+- **Cloud Deployment**: Use either Netlify or Vercel via their MCP integrations for easy deployment. Both providers work well with this starter template.
+
+## Architecture Notes
+
+- Single-port development with Vite + Express integration
+- TypeScript throughout (client, server, shared)
+- Full hot reload for rapid development
+- Production-ready with multiple deployment options
+- Comprehensive UI component library included
+- Type-safe API communication via shared interfaces
+
+---
+
+## Living Design 3.5 — Design System Rules
+
+### Layout Rules
+
+- **Never use `max-width` constraints** on page content containers. All page content (headers, content areas) must fill the full available width within the sidebar + masthead shell.
+- **Use `align-items: stretch`** instead of `align-items: center` on flex column containers that hold page content. Centering causes content to shrink instead of filling width.
+- **Standard page shell pattern** — every page must use this identical structure:
+
+```tsx
+<div className={styles.root}>       {/* full viewport, flex column */}
+  <MastHead />
+  <div className={styles.appRow}>   {/* flex row: sidebar + main */}
+    <AppSidebar menuItems={...} />
+    <main className={styles.main}>  {/* flex: 1, overflow-y: auto */}
+      {/* page content here */}
+    </main>
+  </div>
+</div>
+```
+
+- Content areas should use `flex: 1` to expand and fill available height.
+
+### Token Rules (CRITICAL)
+
+- **Never use hardcoded hex colors.** Always use `var(--ld-semantic-color-*)` tokens with hex fallbacks:
+
+```css
+/* ✅ CORRECT */
+color: var(--ld-semantic-color-text, #2E2F32);
+background: var(--ld-semantic-color-background-subtle, #f8f8f8);
+
+/* ❌ WRONG */
+color: #2E2F32;
+background: #F8F8F8;
+```
+
+- **Background surfaces**:
+  - Page background: `--ld-semantic-color-background-subtle`
+  - Cards/panels: `--ld-semantic-color-surface`
+  - Hover states: `--ld-semantic-color-surface-hovered`
+  - Overlays/dropdowns: `--ld-semantic-color-surface-overlay`
+
+- **Text hierarchy**:
+  - Primary: `--ld-semantic-color-text`
+  - Secondary: `--ld-semantic-color-text-subtle`
+  - Tertiary: `--ld-semantic-color-text-subtlest`
+  - Brand: `--ld-semantic-color-text-brand`
+
+- **Sentiment colors** — apply to BOTH text AND icons:
+  - Negative/error: `--ld-semantic-color-text-negative` (never hardcode red)
+  - Positive/success: `--ld-semantic-color-text-positive` (never hardcode green)
+
+- **Ratings**: Use `--ld-semantic-color-rating-fill` and `--ld-semantic-color-rating-border`, never hardcode `#FFC220`.
+
+- **Borders/separators**: `--ld-semantic-color-separator` for dividers, `--ld-semantic-color-border-strong` for input borders.
+
+### Component Rules
+
+- **HARD RULE: Always use existing design system components.** Never create new custom components when an existing one in `client/components/ui/` already covers the need. Search `client/components/ui/` and `design-system-docs/` FIRST. This applies to all UI elements — buttons, tags, tabs, tables, selects, modals, etc.
+- **HARD RULE: NEVER modify existing design system components. NO EXCEPTIONS.** Do not edit, override, or alter any component source file in `client/components/ui/`. This applies especially to LD (Living Design) components — they are the canonical source of truth and must remain untouched. No adding props, no changing styles, no editing CSS modules, no adding variants to existing files. If a user requests a modification to an existing component's look or behavior:
+  1. **Do NOT edit the original component file.**
+  2. **Create a new variant** as a separate shared component in `client/components/ui/` that composes or wraps the original. For example, if the user wants a card with a special header, create `CardWithHeader.tsx` that wraps `Card` — do not modify `Card.tsx`.
+  3. The new variant becomes a reusable shared component available to the entire project.
+  4. Document the new variant in `guidelines/` so other pages can discover and use it.
+- **HARD RULE: Never create a new sidebar or side navigation.** Always reuse the existing `AppSidebar` component (`client/components/ui/AppSidebar.tsx`). When building a new page, import and render `AppSidebar` — only replace the `menuItems` content (labels, icons, links) to match the page's needs. Do not create a new `<aside>`, `<nav>`, or custom sidebar component. The sidebar structure, styling, collapse/expand behavior, and layout are already handled by `AppSidebar` and must stay consistent across all pages.
+- **Import paths** — ALL components use PascalCase file names:
+
+```tsx
+// ✅ CORRECT — PascalCase for everything
+import { Button } from '@/components/ui/Button';
+import { ButtonGroup } from '@/components/ui/ButtonGroup';
+import { Tag } from '@/components/ui/Tag';
+import { Rating } from '@/components/ui/Rating';
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/Dialog';
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/Popover';
+import { ScrollArea } from '@/components/ui/ScrollArea';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/Tooltip';
+
+// ❌ WRONG — lowercase file names no longer exist
+import { Dialog } from '@/components/ui/dialog';
+import { Popover } from '@/components/ui/popover';
+import { ScrollArea } from '@/components/ui/scroll-area';
+```
+
+- **Rating stars**: Use `<Rating value={4.4} size="small" />`, never manually render star SVGs.
+- **Buttons**: Always use `<Button variant="primary|secondary|tertiary|destructive" size="small|medium|large">`. Never create `<button>` elements with inline styles.
+- **Button width MUST match Figma intent (HARD RULE)**:
+  - If a button **hugs its text** in Figma (width fits the label), use the default Button behavior — do NOT add `isFullWidth`, do NOT add `width: 100%`, do NOT add any width overrides. The button's `inline-flex` display naturally hugs its content.
+  - If a button is **full-width** in Figma (stretches across its container), use `<Button isFullWidth>`. This sets `width: 100%`.
+  - **Never force button widths with inline styles, custom classes, or `UNSAFE_style`.** The only two width modes are: default (hug text) and `isFullWidth` (stretch). No in-between, no fixed pixel widths, no percentage widths other than 100%.
+  - When in doubt, default to hug text (no `isFullWidth`).
+- **Tags**: Use `<Tag variant="..." color="...">`, never `<span>` with custom badge styles.
+- **Button groups**: Use `<ButtonGroup>`, never manual flex containers for buttons.
+- **Checkboxes**: Always use `<Checkbox>` from `@/components/ui/Checkbox`. Never create custom checkbox elements with `<input type="checkbox">`, styled divs, or SVG toggles.
+- **Radios**: Always use `<Radio>` from `@/components/ui/Radio` and `<RadioGroup>` from `@/components/ui/RadioGroup`. Never create custom radio elements with `<input type="radio">`, styled circles, or custom toggle groups.
+
+#### Checkbox & Radio (HARD RULE)
+
+- **NEVER create custom checkbox or radio components.** Always use the existing LD components.
+- **Always use large checkboxes for confirmation messages.** Any confirmation dialog, terms acceptance, consent flow, or prominent single-checkbox interaction must use `size="large"`. The default `small` size is for data tables, filters, and multi-select lists.
+```tsx
+// ✅ CORRECT — large checkbox for confirmations
+import { Checkbox } from '@/components/ui/Checkbox';
+<Checkbox size="large" label="I confirm this action" checked={confirmed} onCheckedChange={setConfirmed} />
+
+// ✅ CORRECT — small checkbox (default) for lists, filters, tables
+<Checkbox label="Select item" checked={checked} onCheckedChange={setChecked} />
+
+// ✅ CORRECT — use LD Radio and RadioGroup
+import { Radio } from '@/components/ui/Radio';
+import { RadioGroup } from '@/components/ui/RadioGroup';
+<RadioGroup value={selected} onValueChange={setSelected}>
+  <Radio value="option1" label="Option 1" />
+  <Radio value="option2" label="Option 2" />
+</RadioGroup>
+
+// ❌ WRONG — custom checkbox with styled input
+<input type="checkbox" className="custom-check" />
+
+// ❌ WRONG — div pretending to be a checkbox
+<div className="w-4 h-4 border rounded" onClick={toggle}>✓</div>
+
+// ❌ WRONG — custom radio with styled input
+<input type="radio" name="group" className="custom-radio" />
+
+// ❌ WRONG — custom toggle group pretending to be radios
+<div className="flex gap-2">
+  <button className={active === 'a' ? 'selected' : ''}>A</button>
+  <button className={active === 'b' ? 'selected' : ''}>B</button>
+</div>
+```
+
+#### Links (HARD RULE)
+
+- **NEVER create raw `<a>` tags or custom hyperlink styles.** All text links MUST use the LD `Link` component from `client/components/ui/Link.tsx`.
+- The Link component handles LD 3.5 tokens (`--ld-semantic-color-link-text-*`), underline behavior, hover/focus/active states, and accessibility automatically.
+- **Variants**: `default` (brand-colored), `subtle` (gray), `white` (for dark backgrounds).
+- Auto-detects internal vs external links — internal links use React Router, external links get `rel="noreferrer noopener"` when `target="_blank"`.
+- **Import pattern**:
+```tsx
+// ✅ CORRECT — use LD Link component
+import { Link } from '@/components/ui/Link';
+
+<Link href="/settings">Account settings</Link>
+<Link href="https://example.com" target="_blank">External site</Link>
+<Link href="/help" variant="subtle">Help</Link>
+
+// ❌ WRONG — raw anchor tag
+<a href="/settings">Account settings</a>
+
+// ❌ WRONG — styled span pretending to be a link
+<span className="text-blue-500 underline cursor-pointer" onClick={...}>Click here</span>
+
+// ❌ WRONG — hardcoded link colors
+<a href="/page" style={{ color: '#0053e2', textDecoration: 'underline' }}>Link</a>
+```
+
+#### DataTable (HARD RULE — NO EXCEPTIONS)
+
+- **NEVER create custom/hardcoded `<table>` elements.** All tabular data MUST use the existing DataTable component system from `client/components/ui/DataTable*.tsx`.
+- Available DataTable components: `DataTable`, `DataTableHead`, `DataTableBody`, `DataTableRow`, `DataTableHeader`, `DataTableCell`, `DataTableCellText`, `DataTableCellSelect`, `DataTableCellStatus`, `DataTableCellActions`, `DataTableCellInlineEdit`, `DataTableCellBulkEdit`, `DataTableBulkActions`, `DataTableTitle`, `DataTableConfigPanel`.
+- **New cell variants are allowed** — you may create new `DataTableCell*` components that follow the existing pattern (CSS module + forwardRef + CommonProps). But you may NOT create a net-new table structure outside the DataTable system.
+- **Always round DataTable frames** — but the rounding comes from the correct layer:
+  - **Standalone DataTable** (not inside a card): pass `rounded` on the DataTable itself.
+  - **DataTable inside a card or container**: the outer card/wrapper provides the rounded frame with `border-radius` and `border`. Do NOT set `rounded` on the DataTable — it creates ugly double-rounding. Use a wrapper like `.tableCard` with its own `border-radius` and `overflow: hidden` instead.
+- **NEVER customize DataTable colors or visual styling.** DataTable must look identical everywhere it appears — same header background, same row colors, same borders, same text styles. Even if a Figma design shows alternate row colors, tinted headers, colored backgrounds, striped rows, or any other visual variation, **ignore those differences and use the default DataTable styling**. The canonical styling is defined in `DataTable.module.css` and must not be overridden or extended with:
+  - Custom background colors on headers, rows, or cells
+  - Alternate/striped row coloring
+  - Tinted or colored header backgrounds
+  - Custom border colors or styles
+  - Custom font colors, sizes, or weights beyond the built-in `textStyle` prop (`body-small` or `body-medium`)
+  - Any `UNSAFE_className` or `UNSAFE_style` overrides that change visual appearance
+  - Figma-specific color tokens or one-off design treatments
+- **Import pattern**:
+```tsx
+// ✅ CORRECT — use DataTable components
+import { DataTable, DataTableHead, DataTableBody } from '@/components/ui/DataTable';
+import { DataTableRow } from '@/components/ui/DataTableRow';
+import { DataTableHeader } from '@/components/ui/DataTableHeader';
+import { DataTableCell } from '@/components/ui/DataTableCellText';
+
+// ❌ WRONG — custom hardcoded table
+<table className="my-table"><tr><td>...</td></tr></table>
+
+// ❌ WRONG — div-based grid pretending to be a table
+<div className="grid grid-cols-4">...</div> // for tabular data
+```
+
+#### Overlays (HARD RULE — Popovers, Dropdowns, Tooltips, Dialogs)
+
+- **All overlay elements MUST render on top of everything and NEVER be clipped or cut off.** This includes popovers, dropdown menus, tooltips, select menus, dialogs, and any floating UI.
+- **Always use LD portal-based components** (`Popover`, `DropdownMenu`, `Dialog`, `Tooltip`, `Select`) from `client/components/ui/` — these portal content to `document.body`, ensuring they escape any `overflow: hidden` or `overflow: auto` ancestors.
+- **Never set `overflow: hidden` on containers that hold overlay triggers** unless the overlay portals out. If you must use `overflow: hidden` (e.g., for a scrollable card or table wrapper), ensure the overlay component portals its content outside that container.
+- **Z-index**: Overlay content should use the standard z-index scale. Never set arbitrary z-index values. LD overlay components handle this automatically — do not override their z-index.
+- **Common mistakes that cause clipping**:
+  - Parent container has `overflow: hidden` or `overflow: auto` and the overlay does not portal out
+  - Missing `position: relative` or incorrect stacking context
+  - Using custom dropdown/popover implementations instead of LD components
+  - Setting `z-index` too low on overlay content
+- **If an overlay appears cut off**, the fix is almost always one of:
+  1. Use the LD portal-based component (which portals automatically)
+  2. Remove unnecessary `overflow: hidden` from ancestor containers
+  3. Never restrict `overflow` on the direct parent of a trigger without portaling
+
+```tsx
+// ✅ CORRECT — LD Popover portals to body, always on top
+import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/Popover';
+<Popover>
+  <PopoverTrigger>Open</PopoverTrigger>
+  <PopoverContent>Always visible, never clipped</PopoverContent>
+</Popover>
+
+// ✅ CORRECT — LD DropdownMenu portals to body
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent } from '@/components/ui/DropdownMenu';
+
+// ❌ WRONG — custom dropdown inside overflow:hidden parent gets clipped
+<div style={{ overflow: 'hidden' }}>
+  <div className="custom-dropdown">This will be cut off!</div>
+</div>
+
+// ❌ WRONG — custom absolute-positioned menu without portal
+<div style={{ position: 'relative' }}>
+  <button>Toggle</button>
+  <div style={{ position: 'absolute', top: '100%' }}>Menu items...</div>
+</div>
+```
+
+#### Tabs (HARD RULE)
+
+- **NEVER create custom tab components.** Always use the existing `Tab` component from `client/components/ui/Tab.tsx`.
+- Available exports: `Tabs`, `TabList`, `Tab`, `TabPanel`.
+- **Import pattern**:
+```tsx
+// ✅ CORRECT
+import { Tabs, TabList, Tab, TabPanel } from '@/components/ui/Tab';
+
+// ❌ WRONG — custom tab implementation
+<div className="tab-bar">
+  <button className="tab active">Tab 1</button>
+</div>
+```
+
+### Styling Rules
+
+- **Always use CSS Modules** (`.module.css`), never inline `style={{}}` for layout or colors.
+- Inline styles are only acceptable for truly dynamic values (e.g., calculated widths).
+- **Standard spacing**: Use 8px multiples (8, 16, 24, 32, 48px). Use `var(--ld-semantic-spacing-*)` or `var(--ld-primitive-scale-space-*)` tokens when available.
+- **Responsive breakpoints** (standard across all pages):
+  - `1024px` — tablet
+  - `768px` — small tablet
+  - `480px` — phone
+  - Padding reduces: `24px → 16px → 12px` across breakpoints
+- **Font family**: Always `var(--ld-semantic-font-family-sans)` or specific semantic font tokens like `var(--ld-semantic-font-heading-large-family)`. Never let text fall back to browser serif defaults.
+- **Border radius**: Use `var(--ld-primitive-scale-borderradius-100, 8px)` for cards, `9999px` for pills/circles.
+- **Box shadows** for elevated cards: `0 -1px 2px 0 rgba(0,0,0,0.10), 0 1px 2px 1px rgba(0,0,0,0.15)`.
+
+### Designer Getting Started — Figma Best Practices (HARD RULES)
+
+These rules ensure Figma designs translate cleanly into code. Designers MUST follow these before handing off:
+
+1. **Always use Auto Layout in Figma.** Every frame must use Auto Layout — never use absolute positioning or free-floating layers. Auto Layout translates directly to CSS flexbox, making implementation accurate and responsive. Frames without Auto Layout produce broken, absolute-positioned code.
+
+2. **Always make images exportable — never use placeholders.** Every image and illustration in Figma must be marked as exportable (right panel → Export section → add an export setting). If an image exists in Figma, it must be exported and used in the implementation. **Never replace Figma images with gray boxes, placeholder rectangles, or generic stock images.** The actual image asset from Figma is the source of truth and must appear in the final code.
+
+3. **Be explicit in your annotations.** Add clear annotations in Figma for all interactions, hover states, click behaviors, navigation targets, error states, loading states, and conditional logic. The more explicit your annotations, the fewer prompts are needed and the more accurate the implementation. Don't assume the AI will infer behavior — spell it out.
+
+4. **Name your layers and artboards sequentially.** Use clear, sequential naming for screens and layers (e.g., `01-Landing`, `02-Catalog`, `03-Detail`, or `Step1-Login`, `Step2-Verify`). This helps when exporting multiple screens and ensures the AI processes them in the correct order.
+
+5. **All screens must hug content — never clip.** Every screen/frame must be set to "Hug Contents" so all content is visible. Do not use "Clip Content" to hide overflow — if content is clipped in Figma, the AI cannot see or implement the hidden portions. Even if you temporarily unclip to preview, the final handoff frame must show all content without clipping.
+
+6. **Use LD Components — do not fake them.** Always use actual Living Design component instances from the LD 3.5 library. Do not group primitive shapes/layers to visually mimic an LD component (e.g., grouping rectangles and text to look like a Popover). The AI relies on component instance names to map Figma elements to the correct code components. Specifically:
+   - **Do not detach components.** Detached components lose their component name, and the AI cannot identify which LD component to use. If you need to customize, use variant props or overrides — never detach.
+   - **Do not recreate components from scratch.** If an LD component exists for a pattern (Button, Popover, DataTable, Tabs, Tag, etc.), use the library instance. Custom look-alikes will be implemented as raw HTML instead of the proper LD component.
+
+#### Onboarding & Support
+
+- **Figma onboarding to Fusion**: [Builder Demo Slides](https://www.figma.com/slides/qZtLPYOsWk3uhWGC24iGRx/Builder-Demo?node-id=9-1277&t=tD5pX6YDZskvrDLP-0)
+- **Slack support channel**: [#builderio-support](https://walmart.enterprise.slack.com/archives/C09AZQZPD9D) — use this channel for questions, issues, or help with Builder.io / Fusion.
+
+### Figma Import Rules (For AI Agent)
+
+- **Convert absolute positioning** from Figma to flexbox/grid layouts. Never use `position: absolute` for page layout.
+- **Map Figma token names** directly to CSS custom properties: Figma `ld-semantic-color-text` → CSS `var(--ld-semantic-color-text)`.
+- Figma inline `style=""` attributes represent design intent, not code format — always convert to CSS module classes.
+- **Always export and use Figma images.** If an image exists in the Figma design, extract and use it — never substitute with a gray box, placeholder `<div>`, or generic stock image. Missing export settings are a designer error to fix, not a reason to skip the image.
+- **Preserve SVGs exactly** as designed unless an identical icon already exists in `@/components/icons`.
+- **Circular images/flags**: Use SVG with `<clipPath>` circles, not `border-radius` on `<img>`.
+- When Figma shows multiple frames/breakpoints, implement one responsive component that handles all breakpoints via CSS media queries, not separate components.
+
+### File Naming Convention (HARD RULE)
+
+All files MUST follow these naming patterns consistently:
+
+| File type | Convention | Examples |
+|---|---|---|
+| All UI components (LD) | **PascalCase** | `Button.tsx`, `Dialog.tsx`, `ScrollArea.tsx` |
+| CSS modules | **PascalCase** (match component) | `Button.module.css`, `DataTable.module.css` |
+| Pages | **PascalCase** | `Index.tsx`, `Catalog.tsx`, `DetailItem.tsx` |
+| Page CSS modules | **camelCase** | `detailItem.module.css`, `landingSummary.module.css` |
+| React hooks | **camelCase** with `use` prefix | `useMobile.tsx`, `useSnackbar.ts`, `useLocalStorage.ts` |
+| Context files | **PascalCase** | `ThemeContext.tsx`, `MartyContext.tsx`, `ThemeRegistry.ts` |
+| Feature components | **PascalCase** | `MartyAvatar.tsx`, `CatalogHero.tsx`, `MartyUtils.ts` |
+| Icon components | **PascalCase** | `ArrowRight.tsx`, `ChevronDown.tsx` |
+| Example files | **PascalCase** + `Example` suffix | `ButtonExample.tsx`, `TextAreaExample.tsx` |
+| Token CSS files | **lowercase** | `semantic.css`, `primitive.css` |
+
+**Never mix conventions within the same folder.** If you create a new file, check sibling files and match their naming pattern.
+
+### File Organization
+
+- Break complex pages into smaller component files under `client/features/[feature]/`.
+- Each page gets its own CSS module in `client/styles/`.
+- UI primitives go in `client/components/ui/` with their own `.module.css`.
+- Check `guidelines/` folder for component documentation before creating new components.
+
+---
+
+### Design System Package Ingestion (HARD RULE)
+
+When a designer drops a new design system package (folder of files) into the project via Code View, the agent MUST follow this exact process:
+
+#### Step 1: Create the staging folder
+
+Create a folder called `design-system-package/` at the project root. All dropped files go here first. This is a temporary staging area — files are never used directly from this folder.
+
+```
+design-system-package/       # Staging area for dropped DS files
+├── components/              # New/updated component source files
+├── icons/                   # New/updated icon files
+├── tokens/                  # Updated CSS token files
+├── assets/                  # Fonts, illustrations, animations
+├── docs/                    # Component docs, MDX files, README
+└── README.md                # Package instructions (READ THIS FIRST)
+```
+
+#### Step 2: Read the package instructions
+
+Before touching any files, read ALL documentation in the package:
+
+1. Read `design-system-package/README.md` (or any README/INSTRUCTIONS file)
+2. Read any `CHANGELOG.md` or `MIGRATION.md` files
+3. Read any `.md` or `.mdx` doc files to understand what changed
+4. Identify: what components are new, what components are updated, what was removed
+
+#### Step 3: Reorganize files to match the project structure
+
+Move files from `design-system-package/` to their correct locations in the project, matching the existing file structure exactly:
+
+| Package contents | Project destination |
+|---|---|
+| Components (`.tsx` + `.module.css`) | `client/components/ui/` |
+| Example files | `client/components/examples/` |
+| Icon components (`.tsx`) | `client/components/icons/` |
+| Custom icons | `client/components/icons-custom/` |
+| CSS token files (primitive/semantic) | `client/styles/themes/` (for base tokens) AND `public/styles/themes/` (for runtime theme switching) |
+| Font files | `public/fonts/` |
+| Illustrations/SVGs | `public/illustrations/` |
+| Animation JSON (Lottie) | `public/animations/` |
+| Component documentation (`.md`, `.mdx`) | `design-system-docs/` |
+| Guidelines/rules documentation | `guidelines/` or `guidelines/components/` |
+
+**CRITICAL**: Preserve the project's file naming conventions:
+- All UI components use **PascalCase**: `Button.tsx`, `Dialog.tsx`, `ScrollArea.tsx`, `AlertDialog.tsx`
+- CSS modules match their component: `Button.module.css`, `DataTable.module.css`
+- Token files use **lowercase**: `semantic.css`, `primitive.css`
+- Icon components use **PascalCase**: `ArrowRight.tsx`, `ChevronDown.tsx`
+
+#### Step 4: Replace old components with new ones
+
+For each updated component in the package:
+
+1. **Compare the old and new versions** — read the existing file in `client/components/ui/` and the new version from the package
+2. **Replace the file** — overwrite the old component with the new one
+3. **Check for breaking API changes** — if props were renamed, added, or removed:
+   - Search the entire codebase for usages of the old component
+   - Update all import paths and prop usage to match the new API
+4. **Run typecheck** (`pnpm typecheck`) after each batch of replacements to catch breaks early
+
+For updated **icons**:
+1. Replace icon files in `client/components/icons/`
+2. Check if `client/components/icons/index.tsx` needs updating (new exports, removed exports)
+3. Search for usages of any removed icons and replace with the new equivalent
+
+For updated **tokens/CSS**:
+1. Replace token files in `client/styles/themes/base/` (primitive.css, semantic.css)
+2. Replace corresponding files in `public/styles/themes/` for all affected themes
+3. Check `client/global.css` for any hardcoded values that should now use updated tokens
+4. Search for old token names that may have been renamed
+
+For updated **assets** (fonts, illustrations, animations):
+1. Replace files in `public/fonts/`, `public/illustrations/`, or `public/animations/`
+2. Check for any references to old filenames that may have changed
+
+#### Step 5: Clean up
+
+1. **Delete the staging folder**: Remove `design-system-package/` entirely after all files have been distributed
+2. **Remove any leftover markdown** from component folders — docs belong in `guidelines/` or `design-system-docs/`, never in `client/components/ui/`
+3. **Remove duplicates** — if the same file exists in multiple locations, keep only the canonical copy
+4. **Run typecheck**: `pnpm typecheck` must pass with zero errors
+5. **Verify the dev server** still runs without errors
+
+#### Step 6: Report what changed
+
+After completing the ingestion, provide a summary:
+- Components added (new)
+- Components updated (replaced)
+- Components removed (deleted)
+- Icons added/updated/removed
+- Tokens changed
+- Any breaking changes that required code updates
+- Confirmation that typecheck passes
+
+### Common Mistakes to Avoid
+
+```tsx
+// ❌ WRONG — hardcoded colors
+<div style={{ backgroundColor: '#F8F8F8', color: '#2E2F32' }}>
+
+// ❌ WRONG — max-width constraining page content
+.contentContainer { max-width: 1280px; margin: 0 auto; }
+
+// ❌ WRONG — centering page content instead of stretching
+.contentArea { align-items: center; }
+
+// ❌ WRONG — custom button with inline styles
+<button className="bg-blue-500 px-4 py-2 rounded-full">Click</button>
+
+// ❌ WRONG — forcing button width with inline styles or custom classes
+<Button variant="primary" UNSAFE_style={{ width: '200px' }}>Save</Button>
+<Button variant="primary" UNSAFE_className="w-full">Save</Button>
+
+// ❌ WRONG — manual star rendering
+<StarFill style={{ color: '#FFC220' }} />
+
+// ✅ CORRECT — tokens in CSS modules
+.container { background: var(--ld-semantic-color-background-subtle, #f8f8f8); }
+
+// ✅ CORRECT — full-width content
+.contentArea { align-items: stretch; }
+
+// ✅ CORRECT — button hugs text (default, no width prop needed)
+<Button variant="primary" size="medium">Click</Button>
+
+// ✅ CORRECT — button fills container width (use isFullWidth prop)
+<Button variant="primary" size="medium" isFullWidth>Click</Button>
+
+// ✅ CORRECT — use LD Rating component
+<Rating value={4.4} size="small" />
+
+// ❌ WRONG — custom hardcoded table
+<table><thead><tr><th>Name</th></tr></thead></table>
+
+// ✅ CORRECT — use DataTable system (always rounded by default)
+<DataTable>
+  <DataTableHead><DataTableRow>...</DataTableRow></DataTableHead>
+  <DataTableBody>...</DataTableBody>
+</DataTable>
+
+// ❌ WRONG — custom tab implementation
+<div className="tabs"><button className="active">Tab 1</button></div>
+
+// ✅ CORRECT — use Tab component
+<Tabs value={activeTab} onValueChange={setActiveTab}>
+  <TabList><Tab value="tab1">Tab 1</Tab></TabList>
+  <TabPanel value="tab1">Content</TabPanel>
+</Tabs>
+
+// ❌ WRONG — raw anchor tag or custom hyperlink
+<a href="/settings" className="text-blue-600 underline">Settings</a>
+
+// ✅ CORRECT — use LD Link component
+<Link href="/settings">Settings</Link>
+<Link href="/help" variant="subtle">Help</Link>
+```

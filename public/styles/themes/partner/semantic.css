@@ -1,0 +1,16 @@
+/**
+ * Partner Theme - Persona  
+ * Generated from LivingDesign Airtable Sync + LD Base
+ * 
+ * INHERITANCE: Inherits Developer theme
+ * USAGE: Partner portal applications
+ * 
+ * From Airtable structure, Partner uses Developer tokens
+ * with potential partner-specific overrides
+ */
+
+:root {
+  /* Partner persona - potential overrides for partner UX */
+  /* Currently inherits all Developer theme tokens */
+  /* Add partner-specific overrides here as needed */
+}

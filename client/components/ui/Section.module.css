@@ -1,0 +1,135 @@
+/* Section – LD 3.5 compliant */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--ld-semantic-color-surface);
+  font-family: var(--ld-semantic-font-family-sans);
+}
+
+/* ── Level: Primary ── */
+.section--primary {
+  padding: var(--ld-primitive-scale-space-400);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  box-shadow: var(--ld-semantic-elevation-200);
+}
+
+/* ── Level: Secondary ── */
+.section--secondary {
+  padding: var(--ld-primitive-scale-space-300);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  box-shadow: var(--ld-semantic-elevation-100);
+}
+
+/* ── Level: Tertiary ── */
+.section--tertiary {
+  padding: var(--ld-primitive-scale-space-200);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  border: 1px solid var(--ld-semantic-color-separator);
+}
+
+/* ── Header ── */
+.section__header {
+  display: flex;
+  flex-direction: column;
+}
+
+.section__headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ld-primitive-scale-space-50);
+}
+
+.section__titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ld-primitive-scale-space-200);
+}
+
+/* ── Title per level ── */
+.section__title {
+  color: var(--ld-semantic-color-text);
+  margin: 0;
+}
+
+.section__title--primary {
+  font-size: var(--ld-primitive-font-size-200, 1.25rem);
+  font-weight: var(--ld-semantic-font-body-large-weight-bold, 700);
+  line-height: var(--ld-semantic-font-body-large-lineheight, 1.5);
+}
+
+.section__title--secondary {
+  font-size: var(--ld-primitive-font-size-150, 1.125rem);
+  font-weight: var(--ld-semantic-font-body-medium-weight-bold, 600);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+}
+
+.section__title--tertiary {
+  font-size: var(--ld-semantic-font-body-medium-size, 1rem);
+  font-weight: var(--ld-semantic-font-body-medium-weight-bold, 600);
+  line-height: var(--ld-semantic-font-body-medium-lineheight, 1.5);
+}
+
+/* ── Description ── */
+.section__description {
+  font-size: var(--ld-semantic-font-body-small-size, 0.875rem);
+  line-height: var(--ld-semantic-font-body-small-lineheight, 1.25rem);
+  color: var(--ld-semantic-color-text-subtle);
+}
+
+/* ── Actions ── */
+.section__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100);
+  flex-shrink: 0;
+}
+
+/* ── Collapse button ── */
+.section__collapseButton {
+  display: flex;
+  align-items: center;
+  gap: var(--ld-primitive-scale-space-100);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+}
+
+.section__collapseButton:focus-visible {
+  outline: 2px solid var(--ld-semantic-color-action-focus-outline);
+  outline-offset: 2px;
+  border-radius: var(--ld-primitive-scale-border-radius-50);
+}
+
+/* ── Chevron ── */
+.section__chevron {
+  width: var(--ld-semantic-scale-icon-small, 1rem);
+  height: var(--ld-semantic-scale-icon-small, 1rem);
+  color: var(--ld-semantic-color-text-subtle);
+  transition: transform 200ms ease;
+  flex-shrink: 0;
+}
+
+.section__chevron--collapsed {
+  transform: rotate(-90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section__chevron {
+    transition: none;
+  }
+}
+
+/* ── Body ── */
+.section__body {
+  margin-top: var(--ld-primitive-scale-space-200);
+}
+
+.section__body--collapsed {
+  display: none;
+}

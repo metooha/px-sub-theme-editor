@@ -1,0 +1,124 @@
+---
+description: Search-and-reuse icon library — never import external icon packages
+alwaysApply: false
+---
+# RULE: Icon Usage and Management
+
+**CRITICAL RULE - ALWAYS ENFORCE**
+
+## When This Rule Applies
+
+This rule MUST be enforced when:
+
+1. User imports designs from Builder.io Figma plugin
+2. User requests to add icons to the project
+3. User asks to create new UI elements that need icons
+4. AI generates new designs or components with icons
+5. Any icon-related changes are being made
+
+---
+
+## Mandatory Requirements
+
+### 1. ALWAYS Search for Existing Icons First
+
+Before creating or importing ANY new icon:
+
+1. Search the icon library at `client/components/icons/`
+2. Check the Component Library at `/component-library#icons`
+3. Review all 303 available icons organized in categories
+
+
+// CORRECT - Search first, use existing
+import { Search } from '@/components/icons';
+
+// WRONG - Creating duplicate
+// DON'T create SearchIcon.tsx if Search.tsx already exists!
+```
+
+### 2. NEVER Create Duplicate Icons
+
+### 3. Icon Library Inventory (303 Icons Available)
+
+#### Key Categories:
+- **Navigation & Arrows** (16): ArrowUp/Down/Left/Right, ChevronUp/Down/Left/Right
+- **Actions & Controls** (25+): Check, X, Plus, Minus, Edit, Trash, Download, Upload, Search, Filter, Settings
+- **Communication** (13): Email, Chat, Phone, Bell, Share
+- **Media & Files** (18): Image, Camera, Play, Article, Document
+- **User & Account** (12): User, UserCircle, UserPlus, SignIn, SignOut
+- **Commerce & Shopping** (21+): Cart, Tag, Dollar, Receipt, CreditCard
+- **Status & Indicators** (25+): CheckCircle, InfoCircle, ExclamationCircle, Warning, Star
+- **Charts & Data** (11): BarGraph, LineGraph, PieChart, DonutChart
+
+---
+
+## Creating New Icons (Last Resort Only)
+
+If you **absolutely must** create a new icon (after exhausting all search options):
+
+### Location
+Create new icons in: **`client/components/icons-custom/`**
+
+**DO NOT** add new icons to `client/components/icons/` - that folder is reserved for the core LD 3.5 icon library.
+
+### Template
+
+```tsx
+import { SVGProps } from 'react';
+
+export const MyNewIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="20" 
+    height="20" 
+    viewBox="0 0 20 20" 
+    fill="none"
+    {...props}
+  >
+    <path 
+      d="M..." 
+      stroke="currentColor" 
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+```
+
+---
+
+## Common Icon Equivalents
+
+| Need | Use This | Don't Create |
+|------|----------|--------------|
+| Search | `Search` | SearchIcon |
+| Settings | `Settings`, `Gear` | SettingsIcon, Cog |
+| User/Profile | `User`, `UserCircle` | Profile, Avatar |
+| Close/Delete | `X`, `Trash` | Delete, Remove |
+| Cart | `Cart`, `CartFill` | ShoppingCart |
+| Edit | `Edit`, `Pencil` | EditIcon, Modify |
+| Info | `InfoCircle`, `HelpCircle` | Information |
+| Warning | `Warning`, `ExclamationCircle` | Alert, Caution |
+| Success | `CheckCircle`, `CheckCircleFill` | Success, Tick |
+
+---
+
+## Folder Structure
+
+```
+client/components/icons/         # 303 core LD 3.5 icons (USE THESE)
+client/components/icons-custom/  # New custom icons ONLY
+```
+
+---
+
+**Golden Rules:**
+1. **Search FIRST**, create LAST
+2. Use existing 303 icons whenever possible
+3. NEVER create duplicates
+4. New icons ONLY in `icons-custom/` folder
+5. Follow LD 3.5 specifications for all new icons
+6. Always use `currentColor` for semantic theming
+
+**Enforcement Level**: CRITICAL - NO EXCEPTIONS

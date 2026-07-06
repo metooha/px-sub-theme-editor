@@ -1,0 +1,372 @@
+---
+description: Guidelines and rules for date picker
+alwaysApply: false
+---
+# DatePicker Component
+
+## Overview
+
+The DatePicker component combines a text input field with a calendar popup for date selection. It supports both manual text entry and calendar-based selection, providing flexibility for users while maintaining data consistency.
+
+## Import
+
+```tsx
+import { DatePicker } from '@/components/ui/DatePicker';
+```
+
+## When to Use
+
+### ✅ Use DatePicker when:
+- Users need to select a specific date
+- Both manual entry and visual calendar selection are valuable
+- Date validation and restrictions are required
+- You need consistent date formatting across the application
+
+### ❌ Don't use DatePicker when:
+- You only need text input without calendar (use DateField instead)
+- Users need to select date ranges (consider separate range picker)
+- The date format is not standard (mm/dd/yyyy)
+
+## Basic Usage
+
+```tsx
+import { useState } from 'react';
+import { DatePicker } from '@/components/ui/DatePicker';
+
+function MyForm() {
+  const [selectedDate, setSelectedDate] = useState<Date>();
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  return (
+    <DatePicker
+      label="Start date"
+      value={selectedDate}
+      isOpen={isCalendarOpen}
+      onOpen={() => setIsCalendarOpen(true)}
+      onClose={() => setIsCalendarOpen(false)}
+      onSelect={(date) => setSelectedDate(date)}
+    />
+  );
+}
+```
+
+## Props
+
+### Required Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `label` | `ReactNode` | Label text displayed above the input |
+| `onClose` | `() => void` | Callback when calendar popover closes |
+| `onOpen` | `() => void` | Callback when calendar popover opens |
+| `onSelect` | `(value?: Date) => void` | Callback when a date is selected |
+
+### Optional Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date` | `undefined` | Currently selected date |
+| `isOpen` | `boolean` | `false` | Whether calendar popover is open (controlled) |
+| `format` | `string` | `"MM/dd/yyyy"` | Date format string for display |
+| `size` | `"small" \| "large"` | `undefined` | Size variant for the input |
+| `disabled` | `boolean` | `false` | Whether the date picker is disabled |
+| `readOnly` | `boolean` | `false` | Whether the input is read-only |
+| `error` | `ReactNode` | `undefined` | Error message to display |
+| `helperText` | `ReactNode` | `undefined` | Helper text shown below input |
+| `minDate` | `Date` | `undefined` | Minimum selectable date |
+| `maxDate` | `Date` | `undefined` | Maximum selectable date |
+| `disabledDateFilter` | `(date: Date) => boolean` | `undefined` | Function to filter disabled dates |
+| `a11yLabels` | `object` | `undefined` | Accessibility labels |
+| `id` | `string` | `undefined` | ID for the input element |
+| `locale` | `string` | `undefined` | Locale for date formatting |
+| `renderError` | `function` | `undefined` | Custom error renderer |
+| `textFieldProps` | `object` | `undefined` | Additional props for input |
+
+## Size Variants
+
+### Small
+- **Height**: 40px
+- **Use for**: Compact forms, tables, dense layouts
+
+### Default (Medium)
+- **Height**: 48px
+- **Use for**: Standard forms, general use
+
+### Large
+- **Height**: 56px
+- **Use for**: Emphasized inputs, touch-optimized interfaces
+
+## States
+
+### Default
+Standard appearance with calendar icon button on the right.
+
+```tsx
+<DatePicker
+  label="Select date"
+  value={date}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setDate}
+/>
+```
+
+### With Helper Text
+Provides additional context or instructions.
+
+```tsx
+<DatePicker
+  label="Event date"
+  value={date}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setDate}
+  helperText="Select the date of your event"
+/>
+```
+
+### Error State
+Shows validation errors or constraint violations.
+
+```tsx
+<DatePicker
+  label="Delivery date"
+  value={date}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setDate}
+  error="Delivery date must be at least 2 days from now"
+/>
+```
+
+### Disabled
+Prevents all interaction with the date picker.
+
+```tsx
+<DatePicker
+  label="Fixed date"
+  value={new Date()}
+  isOpen={false}
+  onOpen={() => {}}
+  onClose={() => {}}
+  onSelect={() => {}}
+  disabled
+/>
+```
+
+### Read-only
+Shows selected date but prevents modification.
+
+```tsx
+<DatePicker
+  label="Submitted date"
+  value={submittedDate}
+  isOpen={false}
+  onOpen={() => {}}
+  onClose={() => {}}
+  onSelect={() => {}}
+  readOnly
+/>
+```
+
+## Date Restrictions
+
+### Min/Max Dates
+Restrict selectable dates to a specific range.
+
+```tsx
+const today = new Date();
+const nextMonth = new Date();
+nextMonth.setMonth(today.getMonth() + 1);
+
+<DatePicker
+  label="Appointment date"
+  value={date}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setDate}
+  minDate={today}
+  maxDate={nextMonth}
+  helperText="Select a date within the next 30 days"
+/>
+```
+
+### Custom Date Filter
+Disable specific dates (e.g., weekends, holidays).
+
+```tsx
+const isWeekend = (date: Date) => {
+  const day = date.getDay();
+  return day === 0 || day === 6; // Sunday or Saturday
+};
+
+<DatePicker
+  label="Business day"
+  value={date}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setDate}
+  disabledDateFilter={isWeekend}
+  helperText="Weekends are not available"
+/>
+```
+
+## Design Tokens
+
+The DatePicker component uses Living Design 3.5 semantic tokens for consistent theming:
+
+### Colors
+- Input border: `--ld-semantic-color-field-border`
+- Input background: `--ld-semantic-color-field-fill`
+- Input text: `--ld-semantic-color-field-text-on-fill`
+- Error border: `--ld-semantic-color-field-border-negative`
+- Error text: `--ld-semantic-color-text-negative`
+- Calendar background: `--ld-semantic-color-surface-overlay`
+- Selected date: `--ld-semantic-color-action-fill-primary`
+
+### Spacing
+- Input padding: `--ld-primitive-scale-space-150` (12px)
+- Popover padding: `--ld-primitive-scale-space-200` (16px)
+- Icon button position: `--ld-primitive-scale-space-100` (8px from right)
+
+### Border Radius
+- Input corners: `--ld-primitive-scale-border-radius-100` (8px)
+- Popover corners: `--ld-primitive-scale-border-radius-100` (8px)
+
+### Elevation
+- Popover shadow: `--ld-semantic-elevation-300`
+
+## Accessibility
+
+The DatePicker component is fully accessible:
+
+### Keyboard Navigation
+- **Tab**: Focus input field, then icon button
+- **Enter/Space** (on icon button): Open calendar
+- **Escape** (in calendar): Close calendar
+- **Arrow keys** (in calendar): Navigate dates
+- **Enter/Space** (in calendar): Select focused date
+
+### ARIA Attributes
+- Input has `aria-haspopup="dialog"` and `aria-expanded` states
+- Icon button has descriptive `aria-label`
+- Calendar has proper date cell labels
+- Error messages linked via `aria-describedby`
+
+### Screen Reader Support
+- Label announced before input
+- Current value announced
+- Error messages announced immediately
+- Calendar date cells have full date context
+
+## Best Practices
+
+### DO ✅
+- Always provide a clear label
+- Use helper text to clarify date format or restrictions
+- Set min/max dates when appropriate
+- Handle both manual entry and calendar selection
+- Show validation errors clearly
+- Use controlled state for `isOpen` to manage popover
+
+### DON'T ❌
+- Don't use for date ranges (single dates only)
+- Don't hard-code date formats (use `format` prop)
+- Don't ignore min/max date validation
+- Don't make calendar the only input method
+- Don't use unclear labels like "Date"
+
+## Examples
+
+### Appointment Booking
+```tsx
+const [appointmentDate, setAppointmentDate] = useState<Date>();
+const [isOpen, setIsOpen] = useState(false);
+
+const tomorrow = new Date();
+tomorrow.setDate(tomorrow.getDate() + 1);
+
+const threeMonthsOut = new Date();
+threeMonthsOut.setMonth(tomorrow.getMonth() + 3);
+
+<DatePicker
+  label="Appointment date"
+  value={appointmentDate}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={setAppointmentDate}
+  minDate={tomorrow}
+  maxDate={threeMonthsOut}
+  helperText="Appointments available for the next 3 months"
+/>
+```
+
+### Event Registration
+```tsx
+const [eventDate, setEventDate] = useState<Date>();
+const [isOpen, setIsOpen] = useState(false);
+const [error, setError] = useState<string>();
+
+const handleDateSelect = (date?: Date) => {
+  if (!date) {
+    setError('Please select a date');
+    return;
+  }
+  
+  const today = new Date();
+  if (date < today) {
+    setError('Event date cannot be in the past');
+    return;
+  }
+  
+  setError(undefined);
+  setEventDate(date);
+};
+
+<DatePicker
+  label="Event date"
+  value={eventDate}
+  isOpen={isOpen}
+  onOpen={() => setIsOpen(true)}
+  onClose={() => setIsOpen(false)}
+  onSelect={handleDateSelect}
+  error={error}
+  size="large"
+/>
+```
+
+## Component Composition
+
+The DatePicker is composed of:
+
+1. **DateField** - Text input with validation
+2. **IconButton** - Calendar icon trigger (ghost variant)
+3. **Popover** - Overlay container
+4. **Calendar** - DayPicker-based date selector
+
+All sub-components use Living Design 3.5 tokens for consistent theming across all Walmart platforms.
+
+## Related Components
+
+- **DateField**: For manual date entry only (no calendar popup)
+- **Calendar**: For displaying and selecting dates in a calendar grid
+- **IconButton**: Used for the calendar trigger icon
+
+## Theme Support
+
+DatePicker automatically adapts to all Living Design themes:
+- Walmart
+- Sam's Club
+- Walmart+
+- Bodega
+- Sparky
+- Cashi MX
+- Member's Mark
+
+Theme-specific colors, fonts, and spacing are applied via semantic tokens.

@@ -1,0 +1,132 @@
+---
+description: Guidelines and rules for app sidebar
+alwaysApply: false
+---
+# AppSidebar Component
+
+## Overview
+
+`AppSidebar` is the shared sidebar navigation component used across all pages. It lives in `client/components/ui/AppSidebar.tsx`.
+
+## HARD RULE: Page-Specific Navigation
+
+**Every page MUST define its own sidebar menu items.** The sidebar component is reused, but the navigation content is unique per page.
+
+### Why?
+
+Each page represents a different area of the application with its own navigation context. The Catalog page has Seller Center navigation (Catalog, Pricing, Orders, etc.), while the Dashboard page has Advertising navigation (Home, Notifications, Charts, etc.). Sharing the same menu items across pages is incorrect.
+
+### How to implement
+
+1. **Define menu items in the page file** (not in AppSidebar):
+
+```tsx
+import { AppSidebar } from '@/components/ui/AppSidebar';
+import type { SidebarMenuItem } from '@/components/ui/AppSidebar';
+import { Home, ListBox, Cart } from '@/components/icons';
+
+const myPageMenuItems: SidebarMenuItem[] = [
+  { id: 'home', label: 'Home', Icon: Home, route: '/' },
+  { id: 'catalog', label: 'Catalog', Icon: ListBox, route: '/catalog',
+    submenuItems: [
+      { id: 'sub1', label: 'Sub page', route: '/catalog/sub1' },
+    ],
+  },
+  { id: 'orders', label: 'Orders', Icon: Cart },
+];
+```
+
+2. **Pass menu items via the `menuItems` prop**:
+
+```tsx
+<AppSidebar menuItems={myPageMenuItems} />
+```
+
+3. **Never rely on the default menu items** for production pages. The defaults exist only as a fallback for development/prototyping.
+
+### Props
+
+| Prop | Type | Description |
+|------|------|-------------|
+| `menuItems` | `SidebarMenuItem[]` | **Required in practice.** Page-specific navigation items. |
+| `activeMenuItem` | `string` | Controlled active item ID. Auto-detected from route if omitted. |
+| `onMenuItemClick` | `(itemId: string) => void` | Callback when a menu item is clicked. |
+
+### SidebarMenuItem interface
+
+```typescript
+interface SidebarMenuItem {
+  id: string;
+  label: string;
+  Icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  route?: string;
+  submenuItems?: { id: string; label: string; route?: string }[];
+}
+```
+
+## HARD RULE: Always Search Icon Library First
+
+**Before importing any icon from an external package, you MUST search `client/components/icons/` first.**
+
+```bash
+# Check what's available before reaching for an external library
+ls client/components/icons/
+```
+
+The project has 300+ icons covering all common use cases. External icon imports are forbidden unless the icon genuinely does not exist in the library after a thorough search.
+
+### Icon search process (required for every new icon usage):
+
+1. Search `client/components/icons/` by name or concept (e.g., "Cart" for orders, "Tag" for pricing)
+2. Check `client/components/icons/index.tsx` for the full export list
+3. Import only from `@/components/icons` — never from `lucide-react`, `react-icons`, `heroicons`, etc.
+4. If no match exists, use the closest semantic equivalent from the library
+
+### Example — correct icon usage:
+
+```tsx
+// ✅ CORRECT — search the project library first
+import { ListBox, Upload, ScanDocument, CheckCircle } from '@/components/icons';
+
+// ❌ WRONG — never import from external icon packages
+import { FileText } from 'lucide-react';
+import { FiUpload } from 'react-icons/fi';
+```
+
+## Figma / Design Plugin Rule
+
+When generating new pages from Figma designs or the Builder plugin:
+
+1. **Read the sidebar navigation items from the design.** The Figma design specifies which navigation items belong to each page.
+2. **Search `client/components/icons/` first** before mapping any Figma icon to an import.
+3. **Map Figma icon names to the project icon library** in `client/components/icons/`.
+4. **Define the menu items array in the page file**, not in AppSidebar.
+5. **Never copy menu items from another page.** Each page has its own navigation context.
+
+## Reference implementations
+
+- **Dashboard (Index.tsx)**: Advertising navigation — Home, Notifications, Charts, Tools, Media, Uploads
+- **Catalog (Catalog.tsx)**: Seller Center navigation — Home, Catalog, Pricing, Orders, WFS, Payments, Performance, Analytics, Growth & Experiments, Advertising, Apps
+- **NotFound (NotFound.tsx)**: Uses default items (acceptable for error pages)
+
+## Available icons for sidebar navigation
+
+All icons are in `client/components/icons/`. Common sidebar icons include:
+
+| Figma Icon Name | Import |
+|----------------|--------|
+| Home | `Home` |
+| Catalog / ListBox | `ListBox` |
+| Pricing / Tag | `Tag` (import as `TagIcon` to avoid component conflict) |
+| Orders / Cart | `Cart` |
+| WFS / BoxSpark | `BoxSpark` |
+| Payments / CreditCard | `CreditCard` |
+| Performance / Speedometer | `Speedometer` |
+| Analytics / BarGraph | `BarGraph` |
+| Growth / Rocket | `Rocket` |
+| Advertising / TargetArrow | `TargetArrow` |
+| Apps / Services | `Services` |
+| Notifications / Megaphone | `Megaphone` |
+| Tools / Toolbox | `Toolbox` |
+| Media / Image | `Image` |
+| Uploads / Upload | `Upload` |

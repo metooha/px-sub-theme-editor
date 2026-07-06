@@ -1,0 +1,50 @@
+/**
+ * Walmart Legacy Theme
+ * Generated from LivingDesign Airtable Sync + LD Base
+ *
+ * INHERITANCE: LD Base → WCP → Walmart Legacy
+ * Inherits WCP commerce tokens and Customer persona
+ *
+ * Classic Walmart brand color: #0071dc (original Walmart blue)
+ * Font family: Bogle (legacy Walmart font)
+ */
+
+:root {
+  /* Legacy Walmart brand colors - CLASSIC BLUE */
+  --ld-semantic-color-action-fill-primary: var(--ld-primitive-color-blue-100, #0071dc);
+  --ld-semantic-color-action-fill-primary-focused: var(--ld-primitive-color-blue-110, #0066c6);
+  --ld-semantic-color-action-fill-primary-hovered: var(--ld-primitive-color-blue-110, #0066c6);
+  --ld-semantic-color-action-fill-primary-pressed: var(--ld-primitive-color-blue-130, #004f9a);
+  
+  --ld-semantic-color-text-brand: var(--ld-primitive-color-blue-100, #0071dc);
+  --ld-semantic-color-border-brand: var(--ld-primitive-color-blue-100, #0071dc);
+  
+  --ld-semantic-color-top-nav-fill: var(--ld-primitive-color-blue-100, #0071dc);
+  --ld-semantic-color-top-nav-fill-hovered: var(--ld-primitive-color-blue-110, #0066c6);
+  --ld-semantic-color-top-nav-fill-pressed: var(--ld-primitive-color-blue-130, #004f9a);
+  --ld-semantic-color-top-nav-separator: var(--ld-primitive-color-blue-110, #0066c6);
+  --ld-semantic-color-top-nav-text-on-fill: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-hovered: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-focused: var(--ld-primitive-color-white, #ffffff);
+  --ld-semantic-color-top-nav-text-on-fill-pressed: var(--ld-primitive-color-white, #ffffff);
+
+  /* Legacy Font Family - Bogle (override primitive) */
+  --ld-primitive-font-family-sans: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+
+  /* Semantic font overrides */
+  --ld-semantic-font-body-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-medium-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-caption-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-display-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-large-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-medium-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-heading-small-family: Bogle, 'Everyday Sans UI', -apple-system, Roboto, sans-serif;
+  --ld-semantic-font-body-mono-large-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-body-mono-medium-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-body-mono-small-family: 'Bogle Mono', 'Courier New', monospace;
+  --ld-semantic-font-caption-mono-family: 'Bogle Mono', 'Courier New', monospace;
+
+  /* Inherits WCP commerce tokens and all LD Base tokens */
+}

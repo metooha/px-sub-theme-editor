@@ -1,0 +1,79 @@
+---
+description: Prohibit emojis — use icon library instead
+alwaysApply: false
+---
+# RULE: No Emojis, Use Icons - No Random Images
+
+## Overview
+
+When implementing new designs or responding to user prompts, you MUST NOT use emojis or generate random images. Use the icon library and placeholder patterns instead.
+
+## Hard Rules
+
+### PROHIBITED: Emojis
+
+**NEVER use emojis in:**
+- Component code
+- UI text
+- Button labels
+- Placeholder content
+
+**Why:**
+- Emojis are not part of Living Design 3.5
+- Inconsistent rendering across platforms
+- Accessibility issues (screen readers)
+- Not brand-appropriate for Walmart/Sam's Club/enterprise
+- Can't be themed or customized
+
+### REQUIRED: Use Icon Library
+
+
+import * as Icons from '@/components/icons';
+
+// DON'T
+<button>Search 🔍</button>
+
+// DO
+<button>
+  <Icons.Search /> Search
+</button>
+```
+
+### PROHIBITED: Random/Generated Images
+
+**NEVER use:**
+- `<img src="https://via.placeholder.com/...">`
+- `<img src="https://picsum.photos/...">`
+- `<img src="https://source.unsplash.com/...">`
+
+### REQUIRED: Always Use Figma Image Exports
+
+**If an image exists in the Figma design, it MUST be exported and used in the implementation.**
+
+Never replace a Figma image with a gray box, icon, or placeholder.
+
+```tsx
+// DON'T
+<div style={{ width: '400px', height: '300px', backgroundColor: 'var(--ld-semantic-color-fill-subtle)' }} />
+
+// DO
+<img src="/images/product-hero.png" alt="Product" />
+```
+
+## Quick Reference
+
+| Need | Don't Use | Use Instead |
+|------|-----------|-------------|
+| Search | 🔍 | `<Icons.Search />` |
+| Settings | ⚙️ | `<Icons.Settings />` |
+| Check | ✅ | `<Icons.Check />` or `<Icons.CheckCircle />` |
+| Error | ❌ | `<Icons.X />` or `<Icons.ExclamationCircle />` |
+| Warning | ⚠️ | `<Icons.Warning />` |
+| Plus/Add | ➕ | `<Icons.Plus />` |
+| Delete | 🗑️ | `<Icons.Trash />` |
+
+---
+
+**IMPORTANT**: This is a HARD RULE. No emojis or random images in production code.
+
+**Exceptions**: Only with explicit user request ("use an emoji" or "generate an image").

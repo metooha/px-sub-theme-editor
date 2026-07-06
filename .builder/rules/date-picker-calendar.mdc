@@ -1,0 +1,240 @@
+---
+description: Guidelines and rules for date picker calendar
+alwaysApply: false
+---
+# Date Picker Calendar
+
+## Overview
+
+The Date Picker Calendar is an LD 3.5 component for date selection. It provides a visual calendar interface with support for single, multiple, and range date selection modes. The component follows Living Design 3.5 specifications and uses semantic design tokens throughout.
+
+## Component Location
+
+- **Component**: `client/components/ui/DatePickerCalendar.tsx`
+- **Styles**: `client/components/ui/DatePickerCalendar.module.css`
+- **Example**: `client/components/examples/CalendarExample.tsx`
+
+## Usage
+
+```tsx
+import { DatePickerCalendar } from '@/components/ui/DatePickerCalendar';
+
+function MyComponent() {
+  const [date, setDate] = useState<Date>();
+  
+  return (
+    <DatePickerCalendar
+      mode="single"
+      value={date}
+      onSelect={setDate}
+    />
+  );
+}
+```
+
+## Variants
+
+### Standard Week View (Sun-Sat)
+
+The default calendar view with weeks starting on Sunday.
+
+```tsx
+<DatePickerCalendar
+  mode="single"
+  value={date}
+  onSelect={setDate}
+  weekStartsOn={0}
+/>
+```
+
+### Week Numbers View (Sat-Fri)
+
+Calendar with week numbers displayed in the first column. Weeks start on Saturday.
+
+```tsx
+<DatePickerCalendar
+  mode="single"
+  value={date}
+  onSelect={setDate}
+  showWeekNumbers
+  weekStartsOn={6}
+/>
+```
+
+## Selection Modes
+
+### Single Selection
+
+Select a single date.
+
+```tsx
+<DatePickerCalendar
+  mode="single"
+  value={date}
+  onSelect={setDate}
+/>
+```
+
+### Multiple Selection
+
+Select multiple dates.
+
+```tsx
+<DatePickerCalendar
+  mode="multiple"
+  selected={dates}
+  onSelect={setDates}
+/>
+```
+
+### Range Selection
+
+Select a date range.
+
+```tsx
+<DatePickerCalendar
+  mode="range"
+  selected={{ from: startDate, to: endDate }}
+  onSelect={setRange}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `value` | `Date` | - | Selected date (for single mode) |
+| `onSelect` | `(date?: Date) => void` | - | Callback when date is selected |
+| `mode` | `'single' \| 'multiple' \| 'range'` | `'single'` | Selection mode |
+| `selected` | `Date \| Date[] \| { from?: Date; to?: Date }` | - | Selected date(s) for multiple/range modes |
+| `disabled` | `((date: Date) => boolean) \| Date \| Date[]` | - | Disable specific dates |
+| `fromDate` | `Date` | - | Minimum selectable date |
+| `toDate` | `Date` | - | Maximum selectable date |
+| `showWeekNumbers` | `boolean` | `false` | Show week numbers column |
+| `weekStartsOn` | `0 \| 1 \| 2 \| 3 \| 4 \| 5 \| 6` | `0` | First day of week (0=Sunday) |
+| `numberOfMonths` | `number` | `1` | Number of months to display |
+| `defaultMonth` | `Date` | - | Default month to display |
+| `month` | `Date` | - | Current month (controlled) |
+| `onMonthChange` | `(month: Date) => void` | - | Callback when month changes |
+| `className` | `string` | - | Additional CSS class |
+| `UNSAFE_style` | `CSSProperties` | - | Inline styles (escape hatch) |
+
+## Design Tokens
+
+The Date Picker Calendar uses the following LD 3.5 semantic tokens:
+
+### Colors
+
+- `--ld-semantic-color-text` - Primary text color (#2e2f32)
+- `--ld-semantic-color-text-subtle` - Secondary text color (#515357)
+- `--ld-semantic-color-text-disabled` - Disabled text color (#babbbe)
+- `--ld-semantic-color-action-fill-primary` - Selected date border (#0071dc)
+- `--ld-semantic-color-action-fill-subtle` - Range fill background (#e5f0ff)
+- `--ld-semantic-color-fill-subtle` - Hover background (#f5f5f6)
+
+### Typography
+
+- `--ld-semantic-font-family-sans` - Font family (Everyday Sans UI)
+- Font sizes: 16px (month/year), 14px (days), 12px (day headers)
+- Font weights: 700 (bold headers), 400 (regular text)
+
+### Spacing
+
+- `--ld-primitive-scale-space-200` (16px) - Component padding
+- `--ld-primitive-scale-space-150` (12px) - Header bottom padding
+- `--ld-primitive-scale-space-100` (8px) - Day headers bottom margin
+- `--ld-primitive-scale-space-50` (4px) - Grid gaps
+
+### Dimensions
+
+- Day cell: 40px × 40px
+- Navigation button: 28px × 28px
+- Border radius: 50% for circular day cells
+
+## Accessibility
+
+- Navigation buttons have `aria-label` attributes
+- Day buttons have `aria-label` with full date
+- Selected dates have `aria-selected="true"`
+- Disabled dates are marked with `disabled` attribute
+- Keyboard navigation supported through native button focus
+
+## Visual States
+
+### Selected Date
+
+- Blue circular border (2px)
+- Uses `--ld-semantic-color-action-fill-primary`
+- Background remains transparent
+
+### Today's Date
+
+- Bold font weight
+- Visually distinct from other dates
+
+### Hover State
+
+- Subtle background color
+- Uses `--ld-semantic-color-fill-subtle`
+
+### Disabled Date
+
+- Reduced opacity (0.5)
+- Disabled cursor
+- Color: `--ld-semantic-color-text-disabled`
+
+### Outside Month Dates
+
+- Reduced opacity (0.5)
+- Grayed out text
+
+## Week Numbers
+
+When `showWeekNumbers` is enabled:
+
+- First column shows week numbers (1-52)
+- Header displays "WM WK" (Walmart Week)
+- Grid expands from 7 to 8 columns
+- Week calculation follows ISO 8601 standard
+
+## Best Practices
+
+1. **Always provide labels**: Use with accessible labels for screen readers
+2. **Handle empty state**: Provide a default value or placeholder
+3. **Validate date ranges**: Use `fromDate` and `toDate` to restrict selection
+4. **Use with DatePicker**: Combine with DatePicker component for text input + calendar
+5. **Consistent spacing**: Wrap in a container with consistent padding/borders
+6. **Token compliance**: Never override colors with hard-coded values
+
+## Migration from Legacy Calendar
+
+If migrating from the old `calendar.tsx` component:
+
+```tsx
+// OLD (deprecated)
+import { Calendar } from '@/components/ui/calendar';
+<Calendar mode="single" selected={date} onSelect={setDate} />
+
+// NEW (LD 3.5)
+import { DatePickerCalendar } from '@/components/ui/DatePickerCalendar';
+<DatePickerCalendar mode="single" value={date} onSelect={setDate} />
+```
+
+Key differences:
+- Prop `selected` → `value` for single mode
+- Built-in LD 3.5 styling (no need for className tweaks)
+- Week numbers support
+- Better token usage
+
+## Related Components
+
+- **DatePicker** (`DatePicker.tsx`) - Text field + calendar popover
+- **DateField** (`DateField.tsx`) - Text input for manual date entry
+- **Calendar Icon** (`icons/Calendar.tsx`) - Calendar icon for triggers
+
+## Examples
+
+See `client/components/examples/CalendarExample.tsx` for comprehensive usage examples including:
+- Single date selection
+- Week numbers variant
+- Side-by-side comparison of variants

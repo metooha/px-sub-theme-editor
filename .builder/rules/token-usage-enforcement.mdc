@@ -1,0 +1,93 @@
+---
+description: Enforce token usage for all styling values across components
+alwaysApply: false
+---
+# RULE: Token Usage Enforcement
+
+## Overview
+
+**ALL components MUST use Living Design tokens for styling values.** Hardcoded values are strictly prohibited except in rare, documented cases.
+
+## Hard Rule
+
+### REQUIRED: Use Tokens
+
+**You MUST use tokens for:**
+
+1. **Spacing** (padding, margin, gap, width, height)
+   - Use: `var(--ld-primitive-scale-space-*)` or `var(--ld-semantic-spacing-*)`
+   - NEVER: `padding: 8px` or `gap: 12px`
+   - ALWAYS: `padding: var(--ld-primitive-scale-space-100)` or `gap: var(--ld-primitive-scale-space-150)`
+
+2. **Border Radius** (border-radius, border-top-left-radius, etc.)
+   - Use: `var(--ld-primitive-scale-border-radius-*)`
+   - NEVER: `border-radius: 4px` or `border-radius: 8px`
+
+3. **Border Width** (border, border-width, outline)
+   - Use: `var(--ld-semantic-scale-border-width-*)`
+   - NEVER: `border: 2px solid` or `border-width: 1px`
+
+4. **Typography** (font-size, line-height, font-weight, font-family)
+   - Use: `var(--ld-semantic-font-*)`
+   - NEVER: `font-size: 14px` or `line-height: 20px` or `font-family: Arial`
+
+5. **Colors** (background-color, color, border-color, fill, stroke)
+   - Use: `var(--ld-semantic-color-*)`
+   - NEVER: `color: #2e2f32` or `background: #0053e2`
+
+6. **Transitions** (transition, animation-duration)
+   - Use: `var(--ld-primitive-duration-*)`
+   - NEVER: `transition: all 0.2s` or `animation-duration: 0.15s`
+
+7. **Icon Sizes** (width/height of SVG icons)
+   - Use: `var(--ld-semantic-scale-icon-*)`
+   - NEVER: `width: 16px; height: 16px;` for icons
+
+### EXCEPTIONS (Rare)
+
+You MAY use hardcoded values ONLY when:
+
+1. **Exact component height specifications** from design system
+   - Must be documented with comment: `height: 32px; /* LD 3.5 spec */`
+
+2. **Unit-less values**
+   - Example: `flex: 1`, `opacity: 0.8`, `z-index: 1000`
+
+3. **Transform values**
+   - Example: `transform: rotate(45deg)` — but use tokens for px values
+
+**All exceptions MUST have inline comments explaining why.**
+
+---
+
+## Violation Examples
+
+### VIOLATIONS
+
+
+/* BAD - All hardcoded */
+.myComponent {
+  padding: 16px 20px;
+  font-size: 14px;
+  border-radius: 8px;
+  background-color: #0053e2;
+  transition: all 0.2s ease;
+}
+```
+
+### CORRECT
+
+```css
+/* GOOD - All tokens */
+.myComponent {
+  padding: var(--ld-primitive-scale-space-200) var(--ld-primitive-scale-space-250);
+  font-size: var(--ld-semantic-font-body-small-size);
+  border-radius: var(--ld-primitive-scale-border-radius-100);
+  background-color: var(--ld-semantic-color-action-fill-primary);
+  transition: all var(--ld-primitive-duration-200) ease;
+}
+```
+
+---
+
+**This is a HARD RULE. No exceptions without documented justification.**

@@ -104,8 +104,6 @@ export default function PageTemplate() {
             {/* Primary section */}
             <PrimarySection />
           </div>
-
-          <MartyFloatingPanel />
         </main>
       </div>
     </div>

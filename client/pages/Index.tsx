@@ -226,11 +226,7 @@ export default function Index() {
               <DataTableExample />
             </div>
           </div>
-
-          {!isSidePanel && <MartyFloatingPanel />}
         </main>
-
-        {isSidePanel && <MartyFloatingPanel />}
       </div>
     </div>
   );

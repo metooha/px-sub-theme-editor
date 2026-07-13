@@ -13,7 +13,6 @@ import { Select, SelectItem } from "@/components/ui/Select";
 import DataTableExample from "@/components/examples/DataTableExample";
 import { MastHead } from "@/components/ui/MastHead";
 import { AppSidebar } from "@/components/ui/AppSidebar";
-import MartyFloatingPanel from "@/features/marty/MartyFloatingPanel";
 
 const HIGHLIGHT_CLASS = 'marty-selecting-hover';
 const ACTIVATED_CLASS = 'marty-selecting-activated';

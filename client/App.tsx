@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MartyProvider } from "@/contexts/MartyContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ComponentLibraryLayout } from "./components/ComponentLibraryLayout";
+import MartyFloatingPanel from "@/features/marty/MartyFloatingPanel";
 
 import React from 'react';
 
@@ -193,6 +194,7 @@ const App = () => (
               {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>
+            <MartyFloatingPanel />
             </React.Suspense>
         </MartyProvider>
           </BrowserRouter>

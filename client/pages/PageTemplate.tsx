@@ -16,7 +16,6 @@ import {
   SecondarySection as LDSecondarySection,
   TertiarySection as LDTertiarySection,
 } from "@/components/ui/Section";
-import MartyFloatingPanel from "@/features/marty/MartyFloatingPanel";
 import {
   Home,
   Megaphone,

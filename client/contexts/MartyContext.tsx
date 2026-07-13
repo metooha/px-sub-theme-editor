@@ -53,18 +53,18 @@ export function MartyProvider({ children }: MartyProviderProps) {
   const [isMinimized, setIsMinimized] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('marty-minimized');
-      return saved !== null ? JSON.parse(saved) : false;
+      return saved !== null ? JSON.parse(saved) : true;
     } catch {
-      return false;
+      return true;
     }
   });
 
   const [isDocked, setIsDocked] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('marty-docked');
-      return saved !== null ? JSON.parse(saved) : true;
+      return saved !== null ? JSON.parse(saved) : false;
     } catch {
-      return true;
+      return false;
     }
   });
 
@@ -79,9 +79,9 @@ export function MartyProvider({ children }: MartyProviderProps) {
   const [isSidePanel, setIsSidePanelRaw] = useState<boolean>(() => {
     try {
       const saved = localStorage.getItem('marty-side-panel');
-      return saved !== null ? JSON.parse(saved) : true;
+      return saved !== null ? JSON.parse(saved) : false;
     } catch {
-      return true;
+      return false;
     }
   });
 

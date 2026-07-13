@@ -20,6 +20,7 @@ import { DataTable } from '@/components/ui/DataTable';
 import { DataTableRow } from '@/components/ui/DataTableRow';
 import { DataTableHeader } from '@/components/ui/DataTableHeader';
 import { DataTableCell } from '@/components/ui/DataTableCellText';
+import styles from './MartyFloatingPanel.module.css';
 
 /** Renders **bold** markdown as <strong> elements, preserving newlines. */
 function renderMarkdown(text: string): ReactNode {
@@ -77,6 +78,7 @@ interface Message {
 }
 
 const MARK_AVATAR_URL = 'https://cdn.builder.io/api/v1/image/assets%2F02297b1ff48d4a2f8e4d9ed415c47ecf%2Fa89e103cb07a44d3b9b5886b04f29ffa?format=webp&width=800&height=1200';
+const FAB_AVATAR_SIZE = 42;
 
 /** Mark's avatar — uses his profile image */
 function MarkAvatar({ size = 28 }: { size?: number }) {
@@ -536,6 +538,14 @@ export default function MartyFloatingPanel() {
 
   const handleExpand = (e?: React.MouseEvent) => {
     setIsMinimized(false);
+  };
+
+  const openBottomSheetChat = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setIsDocked(false);
+    setDockedSection(null);
+    setIsSidePanel(false);
+    handleExpand(e);
   };
 
   const animateResponse = async (assistantId: string, response: string): Promise<void> => {
@@ -1515,7 +1525,7 @@ export default function MartyFloatingPanel() {
       <>
         {quickPromptsPortal}
         <div
-          className="fixed z-[9999]"
+          className={`${styles.desktopFab} fixed z-[9999]`}
           style={{
             bottom: hasMoved ? 'auto' : '32px',
             right: hasMoved ? 'auto' : '32px',
@@ -1528,23 +1538,17 @@ export default function MartyFloatingPanel() {
             ref={fabButtonRef}
             onMouseDown={handleMouseDown}
             onClick={(e) => {
-              e.stopPropagation();
               // Only expand if this was a click (not a drag)
               if (!isDraggingRef.current) {
-                if (!isDocked) {
-                  // Undocked: force bottom-sheet mode (not side panel)
-                  setIsSidePanel(false);
-                }
-                handleExpand(e);
+                openBottomSheetChat(e);
               }
               // Reset the ref after handling click
               safeTimeout(() => {
                 isDraggingRef.current = false;
               }, 100);
             }}
-            className="inline-flex justify-end items-center gap-2 rounded-full shadow-[0_-1px_3px_0_rgba(0,0,0,0.10),0_3px_5px_2px_rgba(0,0,0,0.15)] relative group transition-all duration-200 ease-out overflow-visible"
+            className={`${styles.fabButton} inline-flex justify-center items-center rounded-full shadow-[0_-1px_3px_0_rgba(0,0,0,0.10),0_3px_5px_2px_rgba(0,0,0,0.15)] relative group transition-all duration-200 ease-out overflow-visible`}
             style={{
-              padding: 'var(--ld-primitive-scale-border-width-200, 0.125rem)',
               cursor: isDragging ? 'grabbing' : 'move'
             }}
           >
@@ -1555,21 +1559,21 @@ export default function MartyFloatingPanel() {
             />
 
             {/* Content — white surface sits on gradient to show it only as border */}
-            <div className="flex items-center rounded-full relative z-10 transition-all duration-200 ease-out w-[50px] h-[50px] justify-center p-0" style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)' }}>
+            <div className={`${styles.fabSurface} flex items-center rounded-full relative z-10 transition-all duration-200 ease-out justify-center`} style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)' }}>
               {/* Marty Mascot Logo */}
-              <div className="flex justify-center items-center rounded-full flex-shrink-0 relative w-[50px] h-[50px]">
-                <div className="rounded-full w-full h-full flex items-center justify-center">
+              <div className={`${styles.fabIcon} flex justify-center items-center rounded-full flex-shrink-0 relative`}>
+                <div className="rounded-full w-full h-full flex items-center justify-center overflow-hidden">
                   <div
                     style={{
-                      width: 42,
-                      height: 42,
+                      width: FAB_AVATAR_SIZE,
+                      height: FAB_AVATAR_SIZE,
                       transform: `translate(${eyePosition.x}px, ${eyePosition.y}px)`,
                       transition: 'transform 0.1s ease-out'
                     }}
                   >
                     <MartyAvatar
-                      size={42}
-                      variant={hasMoved ? 'glasses' : 'default'}
+                      size={FAB_AVATAR_SIZE}
+                      variant="glasses"
                     />
                   </div>
                 </div>
@@ -1657,7 +1661,7 @@ export default function MartyFloatingPanel() {
 
   const fabJsx = isSidePanel && !isDocked && (
     <div
-      className="fixed z-[9999]"
+      className={`${styles.desktopFab} fixed z-[9999]`}
       style={{
         bottom: hasMoved ? 'auto' : '32px',
         right: hasMoved ? 'auto' : '32px',
@@ -1669,19 +1673,17 @@ export default function MartyFloatingPanel() {
       <button
         onMouseDown={handleMouseDown}
         onClick={(e) => {
-          e.stopPropagation();
           if (!isDraggingRef.current) {
-            handleExpand(e);
+            openBottomSheetChat(e);
           }
           safeTimeout(() => {
             isDraggingRef.current = false;
           }, 100);
         }}
-        className={`inline-flex justify-end items-center gap-2 rounded-full shadow-[0_-1px_3px_0_rgba(0,0,0,0.10),0_3px_5px_2px_rgba(0,0,0,0.15)] relative group transition-all duration-200 ease-out ${
+        className={`${styles.fabButton} inline-flex justify-center items-center rounded-full shadow-[0_-1px_3px_0_rgba(0,0,0,0.10),0_3px_5px_2px_rgba(0,0,0,0.15)] relative group transition-all duration-200 ease-out ${
           hasMoved ? 'overflow-visible' : 'overflow-hidden'
         }`}
         style={{
-          padding: 'var(--ld-primitive-scale-border-width-200, 0.125rem)',
           cursor: isDragging ? 'grabbing' : 'move'
         }}
       >
@@ -1689,29 +1691,13 @@ export default function MartyFloatingPanel() {
           className="absolute inset-0 rounded-full"
           style={{ background: 'linear-gradient(134deg, var(--ld-semantic-color-border-magic-start) 10.5%, var(--ld-semantic-color-border-magic-middle) 71.77%, var(--ld-semantic-color-border-magic-stop) 102.41%)' }}
         />
-        <div className={`flex items-center rounded-full relative z-10 transition-all duration-200 ease-out ${
-          hasMoved ? 'w-[50px] h-[50px] justify-center p-0' : 'gap-2 py-2 pl-2 pr-4'
-        }`} style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)' }}>
-          <div className={`flex justify-center items-center rounded-full flex-shrink-0 relative ${
-            hasMoved ? 'w-[50px] h-[50px]' : 'w-[38px] h-[38px] overflow-hidden'
-          }`}>
-            <div className={`rounded-full ${hasMoved ? '' : 'overflow-hidden'} w-full h-full flex items-center justify-center`}>
-              <div style={{ width: hasMoved ? 42 : 38, height: hasMoved ? 42 : 38 }}>
-                <MartyAvatar size={hasMoved ? 42 : 38} variant={hasMoved ? 'glasses' : 'default'} />
+        <div className={`${styles.fabSurface} flex items-center rounded-full relative z-10 transition-all duration-200 ease-out justify-center`} style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)' }}>
+          <div className={`${styles.fabIcon} flex justify-center items-center rounded-full flex-shrink-0 relative`}>
+            <div className="rounded-full overflow-hidden w-full h-full flex items-center justify-center">
+              <div style={{ width: FAB_AVATAR_SIZE, height: FAB_AVATAR_SIZE }}>
+                <MartyAvatar size={FAB_AVATAR_SIZE} variant="glasses" />
               </div>
             </div>
-          </div>
-          <div className={`[color:var(--ld-semantic-color-text)] text-right text-base leading-6 whitespace-nowrap flex items-center gap-0.5 transition-all duration-200 ease-out ${
-            hasMoved ? 'max-w-0 opacity-0 group-hover:max-w-[200px] group-hover:opacity-100 overflow-hidden' : ''
-          }`}>
-            {!hasMoved ? (
-              <>
-                <span className="inline-block max-w-0 opacity-0 group-hover:max-w-[150px] group-hover:opacity-100 font-normal overflow-hidden transition-all duration-200 ease-out">{t('haveQuestion')}</span>
-                <span className="font-bold">{t('askMarty')}</span>
-              </>
-            ) : (
-              <span className="font-normal whitespace-nowrap">{t('haveQuestion')} <span className="font-bold">{t('askMarty')}</span></span>
-            )}
           </div>
         </div>
       </button>

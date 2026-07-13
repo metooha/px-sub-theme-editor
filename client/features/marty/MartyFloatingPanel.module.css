@@ -1,0 +1,30 @@
+.desktopFab {
+  display: none;
+}
+
+.fabButton {
+  width: var(--ld-semantic-spacing-800);
+  height: var(--ld-semantic-spacing-800);
+  padding: var(--ld-primitive-scale-border-width-200);
+}
+
+.fabSurface {
+  width: 100%;
+  height: 100%;
+}
+
+.fabIcon {
+  width: 100%;
+  height: 100%;
+}
+
+.fabAvatar {
+  width: var(--ld-semantic-spacing-700);
+  height: var(--ld-semantic-spacing-700);
+}
+
+@media (min-width: 769px) {
+  .desktopFab {
+    display: block;
+  }
+}

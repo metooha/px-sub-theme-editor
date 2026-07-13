@@ -1222,7 +1222,7 @@ function DockedMartyButton() {
       >
         <div style={{ width: 24, height: 24, overflow: 'hidden', borderRadius: '50%' }}>
           <img
-            src="/assets/sparky-wink.png"
+            src="/assets/wink.gif"
             alt=""
             width={24}
             height={24}

@@ -1581,7 +1581,7 @@ export default function MartyFloatingPanel() {
                     }}
                   >
                     <img
-                      src="/assets/sparky-wink.png"
+                      src="/assets/wink.gif"
                       alt=""
                       width={FAB_AVATAR_SIZE}
                       height={FAB_AVATAR_SIZE}
@@ -1708,7 +1708,7 @@ export default function MartyFloatingPanel() {
             <div className="rounded-full overflow-hidden w-full h-full flex items-center justify-center">
               <div style={{ width: FAB_AVATAR_SIZE, height: FAB_AVATAR_SIZE }}>
                 <img
-                  src="/assets/sparky-wink.png"
+                  src="/assets/wink.gif"
                   alt=""
                   width={FAB_AVATAR_SIZE}
                   height={FAB_AVATAR_SIZE}

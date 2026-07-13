@@ -73,7 +73,7 @@ function MartyMastheadDock() {
     >
       <div style={{ width: 20, height: 20, overflow: 'hidden', borderRadius: '50%' }}>
         <img
-          src="/assets/sparky-wink.png"
+          src="/assets/wink.gif"
           alt=""
           width={20}
           height={20}

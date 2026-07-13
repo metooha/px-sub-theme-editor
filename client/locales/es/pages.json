@@ -21,6 +21,22 @@
     "totalAttributedOrders": "Pedidos atribuidos totales",
     "totalAttributedUnits": "Unidades atribuidas totales"
   },
+  "campaignDashboard": {
+    "alertMessage": "3 campañas están gastando por encima de su presupuesto asignado. Revisa las recomendaciones a continuación o pregúntale al Asistente de IA por un desglose completo del ritmo de gasto.",
+    "pageTitle": "Panel de rendimiento de campañas",
+    "rec1Category": "Ritmo de presupuesto",
+    "rec1Heading": "Aumentar el presupuesto de Holiday Promotions Q4",
+    "rec1Body": "Esta campaña está gastando un 18 % menos de su presupuesto con un sólido ROAS de $4.20. Aumentar el presupuesto diario podría captar más tráfico de alta intención antes de que termine la temporada.",
+    "rec1Cta": "Ajustar presupuesto",
+    "rec2Category": "Segmentación",
+    "rec2Heading": "Redirigir el gasto hacia la segmentación conductual",
+    "rec2Body": "La segmentación conductual supera a la contextual en un 32 % de CTR en las campañas activas. Reasignar el presupuesto podría mejorar la eficiencia general.",
+    "rec2Cta": "Revisar segmentación",
+    "rec3Category": "Creativo",
+    "rec3Heading": "Actualizar creativos con fatiga",
+    "rec3Body": "3 grupos de anuncios muestran fatiga creativa, con el CTR bajando un 12 % semana a semana. Actualizar los creativos podría ayudar a recuperar el engagement perdido.",
+    "rec3Cta": "Ver creativos"
+  },
   "notFound": {
     "errorCode": "404",
     "heading": "Página no encontrada",

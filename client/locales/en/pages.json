@@ -21,6 +21,22 @@
     "totalAttributedOrders": "Total attributed orders",
     "totalAttributedUnits": "Total attributed units"
   },
+  "campaignDashboard": {
+    "alertMessage": "3 campaigns are currently pacing above their allotted budget. Review the recommendations below, or ask the AI Assistant for a full pacing breakdown.",
+    "pageTitle": "Campaign Performance Dashboard",
+    "rec1Category": "Budget pacing",
+    "rec1Heading": "Increase budget for Holiday Promotions Q4",
+    "rec1Body": "This campaign is pacing 18% under budget with a strong $4.20 ROAS. Increasing daily budget could capture more high-intent traffic before the holiday window closes.",
+    "rec1Cta": "Adjust budget",
+    "rec2Category": "Targeting",
+    "rec2Heading": "Shift spend toward behavioral targeting",
+    "rec2Body": "Behavioral targeting is outperforming contextual by 32% CTR across active campaigns. Reallocating budget could improve overall efficiency.",
+    "rec2Cta": "Review targeting",
+    "rec3Category": "Creative",
+    "rec3Heading": "Refresh fatigued creative assets",
+    "rec3Body": "3 ad groups show creative fatigue, with CTR down 12% week-over-week. Refreshing creative could help recover lost engagement.",
+    "rec3Cta": "View creatives"
+  },
   "notFound": {
     "errorCode": "404",
     "heading": "Page Not Found",

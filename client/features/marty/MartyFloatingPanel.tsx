@@ -455,45 +455,12 @@ export default function MartyFloatingPanel() {
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseUp = (e: MouseEvent) => {
+    const handleMouseUp = () => {
       setIsDragging(false);
-
-      if (!hasMovedRef.current) return;
-
-      // Remove any active drop-zone highlights
-      document.querySelectorAll('[data-marty-dock-zone]').forEach(el => {
-        (el as HTMLElement).removeAttribute('data-marty-dock-active');
-      });
-
-      // 1. Masthead snap zone (top 80px) — dock AND keep panel open
-      if (!isDockedRef.current && e.clientY < 80) {
-        setIsDocked(true);
-        setDockedSection(null);
-        setIsSidePanel(true);
-        return;
-      }
-
-      // 2. Named section snap zones — dock AND keep panel open as side panel
-      const zones = document.querySelectorAll('[data-marty-dock-zone]');
-      for (const zone of zones) {
-        const rect = zone.getBoundingClientRect();
-        const pad = 80;
-        if (
-          e.clientX >= rect.left - pad &&
-          e.clientX <= rect.right + pad &&
-          e.clientY >= rect.top - pad &&
-          e.clientY <= rect.bottom + pad
-        ) {
-          const section = zone.getAttribute('data-marty-dock-zone')!;
-          setIsDocked(true);
-          setDockedSection(section);
-          setIsSidePanel(true);
-          return;
-        }
-      }
     };
 
-    // Highlight drop zones while dragging
+    // Free drag — the FAB simply follows the cursor and stays wherever it's dropped.
+    // No docking / side-panel side effects; moving the FAB never opens the chat panel.
     const handleMouseMove = (e: MouseEvent) => {
       const dsp = dragStartPosRef.current;
       const ds = dragStartRef.current;
@@ -507,23 +474,6 @@ export default function MartyFloatingPanel() {
         const newY = e.clientY - ds.y;
         setFabPosition({ x: newX, y: newY });
         setHasMoved(true);
-
-        if (isDockedRef.current && e.clientY > 100) {
-          setIsDocked(false);
-          setDockedSection(null);
-        }
-
-        // Highlight whichever zone the FAB is hovering over
-        document.querySelectorAll('[data-marty-dock-zone]').forEach(el => {
-          const rect = el.getBoundingClientRect();
-          const pad = 80;
-          const over =
-            e.clientX >= rect.left - pad &&
-            e.clientX <= rect.right + pad &&
-            e.clientY >= rect.top - pad &&
-            e.clientY <= rect.bottom + pad;
-          (el as HTMLElement).setAttribute('data-marty-dock-active', over ? 'true' : 'false');
-        });
       }
     };
 
@@ -534,7 +484,7 @@ export default function MartyFloatingPanel() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging, setIsDocked, setDockedSection]);
+  }, [isDragging]);
 
   const handleExpand = (e?: React.MouseEvent) => {
     setIsMinimized(false);
@@ -1571,9 +1521,12 @@ export default function MartyFloatingPanel() {
                       transition: 'transform 0.1s ease-out'
                     }}
                   >
-                    <MartyAvatar
-                      size={FAB_AVATAR_SIZE}
-                      variant="glasses"
+                    <img
+                      src="/assets/sparky-wink.png"
+                      alt=""
+                      width={FAB_AVATAR_SIZE}
+                      height={FAB_AVATAR_SIZE}
+                      style={{ display: 'block', width: '100%', height: '100%' }}
                     />
                   </div>
                 </div>
@@ -1695,7 +1648,13 @@ export default function MartyFloatingPanel() {
           <div className={`${styles.fabIcon} flex justify-center items-center rounded-full flex-shrink-0 relative`}>
             <div className="rounded-full overflow-hidden w-full h-full flex items-center justify-center">
               <div style={{ width: FAB_AVATAR_SIZE, height: FAB_AVATAR_SIZE }}>
-                <MartyAvatar size={FAB_AVATAR_SIZE} variant="glasses" />
+                <img
+                  src="/assets/sparky-wink.png"
+                  alt=""
+                  width={FAB_AVATAR_SIZE}
+                  height={FAB_AVATAR_SIZE}
+                  style={{ display: 'block', width: '100%', height: '100%' }}
+                />
               </div>
             </div>
           </div>
@@ -1749,7 +1708,7 @@ export default function MartyFloatingPanel() {
               </div>
             </div>
 
-            <div className="[color:var(--ld-semantic-color-text)] font-bold text-lg leading-6">Marty</div>
+            <div className="[color:var(--ld-semantic-color-text)] font-bold text-lg leading-6">AI Assistant</div>
 
             {/* Beta Tag */}
             <Tag variant="tertiary" color="gray">Beta</Tag>
@@ -1897,7 +1856,6 @@ export default function MartyFloatingPanel() {
                 opacity: avatarExiting ? 0 : 1,
               }}
             >
-              <MartyAvatar size={104} variant="glasses-thinking" />
               <div className="flex flex-col items-center gap-2 text-center">
                 <h1
                   className="font-bold text-2xl leading-8"

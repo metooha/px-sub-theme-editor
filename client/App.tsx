@@ -8,12 +8,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { MartyProvider } from "@/contexts/MartyContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { ComponentLibraryLayout } from "./components/ComponentLibraryLayout";
-import MartyFloatingPanel from "@/features/marty/MartyFloatingPanel";
 
 import React from 'react';
 
 // Main app pages (lazy loaded for code splitting)
 const Index = React.lazy(() => import("./pages/Index"));
+const CampaignDashboard = React.lazy(() => import("./pages/CampaignDashboard"));
 const Catalog = React.lazy(() => import("./pages/Catalog"));
 const PageTemplate = React.lazy(() => import("./pages/PageTemplate"));
 const LandingConnection = React.lazy(() => import("./pages/LandingConnection"));
@@ -184,6 +184,7 @@ const App = () => (
 
               {/* Template Homepage */}
               <Route path="/" element={<Index />} />
+              <Route path="/campaign-dashboard" element={<CampaignDashboard />} />
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/page-template" element={<PageTemplate />} />
               <Route path="/landing-connection" element={<LandingConnection />} />
@@ -194,7 +195,6 @@ const App = () => (
               {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
             </Routes>
-            <MartyFloatingPanel />
             </React.Suspense>
         </MartyProvider>
           </BrowserRouter>

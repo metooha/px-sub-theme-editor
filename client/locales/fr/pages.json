@@ -21,6 +21,22 @@
     "totalAttributedOrders": "Commandes attribuées totales",
     "totalAttributedUnits": "Unités attribuées totales"
   },
+  "campaignDashboard": {
+    "alertMessage": "3 campagnes dépassent actuellement leur budget alloué. Consultez les recommandations ci-dessous ou demandez à l'assistant IA une analyse complète du rythme de dépense.",
+    "pageTitle": "Tableau de bord des performances des campagnes",
+    "rec1Category": "Rythme du budget",
+    "rec1Heading": "Augmenter le budget pour Holiday Promotions Q4",
+    "rec1Body": "Cette campagne dépense 18 % de moins que son budget avec un ROAS solide de 4,20 $. Augmenter le budget quotidien pourrait capter davantage de trafic à forte intention avant la fin de la période des fêtes.",
+    "rec1Cta": "Ajuster le budget",
+    "rec2Category": "Ciblage",
+    "rec2Heading": "Réorienter les dépenses vers le ciblage comportemental",
+    "rec2Body": "Le ciblage comportemental surpasse le ciblage contextuel de 32 % en taux de clics sur les campagnes actives. Réaffecter le budget pourrait améliorer l'efficacité globale.",
+    "rec2Cta": "Revoir le ciblage",
+    "rec3Category": "Créatif",
+    "rec3Heading": "Actualiser les créations fatiguées",
+    "rec3Body": "3 groupes d'annonces montrent une fatigue créative, avec un taux de clics en baisse de 12 % d'une semaine à l'autre. Actualiser les créations pourrait aider à récupérer l'engagement perdu.",
+    "rec3Cta": "Voir les créations"
+  },
   "notFound": {
     "errorCode": "404",
     "heading": "Page introuvable",

@@ -1,8 +1,6 @@
 import React, { Fragment, useRef, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useMartyOptional, TableCommand } from '@/contexts/MartyContext';
-import { MartyAvatar } from '@/features/marty/MartyAvatar';
 import { DataTable, DataTableHead, DataTableBody } from '@/components/ui/DataTable';
 import { DataTableRow } from '@/components/ui/DataTableRow';
 import { DataTableHeader } from '@/components/ui/DataTableHeader';
@@ -765,29 +763,26 @@ export default function DataTableExample() {
         </div>
       )}
 
-      {/* ── Table Title — also a Marty drop zone ── */}
-      <div data-marty-dock-zone="campaigns-table" style={{ transition: 'box-shadow 200ms ease, background 200ms ease' }}>
-        <DataTableTitle
-          subtitle={t('dataTable.totalResults', { count: sortedData.length })}
-          actions={
-            <>
-              <DockedMartyButton />
-              <IconButton
-                aria-label={t('dataTable.tableSettings')}
-                variant="secondary"
-                onClick={() => setIsPanelOpen(true)}
-              >
-                <Sliders />
-              </IconButton>
-              <IconButton aria-label={t('dataTable.download')} variant="secondary">
-                <Download />
-              </IconButton>
-            </>
-          }
-        >
-          {t('dataTable.colCampaign', 'Campaigns')}
-        </DataTableTitle>
-      </div>
+      {/* ── Table Title ── */}
+      <DataTableTitle
+        subtitle={t('dataTable.totalResults', { count: sortedData.length })}
+        actions={
+          <>
+            <IconButton
+              aria-label={t('dataTable.tableSettings')}
+              variant="secondary"
+              onClick={() => setIsPanelOpen(true)}
+            >
+              <Sliders />
+            </IconButton>
+            <IconButton aria-label={t('dataTable.download')} variant="secondary">
+              <Download />
+            </IconButton>
+          </>
+        }
+      >
+        {t('dataTable.colCampaign', 'Campaigns')}
+      </DataTableTitle>
 
       {/* ── Toolbar: Search + Filters ── */}
       <div style={inlineStyles.toolbar}>
@@ -1100,129 +1095,3 @@ const INLINE_STYLES = {
   },
 } as const;
 
-/* ── Marty avatar button shown in DataTableTitle when docked to this section ── */
-function DockedMartyButton() {
-  const marty = useMartyOptional();
-  const [hovered, setHovered] = useState(false);
-  const [bubblePos, setBubblePos] = useState({ top: 0, left: 0 });
-  const btnRef = useRef<HTMLButtonElement>(null);
-
-  // Track button position for the portal bubble
-  useEffect(() => {
-    if (!hovered || !btnRef.current) return;
-    const rect = btnRef.current.getBoundingClientRect();
-    setBubblePos({
-      top: rect.top + window.scrollY - 10, // 10px gap above button
-      left: rect.left + window.scrollX + rect.width / 2,
-    });
-  }, [hovered]);
-
-  // No-op if not inside MartyProvider or not docked to this section
-  if (!marty) return null;
-  const { isDocked, dockedSection, setIsSidePanel, setIsDocked, setDockedSection, setInitialPosition, setIsMinimized } = marty;
-
-  // Show whenever docked to this section — regardless of whether side panel is open
-  if (!(isDocked && dockedSection === 'campaigns-table')) return null;
-
-  return (
-    <>
-      {/* Speech bubble rendered in a portal so it's never clipped */}
-      {hovered && createPortal(
-        <div
-          aria-hidden
-          style={{
-            position: 'absolute',
-            top: bubblePos.top,
-            left: bubblePos.left,
-            transform: 'translate(-50%, -100%)',
-            pointerEvents: 'none',
-            opacity: 1,
-            whiteSpace: 'nowrap',
-            zIndex: 99999,
-          }}
-        >
-          <div style={{
-            background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)',
-            borderRadius: '8px',
-            padding: '6px 10px',
-            fontSize: '13px',
-            fontWeight: 500,
-            color: 'var(--ld-semantic-color-text, #2e2f32)',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-            position: 'relative',
-          }}>
-            Ask me about this table
-            <div style={{
-              position: 'absolute',
-              top: '100%',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 0,
-              height: 0,
-              borderLeft: '7px solid transparent',
-              borderRight: '7px solid transparent',
-              borderTop: '7px solid #ffffff',
-              filter: 'drop-shadow(0 1px 1px rgba(0,0,0,0.08))',
-            }} />
-          </div>
-        </div>,
-        document.body
-      )}
-
-      {/* Icon-only button */}
-      <button
-        ref={btnRef}
-        onClick={() => setIsSidePanel(true)}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
-        onMouseDown={(e) => {
-          setHovered(false);
-          e.preventDefault();
-          const startX = e.clientX;
-          const startY = e.clientY;
-          const btn = e.currentTarget;
-          let moved = false;
-          const onMove = (mv: MouseEvent) => {
-            if (Math.hypot(mv.clientX - startX, mv.clientY - startY) > 5) {
-              moved = true;
-              setInitialPosition({ x: mv.clientX - 25, y: mv.clientY - 25 });
-              setIsDocked(false);
-              setDockedSection(null);
-              // Close side panel when Marty is dragged off the table
-              setIsSidePanel(false);
-              setIsMinimized(false);
-              window.removeEventListener('mousemove', onMove);
-              window.removeEventListener('mouseup', onUp);
-            }
-          };
-          const onUp = () => {
-            if (moved) (btn as any)._dragged = true;
-            window.removeEventListener('mousemove', onMove);
-            window.removeEventListener('mouseup', onUp);
-            setTimeout(() => { (btn as any)._dragged = false; }, 100);
-          };
-          window.addEventListener('mousemove', onMove);
-          window.addEventListener('mouseup', onUp);
-        }}
-        style={{
-          display: 'inline-flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '34px',
-          height: '34px',
-          borderRadius: '50%',
-          border: '1.5px solid transparent',
-          backgroundImage: 'linear-gradient(white, white), linear-gradient(134deg, var(--ld-semantic-color-border-magic-start) 10.5%, var(--ld-semantic-color-border-magic-middle) 71.77%, var(--ld-semantic-color-border-magic-stop) 102.41%)',
-          backgroundOrigin: 'border-box',
-          backgroundClip: 'padding-box, border-box',
-          cursor: 'move',
-          flexShrink: 0,
-          transition: 'box-shadow 150ms ease',
-          boxShadow: hovered ? '0 2px 8px rgba(0,0,0,0.12)' : 'none',
-        }}
-      >
-        <MartyAvatar size={24} variant="default" />
-      </button>
-    </>
-  );
-}

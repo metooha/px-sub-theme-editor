@@ -7,6 +7,7 @@ import { useState } from 'react';
 export type MediaSolution =
   | 'Page Template'
   | 'Dashboard Template'
+  | 'Campaign Dashboard'
   | 'Catalog Template'
   | 'Detail Item'
   | 'Landing Connection'
@@ -21,6 +22,7 @@ interface MediaSolutionsDropdownProps {
 const solutions: { id: MediaSolution; labelKey: string; route: string }[] = [
   { id: 'Page Template',       labelKey: 'templates.pageTemplate',       route: '/page-template' },
   { id: 'Dashboard Template',  labelKey: 'templates.dashboardTemplate',  route: '/' },
+  { id: 'Campaign Dashboard',  labelKey: 'templates.campaignDashboard',  route: '/campaign-dashboard' },
   { id: 'Catalog Template',    labelKey: 'templates.catalogTemplate',    route: '/catalog' },
   { id: 'Detail Item',         labelKey: 'templates.detailItem',         route: '/detail-item' },
   { id: 'Landing Connection',  labelKey: 'templates.landingConnection',  route: '/landing-connection' },

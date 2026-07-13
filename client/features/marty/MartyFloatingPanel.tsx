@@ -8,6 +8,7 @@ import { IconButton } from "@/components/ui/IconButton";
 import { DateField } from "@/components/ui/DateField";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { useMarty } from "@/contexts/MartyContext";
+import { withBase } from "@/lib/utils";
 import { generateMockResponse } from "./MartyUtils";
 import { parseTableCommand, getTableCommandConfirmation } from "./MartyTableCommandParser";
 import { Tag } from "@/components/ui/Tag";
@@ -1581,7 +1582,7 @@ export default function MartyFloatingPanel() {
                     }}
                   >
                     <img
-                      src="/assets/wink.gif"
+                      src={withBase("/assets/wink.gif")}
                       alt=""
                       width={FAB_AVATAR_SIZE}
                       height={FAB_AVATAR_SIZE}
@@ -1708,7 +1709,7 @@ export default function MartyFloatingPanel() {
             <div className="rounded-full overflow-hidden w-full h-full flex items-center justify-center">
               <div style={{ width: FAB_AVATAR_SIZE, height: FAB_AVATAR_SIZE }}>
                 <img
-                  src="/assets/wink.gif"
+                  src={withBase("/assets/wink.gif")}
                   alt=""
                   width={FAB_AVATAR_SIZE}
                   height={FAB_AVATAR_SIZE}

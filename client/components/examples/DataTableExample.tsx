@@ -2,6 +2,7 @@ import React, { Fragment, useRef, useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import { useMartyOptional, TableCommand } from '@/contexts/MartyContext';
+import { withBase } from '@/lib/utils';
 import { DataTable, DataTableHead, DataTableBody } from '@/components/ui/DataTable';
 import { DataTableRow } from '@/components/ui/DataTableRow';
 import { DataTableHeader } from '@/components/ui/DataTableHeader';
@@ -1222,7 +1223,7 @@ function DockedMartyButton() {
       >
         <div style={{ width: 24, height: 24, overflow: 'hidden', borderRadius: '50%' }}>
           <img
-            src="/assets/wink.gif"
+            src={withBase("/assets/wink.gif")}
             alt=""
             width={24}
             height={24}

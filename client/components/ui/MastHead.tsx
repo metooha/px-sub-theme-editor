@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Bell, HelpCircle, User, AppSwitcher } from '@/components/icons';
 import { useMartyOptional } from '@/contexts/MartyContext';
+import { withBase } from '@/lib/utils';
 import { MediaSolutionsDropdown, MediaSolution } from './MediaSolutionsDropdown';
 import { Divider } from './Divider';
 import { LanguageSelector } from './LanguageSelector';
@@ -73,7 +74,7 @@ function MartyMastheadDock() {
     >
       <div style={{ width: 20, height: 20, overflow: 'hidden', borderRadius: '50%' }}>
         <img
-          src="/assets/wink.gif"
+          src={withBase("/assets/wink.gif")}
           alt=""
           width={20}
           height={20}

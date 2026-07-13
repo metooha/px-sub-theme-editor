@@ -227,9 +227,9 @@ export default function CampaignDashboard() {
             </div>
           </div>
         </main>
-      </div>
 
-      <MartyFloatingPanel />
+        <MartyFloatingPanel />
+      </div>
     </div>
   );
 }

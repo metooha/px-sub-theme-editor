@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/Button";
 import { IconButton } from "@/components/ui/IconButton";
 import { DateField } from "@/components/ui/DateField";
 import { Checkbox } from "@/components/ui/Checkbox";
-import { MartyAvatar } from "./MartyAvatar";
 import { useMarty } from "@/contexts/MartyContext";
 import { generateMockResponse } from "./MartyUtils";
 import { parseTableCommand, getTableCommandConfirmation } from "./MartyTableCommandParser";
@@ -235,11 +234,17 @@ export default function MartyFloatingPanel() {
   });
   const [isAdditionalSettingsOpen, setIsAdditionalSettingsOpen] = useState(false);
 
-  // FAB drag state
-  const [fabPosition, setFabPosition] = useState(initialPosition || { x: 0, y: 0 });
+  // FAB drag state — always starts unmoved so the FAB defaults to the bottom-right corner
+  const [fabPosition, setFabPosition] = useState({ x: 0, y: 0 });
 
-  // Update position when initialPosition changes (undocking)
+  // Update position when initialPosition changes (undocking) — skip the very first
+  // mount so a stale/persisted position never overrides the bottom-right default.
+  const isFirstInitialPositionRender = useRef(true);
   useEffect(() => {
+    if (isFirstInitialPositionRender.current) {
+      isFirstInitialPositionRender.current = false;
+      return;
+    }
     if (initialPosition && !isDockedRef.current) {
       setFabPosition(initialPosition);
       setHasMoved(true);
@@ -455,12 +460,45 @@ export default function MartyFloatingPanel() {
   useEffect(() => {
     if (!isDragging) return;
 
-    const handleMouseUp = () => {
+    const handleMouseUp = (e: MouseEvent) => {
       setIsDragging(false);
+
+      if (!hasMovedRef.current) return;
+
+      // Remove any active drop-zone highlights
+      document.querySelectorAll('[data-marty-dock-zone]').forEach(el => {
+        (el as HTMLElement).removeAttribute('data-marty-dock-active');
+      });
+
+      // 1. Masthead snap zone (top 80px) — dock AND keep panel open as a side panel
+      if (!isDockedRef.current && e.clientY < 80) {
+        setIsDocked(true);
+        setDockedSection(null);
+        setIsSidePanel(true);
+        return;
+      }
+
+      // 2. Named section snap zones (e.g. the campaigns table) — dock into that section
+      const zones = document.querySelectorAll('[data-marty-dock-zone]');
+      for (const zone of zones) {
+        const rect = zone.getBoundingClientRect();
+        const pad = 80;
+        if (
+          e.clientX >= rect.left - pad &&
+          e.clientX <= rect.right + pad &&
+          e.clientY >= rect.top - pad &&
+          e.clientY <= rect.bottom + pad
+        ) {
+          const section = zone.getAttribute('data-marty-dock-zone')!;
+          setIsDocked(true);
+          setDockedSection(section);
+          setIsSidePanel(true);
+          return;
+        }
+      }
     };
 
-    // Free drag — the FAB simply follows the cursor and stays wherever it's dropped.
-    // No docking / side-panel side effects; moving the FAB never opens the chat panel.
+    // Free drag — the FAB follows the cursor, highlighting dock zones as it passes over them
     const handleMouseMove = (e: MouseEvent) => {
       const dsp = dragStartPosRef.current;
       const ds = dragStartRef.current;
@@ -474,6 +512,23 @@ export default function MartyFloatingPanel() {
         const newY = e.clientY - ds.y;
         setFabPosition({ x: newX, y: newY });
         setHasMoved(true);
+
+        if (isDockedRef.current && e.clientY > 100) {
+          setIsDocked(false);
+          setDockedSection(null);
+        }
+
+        // Highlight whichever zone the FAB is hovering over
+        document.querySelectorAll('[data-marty-dock-zone]').forEach(el => {
+          const rect = el.getBoundingClientRect();
+          const pad = 80;
+          const over =
+            e.clientX >= rect.left - pad &&
+            e.clientX <= rect.right + pad &&
+            e.clientY >= rect.top - pad &&
+            e.clientY <= rect.bottom + pad;
+          (el as HTMLElement).setAttribute('data-marty-dock-active', over ? 'true' : 'false');
+        });
       }
     };
 
@@ -484,7 +539,7 @@ export default function MartyFloatingPanel() {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  }, [isDragging]);
+  }, [isDragging, setIsDocked, setDockedSection]);
 
   const handleExpand = (e?: React.MouseEvent) => {
     setIsMinimized(false);
@@ -1466,10 +1521,14 @@ export default function MartyFloatingPanel() {
     document.body
   ) : null;
 
-  // When docked and minimized, show the FAB on the bottom right so Marty is always accessible
-  // (fall through to the minimized FAB block below)
+  // Minimized "Ask Marty" FAB — only shown when free-floating (undocked).
+  // When docked (masthead or a named section like the campaigns table), the
+  // dock location has its own indicator — e.g. DockedMartyButton in the
+  // table — so the free-floating FAB stays hidden instead of duplicating it.
+  if (isMinimized && isDocked) {
+    return quickPromptsPortal;
+  }
 
-  // Minimized "Ask Marty" FAB — shows when undocked
   if (isMinimized) {
     return (
       <>
@@ -1691,23 +1750,6 @@ export default function MartyFloatingPanel() {
           </div>
         ) : (
           <div className="flex h-9 items-center gap-1.5">
-            {/* Marty Mascot Animation — collapses width on welcome, slides in left→right on engage */}
-            <div
-              style={{
-                overflow: 'hidden',
-                width: viewState === 'welcome' ? 0 : 32,
-                opacity: viewState === 'welcome' ? 0 : 1,
-                transform: viewState === 'welcome' ? 'translateX(-12px)' : 'translateX(0)',
-                transition: 'width 300ms ease, opacity 300ms ease, transform 300ms ease',
-                pointerEvents: viewState === 'welcome' ? 'none' : 'auto',
-                flexShrink: 0,
-              }}
-            >
-              <div className="flex w-8 h-8 justify-center items-center">
-                <MartyAvatar size={32} variant="default" />
-              </div>
-            </div>
-
             <div className="[color:var(--ld-semantic-color-text)] font-bold text-lg leading-6">AI Assistant</div>
 
             {/* Beta Tag */}
@@ -1984,17 +2026,10 @@ export default function MartyFloatingPanel() {
                   </div>
                 ))}
 
-                {/* Thinking Indicator — only while waiting for first content, not during animation */}
+                {/* Thinking Indicator — only while waiting for first content, not during animation.
+                    Text-only — no mascot/avatar icon, to match the rest of the chat. */}
                 {isTyping && (
                   <div className="flex w-full items-center gap-1.5 py-1">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="flex-shrink-0">
-                      <path d="M11.6786 0.242428C13.0883 1.95515 14.4645 4.10004 16.1422 5.5576C18.2759 7.41066 22.7618 8.11712 21.974 11.828C21.6009 13.5838 19.1051 15.4321 17.9904 16.9056C16.3862 19.0265 15.8567 21.5271 13.6672 23.2318C13.3275 23.4965 12.94 23.8952 12.4759 23.8697C10.052 23.4567 9.48425 21.5685 7.77631 20.0599C6.93749 19.32 5.58677 18.3647 4.61081 17.8162C2.28093 16.5069 -0.500249 15.987 0.0770371 12.4101C0.36568 10.6272 3.62049 8.3643 4.8851 6.72653C6.13694 5.10471 7.26122 1.86903 8.59759 0.902638C9.75854 0.0622249 9.859 0.0111936 11.0327 3.06028e-05C11.3373 -0.00315882 11.5542 0.244022 11.6786 0.240833V0.242428ZM9.92439 4.52583C9.08557 4.35041 8.3217 5.19879 8.1718 5.9515C8.37752 6.14765 10.3358 4.91653 9.92439 4.52583ZM15.6638 5.63096C16.1326 4.93885 13.192 5.13501 13.4471 5.77927C13.6991 6.05197 14.2237 6.08067 14.3848 6.18752C14.4853 6.25449 15.3735 7.7902 15.7419 8.17293C17.0528 9.52844 17.0687 8.45679 16.4898 7.27032C16.2506 6.77915 15.7499 6.0711 15.1853 5.94831L15.6622 5.63096H15.6638ZM9.84465 6.11256C9.26099 6.51284 9.40132 7.41863 9.48744 8.05173C9.55282 8.53015 10.0775 10.4486 10.7967 10.2317C11.5159 10.0148 10.7457 6.46021 9.84465 6.11256ZM20.1305 10.2317C20.6122 9.74532 17.3908 6.78553 18.783 9.6002C16.3941 12.2091 12.4408 12.316 9.12703 12.4531L9.05208 11.3384C8.57207 10.6415 8.11917 12.0226 8.0506 12.4101C7.99638 12.7195 7.85764 14.0048 8.40941 13.8788L8.90856 13.0735C11.744 13.5375 16.0672 13.1676 18.303 11.1869C19.0206 10.5506 19.0127 9.80273 20.1321 10.2317H20.1305Z" fill="#A88BFF"/>
-                      <path d="M12.4759 23.8713C12.94 23.8952 13.3275 23.4981 13.6672 23.2334C15.8567 21.5287 16.3862 19.0281 17.9905 16.9072C19.1052 15.4337 21.6009 13.5838 21.9741 11.8296C22.7618 8.11872 18.2759 7.41226 16.1422 5.5592C14.4661 4.10164 13.0899 1.95675 11.6786 0.244025C13.243 0.204157 15.0785 3.0252 16.2187 4.05379C16.7227 4.50829 17.4435 5.06484 18.0064 5.44757C20.113 6.87803 23.6995 7.551 23.9627 10.4661C24.2433 13.5647 22.2165 14.0207 20.4431 15.8595C19.507 16.8322 18.4768 18.2547 17.8134 19.4284C16.7769 21.2607 16.5967 23.1154 14.2636 23.8266C13.3977 24.0914 13.2845 24.0084 12.4744 23.8713H12.4759Z" fill="#9170FE"/>
-                      <path d="M20.1305 10.2317C19.0111 9.80272 19.019 10.5506 18.3014 11.1869C16.0656 13.1692 11.744 13.5375 8.90696 13.0735L8.40782 13.8788C7.85764 14.0048 7.99478 12.7179 8.049 12.4101C8.11758 12.0226 8.57048 10.6415 9.05048 11.3384L9.12544 12.4531C12.4392 12.316 16.3925 12.2091 18.7814 9.60019C17.3892 6.78553 20.6106 9.74531 20.129 10.2317H20.1305Z" fill="#011B56"/>
-                      <path d="M15.6638 5.63098L15.187 5.94832C15.7499 6.07112 16.2506 6.77757 16.4914 7.27034C17.0703 8.45681 17.0544 9.52845 15.7435 8.17295C15.3751 7.79181 14.4869 6.25451 14.3864 6.18753C14.2253 6.08068 13.7007 6.05039 13.4487 5.77928C13.1936 5.13502 16.1326 4.93887 15.6654 5.63098H15.6638Z" fill="#011B56"/>
-                      <path d="M9.8447 6.11255C10.7457 6.4586 11.5191 10.0148 10.7967 10.2317C10.0743 10.4486 9.55286 8.53013 9.48748 8.05172C9.40137 7.42021 9.26263 6.51441 9.8447 6.11255Z" fill="#011B56"/>
-                      <path d="M9.92434 4.52583C10.3358 4.91494 8.37747 6.14766 8.17175 5.95151C8.32166 5.1988 9.08552 4.35042 9.92434 4.52583Z" fill="#011B56"/>
-                    </svg>
                     <div className="[color:var(--ld-semantic-color-text)] text-sm leading-5">
                       {t('thinking')}<span className="inline-flex">
                         <span className="animate-[bounce_1.4s_ease-in-out_infinite]" style={{ animationDelay: '0ms' }}>.</span>

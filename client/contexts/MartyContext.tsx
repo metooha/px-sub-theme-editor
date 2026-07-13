@@ -49,41 +49,14 @@ interface MartyProviderProps {
 }
 
 export function MartyProvider({ children }: MartyProviderProps) {
-  // Initialize state from localStorage or defaults
-  const [isMinimized, setIsMinimized] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('marty-minimized');
-      return saved !== null ? JSON.parse(saved) : true;
-    } catch {
-      return true;
-    }
-  });
-
-  const [isDocked, setIsDocked] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('marty-docked');
-      return saved !== null ? JSON.parse(saved) : false;
-    } catch {
-      return false;
-    }
-  });
-
-  const [dockedSection, setDockedSection] = useState<string | null>(() => {
-    try {
-      return localStorage.getItem('marty-docked-section') || null;
-    } catch {
-      return null;
-    }
-  });
-
-  const [isSidePanel, setIsSidePanelRaw] = useState<boolean>(() => {
-    try {
-      const saved = localStorage.getItem('marty-side-panel');
-      return saved !== null ? JSON.parse(saved) : false;
-    } catch {
-      return false;
-    }
-  });
+  // Docking/panel/minimized state is intentionally NOT restored from
+  // localStorage on mount — the FAB must always default to its free-floating
+  // bottom-right state on a fresh page load. These only change during the
+  // live session (dragging to dock, opening the panel, route changes, etc).
+  const [isMinimized, setIsMinimized] = useState<boolean>(true);
+  const [isDocked, setIsDocked] = useState<boolean>(false);
+  const [dockedSection, setDockedSection] = useState<string | null>(null);
+  const [isSidePanel, setIsSidePanelRaw] = useState<boolean>(false);
 
   const setIsSidePanel = (value: boolean) => {
     setIsSidePanelRaw(value);
@@ -111,42 +84,18 @@ export function MartyProvider({ children }: MartyProviderProps) {
     return { x: defaultX, y: 100 };
   });
 
-  // Persist to localStorage when state changes
+  // Clear any stale docking/panel/minimized state left over from before this
+  // was made session-only, so old localStorage values can't hide the FAB.
   useEffect(() => {
     try {
-      localStorage.setItem('marty-minimized', JSON.stringify(isMinimized));
+      localStorage.removeItem('marty-minimized');
+      localStorage.removeItem('marty-docked');
+      localStorage.removeItem('marty-side-panel');
+      localStorage.removeItem('marty-docked-section');
     } catch {
       // Ignore localStorage errors
     }
-  }, [isMinimized]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('marty-docked', JSON.stringify(isDocked));
-    } catch {
-      // Ignore localStorage errors
-    }
-  }, [isDocked]);
-
-  useEffect(() => {
-    try {
-      localStorage.setItem('marty-side-panel', JSON.stringify(isSidePanel));
-    } catch {
-      // Ignore localStorage errors
-    }
-  }, [isSidePanel]);
-
-  useEffect(() => {
-    try {
-      if (dockedSection) {
-        localStorage.setItem('marty-docked-section', dockedSection);
-      } else {
-        localStorage.removeItem('marty-docked-section');
-      }
-    } catch {
-      // Ignore localStorage errors
-    }
-  }, [dockedSection]);
+  }, []);
 
   useEffect(() => {
     try {

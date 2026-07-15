@@ -1670,7 +1670,13 @@ export default function MartyFloatingPanel() {
     ? isExpanded
       ? 'fixed inset-0 z-[99999] flex flex-col'
       : 'relative z-[9999] h-full flex flex-col border-l flex-shrink-0'
-    : 'fixed bottom-0 right-4 z-[9999] w-[425px] h-[752px] rounded-t-2xl shadow-[0_-1px_4px_0_rgba(0,0,0,0.10),0_5px_10px_3px_rgba(0,0,0,0.15)] flex flex-col border animate-slide-up-panel';
+    : 'fixed bottom-0 right-4 z-[9999] w-[400px] rounded-t-2xl shadow-[0_-1px_4px_0_rgba(0,0,0,0.10),0_5px_10px_3px_rgba(0,0,0,0.15)] flex flex-col border animate-slide-up-panel';
+
+  // Cap the bottom-sheet's height to the viewport so it shrinks (from the
+  // top, since it's pinned to the bottom edge) on short screens instead of
+  // ever getting clipped off the top of the window. Default (max) height is
+  // 602px — 20% smaller than the original 752px design.
+  const bottomSheetHeight = 'min(602px, calc(100vh - 32px))';
 
   const fabJsx = isSidePanel && !isDocked && (
     <div
@@ -1726,7 +1732,7 @@ export default function MartyFloatingPanel() {
   return (
     <>
     {fabJsx}
-    <div className={panelClasses} style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)', borderColor: 'var(--ld-semantic-color-separator, #e3e4e5)', width: isSidePanel && !isExpanded ? `${panelWidth}px` : undefined }}>
+    <div className={panelClasses} style={{ background: 'var(--ld-semantic-color-fill-surface-primary, #ffffff)', borderColor: 'var(--ld-semantic-color-separator, #e3e4e5)', width: isSidePanel && !isExpanded ? `${panelWidth}px` : undefined, height: !isSidePanel ? bottomSheetHeight : undefined }}>
       {/* Resize handle for side panel */}
       {isSidePanel && (
         <div
